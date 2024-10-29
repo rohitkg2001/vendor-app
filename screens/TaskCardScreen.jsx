@@ -1,11 +1,11 @@
 import React from "react";
-import { View, ScrollView, StyleSheet, Text } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ContainerComponent from "../components/ContainerComponent";
 import { taskslist } from "../utils/faker";
 import { SCREEN_WIDTH, spacing, typography } from "../styles";
-import { H3, H4, H5 } from "../components/text";
+import { H4, H5, H6, P } from "../components/text";
 
 const TaskCardScreen = ({
   id,
@@ -36,22 +36,26 @@ const TaskCardScreen = ({
             <H5 style={typography.textDark}>ID: {id}</H5>
           </View>
         </View>
-        <View style={styles.cardDetails}>
+        <View
+          style={{
+            paddingVertical: 10,
+          }}
+        >
           <View style={styles.detailsRow}>
-            <Text style={styles.detailsLabel}>Start Date:</Text>
-            <Text style={styles.detailsValue}>{start}</Text>
+            <H6 style={styles.detailsLabel}>Start Date:</H6>
+            <P style={styles.detailsValue}>{start}</P>
           </View>
           <View style={styles.detailsRow}>
-            <Text style={styles.detailsLabel}>Deadline:</Text>
-            <Text style={styles.detailsValue}>{deadline}</Text>
+            <H6 style={styles.detailsLabel}>Deadline:</H6>
+            <P style={styles.detailsValue}>{deadline}</P>
           </View>
           <View style={styles.detailsRow}>
-            <Text style={styles.detailsLabel}>Project:</Text>
-            <Text style={styles.detailsValue}>{project}</Text>
+            <H6 style={styles.detailsLabel}>Project:</H6>
+            <P style={styles.detailsValue}>{project}</P>
           </View>
           <View style={styles.detailsRow}>
-            <Text style={styles.detailsLabel}>Assigned To:</Text>
-            <Text style={styles.detailsValue}>{assignedTo}</Text>
+            <H6 style={styles.detailsLabel}>Assigned To:</H6>
+            <P style={styles.detailsValue}>{assignedTo}</P>
           </View>
         </View>
       </Card>
@@ -79,62 +83,11 @@ const TaskListScreen = () => {
   );
 };
 
-// Styles for the components
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   paddingHorizontal: 0,
-  // },
-  // card: {
-  //   borderRadius: 10,
-  //   padding: 15,
-  //   margin: 0,
-  //   marginBottom: 12,
-  //   width: Dimensions.get("window").width - 20,
-  //   alignSelf: "center",
-  //   shadowColor: "#000",
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2,
-  //   },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 3.84,
-  //   elevation: 5,
-  // },
-  // cardHeader: {
-  //   flexDirection: "row",
-  //   alignItems: "center",
-  //   justifyContent: "space-between",
-  // },
-  statusIcon: {
-    marginRight: 10,
-  },
-  // cardInfo: {
-  //   flex: 1,
-  // },
-  // title: {
-  //   fontSize: 18,
-  //   fontWeight: "bold",
-  // },
-  // id: {
-  //   fontSize: 14,
-  //   color: "gray",
-  // },
-  cardDetails: {
-    paddingVertical: 10,
-  },
   detailsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
-  },
-  detailsLabel: {
-    fontSize: 14,
-    color: "gray",
-  },
-  detailsValue: {
-    fontSize: 14,
-    textAlign: "right",
   },
 });
 
