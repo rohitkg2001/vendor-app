@@ -9,7 +9,6 @@ import FormScreen from "../screens/FormScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
 // import TaskList from "../screens/TaskList";
-import AttendancePunchScreen from "../screens/AttendancePunchScreen";
 import ProjectTimeline from "../screens/ProjectTimeline";
 import TaskList from "../components/card/CardTask";
 
@@ -17,7 +16,6 @@ import HolidayListScreen from "../screens/HolidayListScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 //import LandingPage from "../screens/LandingPage";
 //import LineItemScreen from "../screens/LineItemScreen";
-import AttendanceScreen from "../screens/AttendanceScreen";
 //import TermsAndConditions from "../screens/TermsAndConditions";
 //import ApplyLeaveForm from "../screens/ApplyLeaveForm";
 //import  AllLeaves from "../screens/AllLeaves"
@@ -30,7 +28,6 @@ import TaskCardScreen from "../screens/TaskCardScreen";
 import ToDoTaskCardScreen from "../screens/ToDoTaskCardScreen";
 import NoRecord from "../screens/NoRecord";
 const Stack = createNativeStackNavigator();
-
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
@@ -40,7 +37,6 @@ export default function MyStackNavigator() {
       }}
     >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
-      <Stack.Screen name="attendancePunch" component={AttendancePunchScreen} />
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
       <Stack.Screen name="projectTimeLine" component={ProjectTimeline} />
@@ -55,7 +51,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="notificationScreen" component={NotificationScreen} />
       <Stack.Screen name="privacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="taskList" component={TaskList} />
-      <Stack.Screen name="attendanceScreen" component={AttendanceScreen} />
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
       <Stack.Screen name="HolidayListScreen" component={HolidayListScreen} />
       {/* <Stack.Screen name="LandingPage" component={LandingPage} /> */}
