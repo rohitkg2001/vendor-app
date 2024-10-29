@@ -4,8 +4,8 @@ import { Card } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ContainerComponent from "../components/ContainerComponent";
 import { taskslist } from "../utils/faker";
-import { SCREEN_WIDTH, spacing } from "../styles";
-import { H3 } from "../components/text";
+import { SCREEN_WIDTH, spacing, typography } from "../styles";
+import { H3, H4, H5 } from "../components/text";
 
 const TaskCardScreen = ({
   id,
@@ -32,8 +32,8 @@ const TaskCardScreen = ({
             )}
           </View>
           <View style={styles.cardInfo}>
-            <H3>{title}</H3>
-            <Text style={styles.id}>ID: {id}</Text>
+            <H4 style={typography.textDark}>{title}</H4>
+            <H5 style={typography.textDark}>ID: {id}</H5>
           </View>
         </View>
         <View style={styles.cardDetails}>
@@ -109,17 +109,17 @@ const styles = StyleSheet.create({
   statusIcon: {
     marginRight: 10,
   },
-  cardInfo: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  id: {
-    fontSize: 14,
-    color: "gray",
-  },
+  // cardInfo: {
+  //   flex: 1,
+  // },
+  // title: {
+  //   fontSize: 18,
+  //   fontWeight: "bold",
+  // },
+  // id: {
+  //   fontSize: 14,
+  //   color: "gray",
+  // },
   cardDetails: {
     paddingVertical: 10,
   },
