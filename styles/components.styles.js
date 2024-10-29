@@ -79,13 +79,13 @@ export const styles = StyleSheet.create({
   cardHalfWidth: {
     width: SCREEN_WIDTH / 2.2,
     height: SCREEN_WIDTH / 3,
-    elevation: 2
+    elevation: 2,
   },
 
   cardFullWidth: {
     width: SCREEN_WIDTH / 1.05,
     height: SCREEN_WIDTH / 3,
-    elevation: 2
+    elevation: 2,
   },
 
   row: {
@@ -300,41 +300,14 @@ export const styles = StyleSheet.create({
     color: "#666",
     fontWeight: "normal",
   },
-  // HolidayListScreen
-  Section: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 12,
-  },
-  leftSection: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  rightSection: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    marginLeft: 20,
-  },
+  
   iconWrapper: {
     backgroundColor: PRIMARY_COLOR,
-    padding: 8,
+    padding: 6,
     borderRadius: 5,
-    marginRight: 20,
+    marginRight: 14,
   },
-  dateText: {
-    fontSize: 14,
-    color: "#020409",
-  },
-  title: {
-    fontSize: 16,
-    // fontWeight: "bold",
-    color: "#020409",
-  },
-  day: {
-    fontSize: 14,
-    color: "#020409",
-  },
+ 
 
   tabButton: {
     paddingVertical: 10,
@@ -416,7 +389,6 @@ export const styles = StyleSheet.create({
   },
 
   // Attendancescreen
-
 
   profileImage: {
     width: 50,

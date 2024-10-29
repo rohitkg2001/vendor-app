@@ -5,23 +5,28 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { holidays } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import { styles } from "../styles/components.styles";
 import { H5, P } from "../components/text";
+import { styles } from "../styles/components.styles";
+import { SCREEN_WIDTH, spacing, typography } from "../styles";
 
 export default function HolidayListScreen() {
   const renderItem = ({ item }) => (
     <TouchableOpacity>
-      <View style={styles.Section}>
-        <View style={styles.leftSection}>
+      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
+        <View style={[{ flexDirection: "row", alignItems: "center" }]}>
           <View style={styles.iconWrapper}>
             <Icon name="calendar" size={24} color="#fff" />
           </View>
           <Text style={styles.dateText}>{item.date}</Text>
         </View>
-
-        <View style={styles.rightSection}>
-          <H5 style={styles.title}>{item.title}</H5>
-          <P style={styles.day}>{item.day}</P>
+        <View
+          style={[
+            styles.titleAndDayContainer,
+            { marginLeft: "auto", alignItems: "flex-end" },
+          ]}
+        >
+          <H5 style={typography.textDark}>{item.title}</H5>
+          <P style={typography.textDark}>{item.day}</P>
         </View>
       </View>
       <Divider />
@@ -31,7 +36,7 @@ export default function HolidayListScreen() {
   return (
     <ContainerComponent>
       <MyHeader title="Holidays" isBack={true} hasIcon={true} />
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={holidays}
           renderItem={renderItem}

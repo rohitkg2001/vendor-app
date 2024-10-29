@@ -46,16 +46,16 @@ const TaskCardScreen = ({
             <P style={styles.detailsValue}>{start}</P>
           </View>
           <View style={styles.detailsRow}>
-            <H6 style={styles.detailsLabel}>Deadline:</H6>
-            <P style={styles.detailsValue}>{deadline}</P>
+            <H6>Deadline:</H6>
+            <P>{deadline}</P>
           </View>
           <View style={styles.detailsRow}>
-            <H6 style={styles.detailsLabel}>Project:</H6>
-            <P style={styles.detailsValue}>{project}</P>
+            <H6>Project:</H6>
+            <P>{project}</P>
           </View>
           <View style={styles.detailsRow}>
-            <H6 style={styles.detailsLabel}>Assigned To:</H6>
-            <P style={styles.detailsValue}>{assignedTo}</P>
+            <H6>Assigned To:</H6>
+            <P>{assignedTo}</P>
           </View>
         </View>
       </Card>
