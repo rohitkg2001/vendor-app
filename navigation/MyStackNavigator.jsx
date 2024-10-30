@@ -29,12 +29,13 @@ import InternalSetting from "../screens/InternalSetting";
 import TaskCardScreen from "../screens/TaskCardScreen";
 import ToDoTaskCardScreen from "../screens/ToDoTaskCardScreen";
 import NoRecord from "../screens/NoRecord";
+import FileUploadScreen from "../screens/FileUploadScreen";
 const Stack = createNativeStackNavigator();
 
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="loginScreen"
+      initialRouteName="FileUploadScreen"
       screenOptions={{
         headerShown: false,
       }}
@@ -71,6 +72,7 @@ export default function MyStackNavigator() {
       <Stack.Screen name="TaskCardScreen" component={TaskCardScreen} />
       <Stack.Screen name="ToDoTaskCardScreen" component={ToDoTaskCardScreen} />
       <Stack.Screen name="NoRecord" component={NoRecord} />
+      <Stack.Screen name="FileUploadScreen" component={FileUploadScreen} />
     </Stack.Navigator>
   );
 }
