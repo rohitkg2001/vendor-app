@@ -260,7 +260,7 @@ const categoryStyles = StyleSheet.create({
     elevation: 5,
   },
   headerContainer: {
-    marginBottom: 10, // Space between header  grid
+    marginBottom: 10, // Space between header grid
   },
   headerText: {
     fontSize: 18,
