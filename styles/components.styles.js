@@ -300,14 +300,13 @@ export const styles = StyleSheet.create({
     color: "#666",
     fontWeight: "normal",
   },
-  
+
   iconWrapper: {
     backgroundColor: PRIMARY_COLOR,
     padding: 6,
     borderRadius: 5,
     marginRight: 14,
   },
- 
 
   tabButton: {
     paddingVertical: 10,
@@ -778,5 +777,19 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: PRIMARY_COLOR,
     marginTop: 20,
+  },
+
+  //OrderScreen
+  quantityContainer: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+  },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
 });

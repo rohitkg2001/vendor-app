@@ -1,26 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Card, Button } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
-import { useNavigation } from "@react-navigation/native";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
 
 const FileUploadScreen = () => {
   const [photoUri, setPhotoUri] = useState(null);
-  const [cameraVisible, setCameraVisible] = useState(true);
+  const [photoMessage, setPhotoMessage] = useState(""); 
+  const cameraRef = useRef(null);
 
-  const handleTakePicture = (uri) => {
-    setPhotoUri(uri);
-    setCameraVisible(true);
-    console.log("Photo taken:", uri);
-  };
-  const openCamera = () => {
-    setCameraVisible(true);
-  };
-  const handleCancel = () => {
-    setPhotoUri(null);
-    console.log("Upload canceled");
+  const handleTakePicture = async () => {
+    if (cameraRef.current) {
+      const photo = await cameraRef.current.takePictureAsync();
+      setPhotoUri(photo.uri);
+      setPhotoMessage("Photo has been taken!"); 
+      console.log("Photo taken:", photo.uri);
+    }
   };
 
   const handleUpload = () => {
@@ -29,6 +25,12 @@ const FileUploadScreen = () => {
     } else {
       console.log("No photo to upload");
     }
+  };
+
+  const handleCancel = () => {
+    setPhotoUri(null);
+    setPhotoMessage(""); 
+    console.log("Upload canceled");
   };
 
   return (
@@ -40,16 +42,20 @@ const FileUploadScreen = () => {
             subtitle="Take a picture to upload"
           />
           <Card.Content>
-            {cameraVisible && (
-              <CameraComponent
-                photoUri={photoUri}
-                setPhotoUri={setPhotoUri}
-                onTakePicture={handleTakePicture}
-              />
-            )}
-            <Button mode="outlined" onPress={openCamera}>
+            <CameraComponent
+              photoUri={photoUri}
+              setPhotoUri={setPhotoUri}
+              onTakePicture={handleTakePicture}
+              ref={cameraRef}
+            />
+            <Button mode="outlined" onPress={handleTakePicture}>
               Take Photo
             </Button>
+            {photoMessage && (
+              <Text style={styles.uploadText}>
+                {photoMessage} 
+              </Text>
+            )}
             {photoUri && (
               <Text style={styles.uploadText}>
                 Photo ready to upload: {photoUri}
