@@ -89,7 +89,7 @@ export const orders = [
   },
   {
     id: "2",
-    name: "Smart Street Light System",
+    name: "Smart Street Light ",
     description: "Automated street light system with IoT connectivity.",
     quantity: 2,
     image: "https://randomuser.me/api/portraits/men/2.jpg",
