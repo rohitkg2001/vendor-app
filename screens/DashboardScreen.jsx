@@ -146,15 +146,21 @@ export default function DashboardScreen() {
 
         <MyFlatList
           data={firstFourTasks}
-          renderItem={({ item }) => (
-            <StatCard
-              key={item.id}
-              backgroundColor={item.backgroundColor}
-              tasks={item.count}
-              status={item.status}
-              onPress={item.id === 1 ? navigateToTaskList : null}
-            />
-          )}
+          renderItem={({ item, index }) => {
+            const isRightColumn = index % 2 !== 0;
+            const marginTop = isRightColumn ? 20 : 0;
+
+            return (
+              <StatCard
+                key={item.id}
+                backgroundColor={item.backgroundColor}
+                tasks={item.count}
+                status={item.status}
+                onPress={item.id === 1 ? navigateToTaskList : null}
+                style={{ marginTop }}
+              />
+            );
+          }}
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
         />
