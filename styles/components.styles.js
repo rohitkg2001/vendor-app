@@ -778,6 +778,7 @@ export const styles = StyleSheet.create({
     color: PRIMARY_COLOR,
     marginTop: 20,
   },
+
   //OrderScreen
   quantityContainer: {
     position: "absolute",
@@ -785,10 +786,10 @@ export const styles = StyleSheet.create({
     right: 0,
   },
   card: {
-    // flexDirection: "row",
-    // alignItems: "center",
-    // padding: 16,
-    // borderBottomWidth: 1,
-    // borderBottomColor: "#ddd",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
 });

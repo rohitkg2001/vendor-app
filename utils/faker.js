@@ -78,6 +78,52 @@ export const tasks = [
   },
 ];
 
+export const orders = [
+  {
+    id: "1",
+    name: "Solar LED Street Light",
+    description: "Eco-friendly solar-powered street light with motion sensor.",
+    quantity: 1,
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    id: "2",
+    name: "Smart Street Light System",
+    description: "Automated street light system with IoT connectivity.",
+    quantity: 2,
+    image: "https://randomuser.me/api/portraits/men/2.jpg",
+  },
+  {
+    id: "3",
+    name: "LED Floodlight for Streets",
+    description: "High brightness LED floodlight for outdoor use.",
+    quantity: 3,
+    image: "https://randomuser.me/api/portraits/men/3.jpg",
+  },
+  {
+    id: "4",
+    name: "Solar Street Light with Camera",
+    description: "Integrated street light with a security camera.",
+    quantity: 1,
+    image: "https://randomuser.me/api/portraits/men/4.jpg",
+  },
+  {
+    id: "5",
+    name: "Street Light Pole",
+    description: "Durable street light pole for various applications.",
+    quantity: 5,
+    image: "https://randomuser.me/api/portraits/men/5.jpg",
+  },
+  {
+    id: "6",
+    name: "Motion Sensor Street Light",
+    description:
+      "Street light with a built-in motion sensor for energy savings.",
+    quantity: 2,
+    image: "https://randomuser.me/api/portraits/men/6.jpg",
+  },
+];
+
 export const leaveReasons = [
   {
     id: 1,
@@ -684,58 +730,5 @@ export const taskslist = [
     start: "2024-08-28",
     project: "Automatic Soap Dispenser Machine Jig",
     assignedTo: "Rakesh Sharma",
-  },
-];
-
-// ordersData.js
-export const orders = [
-  {
-    id: "1",
-    name: "UltraGPS watch, battery...",
-    price: "$349.99",
-    quantity: 1,
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
-  },
-  {
-    id: "2",
-    name: "Bluetooth wireless speaker...",
-    price: "$149.99",
-    quantity: 2,
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
-  },
-  {
-    id: "3",
-    name: "Car phone holder, USB cable...",
-    price: "$23.95",
-    quantity: 3,
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
-  },
-  {
-    id: "3",
-    name: "Car phone holder, USB cable...",
-    price: "$23.95",
-    quantity: 3,
-    image: "https://example.com/phoneholder.jpg",
-  },
-  {
-    id: "3",
-    name: "Car phone holder, USB cable...",
-    price: "$23.95",
-    quantity: 3,
-    image: "https://example.com/phoneholder.jpg",
-  },
-  {
-    id: "3",
-    name: "Car phone holder, USB cable...",
-    price: "$23.95",
-    quantity: 3,
-    image: "https://example.com/phoneholder.jpg",
-  },
-  {
-    id: "3",
-    name: "Car phone holder, USB cable...",
-    price: "$23.95",
-    quantity: 3,
-    image: "https://example.com/phoneholder.jpg",
   },
 ];

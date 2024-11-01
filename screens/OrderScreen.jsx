@@ -12,7 +12,6 @@ import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
 import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
-//import CardFullWidth from "../components/card/CardFullWidth";
 
 const OrderScreen = () => {
   return (
@@ -36,7 +35,7 @@ const OrderScreen = () => {
               />
               <View style={{ flex: 1 }}>
                 <H5>{item.name}</H5>
-                <P>{item.price}</P>
+                <P>{item.description}</P>
                 <View style={styles.quantityContainer}>
                   <P style={styles.productQuantity}>Qty: {item.quantity}</P>
                 </View>
@@ -48,5 +47,6 @@ const OrderScreen = () => {
     </ContainerComponent>
   );
 };
-
 export default OrderScreen;
+
+

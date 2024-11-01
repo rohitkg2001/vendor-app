@@ -9,7 +9,6 @@ import FormScreen from "../screens/FormScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
 // import TaskList from "../screens/TaskList";
-import AttendancePunchScreen from "../screens/AttendancePunchScreen";
 import ProjectTimeline from "../screens/ProjectTimeline";
 import TaskList from "../components/card/CardTask";
 
@@ -17,7 +16,6 @@ import HolidayListScreen from "../screens/HolidayListScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 //import LandingPage from "../screens/LandingPage";
 //import LineItemScreen from "../screens/LineItemScreen";
-import AttendanceScreen from "../screens/AttendanceScreen";
 //import TermsAndConditions from "../screens/TermsAndConditions";
 //import ApplyLeaveForm from "../screens/ApplyLeaveForm";
 //import  AllLeaves from "../screens/AllLeaves"
@@ -32,17 +30,15 @@ import NoRecord from "../screens/NoRecord";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import OrderScreen from "../screens/OrderScreen";
 const Stack = createNativeStackNavigator();
-
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="dashboardScreen"
+      initialRouteName="OrderScreen"
       screenOptions={{
         headerShown: false,
       }}
     >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
-      <Stack.Screen name="attendancePunch" component={AttendancePunchScreen} />
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
       <Stack.Screen name="projectTimeLine" component={ProjectTimeline} />
@@ -57,7 +53,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="notificationScreen" component={NotificationScreen} />
       <Stack.Screen name="privacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="taskList" component={TaskList} />
-      <Stack.Screen name="attendanceScreen" component={AttendanceScreen} />
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
       <Stack.Screen name="HolidayListScreen" component={HolidayListScreen} />
       {/* <Stack.Screen name="LandingPage" component={LandingPage} /> */}
@@ -73,7 +68,7 @@ export default function MyStackNavigator() {
       <Stack.Screen name="TaskCardScreen" component={TaskCardScreen} />
       <Stack.Screen name="ToDoTaskCardScreen" component={ToDoTaskCardScreen} />
       <Stack.Screen name="NoRecord" component={NoRecord} />
-      <Stack.Screen name="FileUploadScreen" component={FileUploadScreen} />
+      <Stack.Screen name="FileUploadScreen" component={ FileUploadScreen } />
       <Stack.Screen name="OrderScreen" component={OrderScreen} />
     </Stack.Navigator>
   );
