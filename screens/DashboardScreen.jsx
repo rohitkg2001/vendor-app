@@ -5,7 +5,7 @@ import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyFlatList from "../components/utility/MyFlatList";
-import { H2, H3, H4, H5, P } from "../components/text";
+import { H3, H5, P } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
 
@@ -18,7 +18,7 @@ import {
   styles,
   typography,
 } from "../styles";
-import { staff, tasks } from "../utils/faker"; 
+import { staff, tasks } from "../utils/faker";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -40,7 +40,6 @@ export default function DashboardScreen() {
     navigation.navigate("NoRecord");
   };
 
-  
   const firstFourTasks = tasks.slice(0, 4);
   const lastTwoTasks = tasks.slice(4, 6);
 
@@ -110,7 +109,6 @@ export default function DashboardScreen() {
           </CardFullWidth>
         </View>
 
-       
         <MyFlatList
           data={firstFourTasks}
           renderItem={({ item }) => (
@@ -163,7 +161,6 @@ export default function DashboardScreen() {
           </CardFullWidth>
         </View>
 
-       
         <MyFlatList
           data={lastTwoTasks}
           renderItem={({ item }) => (
@@ -186,7 +183,7 @@ export default function DashboardScreen() {
             spacing.pv3,
           ]}
         >
-          <CardFullWidth backgroundColor={LIGHT}>
+          {/* <CardFullWidth backgroundColor={LIGHT}>
             <View style={[styles.row, spacing.mr5, { alignItems: "center" }]}>
               <Icon name="document-text" size={34} color={PRIMARY_COLOR} />
               <H5 style={[typography.textBold, { marginRight: 150 }]}>
@@ -194,7 +191,7 @@ export default function DashboardScreen() {
               </H5>
             </View>
             <View style={[spacing.bbw05, spacing.mv1]} />
-          </CardFullWidth>
+          </CardFullWidth> */}
         </View>
       </ScrollView>
     </ContainerComponent>

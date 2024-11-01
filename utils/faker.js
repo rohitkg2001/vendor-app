@@ -7,41 +7,11 @@ import {
 
 export const tasks = [
   {
-    id: 5,
-    backgroundColor: "#FFCCCB",
-    title: "Dashboard design for admin",
-    description: "Create the admin dashboard for the app",
-    status: "Sticky Note(Private)",
-
-    date: "14 Oct 2022",
-    commentsCount: 5,
-    attachmentsCount: 2,
-    teamMembers: [
-      { image: "https://randomuser.me/api/portraits/men/1.jpg" },
-      { image: "https://randomuser.me/api/portraits/women/1.jpg" },
-    ],
-  },
-  {
-    id: 6,
-    backgroundColor: "#D1E7DD",
-    title: "Konom web application",
-    description: "Develop the Konom web application",
-    status: " Open Projects",
-    count: 2,
-    date: "14 Nov 2022",
-    commentsCount: 2,
-    attachmentsCount: 1,
-    teamMembers: [
-      { image: "https://randomuser.me/api/portraits/men/2.jpg" },
-      { image: "https://randomuser.me/api/portraits/women/2.jpg" },
-    ],
-  },
-  {
     id: 1,
     title: "Task 1",
     description: "This is task 1",
     count: 28,
-    status: "In Progress",
+    status: "Total Projects ",
     backgroundColor: INFO_COLOR,
   },
   {
@@ -49,7 +19,7 @@ export const tasks = [
     title: "Task 2",
     description: "This is task 2",
     count: 31,
-    status: "Done",
+    status: "Total Earning",
     backgroundColor: SUCCESS_COLOR,
   },
   {
@@ -57,7 +27,7 @@ export const tasks = [
     title: "Task 3",
     description: "This is task 3",
     count: 24,
-    status: "In Review",
+    status: "Total Sites",
     backgroundColor: WARNING_COLOR,
   },
   {
@@ -65,7 +35,7 @@ export const tasks = [
     title: "Task 4",
     description: "This is task 4",
     count: 7,
-    status: "Events",
+    status: "Total Sites",
     backgroundColor: DANGER_COLOR,
   },
   {
@@ -73,8 +43,16 @@ export const tasks = [
     title: "Task 5",
     description: "This is task 5",
     count: 12,
-    status: "Total Project",
+    status: "Inventory",
     backgroundColor: INFO_COLOR,
+  },
+  {
+    id: 5,
+    title: "Task 5",
+    description: "This is task 5",
+    count: 12,
+    status: "Inventory",
+    backgroundColor: SUCCESS_COLOR,
   },
 ];
 
