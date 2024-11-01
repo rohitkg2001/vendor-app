@@ -18,7 +18,7 @@ import {
   styles,
   typography,
 } from "../styles";
-import { staff, tasks } from "../utils/faker"; //TODO: This will come from reducer store
+import { staff, tasks } from "../utils/faker"; 
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -62,27 +62,8 @@ export default function DashboardScreen() {
           style={[layouts.circle12, spacing.mv3, layouts.center]}
         />
       </View>
-      {/* Welcome message */}
-      <ScrollView>
-        <View
-          style={[
-            spacing.mt2,
-            { width: SCREEN_WIDTH - 18, alignSelf: "center" },
-            spacing.pv3,
-          ]}
-        >
-          <CardFullWidth backgroundColor={LIGHT}>
-            <View style={[styles.row, { alignItems: "center" }]}>
-              <Icon name="alarm" size={64} color={PRIMARY_COLOR} />
-              <TouchableOpacity style={layouts.center}>
-                <Icon name="log-out-outline" size={32} color={PRIMARY_COLOR} />
-                <H4>Clock Out</H4>
-              </TouchableOpacity>
-            </View>
-            <H5>Clock started at: {moment().format("HH:mm:ss A")}</H5>
-          </CardFullWidth>
-        </View>
 
+      <ScrollView>
         <View
           style={[
             spacing.mt2,
