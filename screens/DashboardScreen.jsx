@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { View, Image, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -43,6 +50,34 @@ export default function DashboardScreen() {
   const firstFourTasks = tasks.slice(0, 4);
   const lastTwoTasks = tasks.slice(4, 6);
 
+  // Categories for CategoryCard
+  const categories = [
+    {
+      id: "1",
+      label: "Installation",
+      icon: "layers-outline",
+    },
+    {
+      id: "2",
+      label: "Fixing Slip",
+      icon: "grid-outline",
+    },
+    {
+      id: "3",
+      label: "RMS Status",
+      icon: "cart-outline",
+    },
+    {
+      id: "4",
+      label: "Final Inspection",
+      icon: "document-text-outline",
+    },
+    {
+      id: "5",
+      label: "Report",
+      icon: "pie-chart-outline",
+    },
+  ];
   return (
     <ContainerComponent>
       <View
@@ -182,18 +217,64 @@ export default function DashboardScreen() {
             { width: SCREEN_WIDTH - 18, alignSelf: "center" },
             spacing.pv3,
           ]}
-        >
-          {/* <CardFullWidth backgroundColor={LIGHT}>
-            <View style={[styles.row, spacing.mr5, { alignItems: "center" }]}>
-              <Icon name="document-text" size={34} color={PRIMARY_COLOR} />
-              <H5 style={[typography.textBold, { marginRight: 150 }]}>
-                My timeSheet
-              </H5>
-            </View>
-            <View style={[spacing.bbw05, spacing.mv1]} />
-          </CardFullWidth> */}
+        ></View>
+
+        <View style={categoryStyles.card}>
+          {/* Header inside the card */}
+          <View style={categoryStyles.headerContainer}>
+            <H3 style={categoryStyles.headerText}>Task Management</H3>
+          </View>
+
+          {/* Category Grid */}
+          <View style={categoryStyles.grid}>
+            {categories.map((item) => (
+              <View key={item.id} style={categoryStyles.gridItem}>
+                <Icon name={item.icon} size={20} color="#333" />
+                <P style={categoryStyles.label}>{item.label}</P>
+              </View>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </ContainerComponent>
   );
 }
+
+// Styles for CategoryCard
+const categoryStyles = StyleSheet.create({
+  card: {
+    backgroundColor: "#f9f9f9",
+    borderRadius: 10,
+    padding: 16,
+    margin: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  headerContainer: {
+    marginBottom: 10, // Space between header and grid
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center", // Center-align text
+  },
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+  },
+  gridItem: {
+    alignItems: "center",
+    width: "30%",
+    marginVertical: 10,
+  },
+  label: {
+    fontSize: 14,
+    color: "#333",
+    textAlign: "center",
+  },
+});
