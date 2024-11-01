@@ -408,6 +408,11 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap",
   },
+  gridItem: {
+    alignItems: "center",
+    width: "30%",
+    marginVertical: 10,
+  },
   attendanceCard: {
     width: "48%",
     padding: 16,

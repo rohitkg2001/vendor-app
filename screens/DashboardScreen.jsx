@@ -4,7 +4,6 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  Text,
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -12,20 +11,23 @@ import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyFlatList from "../components/utility/MyFlatList";
-import { H3, H5, P } from "../components/text";
+import { H3, H5, H6, P } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
+//import { styles } from "../styles/components.styles";
 
 import {
   layouts,
   LIGHT,
   PRIMARY_COLOR,
+  PRIMARY_COLOR_TRANSPARENT,
+  DARK,
   SCREEN_WIDTH,
   spacing,
   styles,
   typography,
 } from "../styles";
-import { staff, tasks } from "../utils/faker";
+import { staff, tasks, categories } from "../utils/faker";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -50,34 +52,6 @@ export default function DashboardScreen() {
   const firstFourTasks = tasks.slice(0, 4);
   const lastTwoTasks = tasks.slice(4, 6);
 
-  // Categories for CategoryCard
-  const categories = [
-    {
-      id: "1",
-      label: "Installation",
-      icon: "layers-outline",
-    },
-    {
-      id: "2",
-      label: "Fixing Slip",
-      icon: "grid-outline",
-    },
-    {
-      id: "3",
-      label: "RMS Status",
-      icon: "cart-outline",
-    },
-    {
-      id: "4",
-      label: "Final Inspection",
-      icon: "document-text-outline",
-    },
-    {
-      id: "5",
-      label: "Report",
-      icon: "pie-chart-outline",
-    },
-  ];
   return (
     <ContainerComponent>
       <View
@@ -225,18 +199,27 @@ export default function DashboardScreen() {
           ]}
         ></View>
 
-        <View style={categoryStyles.card}>
-          {/* Header inside the card */}
-          <View style={categoryStyles.headerContainer}>
-            <H3 style={categoryStyles.headerText}>Task Management</H3>
+        <View
+          style={[
+            spacing.mb5,
+            //spacing.mt2,
+            {
+              width: SCREEN_WIDTH - 10,
+              alignSelf: "center",
+              elevation: 5,
+              backgroundColor: PRIMARY_COLOR_TRANSPARENT,
+            },
+          ]}
+        >
+          <View>
+            <H3 style={[spacing.mb3, typography.textBold]}>Task Management</H3>
           </View>
 
-          {/* Category Grid */}
-          <View style={categoryStyles.grid}>
+          <View style={styles.attendanceContainer}>
             {categories.map((item) => (
-              <View key={item.id} style={categoryStyles.gridItem}>
-                <Icon name={item.icon} size={20} color="#333" />
-                <P style={categoryStyles.label}>{item.label}</P>
+              <View key={item.id} style={styles.gridItem}>
+                <Icon name={item.icon} size={20} color={DARK} />
+                <P>{item.label}</P>
               </View>
             ))}
           </View>
@@ -245,42 +228,3 @@ export default function DashboardScreen() {
     </ContainerComponent>
   );
 }
-
-// Styles for CategoryCard
-const categoryStyles = StyleSheet.create({
-  card: {
-    backgroundColor: "#F0FFF0",
-    borderRadius: 10,
-    padding: 16,
-    margin: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  headerContainer: {
-    marginBottom: 10, // Space between header grid
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center", // Center-align text
-  },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
-  gridItem: {
-    alignItems: "center",
-    width: "30%",
-    marginVertical: 10,
-  },
-  label: {
-    fontSize: 14,
-    color: "#333",
-    textAlign: "center",
-  },
-});

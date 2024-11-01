@@ -55,6 +55,33 @@ export const tasks = [
     backgroundColor: "#FFABAB",
   },
 ];
+export const categories = [
+  {
+    id: "1",
+    label: "Installation",
+    icon: "layers-outline",
+  },
+  {
+    id: "2",
+    label: "Fixing Slip",
+    icon: "grid-outline",
+  },
+  {
+    id: "3",
+    label: "RMS Status",
+    icon: "cart-outline",
+  },
+  {
+    id: "4",
+    label: "Final Inspection",
+    icon: "document-text-outline",
+  },
+  {
+    id: "5",
+    label: "Report",
+    icon: "pie-chart-outline",
+  },
+];
 
 export const orders = [
   {
