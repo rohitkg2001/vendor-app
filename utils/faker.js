@@ -12,7 +12,7 @@ export const tasks = [
     description: "This is task 1",
     count: 28,
     status: "Total Projects ",
-    backgroundColor: INFO_COLOR,
+    backgroundColor: "#A0D3E8",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ export const tasks = [
     description: "This is task 2",
     count: 31,
     status: "Total Earning",
-    backgroundColor: SUCCESS_COLOR,
+    backgroundColor: "#C8E6C9",
   },
   {
     id: 3,
@@ -28,15 +28,15 @@ export const tasks = [
     description: "This is task 3",
     count: 24,
     status: "Total Sites",
-    backgroundColor: WARNING_COLOR,
+    backgroundColor: "#E1BEE7",
   },
   {
     id: 4,
     title: "Task 4",
     description: "This is task 4",
     count: 7,
-    status: "Total Sites",
-    backgroundColor: DANGER_COLOR,
+    status: "Inventory",
+    backgroundColor: "#F8BBD0",
   },
   {
     id: 5,
@@ -44,15 +44,15 @@ export const tasks = [
     description: "This is task 5",
     count: 12,
     status: "Inventory",
-    backgroundColor: INFO_COLOR,
+    backgroundColor: "#FFF9C4",
   },
   {
-    id: 5,
-    title: "Task 5",
+    id: 6,
+    title: "Task 6",
     description: "This is task 5",
     count: 12,
     status: "Inventory",
-    backgroundColor: SUCCESS_COLOR,
+    backgroundColor: "#FFABAB",
   },
 ];
 

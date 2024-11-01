@@ -249,7 +249,7 @@ export default function DashboardScreen() {
 // Styles for CategoryCard
 const categoryStyles = StyleSheet.create({
   card: {
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#F0FFF0",
     borderRadius: 10,
     padding: 16,
     margin: 16,
