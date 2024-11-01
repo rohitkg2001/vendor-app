@@ -656,9 +656,8 @@ export const staff = {
   created_date: "",
 };
 
-
 // taskData.js
- export const taskslist = [
+export const taskslist = [
   {
     id: 1,
     title: "Design in Solidworks",
@@ -688,3 +687,55 @@ export const staff = {
   },
 ];
 
+// ordersData.js
+export const orders = [
+  {
+    id: "1",
+    name: "UltraGPS watch, battery...",
+    price: "$349.99",
+    quantity: 1,
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    id: "2",
+    name: "Bluetooth wireless speaker...",
+    price: "$149.99",
+    quantity: 2,
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    id: "3",
+    name: "Car phone holder, USB cable...",
+    price: "$23.95",
+    quantity: 3,
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    id: "3",
+    name: "Car phone holder, USB cable...",
+    price: "$23.95",
+    quantity: 3,
+    image: "https://example.com/phoneholder.jpg",
+  },
+  {
+    id: "3",
+    name: "Car phone holder, USB cable...",
+    price: "$23.95",
+    quantity: 3,
+    image: "https://example.com/phoneholder.jpg",
+  },
+  {
+    id: "3",
+    name: "Car phone holder, USB cable...",
+    price: "$23.95",
+    quantity: 3,
+    image: "https://example.com/phoneholder.jpg",
+  },
+  {
+    id: "3",
+    name: "Car phone holder, USB cable...",
+    price: "$23.95",
+    quantity: 3,
+    image: "https://example.com/phoneholder.jpg",
+  },
+];

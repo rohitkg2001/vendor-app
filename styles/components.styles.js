@@ -300,40 +300,13 @@ export const styles = StyleSheet.create({
     color: "#666",
     fontWeight: "normal",
   },
-  // HolidayListScreen
-  // Section: {
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   alignItems: "center",
-  //   padding: 12,
-  // },
-  // leftSection: {
-  //   flexDirection: "row",
-  //   alignItems: "center",
-  // },
-  // rightSection: {
-  //   flexDirection: "column",
-  //   alignItems: "flex-start",
-  //   marginLeft: 20,
-  // },
+
   iconWrapper: {
     backgroundColor: PRIMARY_COLOR,
     padding: 6,
     borderRadius: 5,
     marginRight: 14,
   },
-  // dateText: {
-  //   fontSize: 14,
-  //   color: "#020409",
-  // },
-  // title: {
-  //   fontSize: 16,
-  //   color: "#020409",
-  // },
-  // day: {
-  //   fontSize: 14,
-  //   color: "#020409",
-  // },
 
   tabButton: {
     paddingVertical: 10,
@@ -804,5 +777,18 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: PRIMARY_COLOR,
     marginTop: 20,
+  },
+  //OrderScreen
+  quantityContainer: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+  },
+  card: {
+    // flexDirection: "row",
+    // alignItems: "center",
+    // padding: 16,
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#ddd",
   },
 });
