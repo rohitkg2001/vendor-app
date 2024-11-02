@@ -82,39 +82,6 @@ export const categories = [
     icon: "pie-chart-outline",
   },
 ];
-export const earnings = [
-  {
-    id: 1,
-    projectName: "Project Alpha",
-    totalEarnings: 1200.5,
-    completionDate: "2023-10-10",
-  },
-  {
-    id: 2,
-    projectName: "Project Beta",
-    totalEarnings: 850.0,
-    completionDate: "2023-09-15",
-  },
-  {
-    id: 3,
-    projectName: "Project Gamma",
-    totalEarnings: 430.75,
-    completionDate: "2023-08-20",
-  },
-  {
-    id: 4,
-    projectName: "Project Delta",
-    totalEarnings: 2000.0,
-    completionDate: "2023-07-30",
-  },
-  {
-    id: 5,
-    projectName: "Project Epsilon",
-    totalEarnings: 1500.25,
-    completionDate: "2023-06-12",
-  },
-];
-
 
 export const orders = [
   {
@@ -158,9 +125,43 @@ export const orders = [
     description:
       "Street light with a built-in motion sensor for energy savings.",
     quantity: 2,
-    url: "https://th.bing.com/th?id=OPAC.CS1gpu%2fn0Pggmw474C474&w=592&h=550&o=5&dpr=1.1&pid=21.1",
+    url: "  https://th.bing.com/th?id=OPAC.CS1gpu%2fn0Pggmw474C474&w=592&h=550&o=5&dpr=1.1&pid=21.1 ",
   },
 ];
+
+export const earnings = [
+  {
+    id: 1,
+    projectName: "Solar Lighting Installation for Homes",
+    totalEarnings: 12034,
+    completionDate: "2023-10-10",
+  },
+  {
+    id: 2,
+    projectName: "Community Solar Street Lights Project",
+    totalEarnings: 8500.0,
+    completionDate: "2023-09-15",
+  },
+  {
+    id: 3,
+    projectName: "Solar Panel Setup for Schools",
+    totalEarnings: 4730.75,
+    completionDate: "2023-08-20",
+  },
+  {
+    id: 4,
+    projectName: "Solar Energy Solutions for Farms",
+    totalEarnings: 20500.0,
+    completionDate: "2023-07-30",
+  },
+  {
+    id: 5,
+    projectName: "Solar Roof Panels for Businesses",
+    totalEarnings: 13500.25,
+    completionDate: "2023-06-12",
+  },
+];
+
 
 export const leaveReasons = [
   {

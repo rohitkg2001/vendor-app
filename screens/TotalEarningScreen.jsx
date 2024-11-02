@@ -38,7 +38,7 @@ const TotalEarningScreen = () => {
         />
 
         <SearchBar
-          placeholder="Search projects..."
+          placeholder="Search earnings..."
           value={searchText}
           onChangeText={setSearchText}
         />
@@ -50,7 +50,7 @@ const TotalEarningScreen = () => {
             <TouchableOpacity style={styles.card}>
               <View style={{ flex: 1 }}>
                 <H5>{item.projectName}</H5>
-                <P>{`Earnings: $${item.totalEarnings.toFixed(2)}`}</P>
+                <P>{`Earnings: ₹ ${item.totalEarnings.toFixed(2)}`}</P>
                 <P>{`Completion Date: ${item.completionDate}`}</P>
               </View>
             </TouchableOpacity>
