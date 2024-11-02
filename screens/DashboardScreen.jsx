@@ -48,6 +48,9 @@ export default function DashboardScreen() {
   const navigateToNoRecord = () => {
     navigation.navigate("NoRecord");
   };
+  const navigateToOrderScreen = () => {
+    navigation.navigate("OrderScreen");
+  };
 
   const firstFourTasks = tasks.slice(0, 4);
   const lastTwoTasks = tasks.slice(4, 6);
@@ -124,13 +127,22 @@ export default function DashboardScreen() {
             const isRightColumn = index % 2 !== 0;
             const marginTop = isRightColumn ? 20 : 0;
 
+          
+            const handlePress = () => {
+              if (item.id === 1) {
+                navigateToTaskList();
+              } else if (index === 3) {
+                navigateToOrderScreen();
+              }
+            };
+
             return (
               <StatCard
                 key={item.id}
                 backgroundColor={item.backgroundColor}
                 tasks={item.count}
                 status={item.status}
-                onPress={item.id === 1 ? navigateToTaskList : null}
+                onPress={handlePress} // Use the handlePress function
                 style={{ marginTop }}
               />
             );

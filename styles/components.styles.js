@@ -594,7 +594,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
-    backgroundColor: SUCCESS_COLOR, // Color of the Approved badge
+    backgroundColor: SUCCESS_COLOR, 
     borderRadius: 4,
     paddingVertical: 4,
     paddingHorizontal: 8,
@@ -621,11 +621,11 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     borderBottomWidth: 2,
     borderBottomColor: PRIMARY_COLOR,
-    paddingVertical: 8, // Ensure there's some padding around the text
+    paddingVertical: 8, 
   },
   tabButton: {
     color: "#888",
-    paddingVertical: 8, // Same padding as active tab
+    paddingVertical: 8, 
     paddingHorizontal: 16,
   },
 
