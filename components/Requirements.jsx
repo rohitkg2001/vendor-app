@@ -1,77 +1,56 @@
 import React from "react";
-import { View, StyleSheet, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import { Card, Avatar, IconButton } from "react-native-paper";
-
-const data = [
-  { id: "1", title: "Headline", subtitle: "Supporting text" },
-  { id: "2", title: "Headline", subtitle: "Supporting text" },
-  { id: "3", title: "Headline", subtitle: "Supporting text" },
-  { id: "4", title: "Headline", subtitle: "Supporting text" },
-  { id: "5", title: "Headline", subtitle: "Supporting text" },
-];
+import { requirementsData } from "../utils/faker";
+import ContainerComponent from "./ContainerComponent";
+import MyHeader from "./header/MyHeader";
+import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
+import { H5, H6, P } from "./text";
 
 const Requirements = () => {
   const renderListItem = ({ item }) => (
-    <Card style={styles.card}>
-      <View style={styles.container}>
-        <Avatar.Text size={40} label="A" style={styles.avatar} />
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.subtitle}>{item.subtitle}</Text>
+    <Card
+      style={[
+        spacing.mv1,
+        { width: SCREEN_WIDTH - 18, backgroundColor: "#ffffff" },
+      ]}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
+        <View
+          style={{
+            flex: 1,
+            marginLeft: 16,
+          }}
+        >
+          <H6 style={[typography.textBold]}>{item.siteName}</H6>
+          <P style={{ fontSize: 14, color: "#020409" }}>Dist: {item.dist}</P>
+          <P style={{ fontSize: 14, color: "#020409" }}>
+            Location: {item.location}
+          </P>
         </View>
         <IconButton
           icon="triangle-outline"
           size={20}
-          style={styles.icon}
-          color="gray"
+          color="#020409"
+          style={{
+            marginRight: 0,
+          }}
         />
       </View>
     </Card>
   );
 
   return (
-    <FlatList
-      data={data}
-      renderItem={renderListItem}
-      keyExtractor={(item) => item.id}
-      contentContainerStyle={styles.list}
-    />
+    <ContainerComponent>
+      <MyHeader title="Total Sites" hasIcon={true} icon={"ellipsis-vertical"} />
+      <FlatList
+        data={requirementsData}
+        renderItem={renderListItem}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
+      />
+    </ContainerComponent>
   );
 };
-
-const styles = StyleSheet.create({
-  list: {
-    paddingVertical: 8,
-  },
-  card: {
-    marginVertical: 4,
-    marginHorizontal: 16,
-    borderRadius: 8,
-  },
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-  },
-  avatar: {
-    backgroundColor: "#E0BBE4",
-  },
-  textContainer: {
-    flex: 1,
-    marginLeft: 16,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#000",
-  },
-  subtitle: {
-    fontSize: 14,
-    color: "gray",
-  },
-  icon: {
-    marginRight: 0,
-  },
-});
 
 export default Requirements;
