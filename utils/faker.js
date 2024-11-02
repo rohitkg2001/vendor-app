@@ -85,21 +85,21 @@ export const orders = [
     name: "Solar LED Street Light",
     description: "Eco-friendly solar-powered street light with motion sensor.",
     quantity: 1,
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
   },
   {
     id: "2",
     name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
     quantity: 2,
-    image: "https://randomuser.me/api/portraits/men/2.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
   },
   {
     id: "3",
     name: "LED Floodlight for Streets",
     description: "High brightness LED floodlight for outdoor use.",
     quantity: 3,
-    image: "https://randomuser.me/api/portraits/men/3.jpg",
+    image: "https://m.media-amazon.com/images/I/81hIbQn03RL._AC_UF1000,1000_QL80_.jpg",
   },
   {
     id: "4",
@@ -708,7 +708,7 @@ export const staff = {
 
 
 // taskData.js
- export const taskslist = [
+export const taskslist = [
   {
     id: 1,
     title: "Design in Solidworks",

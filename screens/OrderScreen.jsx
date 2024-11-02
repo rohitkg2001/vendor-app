@@ -14,6 +14,7 @@ import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 
 const OrderScreen = () => {
+
   return (
     <ContainerComponent>
       <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
@@ -25,7 +26,8 @@ const OrderScreen = () => {
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.card}>
               <Image
-                source={{ uri: item.image }}
+                source={{ uri: item.url }}
+                loadingIndicatorSource={require('../assets/img15.png')}
                 style={{
                   width: 60,
                   height: 60,
