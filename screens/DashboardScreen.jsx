@@ -44,6 +44,9 @@ export default function DashboardScreen() {
   const navigateToOrderScreen = () => {
     navigation.navigate("orderScreen");
   };
+   const navigateToTotalEarningScreen = () => {
+     navigation.navigate("TotalEarningScreen");
+   };
 
   const firstFourTasks = tasks.slice(0, 4);
   const lastTwoTasks = tasks.slice(4, 6);
@@ -120,10 +123,12 @@ export default function DashboardScreen() {
             const isRightColumn = index % 2 !== 0;
             const marginTop = isRightColumn ? 20 : 0;
 
-          
             const handlePress = () => {
               if (item.id === 1) {
                 navigateToTaskList();
+              } else if (index === 1) {
+             
+                navigateToTotalEarningScreen(); 
               } else if (index === 3) {
                 navigateToOrderScreen();
               }

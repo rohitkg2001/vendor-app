@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, Image, FlatList, TouchableOpacity, Text } from "react-native";
-import { orders } from "../utils/faker"; // Your orders data
+import { View, FlatList, TouchableOpacity } from "react-native";
+import { earnings } from "../utils/faker"; // Your earnings data
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
@@ -9,15 +9,13 @@ import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
 
-const OrderScreen = () => {
+const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-
-  const filteredOrders = orders.filter((order) =>
-    order.name.toLowerCase().includes(searchText.toLowerCase())
+  const filteredEarnings = earnings.filter((earning) =>
+    earning.projectName.toLowerCase().includes(searchText.toLowerCase())
   );
-
 
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
@@ -33,54 +31,40 @@ const OrderScreen = () => {
     <ContainerComponent>
       <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
         <MyHeader
-          title="Orders"
+          title="Total Earnings"
           hasIcon={true}
           icon={"ellipsis-vertical"}
-          onIconPress={toggleMenu} 
+          onIconPress={toggleMenu}
         />
 
-   
         <SearchBar
-          placeholder="Search orders..."
+          placeholder="Search projects..."
           value={searchText}
           onChangeText={setSearchText}
         />
 
         <FlatList
-          data={filteredOrders}
+          data={filteredEarnings}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.card}>
-              <Image
-                source={{ uri: item.url }}
-                loadingIndicatorSource={require('../assets/img15.png')}
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 8,
-                  marginRight: 16,
-                }}
-              />
               <View style={{ flex: 1 }}>
-                <H5>{item.name}</H5>
-                <P>{item.description}</P>
-                <View style={styles.quantityContainer}>
-                  <P style={styles.productQuantity}>Qty: {item.quantity}</P>
-                </View>
+                <H5>{item.projectName}</H5>
+                <P>{`Earnings: $${item.totalEarnings.toFixed(2)}`}</P>
+                <P>{`Completion Date: ${item.completionDate}`}</P>
               </View>
             </TouchableOpacity>
           )}
         />
 
-      
         <Filter
           visible={isMenuVisible}
           onClose={toggleMenu}
-          options={menuOptions} 
+          options={menuOptions}
         />
       </View>
     </ContainerComponent>
   );
 };
 
-export default OrderScreen;
+export default TotalEarningScreen;

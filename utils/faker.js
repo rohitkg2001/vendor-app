@@ -82,6 +82,39 @@ export const categories = [
     icon: "pie-chart-outline",
   },
 ];
+export const earnings = [
+  {
+    id: 1,
+    projectName: "Project Alpha",
+    totalEarnings: 1200.5,
+    completionDate: "2023-10-10",
+  },
+  {
+    id: 2,
+    projectName: "Project Beta",
+    totalEarnings: 850.0,
+    completionDate: "2023-09-15",
+  },
+  {
+    id: 3,
+    projectName: "Project Gamma",
+    totalEarnings: 430.75,
+    completionDate: "2023-08-20",
+  },
+  {
+    id: 4,
+    projectName: "Project Delta",
+    totalEarnings: 2000.0,
+    completionDate: "2023-07-30",
+  },
+  {
+    id: 5,
+    projectName: "Project Epsilon",
+    totalEarnings: 1500.25,
+    completionDate: "2023-06-12",
+  },
+];
+
 
 export const orders = [
   {
