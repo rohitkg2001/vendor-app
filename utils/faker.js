@@ -5,8 +5,6 @@ import {
   WARNING_COLOR,
 } from "../styles/constant";
 
-
-
 export const tasks = [
   {
     id: 1,
@@ -91,35 +89,35 @@ export const orders = [
     name: "Solar LED Street Light",
     description: "Eco-friendly solar-powered street light with motion sensor.",
     quantity: 1,
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    image: "../assets/Images/Solar_Led.jpeg",
   },
   {
     id: "2",
     name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
     quantity: 2,
-    image: "https://randomuser.me/api/portraits/men/2.jpg",
+    image: "../assets/Images/Solar_Led.jpeg",
   },
   {
     id: "3",
     name: "LED Floodlight for Streets",
     description: "High brightness LED floodlight for outdoor use.",
     quantity: 3,
-    image: "https://randomuser.me/api/portraits/men/3.jpg",
+    image: "../assets/Images/Solar_Led.jpeg",
   },
   {
     id: "4",
     name: "Solar Street Light with Camera",
     description: "Integrated street light with a security camera.",
     quantity: 1,
-    image: "https://randomuser.me/api/portraits/men/4.jpg",
+    image: "../assets/Images/Solar_Led.jpeg",
   },
   {
     id: "5",
     name: "Street Light Pole",
     description: "Durable street light pole for various applications.",
     quantity: 5,
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
+    image: "../assets/Images/Solar_Led.jpeg",
   },
   {
     id: "6",
@@ -127,7 +125,7 @@ export const orders = [
     description:
       "Street light with a built-in motion sensor for energy savings.",
     quantity: 2,
-    image: "https://randomuser.me/api/portraits/men/6.jpg",
+    image: "../assets/Images/Solar_Led.jpeg",
   },
 ];
 
