@@ -8,8 +8,8 @@ import Filter from "./components/filters";
 export default function App() {
   return (
     <PaperProvider>
-      {/* <MyNavigationContainer /> */}
-      <Filter/>
+      <MyNavigationContainer />
+      {/* <Filter/> */}
     </PaperProvider>
   );
 }

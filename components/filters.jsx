@@ -2,17 +2,12 @@ import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import SearchBardrop from "./input/SearchBardrop";
+
 
 const Filter = () => {
   return (
     <View style={styles.container}>
-      <SearchBardrop
-        placeholder="Search transactions"
-        onBackPress={() => console.log("Back pressed")}
-        onMorePress={() => console.log("More options")}
-        onChangeText={(text) => console.log("Search text:", text)}
-      />
+     
 
       {/* Filter Options */}
       <View style={styles.filtersContainer}>
