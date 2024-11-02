@@ -44,12 +44,12 @@ const OrderScreen = () => {
         <SearchBar
           placeholder="Search orders..."
           value={searchText}
-          onChangeText={setSearchText} // Update the search text
+          onChangeText={setSearchText}
         />
 
         <FlatList
           data={filteredOrders}
-          keyExtractor={(item) => item.id.toString()} // Ensure ID is a string
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.card}>
               <Image

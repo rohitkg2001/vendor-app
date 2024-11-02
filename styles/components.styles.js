@@ -808,4 +808,36 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 5,
   },
+  //camera
+  actions: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  photoRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 16,
+  },
+  photoContainer: {
+    position: "relative",
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  image: {
+    width: 80,
+    height: 70,
+    borderRadius: 10,
+  },
+  removeButton: {
+    position: "absolute",
+    top: -5,
+    right: -5,
+    backgroundColor: "red",
+    borderRadius: 10,
+    width: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

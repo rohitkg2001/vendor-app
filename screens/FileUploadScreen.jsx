@@ -1,9 +1,12 @@
 import React, { useState, useRef } from "react";
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Card, Button } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
-import { SCREEN_WIDTH, spacing } from "../styles";
+import { SCREEN_WIDTH, SCREEN_HEIGHT, spacing } from "../styles";
+import { typography, PRIMARY_COLOR } from "../styles";
+import { styles } from "../styles/components.styles";
+import { H4, H5, H2, H6, P } from "../components/text";
 
 const FileUploadScreen = () => {
   const [photos, setPhotos] = useState([]);
@@ -43,21 +46,31 @@ const FileUploadScreen = () => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh5, { width: SCREEN_WIDTH - 10 }]}>
-        <Card>
-          <Card.Title
-            title="Upload Photos"
-            subtitle="Take up to 5 pictures to upload"
-          />
+      <View style={[spacing.mb5, { width: SCREEN_WIDTH - 14 }]}>
+        <Card style={[{ height: SCREEN_HEIGHT - 16 }]}>
+          <View style={styles.cardTitle}>
+            <H4 style={[typography.textBold]}>Upload Photos</H4>
+            <H6>Take up to 5 pictures to upload</H6>
+          </View>
           <Card.Content>
             <CameraComponent cameraRef={cameraRef} />
-            <Button mode="outlined" onPress={handleTakePicture}>
-              Take Photo
+            <Button
+              style={[
+                styles.btn,
+                styles.bgPrimary,
+                { justifyContent: "center" },
+              ]}
+              mode="outlined"
+              onPress={handleTakePicture}
+            >
+              <H4
+                style={[styles.btnText, styles.textLarge, typography.textDark]}
+              >
+                Take Photo
+              </H4>
             </Button>
 
-            {photoMessage && (
-              <Text style={styles.uploadText}>{photoMessage}</Text>
-            )}
+            {photoMessage && <P>{photoMessage}</P>}
 
             <View style={styles.photoRow}>
               {photos.map((photoUri, index) => (
@@ -67,15 +80,39 @@ const FileUploadScreen = () => {
                     style={styles.removeButton}
                     onPress={() => removePhoto(photoUri)}
                   >
-                    <Text style={styles.removeButtonText}>X</Text>
+                   <P
+                      style={{
+                        fontSize: 14,
+                        color: "white",
+                        marginLeft: 2,
+                      }}
+                      onPress={() => console.log("Remove button pressed")}
+                    >
+                      X
+                    </P>
                   </TouchableOpacity>
                 </View>
               ))}
             </View>
           </Card.Content>
           <Card.Actions style={styles.actions}>
-            <Button onPress={handleCancel}>Cancel</Button>
-            <Button mode="contained" onPress={handleUpload}>
+            <Button
+              onPress={handleCancel}
+              style={{
+                paddingVertical: 4,
+                alignSelf: "flex-start",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onPress={handleUpload}
+              style={{
+                paddingVertical: 4,
+                alignSelf: "flex-end",
+                backgroundColor: PRIMARY_COLOR,
+              }}
+            >
               Upload Files
             </Button>
           </Card.Actions>
@@ -84,47 +121,5 @@ const FileUploadScreen = () => {
     </ContainerComponent>
   );
 };
-
-const styles = StyleSheet.create({
-  actions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  uploadText: {
-    marginTop: 10,
-    color: "green",
-  },
-  photoRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 15,
-  },
-  photoContainer: {
-    position: "relative",
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  image: {
-    width: 80,
-    height: 70,
-    borderRadius: 10,
-  },
-  removeButton: {
-    position: "absolute",
-    top: -5,
-    right: -5,
-    backgroundColor: "red",
-    borderRadius: 10,
-    width: 20,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  removeButtonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-});
 
 export default FileUploadScreen;
