@@ -771,3 +771,36 @@ export const taskslist = [
     assignedTo: "Rakesh Sharma",
   },
 ];
+
+export const requirementsData = [
+  {
+    id: "1",
+    siteName: "P S SHIKSHA NAGAR BANMANKHI",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "2",
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "3",
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "4",
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "5",
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+];

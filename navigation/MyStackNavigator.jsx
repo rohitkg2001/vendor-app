@@ -12,7 +12,6 @@ import PrivacyPolicy from "../screens/PrivacyPolicy";
 import ProjectTimeline from "../screens/ProjectTimeline";
 import TaskList from "../components/card/CardTask";
 import TotalEarningScreen from "../screens/TotalEarningScreen";
-
 import HolidayListScreen from "../screens/HolidayListScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 //import LandingPage from "../screens/LandingPage";
@@ -29,11 +28,12 @@ import ToDoTaskCardScreen from "../screens/ToDoTaskCardScreen";
 import NoRecord from "../screens/NoRecord";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import OrderScreen from "../screens/OrderScreen";
+import RequirementsScreen from "../screens/RequirementsScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="loginScreen"
+      initialRouteName="RequirementsScreen"
       screenOptions={{
         headerShown: false,
       }}
@@ -68,8 +68,8 @@ export default function MyStackNavigator() {
       <Stack.Screen name="ToDoTaskCardScreen" component={ToDoTaskCardScreen} />
       <Stack.Screen name="NoRecord" component={NoRecord} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
-      <Stack.Screen name="orderScreen" component={ OrderScreen } />
-      <Stack.Screen name="TotalEarningScreen" component={TotalEarningScreen} />
+      <Stack.Screen name="orderScreen" component={OrderScreen} />
+      <Stack.Screen name="RequirementsScreen" component={RequirementsScreen} />
     </Stack.Navigator>
   );
 }
