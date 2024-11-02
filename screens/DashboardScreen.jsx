@@ -42,7 +42,7 @@ export default function DashboardScreen() {
     navigation.navigate("NoRecord");
   };
   const navigateToOrderScreen = () => {
-    navigation.navigate("OrderScreen");
+    navigation.navigate("orderScreen");
   };
 
   const firstFourTasks = tasks.slice(0, 4);

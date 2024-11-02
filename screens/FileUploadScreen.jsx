@@ -7,14 +7,15 @@ import { SCREEN_WIDTH, spacing } from "../styles";
 
 const FileUploadScreen = () => {
   const [photoUri, setPhotoUri] = useState(null);
-  const [photoMessage, setPhotoMessage] = useState(""); 
+  const [photoMessage, setPhotoMessage] = useState("");
+
   const cameraRef = useRef(null);
 
   const handleTakePicture = async () => {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
       setPhotoUri(photo.uri);
-      setPhotoMessage("Photo has been taken!"); 
+      setPhotoMessage("Photo has been taken!");
       console.log("Photo taken:", photo.uri);
     }
   };
@@ -29,7 +30,7 @@ const FileUploadScreen = () => {
 
   const handleCancel = () => {
     setPhotoUri(null);
-    setPhotoMessage(""); 
+    setPhotoMessage("");
     console.log("Upload canceled");
   };
 
@@ -42,18 +43,13 @@ const FileUploadScreen = () => {
             subtitle="Take a picture to upload"
           />
           <Card.Content>
-            <CameraComponent
-              photoUri={photoUri}
-              setPhotoUri={setPhotoUri}
-              onTakePicture={handleTakePicture}
-              ref={cameraRef}
-            />
+            <CameraComponent photoUri={photoUri} cameraRef={cameraRef} />
             <Button mode="outlined" onPress={handleTakePicture}>
               Take Photo
             </Button>
             {photoMessage && (
               <Text style={styles.uploadText}>
-                {photoMessage} 
+                {photoMessage}
               </Text>
             )}
             {photoUri && (
