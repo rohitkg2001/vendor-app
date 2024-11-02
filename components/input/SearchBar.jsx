@@ -3,7 +3,6 @@ import { View, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../../styles/components.styles";
 import { SCREEN_WIDTH } from "../../styles/constant";
-import ContainerComponent from "../ContainerComponent";
 
 export default function SearchBar({ placeholder, value, onChangeText }) {
   return (
