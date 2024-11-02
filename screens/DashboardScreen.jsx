@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -14,7 +8,6 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { H3, H5, H6, P } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
-//import { styles } from "../styles/components.styles";
 
 import {
   layouts,
