@@ -1,13 +1,13 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-import { Card, Avatar, IconButton } from "react-native-paper";
+import { Card, IconButton } from "react-native-paper";
 import { requirementsData } from "../utils/faker";
-import ContainerComponent from "./ContainerComponent";
-import MyHeader from "./header/MyHeader";
+import ContainerComponent from "../components/ContainerComponent";
+import MyHeader from "../components/header/MyHeader";
 import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
-import { H5, H6, P } from "./text";
+import { H6, P } from "../components/text";
 
-const Requirements = () => {
+const RequirementsScreen = () => {
   const renderListItem = ({ item }) => (
     <Card
       style={[
@@ -53,4 +53,4 @@ const Requirements = () => {
   );
 };
 
-export default Requirements;
+export default RequirementsScreen;
