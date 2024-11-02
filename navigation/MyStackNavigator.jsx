@@ -11,6 +11,7 @@ import PrivacyPolicy from "../screens/PrivacyPolicy";
 // import TaskList from "../screens/TaskList";
 import ProjectTimeline from "../screens/ProjectTimeline";
 import TaskList from "../components/card/CardTask";
+import TotalEarningScreen from "../screens/TotalEarningScreen";
 
 import HolidayListScreen from "../screens/HolidayListScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -33,7 +34,7 @@ const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="requirementsScreen"
+      initialRouteName="loginScreen"
       screenOptions={{
         headerShown: false,
       }}
@@ -69,6 +70,7 @@ export default function MyStackNavigator() {
       <Stack.Screen name="NoRecord" component={NoRecord} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="orderScreen" component={OrderScreen} />
+      <Stack.Screen name="TotalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
     </Stack.Navigator>
   );
