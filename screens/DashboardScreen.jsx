@@ -46,7 +46,10 @@ export default function DashboardScreen() {
   };
    const navigateToTotalEarningScreen = () => {
      navigation.navigate("TotalEarningScreen");
-   };
+  };
+  const navigateTorequirementsScreen = () => {
+    navigation.navigate("requirementsScreen");
+  };
 
   const firstFourTasks = tasks.slice(0, 4);
   const lastTwoTasks = tasks.slice(4, 6);
@@ -127,8 +130,9 @@ export default function DashboardScreen() {
               if (item.id === 1) {
                 navigateToTaskList();
               } else if (index === 1) {
-             
-                navigateToTotalEarningScreen(); 
+                navigateToTotalEarningScreen();
+              } else if (index === 2) {
+                navigateTorequirementsScreen(); 
               } else if (index === 3) {
                 navigateToOrderScreen();
               }

@@ -33,7 +33,7 @@ const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="RequirementsScreen"
+      initialRouteName="loginScreen"
       screenOptions={{
         headerShown: false,
       }}
@@ -69,7 +69,8 @@ export default function MyStackNavigator() {
       <Stack.Screen name="NoRecord" component={NoRecord} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="orderScreen" component={OrderScreen} />
-      <Stack.Screen name="RequirementsScreen" component={RequirementsScreen} />
+      <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
+      <Stack.Screen name="TotalEarningScreen" component={TotalEarningScreen} />
     </Stack.Navigator>
   );
 }
