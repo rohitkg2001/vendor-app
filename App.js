@@ -9,7 +9,7 @@ export default function App() {
   return (
     <PaperProvider>
       {/* <MyNavigationContainer /> */}
-      <Filter/>
+      <Filter />
     </PaperProvider>
   );
 }

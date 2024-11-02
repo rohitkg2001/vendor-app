@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import SearchBardrop from "./input/SearchBardrop";
+import SearchBar from "./input/SearchBar";
 
 const Filter = () => {
+  const [searchText, setSearchText] = useState("");
+
   return (
     <View style={styles.container}>
-      <SearchBardrop
+      {/* Search Bar */}
+      <SearchBar
         placeholder="Search transactions"
-        onBackPress={() => console.log("Back pressed")}
-        onMorePress={() => console.log("More options")}
-        onChangeText={(text) => console.log("Search text:", text)}
+        value={searchText}
+        onChangeText={setSearchText}
       />
 
       {/* Filter Options */}
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
   filtersContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 16,
+    marginTop: 60,
   },
   filterIcon: {
     marginRight: 8,
