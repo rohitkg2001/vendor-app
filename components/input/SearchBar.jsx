@@ -40,5 +40,6 @@ export default function SearchBar({ placeholder, value, onChangeText }) {
         ]}
       />
     </View>
+   
   );
 }

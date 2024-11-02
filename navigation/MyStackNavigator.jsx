@@ -66,8 +66,8 @@ export default function MyStackNavigator() {
       <Stack.Screen name="TaskCardScreen" component={TaskCardScreen} />
       <Stack.Screen name="ToDoTaskCardScreen" component={ToDoTaskCardScreen} />
       <Stack.Screen name="NoRecord" component={NoRecord} />
-      <Stack.Screen name="FileUploadScreen" component={FileUploadScreen} />
-      <Stack.Screen name="OrderScreen" component={OrderScreen} />
+      <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
+      <Stack.Screen name="orderScreen" component={OrderScreen} />
     </Stack.Navigator>
   );
 }

@@ -89,35 +89,35 @@ export const orders = [
     name: "Solar LED Street Light",
     description: "Eco-friendly solar-powered street light with motion sensor.",
     quantity: 1,
-    image: "../assets/Images/Solar_Led.jpeg",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
   },
   {
     id: "2",
     name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
     quantity: 2,
-    image: "../assets/Images/Solar_Led.jpeg",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
   },
   {
     id: "3",
     name: "LED Floodlight for Streets",
     description: "High brightness LED floodlight for outdoor use.",
     quantity: 3,
-    image: "../assets/Images/Solar_Led.jpeg",
+    url: "https://m.media-amazon.com/images/I/81hIbQn03RL._AC_UF1000,1000_QL80_.jpg",
   },
   {
     id: "4",
     name: "Solar Street Light with Camera",
     description: "Integrated street light with a security camera.",
     quantity: 1,
-    image: "../assets/Images/Solar_Led.jpeg",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
   },
   {
     id: "5",
     name: "Street Light Pole",
     description: "Durable street light pole for various applications.",
     quantity: 5,
-    image: "../assets/Images/Solar_Led.jpeg",
+    url: "https://th.bing.com/th?id=OPAC.9GyQh8O0Qccugw474C474&w=592&h=550&o=5&dpr=1.1&pid=21.1",
   },
   {
     id: "6",
@@ -125,7 +125,7 @@ export const orders = [
     description:
       "Street light with a built-in motion sensor for energy savings.",
     quantity: 2,
-    image: "../assets/Images/Solar_Led.jpeg",
+    url: "https://th.bing.com/th?id=OPAC.CS1gpu%2fn0Pggmw474C474&w=592&h=550&o=5&dpr=1.1&pid=21.1",
   },
 ];
 

@@ -594,7 +594,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
-    backgroundColor: SUCCESS_COLOR, 
+    backgroundColor: SUCCESS_COLOR,
     borderRadius: 4,
     paddingVertical: 4,
     paddingHorizontal: 8,
@@ -621,11 +621,11 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     borderBottomWidth: 2,
     borderBottomColor: PRIMARY_COLOR,
-    paddingVertical: 8, 
+    paddingVertical: 8,
   },
   tabButton: {
     color: "#888",
-    paddingVertical: 8, 
+    paddingVertical: 8,
     paddingHorizontal: 16,
   },
 
@@ -796,5 +796,16 @@ export const styles = StyleSheet.create({
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
+  },
+  //pupop
+  popupMenu: {
+    position: "absolute",
+    top: 50,
+    right: 8,
+    width: 120,
+    paddingVertical: 18,
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    elevation: 5,
   },
 });
