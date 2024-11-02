@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Image,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Image, FlatList, TouchableOpacity } from "react-native";
 import { orders } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
@@ -17,7 +11,7 @@ const OrderScreen = () => {
   return (
     <ContainerComponent>
       <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
-        <MyHeader title="Orders" hasIcon={true} icon={"filter"} />
+        <MyHeader title="Orders" hasIcon={true} icon={"ellipsis-vertical"} />
 
         <FlatList
           data={orders}
@@ -48,5 +42,3 @@ const OrderScreen = () => {
   );
 };
 export default OrderScreen;
-
-
