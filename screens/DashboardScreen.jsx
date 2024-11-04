@@ -41,6 +41,9 @@ export default function DashboardScreen() {
   const navigateToNoRecord = () => {
     navigation.navigate("NoRecord");
   };
+   const navigateToNoTask = () => {
+     navigation.navigate("NoTask");
+   };
   const navigateToOrderScreen = () => {
     navigation.navigate("orderScreen");
   };
@@ -144,7 +147,7 @@ export default function DashboardScreen() {
                 backgroundColor={item.backgroundColor}
                 tasks={item.count}
                 status={item.status}
-                onPress={handlePress} // Use the handlePress function
+                onPress={handlePress}
                 style={{ marginTop }}
               />
             );
@@ -186,7 +189,11 @@ export default function DashboardScreen() {
 
           <View style={styles.attendanceContainer}>
             {categories.map((item) => (
-              <View key={item.id} style={styles.gridItem}>
+              <TouchableOpacity
+                key={item.id}
+                style={styles.gridItem}
+                onPress={navigateToNoTask}
+              >
                 <Icon name={item.icon} size={20} color={DARK} />
                 <P>{item.label}</P>
                 <View
@@ -204,7 +211,7 @@ export default function DashboardScreen() {
                     {item.count}
                   </P>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         </View>

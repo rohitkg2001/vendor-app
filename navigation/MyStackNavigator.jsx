@@ -29,6 +29,7 @@ import NoRecord from "../screens/NoRecord";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import OrderScreen from "../screens/OrderScreen";
 import RequirementsScreen from "../screens/RequirementsScreen";
+import NoTask from "../screens/NoTask";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -66,7 +67,8 @@ export default function MyStackNavigator() {
       <Stack.Screen name="InternalSetting" component={InternalSetting} />
       <Stack.Screen name="TaskCardScreen" component={TaskCardScreen} />
       <Stack.Screen name="ToDoTaskCardScreen" component={ToDoTaskCardScreen} />
-      <Stack.Screen name="NoRecord" component={NoRecord} />
+      <Stack.Screen name="NoRecord" component={ NoRecord } />
+      <Stack.Screen name = "NoTask" component={NoTask} /> 
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="orderScreen" component={OrderScreen} />
       <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
