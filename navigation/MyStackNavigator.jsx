@@ -37,7 +37,7 @@ const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="fileUploadScreen"
+      initialRouteName="loginScreen"
       screenOptions={{
         headerShown: false,
       }}
