@@ -69,7 +69,13 @@ const FileUploadScreen = () => {
               mode="outlined"
               onPress={handleTakePicture}
             >
+<<<<<<< HEAD
               <H5 style={[styles.btnText, styles.textLarge, typography.textLight]}>
+=======
+              <H4
+                style={[styles.btnText, styles.textLarge, typography.textLight]}
+              >
+>>>>>>> origin/mihir
                 Take Photo
               </H5>
             </Button>
@@ -87,7 +93,18 @@ const FileUploadScreen = () => {
                     style={styles.removeButton}
                     onPress={() => removePhoto(photoUri)}
                   >
+<<<<<<< HEAD
                     <P style={{ fontSize: 14, color: "white", marginLeft: 2 }}>
+=======
+                    <P
+                      style={{
+                        fontSize: 14,
+                        color: "white",
+                        marginLeft: 2,
+                      }}
+                      onPress={() => console.log("Remove button pressed")}
+                    >
+>>>>>>> origin/mihir
                       X
                     </P>
                   </TouchableOpacity>
@@ -123,7 +140,7 @@ const FileUploadScreen = () => {
                 backgroundColor: PRIMARY_COLOR,
               }}
             >
-              Upload Files
+            Submit
             </Button>
           </Card.Actions>
         </Card>

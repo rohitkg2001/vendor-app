@@ -14,7 +14,7 @@ import Filter from "../components/filters";
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const navigation = useNavigation(); // Access the navigation object
+  const navigation = useNavigation(); 
 
   const filteredProjects = projecttask.filter((item) =>
     item.projectName.toLowerCase().includes(searchText.toLowerCase())
@@ -52,11 +52,11 @@ const CurrentProjectsScreen = () => {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.card}
-              onPress={() => navigation.navigate("taskScreen")} // Navigate to TasksScreen
+              onPress={() => navigation.navigate("taskScreen")} 
             >
               <View style={{ flex: 1 }}>
                 <H5>{item.projectName}</H5>
-                <P>{`Duration: ${item.duration}`}</P>
+                <P>{` ${item.siteName}`}</P>
               </View>
             </TouchableOpacity>
           )}
