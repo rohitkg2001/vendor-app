@@ -60,13 +60,13 @@ export const categories = [
     id: "1",
     label: "Installation",
     icon: "layers-outline",
-    count: 5,
+    count: 5, 
   },
   {
     id: "2",
     label: "Fixing Slip",
     icon: "grid-outline",
-    count: 3,
+    count: 3, 
   },
   {
     id: "3",
@@ -87,6 +87,7 @@ export const categories = [
     count: 4,
   },
 ];
+
 
 export const orders = [
   {
