@@ -132,7 +132,7 @@ export default function DashboardScreen() {
               } else if (index === 1) {
                 navigateToTotalEarningScreen();
               } else if (index === 2) {
-                navigateTorequirementsScreen(); 
+                navigateTorequirementsScreen();
               } else if (index === 3) {
                 navigateToOrderScreen();
               }
@@ -159,51 +159,7 @@ export default function DashboardScreen() {
             { width: SCREEN_WIDTH - 18, alignSelf: "center" },
             spacing.pv3,
           ]}
-        >
-          <CardFullWidth backgroundColor={LIGHT}>
-            <View style={[styles.row, spacing.mr5, { alignItems: "center" }]}>
-              <Icon name="filter" size={34} color={PRIMARY_COLOR} />
-              <H5 style={[typography.textBold, { marginRight: 130 }]}>
-                All Task Overview
-              </H5>
-            </View>
-            <View style={[spacing.bbw05, spacing.mv1]} />
-            <View
-              style={[
-                styles.row,
-                { justifyContent: "space-between", paddingVertical: 10 },
-              ]}
-            >
-              <View style={{ alignItems: "center" }}>
-                <TouchableOpacity onPress={navigateToToDoTaskCardScreen}>
-                  <P style={typography.textBold}>To Do</P>
-                  <P style={spacing.ml2}>2</P>
-                </TouchableOpacity>
-              </View>
-              <View style={{ alignItems: "center", marginRight: 140 }}>
-                <TouchableOpacity onPress={navigateToTaskCardScreen}>
-                  <P style={typography.textBold}>Done</P>
-                  <P style={spacing.ml2}>3</P>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </CardFullWidth>
-        </View>
-
-        <MyFlatList
-          data={lastTwoTasks}
-          renderItem={({ item }) => (
-            <StatCard
-              key={item.id}
-              backgroundColor={item.backgroundColor}
-              tasks={item.count}
-              status={item.status}
-              onPress={item.id === 1 ? navigateToTaskList : null}
-            />
-          )}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
-        />
+        ></View>
 
         <View
           style={[
@@ -216,7 +172,6 @@ export default function DashboardScreen() {
         <View
           style={[
             spacing.mb5,
-            //spacing.mt2,
             {
               width: SCREEN_WIDTH - 10,
               alignSelf: "center",
@@ -234,6 +189,21 @@ export default function DashboardScreen() {
               <View key={item.id} style={styles.gridItem}>
                 <Icon name={item.icon} size={20} color={DARK} />
                 <P>{item.label}</P>
+                <View
+                  style={{
+                    position: "absolute",
+                    right: 28,
+                    top: -12,
+                    backgroundColor: "#76885B",
+                    borderRadius: 20,
+                    paddingHorizontal: 5,
+                    paddingVertical: 2,
+                  }}
+                >
+                  <P style={{ color: "white", fontWeight: "bold" }}>
+                    {item.count}
+                  </P>
+                </View>
               </View>
             ))}
           </View>

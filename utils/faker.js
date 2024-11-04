@@ -60,28 +60,34 @@ export const categories = [
     id: "1",
     label: "Installation",
     icon: "layers-outline",
+    count: 5, 
   },
   {
     id: "2",
     label: "Fixing Slip",
     icon: "grid-outline",
+    count: 3, 
   },
   {
     id: "3",
     label: "RMS Status",
     icon: "cart-outline",
+    count: 2,
   },
   {
     id: "4",
     label: "Final Inspection",
     icon: "document-text-outline",
+    count: 1,
   },
   {
     id: "5",
     label: "Report",
     icon: "pie-chart-outline",
+    count: 4,
   },
 ];
+
 
 export const orders = [
   {
