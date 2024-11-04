@@ -1,34 +1,38 @@
 import React from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
 import { tasksData } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
 import { H6, P } from "../components/text";
+import { useNavigation } from "@react-navigation/native";
 
 const TasksScreen = () => {
+  const navigation = useNavigation();
+
   const renderTaskItem = ({ item }) => (
-    <Card
-      style={[
-        spacing.mv1,
-        { width: SCREEN_WIDTH - 18, backgroundColor: "#ffffff" },
-      ]}
+    <TouchableOpacity
+      onPress={() => navigation.navigate("fileUploadScreen")} 
     >
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
+      <Card
+        style={[
+          spacing.mv1,
+          { width: SCREEN_WIDTH - 18, backgroundColor: "#ffffff" },
+        ]}
+      >
         <View
-          style={{
-            flex: 1,
-            marginLeft: 16,
-          }}
+          style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
         >
-          <H6 style={[typography.textBold]}>{item.taskName}</H6>
-          <P style={{ fontSize: 14, color: "#020409" }}>
-            {item.installation}
-          </P>
+          <View style={{ flex: 1, marginLeft: 16 }}>
+            <H6 style={[typography.textBold]}>{item.taskName}</H6>
+            <P style={{ fontSize: 14, color: "#020409" }}>
+              {item.installation}
+            </P>
+          </View>
         </View>
-      </View>
-    </Card>
+      </Card>
+    </TouchableOpacity>
   );
 
   return (
@@ -37,7 +41,7 @@ const TasksScreen = () => {
       <FlatList
         data={tasksData}
         renderItem={renderTaskItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
       />
     </ContainerComponent>
