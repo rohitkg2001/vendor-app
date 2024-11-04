@@ -38,7 +38,7 @@ export default function MyMaterialBottomNavigator() {
         name="taskListScreen"
         component={TaskList}
         options={{
-          tabBarLabel: "Tasks",
+          tabBarLabel: "Projects",
           tabBarIcon: ({ color }) => (
             <Icon name="grid-outline" size={26} color={color} />
           ),

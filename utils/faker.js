@@ -115,7 +115,6 @@ export const earnings = [
   },
 ];
 
-
 export const orders = [
   {
     id: "1",
@@ -355,12 +354,10 @@ export const contactsData = [
 ];
 
 export const menuItems = [
+  { label: "Site Inventory", icon: "cart-outline" },
   { label: "Reports", page: "", icon: "pie-chart-outline" },
-  { label: "Events", page: "", icon: "calendar-outline" },
-  { label: "My Purchases", icon: "cart-outline" },
   { label: "My Projects", page: "", icon: "grid-outline" },
   { label: "My Tasks", page: "", icon: "grid-outline" },
-  { label: "My Notes", page: "NotificationScreen", icon: "reader-outline" },
   { label: "Settings", page: "", icon: "cog-outline" },
 ];
 export const internal = [

@@ -4,7 +4,6 @@ import PersonalInfo from "../components/PersonalInfo";
 import DocumentsList from "../components/DocumentsList";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import { Span } from "../components/text";
 import { staff } from "../utils/faker";
 import { layouts, LIGHT, PRIMARY_COLOR, styles, typography } from "../styles";
 import TabNavigation from "../components/TabNavigation";
@@ -17,7 +16,7 @@ const ProfileScreen = () => {
   const renderContent = () => {
     if (activeTab === "Personal") {
       return <PersonalInfo data={staff} />;
-    } else if (activeTab === "Documents") {
+    } else if (activeTab === "Document") {
       return <DocumentsList documentData={staff} />;
     }
     return null;
@@ -37,7 +36,7 @@ const ProfileScreen = () => {
         </View>
       </CardFullWidth>
       <TabNavigation
-        tabs={["Personal", "Documents"]} // Removed "Job Info"
+        tabs={["Personal", "Document"]} // Removed "Job Info"
         currentTab={activeTab}
         setCurrentTab={setActiveTab}
       />
