@@ -123,7 +123,7 @@ const FileUploadScreen = () => {
                 backgroundColor: PRIMARY_COLOR,
               }}
             >
-              Upload Files
+              Submit
             </Button>
           </Card.Actions>
         </Card>
