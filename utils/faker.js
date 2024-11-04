@@ -102,10 +102,26 @@ export const project = [
 ];
 
 export const projecttask = [
-  { id: 1, projectName: "Project 01A", duration: "2 days", status: "ongoing" },
-  { id: 2, projectName: "Project 02B", duration: "5 days", status: "completed" },
-
+  {
+    id: 1,
+    projectName: "Project 01A",
+    siteName: " SBI Bank , Rampur School , Lakhisarai",
+  
+  },
+  {
+    id: 2,
+    projectName: "Project 02B",
+    siteName: "Block Office, Shershah Road ,Madhepura",
+   
+  },
+  {
+    id: 3,
+    projectName: "Project 03C",
+    siteName: "Purnea Mahila College , Sipahi Tola , Purnea",
+    
+  },
 ];
+
 
 
 

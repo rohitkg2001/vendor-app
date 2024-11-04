@@ -50,7 +50,7 @@ const CurrentProjectsScreen = () => {
             <TouchableOpacity style={styles.card}>
               <View style={{ flex: 1 }}>
                 <H5>{item.projectName}</H5>
-                <P>{`Duration: ${item.duration}`}</P>
+                <P>{` ${item.siteName}`}</P>
               </View>
             </TouchableOpacity>
           )}
