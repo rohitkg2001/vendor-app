@@ -64,7 +64,7 @@ const FileUploadScreen = () => {
               onPress={handleTakePicture}
             >
               <H4
-                style={[styles.btnText, styles.textLarge, typography.textDark]}
+                style={[styles.btnText, styles.textLarge, typography.textLight]}
               >
                 Take Photo
               </H4>
@@ -80,7 +80,7 @@ const FileUploadScreen = () => {
                     style={styles.removeButton}
                     onPress={() => removePhoto(photoUri)}
                   >
-                   <P
+                    <P
                       style={{
                         fontSize: 14,
                         color: "white",
@@ -113,7 +113,7 @@ const FileUploadScreen = () => {
                 backgroundColor: PRIMARY_COLOR,
               }}
             >
-              Upload Files
+            Submit
             </Button>
           </Card.Actions>
         </Card>
