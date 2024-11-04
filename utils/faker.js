@@ -87,6 +87,14 @@ export const categories = [
     count: 4,
   },
 ];
+// utils/projects.js
+export const project = [
+  { id: 1, projectName: "Project 01A", duration: "2 days" },
+  { id: 2, projectName: "Project 02B", duration: "5 days" },
+  { id: 3, projectName: "Project 03C", duration: "3 days" },
+  { id: 4, projectName: "Project 04D", duration: "7 days" },
+];
+
 
 
 export const orders = [

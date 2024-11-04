@@ -30,6 +30,7 @@ import FileUploadScreen from "../screens/FileUploadScreen";
 import OrderScreen from "../screens/OrderScreen";
 import RequirementsScreen from "../screens/RequirementsScreen";
 import NoTask from "../screens/NoTask";
+import TotalProjectsScreen from "../screens/TotalProjectsScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -45,7 +46,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="projectTimeLine" component={ProjectTimeline} />
       <Stack.Screen name="applyLeaveForm" component={ApplyLeaveForm} />
       <Stack.Screen name="requisitions" component={RequisitionScreen} />
-
       <Stack.Screen
         name="purchaseOrderScreen"
         component={PurchaseOrderScreen}
@@ -67,13 +67,16 @@ export default function MyStackNavigator() {
       <Stack.Screen name="InternalSetting" component={InternalSetting} />
       <Stack.Screen name="TaskCardScreen" component={TaskCardScreen} />
       <Stack.Screen name="ToDoTaskCardScreen" component={ToDoTaskCardScreen} />
-      <Stack.Screen name="NoRecord" component={ NoRecord } />
-      <Stack.Screen name = "NoTask" component={NoTask} /> 
+      <Stack.Screen name="NoRecord" component={NoRecord} />
+      <Stack.Screen name="NoTask" component={NoTask} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="orderScreen" component={OrderScreen} />
       <Stack.Screen name="TotalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
-     
+      <Stack.Screen
+        name="TotalProjectsScreen"
+        component={TotalProjectsScreen}
+      />
     </Stack.Navigator>
   );
 }

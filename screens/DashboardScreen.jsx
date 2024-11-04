@@ -26,8 +26,8 @@ export default function DashboardScreen() {
   const navigation = useNavigation();
   const today = useState(moment().format("DD MMM YYYY"));
 
-  const navigateToTaskList = () => {
-    navigation.navigate("taskList");
+  const navigateToTotalProjectsScreen = () => {
+    navigation.navigate("TotalProjectsScreen");
   };
 
   const navigateToTaskCardScreen = () => {
@@ -131,7 +131,7 @@ export default function DashboardScreen() {
 
             const handlePress = () => {
               if (item.id === 1) {
-                navigateToTaskList();
+                navigateToTotalProjectsScreen();
               } else if (index === 1) {
                 navigateToTotalEarningScreen();
               } else if (index === 2) {
