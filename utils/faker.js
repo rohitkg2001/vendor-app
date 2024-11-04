@@ -60,13 +60,13 @@ export const categories = [
     id: "1",
     label: "Installation",
     icon: "layers-outline",
-    count: 5, 
+    count: 5,
   },
   {
     id: "2",
     label: "Fixing Slip",
     icon: "grid-outline",
-    count: 3, 
+    count: 3,
   },
   {
     id: "3",
@@ -87,15 +87,44 @@ export const categories = [
     count: 4,
   },
 ];
-// utils/projects.js
+
 export const project = [
-  { id: 1, projectName: "Project 01A", duration: "2 days" },
-  { id: 2, projectName: "Project 02B", duration: "5 days" },
-  { id: 3, projectName: "Project 03C", duration: "3 days" },
-  { id: 4, projectName: "Project 04D", duration: "7 days" },
+  { id: 1, projectName: "Project 01A", duration: "2 days", status: "ongoing" },
+  {
+    id: 2,
+    projectName: "Project 02B",
+    duration: "5 days",
+    status: "completed",
+  },
+  { id: 3, projectName: "Project 03C", duration: "3 days", status: "ongoing" },
+  {
+    id: 4,
+    projectName: "Project 04D",
+    duration: "7 days",
+    status: "completed",
+  },
+  { id: 5, projectName: "Project 05E", duration: "4 days", status: "ongoing" },
+  { id: 6, projectName: "Project 06F", duration: "6 days", status: "ongoing" },
+  { id: 7, projectName: "Project 07G", duration: "1 day", status: "completed" },
+  { id: 8, projectName: "Project 08H", duration: "8 days", status: "ongoing" },
+  {
+    id: 9,
+    projectName: "Project 09I",
+    duration: "10 days",
+    status: "completed",
+  },
+  { id: 10, projectName: "Project 10J", duration: "3 days", status: "ongoing" },
 ];
 
-
+export const projecttask = [
+  { id: 1, projectName: "Project 01A", duration: "2 days", status: "ongoing" },
+  {
+    id: 2,
+    projectName: "Project 02B",
+    duration: "5 days",
+    status: "completed",
+  },
+];
 
 export const orders = [
   {
@@ -814,4 +843,14 @@ export const requirementsData = [
     dist: "Purnia",
     location: "BANMANKHI",
   },
+];
+
+export const tasksData = [
+  {
+    id: "1",
+    taskName: "Solar Panel Installlation at railway station.",
+     installation: "Install the panel on top of the platform of 5kw of power."
+    
+  },
+ 
 ];

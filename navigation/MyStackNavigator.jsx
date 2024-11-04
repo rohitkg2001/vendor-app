@@ -31,6 +31,8 @@ import OrderScreen from "../screens/OrderScreen";
 import RequirementsScreen from "../screens/RequirementsScreen";
 import NoTask from "../screens/NoTask";
 import TotalProjectsScreen from "../screens/TotalProjectsScreen";
+import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
+import TasksScreen from "../screens/TasksScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -77,6 +79,11 @@ export default function MyStackNavigator() {
         name="TotalProjectsScreen"
         component={TotalProjectsScreen}
       />
+      <Stack.Screen
+        name="CurrentProjectsScreen"
+        component={CurrentProjectsScreen}
+      />
+      <Stack.Screen name="taskScreen" component={TasksScreen} />
     </Stack.Navigator>
   );
 }
