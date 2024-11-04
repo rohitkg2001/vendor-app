@@ -825,8 +825,8 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 80,
-    height: 70,
+    width: 50,
+    height: 50,
     borderRadius: 10,
   },
   removeButton: {

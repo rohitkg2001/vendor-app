@@ -1,16 +1,18 @@
+
 import React, { useState, useRef } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import { Card, Button } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, SCREEN_HEIGHT, spacing } from "../styles";
 import { typography, PRIMARY_COLOR } from "../styles";
 import { styles } from "../styles/components.styles";
-import { H4, H5, H2, H6, P } from "../components/text";
+import { H4, H5, H6, P } from "../components/text";
 
 const FileUploadScreen = () => {
   const [photos, setPhotos] = useState([]);
   const [photoMessage, setPhotoMessage] = useState("");
+  const [description, setDescription] = useState("");
 
   const cameraRef = useRef(null);
 
@@ -28,6 +30,7 @@ const FileUploadScreen = () => {
   const handleUpload = () => {
     if (photos.length > 0) {
       console.log("Uploading photos:", photos);
+      console.log("Description:", description);
     } else {
       console.log("No photos to upload");
     }
@@ -36,6 +39,7 @@ const FileUploadScreen = () => {
   const handleCancel = () => {
     setPhotos([]);
     setPhotoMessage("");
+    setDescription("");
     console.log("Upload canceled");
   };
 
@@ -53,25 +57,28 @@ const FileUploadScreen = () => {
             <H6>Take up to 5 pictures to upload</H6>
           </View>
           <Card.Content>
+            {/* Camera Component */}
             <CameraComponent cameraRef={cameraRef} />
+
+            {/* Take Photo Button */}
             <Button
               style={[
-                styles.btn,
                 styles.bgPrimary,
                 { justifyContent: "center" },
               ]}
               mode="outlined"
               onPress={handleTakePicture}
             >
-              <H4
-                style={[styles.btnText, styles.textLarge, typography.textDark]}
-              >
+              <H5 style={[styles.btnText, styles.textLarge, typography.textLight]}>
                 Take Photo
-              </H4>
+              </H5>
             </Button>
 
             {photoMessage && <P>{photoMessage}</P>}
 
+           
+
+            {/* Display Photos */}
             <View style={styles.photoRow}>
               {photos.map((photoUri, index) => (
                 <View key={index} style={styles.photoContainer}>
@@ -80,36 +87,39 @@ const FileUploadScreen = () => {
                     style={styles.removeButton}
                     onPress={() => removePhoto(photoUri)}
                   >
-                   <P
-                      style={{
-                        fontSize: 14,
-                        color: "white",
-                        marginLeft: 2,
-                      }}
-                      onPress={() => console.log("Remove button pressed")}
-                    >
+                    <P style={{ fontSize: 14, color: "white", marginLeft: 2 }}>
                       X
                     </P>
                   </TouchableOpacity>
                 </View>
               ))}
             </View>
-          </Card.Content>
-          <Card.Actions style={styles.actions}>
-            <Button
-              onPress={handleCancel}
+             {/* Description Box */}
+            <TextInput
               style={{
-                paddingVertical: 4,
-                alignSelf: "flex-start",
+                height: 100,
+                borderColor: "#ccc",
+                borderWidth: 1,
+                borderRadius: 8,
+                padding: 10,
+                marginTop: 14,
               }}
-            >
+              placeholder="Enter a description..."
+              multiline
+              value={description}
+              onChangeText={(text) => setDescription(text)}
+            />
+          </Card.Content>
+
+          {/* Actions - Cancel and Upload Buttons */}
+          <Card.Actions style={[styles.actions, { justifyContent: "space-between" }]}>
+            <Button onPress={handleCancel} style={{ paddingVertical: 4 }}>
               Cancel
             </Button>
             <Button
               onPress={handleUpload}
               style={{
                 paddingVertical: 4,
-                alignSelf: "flex-end",
                 backgroundColor: PRIMARY_COLOR,
               }}
             >
