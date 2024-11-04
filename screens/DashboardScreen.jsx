@@ -41,9 +41,9 @@ export default function DashboardScreen() {
   const navigateToNoRecord = () => {
     navigation.navigate("NoRecord");
   };
-   const navigateToNoTask = () => {
-     navigation.navigate("NoTask");
-   };
+  const navigateToNoTask = () => {
+    navigation.navigate("NoTask");
+  };
   const navigateToOrderScreen = () => {
     navigation.navigate("orderScreen");
   };

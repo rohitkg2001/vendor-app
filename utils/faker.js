@@ -121,6 +121,13 @@ export const projecttask = [
     
   },
 ];
+export const tasksData = [
+  {
+    id: "1",
+    taskName: "Solar Panel Installlation at railway station.",
+    installation: "Install the panel on top of the platform of 5kw of power.",
+  },
+];
 
 
 

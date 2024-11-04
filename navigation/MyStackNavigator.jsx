@@ -32,11 +32,12 @@ import RequirementsScreen from "../screens/RequirementsScreen";
 import NoTask from "../screens/NoTask";
 import TotalProjectsScreen from "../screens/TotalProjectsScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
+import TasksScreen from "../screens/TasksScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="fileUploadScreen"
+      initialRouteName="loginScreen"
       screenOptions={{
         headerShown: false,
       }}
@@ -82,6 +83,7 @@ export default function MyStackNavigator() {
         name="CurrentProjectsScreen"
         component={CurrentProjectsScreen}
       />
+      <Stack.Screen name="taskScreen" component={TasksScreen} />
     </Stack.Navigator>
   );
 }

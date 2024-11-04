@@ -1,5 +1,7 @@
+
 import React, { useState } from "react";
 import { View, FlatList, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { projecttask } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
@@ -12,6 +14,7 @@ import Filter from "../components/filters";
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const navigation = useNavigation(); 
 
   const filteredProjects = projecttask.filter((item) =>
     item.projectName.toLowerCase().includes(searchText.toLowerCase())
@@ -47,7 +50,10 @@ const CurrentProjectsScreen = () => {
           data={filteredProjects}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.card}>
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => navigation.navigate("taskScreen")} 
+            >
               <View style={{ flex: 1 }}>
                 <H5>{item.projectName}</H5>
                 <P>{` ${item.siteName}`}</P>
