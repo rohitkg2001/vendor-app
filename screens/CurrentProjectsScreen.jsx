@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, FlatList, TouchableOpacity } from "react-native";
-import { project } from "../utils/faker"; 
+import { projecttask } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
@@ -9,11 +9,11 @@ import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
 
-const TotalProjectsScreen = () => {
+const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const filteredProjects = project.filter((item) =>
+  const filteredProjects = projecttask.filter((item) =>
     item.projectName.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -31,14 +31,14 @@ const TotalProjectsScreen = () => {
     <ContainerComponent>
       <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
         <MyHeader
-          title="Total Projects"
+          title="Current Projects"
           hasIcon={true}
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />
 
         <SearchBar
-          placeholder="Search projects..."
+          placeholder="Search current projects..."
           value={searchText}
           onChangeText={setSearchText}
         />
@@ -51,7 +51,6 @@ const TotalProjectsScreen = () => {
               <View style={{ flex: 1 }}>
                 <H5>{item.projectName}</H5>
                 <P>{`Duration: ${item.duration}`}</P>
-                <P>{`Status: ${item.status}`}</P>
               </View>
             </TouchableOpacity>
           )}
@@ -67,4 +66,4 @@ const TotalProjectsScreen = () => {
   );
 };
 
-export default TotalProjectsScreen;
+export default CurrentProjectsScreen;
