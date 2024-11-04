@@ -1,6 +1,12 @@
-
 import React, { useState, useRef } from "react";
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from "react-native";
 import { Card, Button } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
@@ -31,8 +37,11 @@ const FileUploadScreen = () => {
     if (photos.length > 0) {
       console.log("Uploading photos:", photos);
       console.log("Description:", description);
+      Alert.alert("Success", "Data Collected Successfully", [
+        { text: "OK", onPress: () => handleCancel() }, // Optionally clear state after confirmation
+      ]);
     } else {
-      console.log("No photos to upload");
+      Alert.alert("Error", "No photos to upload");
     }
   };
 
@@ -62,21 +71,18 @@ const FileUploadScreen = () => {
 
             {/* Take Photo Button */}
             <Button
-              style={[
-                styles.bgPrimary,
-                { justifyContent: "center" },
-              ]}
+              style={[styles.bgPrimary, { justifyContent: "center" }]}
               mode="outlined"
               onPress={handleTakePicture}
             >
-              <H5 style={[styles.btnText, styles.textLarge, typography.textLight]}>
+              <H5
+                style={[styles.btnText, styles.textLarge, typography.textLight]}
+              >
                 Take Photo
               </H5>
             </Button>
 
             {photoMessage && <P>{photoMessage}</P>}
-
-           
 
             {/* Display Photos */}
             <View style={styles.photoRow}>
@@ -94,7 +100,8 @@ const FileUploadScreen = () => {
                 </View>
               ))}
             </View>
-             {/* Description Box */}
+
+            {/* Description Box */}
             <TextInput
               style={{
                 height: 100,
@@ -112,7 +119,9 @@ const FileUploadScreen = () => {
           </Card.Content>
 
           {/* Actions - Cancel and Upload Buttons */}
-          <Card.Actions style={[styles.actions, { justifyContent: "space-between" }]}>
+          <Card.Actions
+            style={[styles.actions, { justifyContent: "space-between" }]}
+          >
             <Button onPress={handleCancel} style={{ paddingVertical: 4 }}>
               Cancel
             </Button>
