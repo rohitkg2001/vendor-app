@@ -66,17 +66,17 @@ export default function MyStackNavigator() {
       {/* <Stack.Screen name="CheckOut" component={CheckOut}/> */}
       {/* <Stack.Screen name="SuccessModal" component={SuccessModal}/> */}
       <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-      <Stack.Screen name="InternalSetting" component={InternalSetting} />
+      <Stack.Screen name="internalSetting" component={InternalSetting} />
       <Stack.Screen name="TaskCardScreen" component={TaskCardScreen} />
       <Stack.Screen name="ToDoTaskCardScreen" component={ToDoTaskCardScreen} />
       <Stack.Screen name="NoRecord" component={NoRecord} />
       <Stack.Screen name="NoTask" component={NoTask} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="orderScreen" component={OrderScreen} />
-      <Stack.Screen name="TotalEarningScreen" component={TotalEarningScreen} />
+      <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
       <Stack.Screen
-        name="TotalProjectsScreen"
+        name="totalProjectsScreen"
         component={TotalProjectsScreen}
       />
       <Stack.Screen

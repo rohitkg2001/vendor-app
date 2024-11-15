@@ -26,32 +26,12 @@ export default function DashboardScreen() {
   const navigation = useNavigation();
   const today = useState(moment().format("DD MMM YYYY"));
 
-  const navigateToTotalProjectsScreen = () => {
-    navigation.navigate("TotalProjectsScreen");
-  };
-
-  const navigateToTaskCardScreen = () => {
-    navigation.navigate("TaskCardScreen");
-  };
-
-  const navigateToToDoTaskCardScreen = () => {
-    navigation.navigate("ToDoTaskCardScreen");
-  };
 
   const navigateToNoRecord = () => {
     navigation.navigate("NoRecord");
   };
   const navigateToNoTask = () => {
     navigation.navigate("NoTask");
-  };
-  const navigateToOrderScreen = () => {
-    navigation.navigate("orderScreen");
-  };
-  const navigateToTotalEarningScreen = () => {
-    navigation.navigate("TotalEarningScreen");
-  };
-  const navigateTorequirementsScreen = () => {
-    navigation.navigate("requirementsScreen");
   };
 
   const firstFourTasks = tasks.slice(0, 4);
@@ -128,26 +108,13 @@ export default function DashboardScreen() {
           renderItem={({ item, index }) => {
             const isRightColumn = index % 2 !== 0;
             const marginTop = isRightColumn ? 20 : 0;
-
-            const handlePress = () => {
-              if (item.id === 1) {
-                navigateToTotalProjectsScreen();
-              } else if (index === 1) {
-                navigateToTotalEarningScreen();
-              } else if (index === 2) {
-                navigateTorequirementsScreen();
-              } else if (index === 3) {
-                navigateToOrderScreen();
-              }
-            };
-
             return (
               <StatCard
                 key={item.id}
                 backgroundColor={item.backgroundColor}
                 tasks={item.count}
                 status={item.status}
-                onPress={handlePress}
+                onPress={() => navigation.navigate(item.page)}
                 style={{ marginTop }}
               />
             );
