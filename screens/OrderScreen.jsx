@@ -35,11 +35,11 @@ const OrderScreen = () => {
         <MyHeader
           title="Orders"
           hasIcon={true}
+          isBack={true}
           icon={"ellipsis-vertical"}
-          onIconPress={toggleMenu} 
+          onIconPress={toggleMenu}
         />
 
-   
         <SearchBar
           placeholder="Search orders..."
           value={searchText}
@@ -53,7 +53,7 @@ const OrderScreen = () => {
             <TouchableOpacity style={styles.card}>
               <Image
                 source={{ uri: item.url }}
-                loadingIndicatorSource={require('../assets/img15.png')}
+                loadingIndicatorSource={require("../assets/img15.png")}
                 style={{
                   width: 60,
                   height: 60,
@@ -72,11 +72,10 @@ const OrderScreen = () => {
           )}
         />
 
-      
         <Filter
           visible={isMenuVisible}
           onClose={toggleMenu}
-          options={menuOptions} 
+          options={menuOptions}
         />
       </View>
     </ContainerComponent>

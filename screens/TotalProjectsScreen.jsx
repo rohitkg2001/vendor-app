@@ -35,13 +35,10 @@ const TotalProjectsScreen = () => {
           hasIcon={true}
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
+          isBack={true}
+        
         />
 
-        {/* <SearchBar
-          placeholder="Search projects..."
-          value={searchText}
-          onChangeText={setSearchText}
-        /> */}
         <View
           style={{
             flexDirection: "row",
