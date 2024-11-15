@@ -12,6 +12,7 @@ export const tasks = [
     description: "This is task 1",
     count: 28,
     status: "Total Projects ",
+    page : "totalProjectsScreen" ,
     backgroundColor: "#A0D3E8",
   },
   {
@@ -20,6 +21,7 @@ export const tasks = [
     description: "This is task 2",
     count: 31,
     status: "Total Earning",
+    page : "totalEarningScreen",
     backgroundColor: "#C8E6C9",
   },
   {
@@ -28,6 +30,7 @@ export const tasks = [
     description: "This is task 3",
     count: 24,
     status: "Total Sites",
+    page : "requirementsScreen",
     backgroundColor: "#E1BEE7",
   },
   {
@@ -36,6 +39,7 @@ export const tasks = [
     description: "This is task 4",
     count: 7,
     status: "Inventory",
+    page : "orderScreen" ,
     backgroundColor: "#F8BBD0",
   },
   {
@@ -128,10 +132,6 @@ export const tasksData = [
     installation: "Install the panel on top of the platform of 5kw of power.",
   },
 ];
-
-
-
-
 
 export const orders = [
   {
@@ -405,11 +405,11 @@ export const contactsData = [
 ];
 
 export const menuItems = [
-  { label: "Site Inventory", icon: "cart-outline" },
+  { label: "Site Inventory", icon: "cart-outline", page: "requisitions" },
   { label: "Reports", page: "", icon: "pie-chart-outline" },
   { label: "My Projects", page: "", icon: "grid-outline" },
   { label: "My Tasks", page: "", icon: "grid-outline" },
-  { label: "Settings", page: "", icon: "cog-outline" },
+  { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting" },
 ];
 export const internal = [
   {
@@ -788,7 +788,6 @@ export const staff = {
   created_date: "",
 };
 
-// taskData.js
 export const taskslist = [
   {
     id: 1,

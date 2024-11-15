@@ -17,22 +17,7 @@ export default function SettingsScreen() {
     console.log("Logout pressed");
     navigation.navigate("loginScreen");
   };
-
-  const handleInternalSetting = () => {
-    console.log("Navigating to Internal Setting");
-    navigation.navigate("InternalSetting");
-  };
-
-  const handlerequisitions = () => {
-    console.log("Navigating to RequisitionScreen");
-    navigation.navigate("requisitions");
-  };
-
-  const handleHolidayList = () => {
-    console.log("Navigating to HolidayListScreen");
-    navigation.navigate("HolidayListScreen");
-  };
-
+  
   return (
     <ContainerComponent justifyContent="space-between">
       <ProfileCard
@@ -47,17 +32,7 @@ export default function SettingsScreen() {
             key={index}
             label={item.label}
             icon={item.icon}
-            onPress={() => {
-              if (item.label === "Settings") {
-                handleInternalSetting();
-              } else if (item.label === "Site Inventory") {
-                handlerequisitions();
-              } else if (item.label === "Events") {
-                handleHolidayList(); // Navigate to HolidayListScreen
-              } else {
-                navigation.navigate(item.page);
-              }
-            }}
+           onPress={() => navigation.navigate(item.page)}
           />
         ))}
       </View>
