@@ -1,23 +1,21 @@
 import React from "react";
 import { View } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
+import MyHeader from "../components/header/MyHeader";
+import MyImageBackground from "../components/MyImageBackground";
 import { H4 } from "../components/text";
-import { SCREEN_WIDTH, spacing } from "../styles";
 
 const NoTask = () => {
   return (
     <ContainerComponent>
-      <View
-        style={[
-          spacing.mh3,
-          {
-            alignItems: "center",
-            width: SCREEN_WIDTH - 16,
-            paddingVertical: 10,
-          },
-        ]}
-      >
-        <H4>No tasks available</H4>
+      <View>
+        <MyHeader title="Task Management " isBack={true} hasIcon={true} />
+
+        <MyImageBackground imageSource={require("../assets/norecode.png")}>
+          <View>
+            <H4>No tasks available</H4>
+          </View>
+        </MyImageBackground>
       </View>
     </ContainerComponent>
   );

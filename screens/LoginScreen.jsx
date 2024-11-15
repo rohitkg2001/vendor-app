@@ -14,7 +14,7 @@ import MyTextInput from "../components/input/MyTextInput";
 import Button from "../components/buttons/Button";
 import { styles } from "../styles/components.styles";
 import { layouts, spacing, typography } from "../styles";
-import { login } from "../redux/actions"; 
+import { login } from "../redux/actions";
 import Icon from "react-native-vector-icons/Ionicons";
 
 export default function LoginScreen() {
@@ -31,7 +31,7 @@ export default function LoginScreen() {
   const onSubmit = async () => {
     setError("");
     try {
-      const result = await login(username, password); 
+      const result = await login(username, password);
       if (result) {
         navigation.navigate("homeScreen");
       } else {
@@ -47,7 +47,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <MyImageBackground>
+    <MyImageBackground imageSource={require("../assets/Login.png")}>
       <ScrollView style={{ flex: 1 }}>
         <View style={[layouts.center, spacing.mv5]}>
           <H1 style={spacing.mv2}>Welcome Back</H1>
@@ -82,7 +82,7 @@ export default function LoginScreen() {
             >
               <Icon
                 name={isPasswordVisible ? "eye-off" : "eye"}
-                size={20}
+                size={30}
                 color="gray"
               />
             </TouchableOpacity>

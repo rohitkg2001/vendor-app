@@ -36,12 +36,6 @@ const TotalProjectsScreen = () => {
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />
-
-        {/* <SearchBar
-          placeholder="Search projects..."
-          value={searchText}
-          onChangeText={setSearchText}
-        /> */}
         <View
           style={{
             flexDirection: "row",
@@ -49,7 +43,7 @@ const TotalProjectsScreen = () => {
             marginVertical: 4,
           }}
         ></View>
-        <View style={{ width: "80%" }}>
+        <View style={{ width: "30%" }}>
           <SearchBar
             placeholder="Search projects..."
             value={searchText}
