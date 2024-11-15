@@ -35,6 +35,8 @@ const TotalProjectsScreen = () => {
           hasIcon={true}
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
+          isBack={true}
+        
         />
         <View
           style={{

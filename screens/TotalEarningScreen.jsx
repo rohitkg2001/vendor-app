@@ -33,6 +33,7 @@ const TotalEarningScreen = () => {
         <MyHeader
           title="Total Earnings"
           hasIcon={true}
+          isBack={true}
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />

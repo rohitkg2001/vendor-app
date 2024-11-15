@@ -36,6 +36,7 @@ const CurrentProjectsScreen = () => {
         <MyHeader
           title="Current Projects"
           hasIcon={true}
+          isBack={true}
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />
@@ -52,7 +53,7 @@ const CurrentProjectsScreen = () => {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.card}
-              onPress={() => navigation.navigate("taskScreen")} 
+              onPress={() => navigation.navigate("taskScreen")}
             >
               <View style={{ flex: 1 }}>
                 <H5>{item.projectName}</H5>

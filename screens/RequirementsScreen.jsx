@@ -42,7 +42,12 @@ const RequirementsScreen = () => {
 
   return (
     <ContainerComponent>
-      <MyHeader title="Total Sites" hasIcon={true} icon={"ellipsis-vertical"} />
+      <MyHeader
+        title="Total Sites"
+        hasIcon={true}
+        icon={"ellipsis-vertical"}
+        isBack={true}
+      />
       <FlatList
         data={requirementsData}
         renderItem={renderListItem}
