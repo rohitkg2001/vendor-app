@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, FlatList, TouchableOpacity } from "react-native";
-import { project } from "../utils/faker"; 
+import { project } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
@@ -37,11 +37,25 @@ const TotalProjectsScreen = () => {
           onIconPress={toggleMenu}
         />
 
-        <SearchBar
+        {/* <SearchBar
           placeholder="Search projects..."
           value={searchText}
           onChangeText={setSearchText}
-        />
+        /> */}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 4,
+          }}
+        ></View>
+        <View style={{ width: "80%" }}>
+          <SearchBar
+            placeholder="Search projects..."
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+        </View>
 
         <FlatList
           data={filteredProjects}
