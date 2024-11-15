@@ -55,6 +55,7 @@ const PurchaseOrderScreen = () => {
           placeholder="Search Project Code or Name"
           value={searchQuery}
           onChangeText={handleSearch}
+          style={{ marginLeft: 4 }}
         />
 
         <Button
