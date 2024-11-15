@@ -36,9 +36,9 @@ const CurrentProjectsScreen = () => {
         <MyHeader
           title="Current Projects"
           hasIcon={true}
-          isBack={true}
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
+          isBack={true}
         />
 
         <SearchBar

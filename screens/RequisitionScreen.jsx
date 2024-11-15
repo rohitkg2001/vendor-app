@@ -44,6 +44,7 @@ const RequisitionScreen = ({ navigation }) => {
           placeholder="Search requisitions"
           value={searchText}
           onChangeText={setSearchText}
+          style={{ marginLeft: 4 }}
         />
 
         <ScrollView>
