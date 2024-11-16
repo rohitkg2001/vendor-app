@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Checkbox as PaperCheckbox } from "react-native-paper";
 import { styles } from "../../styles/components.styles";
@@ -7,10 +7,20 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from "../../styles/constant";
 
 export default function CustomCheckbox({
   label,
-  isChecked,
+  initialChecked = false, 
   onPress,
   ...textStyle
 }) {
+  const [isChecked, setIsChecked] = useState(initialChecked);
+
+  const handlePress = () => {
+    const newCheckedState = !isChecked;
+    setIsChecked(newCheckedState);
+    if (onPress) {
+      onPress(newCheckedState); 
+    }
+  };
+
   return (
     <View
       style={{
@@ -22,7 +32,7 @@ export default function CustomCheckbox({
       <PaperCheckbox
         status={isChecked ? "checked" : "unchecked"}
         color={isChecked ? PRIMARY_COLOR : SECONDARY_COLOR}
-        onPress={onPress}
+        onPress={handlePress}
         rippleColor={PRIMARY_COLOR}
       />
       {label && <H5 style={{ fontWeight: "bold", ...textStyle }}>{label}</H5>}

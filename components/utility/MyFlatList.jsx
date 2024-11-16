@@ -13,7 +13,7 @@ export default function MyFlatList({
   ...props
 }) {
   return (
-    <View style={styles.container}>
+    <View >
       {loading ? (
         <ActivityIndicator size="large" color={PRIMARY_COLOR} />
       ) : (

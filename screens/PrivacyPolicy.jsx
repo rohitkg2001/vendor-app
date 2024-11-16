@@ -1,27 +1,16 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import MyHeader from "../components/header/MyHeader";
-import CustomCheckbox from "../components/input/CustomCheckbox";
-import Button from "../components/buttons/Button";
 import { H6, H2, P } from "../components/text";
 import { styles } from "../styles/components.styles";
 import ContainerComponent from "../components/ContainerComponent";
 
 const PrivacyPolicy = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsChecked((prev) => !prev);
     console.log("Checkbox state changed:", !isChecked);
-  };
-
-  const onSubmit = () => {
-    console.log("Submit clicked, checkbox is checked:", isChecked);
-    if (isChecked) {
-      alert("You have accepted the privacy policy.");
-    } else {
-      alert("Please accept the privacy policy to proceed.");
-    }
   };
 
   return (
@@ -52,25 +41,9 @@ const PrivacyPolicy = () => {
             are continually updated to adapt to evolving security threats and
             industry standards.
           </P>
-
-          <View style={styles.checkboxContainer}>
-            <CustomCheckbox
-              isChecked={isChecked}
-              onPress={handleCheckboxChange}
-              label="I accept the Privacy Policy"
-            />
-          </View>
-
-          <Button
-            style={[styles.btn, styles.bgPrimary, { justifyContent: "center" }]}
-            onPress={onSubmit}
-          >
-            <H2>Submit</H2>
-          </Button>
         </ScrollView>
       </View>
     </ContainerComponent>
   );
 };
-
 export default PrivacyPolicy;
