@@ -6,6 +6,7 @@ import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
 import { H6, P } from "../components/text";
+import MyFlatList from "../components/utility/MyFlatList";
 
 const RequirementsScreen = () => {
   const renderListItem = ({ item }) => (
@@ -28,14 +29,6 @@ const RequirementsScreen = () => {
             Location: {item.location}
           </P>
         </View>
-        <IconButton
-          icon="triangle-outline"
-          size={20}
-          color="#020409"
-          style={{
-            marginRight: 0,
-          }}
-        />
       </View>
     </Card>
   );
@@ -48,7 +41,7 @@ const RequirementsScreen = () => {
         icon={"ellipsis-vertical"}
         isBack={true}
       />
-      <FlatList
+      <MyFlatList
         data={requirementsData}
         renderItem={renderListItem}
         keyExtractor={(item) => item.id}

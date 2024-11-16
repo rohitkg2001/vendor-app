@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Checkbox } from "react-native-paper";
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import { requisitions } from "../utils/faker";
@@ -9,6 +8,7 @@ import Button from "../components/buttons/Button";
 import { styles } from "../styles/components.styles";
 import { H2, H5, H6, P } from "../components/text";
 import { SCREEN_WIDTH, spacing, typography } from "../styles";
+import CustomCheckbox from "../components/input/CustomCheckbox";
 
 const RequisitionScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
@@ -38,7 +38,6 @@ const RequisitionScreen = ({ navigation }) => {
           icon="pencil"
           onIconPress={handleSearchIconPress}
         />
-        <View style={{ marginVertical: 4 }}></View>
 
         <SearchBar
           placeholder="Search requisitions"
@@ -99,7 +98,7 @@ const ListItem = ({
       ]}
     >
       <View style={styles.leftContainer}>
-        <Checkbox
+        <CustomCheckbox
           status={checked ? "checked" : "unchecked"}
           onPress={onToggle}
           color="#76885B"
@@ -113,9 +112,9 @@ const ListItem = ({
       <View style={styles.rightContainer}>
         <H6>{date}</H6>
         <H5>{amount}</H5>
-        <TouchableOpacity style={styles.actionButton} onPress={onActionPress}>
+        <Button style={styles.actionButton} onPress={onActionPress}>
           <Text style={styles.actionButtonText}>Edit</Text>
-        </TouchableOpacity>
+        </Button>
       </View>
     </View>
   );

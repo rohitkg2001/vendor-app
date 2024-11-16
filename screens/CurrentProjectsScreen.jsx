@@ -10,6 +10,7 @@ import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
+import MyFlatList from "../components/utility/MyFlatList"
 
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
@@ -47,7 +48,7 @@ const CurrentProjectsScreen = () => {
           onChangeText={setSearchText}
         />
 
-        <FlatList
+        <MyFlatList
           data={filteredProjects}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (

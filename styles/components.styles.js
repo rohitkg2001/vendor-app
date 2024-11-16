@@ -158,34 +158,8 @@ export const styles = StyleSheet.create({
   fullWidth: {
     width: SCREEN_WIDTH,
   },
-  progressBarContainer: {
-    width: "90%",
-    borderRadius: 6,
-    overflow: "hidden",
-  },
-  progressBar: {
-    height: "100%",
-    borderRadius: 6,
-  },
-  snackbar: {
-    position: "absolute",
-    bottom: 10,
-    left: 8,
-    right: 8,
-    borderRadius: 8,
-    padding: 8,
-    flexDirection: "row",
-    minHeight: 48,
-    alignItems: "center",
-    justifyContent: "space-between",
-    elevation: 2,
-    zIndex: 1000,
-  },
-  snackMessage: {
-    maxWidth: SCREEN_WIDTH / 1.6,
-    fontSize: 16,
-    color: LIGHT,
-  },
+ 
+  
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -381,11 +355,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
   },
-  progressBar: {
-    height: 6,
-    borderRadius: 3,
-    marginBottom: 8,
-  },
+ 
 
   // Attendancescreen
 
@@ -628,7 +598,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
   },
-
   checkoutButton: {
     backgroundColor: PRIMARY_COLOR,
     borderRadius: 100,
@@ -767,11 +736,7 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 15,
   },
-  progressBar: {
-    height: 10,
-    borderRadius: 5,
-    marginVertical: 10,
-  },
+  
   progressText: {
     fontWeight: "bold",
     marginTop: 6,
@@ -784,7 +749,6 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  //OrderScreen
   quantityContainer: {
     position: "absolute",
     bottom: 0,
@@ -797,7 +761,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
-  //pupop
+  
   popupMenu: {
     position: "absolute",
     top: 50,
@@ -808,7 +772,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 5,
   },
-  //camera
+  
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",
