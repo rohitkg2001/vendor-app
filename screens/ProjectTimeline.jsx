@@ -39,9 +39,6 @@ export default function ProjectTimelineScreen() {
     setDates(getDaysArrayByMonth().reverse())
     console.log(activeDate)
   }, [])
-
-
-
   return (
     <ContainerComponent>
       <MyHeader title="Project Timeline" />
