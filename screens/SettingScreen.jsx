@@ -1,14 +1,15 @@
 import React from "react";
-import ProfileCard from "../components/ProfileCard";
-import MenuItem from "../components/MenuItem";
-import { menuItems } from "../utils/faker";
-import ContainerComponent from "../components/ContainerComponent";
-import { View, TouchableOpacity } from "react-native";
-import { H5 } from "../components/text";
-import { DANGER_COLOR } from "../styles/constant";
+import { View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import ProfileCard from "../components/ProfileCard";
+import MenuItem from "../components/MenuItem";
+import ContainerComponent from "../components/ContainerComponent";
+import { H5 } from "../components/text";
+import { DANGER_COLOR } from "../styles/constant";
 import { staff } from "../utils/faker";
+import { Button } from "../components/buttons/Button"
+import { menuItems } from "../utils/faker";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -37,7 +38,7 @@ export default function SettingsScreen() {
         ))}
       </View>
 
-      <TouchableOpacity
+      <Button
         style={{
           marginBottom: 8,
           justifyContent: "center",
@@ -47,7 +48,7 @@ export default function SettingsScreen() {
       >
         <Icon name="power-outline" size={24} color={DANGER_COLOR} />
         <H5 style={{ color: DANGER_COLOR }}>Logout</H5>
-      </TouchableOpacity>
+      </Button>
     </ContainerComponent>
   );
 }
