@@ -20,7 +20,7 @@ const TotalProjectsScreen = ({ navigation }) => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
+      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 4 }]}>
         <MyHeader
           isBack
           title="Total Projects"
@@ -33,14 +33,10 @@ const TotalProjectsScreen = ({ navigation }) => {
           placeholder="Search projects..."
           value={searchText}
           onChangeText={setSearchText}
+          style={{ marginVertical: 8, marginHorizontal: 4 }}
         />
 
-        <ScrollView
-          contentContainerStyle={{
-            paddingHorizontal: 16,
-            // paddingVertical: 8,
-          }}
-        >
+        <ScrollView contentContainerStyle={{}}>
           {filteredProjects.map((item) => (
             <ClickableCard
               key={item.id}

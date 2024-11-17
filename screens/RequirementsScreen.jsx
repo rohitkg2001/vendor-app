@@ -1,52 +1,51 @@
-import React from "react";
-import { View, FlatList } from "react-native";
-import { Card, IconButton } from "react-native-paper";
+import React, { useState } from "react";
+import { ScrollView, View } from "react-native";
 import { requirementsData } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
-import { H6, P } from "../components/text";
-import MyFlatList from "../components/utility/MyFlatList";
+import SearchBar from "../components/input/SearchBar";
+import ClickableCard from "../components/card/Clickablecard";
+import { SCREEN_WIDTH, spacing, styles } from "../styles";
 
-const RequirementsScreen = () => {
-  const renderListItem = ({ item }) => (
-    <Card
-      style={[
-        spacing.mv1,
-        { width: SCREEN_WIDTH - 18, backgroundColor: "#ffffff" },
-      ]}
-    >
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
-        <View
-          style={{
-            flex: 1,
-            marginLeft: 16,
-          }}
-        >
-          <H6 style={[typography.textBold]}>{item.siteName}</H6>
-          <P style={{ fontSize: 14, color: "#020409" }}>Dist: {item.dist}</P>
-          <P style={{ fontSize: 14, color: "#020409" }}>
-            Location: {item.location}
-          </P>
-        </View>
-      </View>
-    </Card>
+const RequirementsScreen = ({ navigation }) => {
+  const [searchText, setSearchText] = useState("");
+
+  const filteredRequirements = requirementsData.filter((item) =>
+    item.siteName.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  const handleViewDetails = (item) => {
+    navigation.navigate("SiteDetailScreen", { item });
+  };
 
   return (
     <ContainerComponent>
-      <MyHeader
-        title="Total Sites"
-        hasIcon={true}
-        icon={"ellipsis-vertical"}
-        isBack={true}
-      />
-      <MyFlatList
-        data={requirementsData}
-        renderItem={renderListItem}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-      />
+      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 4 }]}>
+        <MyHeader
+          isBack
+          title="Total Sites"
+          hasIcon
+          icon="ellipsis-vertical"
+          onIconPress={() => console.log("Menu clicked")}
+        />
+
+        <SearchBar
+          placeholder="Search sites..."
+          value={searchText}
+          onChangeText={setSearchText}
+          style={{ marginVertical: 8, marginHorizontal: 4 }}
+        />
+
+        <ScrollView contentContainerStyle={{  }}>
+          {filteredRequirements.map((item) => (
+            <ClickableCard
+              key={item.id}
+              item={item}
+              handleViewDetails={handleViewDetails}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </ContainerComponent>
   );
 };
