@@ -23,7 +23,7 @@ export default function MyHeader({
           onPress={() => navigation.goBack()}
           style={{ marginRight: 10 }}
         >
-          <Icon name="arrow-back" size={24} color="#000" />
+          <Icon name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
       )}
       <H4 style={styles.titleText}>{title}</H4>

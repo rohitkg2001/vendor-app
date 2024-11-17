@@ -36,7 +36,7 @@ const RequirementsScreen = ({ navigation }) => {
           style={{ marginVertical: 8, marginHorizontal: 4 }}
         />
 
-        <ScrollView contentContainerStyle={{  }}>
+        <ScrollView contentContainerStyle={{}}>
           {filteredRequirements.map((item) => (
             <ClickableCard
               key={item.id}
