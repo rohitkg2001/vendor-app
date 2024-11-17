@@ -5,7 +5,7 @@ import { Card } from "react-native-paper";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { H6, P } from "../components/text";
-import MyFlatList from "./utility/MyFlatList";
+import MyFlatList from "../components/utility/MyFlatList";
 import { tasksData } from "../utils/faker";
 import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
 
@@ -14,7 +14,7 @@ const TasksScreen = () => {
 
   const renderTaskItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate("fileUploadScreen")} 
+      onPress={() => navigation.navigate("fileUploadScreen")}
     >
       <Card
         style={[

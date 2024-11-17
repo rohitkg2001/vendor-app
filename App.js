@@ -1,14 +1,15 @@
 import "react-native-gesture-handler"; //Don't ever remove this line
-import { useEffect } from "react";
 import { PaperProvider } from "react-native-paper";
-import { Provider } from "react-native-paper";
+import MyNavigationContainer from "./navigation/MyNavigationContainer";
+import { Provider } from 'react-redux'
+import store from "./store";
 
 export default function App() {
   return (
-    <Provider>
-    <PaperProvider>
-      <MyNavigationContainer />
-    </PaperProvider>
+    <Provider store={store}>
+      <PaperProvider>
+        <MyNavigationContainer />
+      </PaperProvider>
     </Provider>
   );
 }

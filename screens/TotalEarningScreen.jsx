@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { earnings } from "../utils/faker"; 
+import { earnings } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
@@ -8,7 +8,7 @@ import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
-import MyFlatList from "./utility/MyFlatList";
+import MyFlatList from "../components/utility/MyFlatList";
 
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
