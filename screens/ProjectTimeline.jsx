@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { FlatList, } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { cardtasks } from "../utils/faker";
 import DateSelector from "../components/DateSelector";
 import ProjectCard from "../components/card/ProjectCard";
 import { SCREEN_WIDTH, spacing } from "../styles";
-import moment from "moment";
+import MyFlatList from "./utility/MyFlatList";
 
 export default function ProjectTimelineScreen() {
   const [dates, setDates] = useState([
@@ -47,7 +46,7 @@ export default function ProjectTimelineScreen() {
         activeDate={activeDate}
         onSelectDate={onSelectDate}
       />
-      <FlatList
+      <MyFlatList
         data={cardtasks}
         renderItem={({ item }) => <ProjectCard task={item} />}
         keyExtractor={(item) => item.id.toString()}

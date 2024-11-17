@@ -8,7 +8,7 @@ import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
-import MyFlatList from "../components/utility/MyFlatList";
+import MyFlatList from "./utility/MyFlatList";
 
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");

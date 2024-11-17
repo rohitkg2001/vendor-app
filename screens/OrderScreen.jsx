@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, FlatList, TouchableOpacity, Text } from "react-native";
-import { orders } from "../utils/faker"; // Your orders data
+import { View, Image,  TouchableOpacity } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
@@ -8,6 +7,8 @@ import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
+import MyFlatList from "./utility/MyFlatList";
+import { orders } from "../utils/faker"; 
 
 const OrderScreen = () => {
   const [searchText, setSearchText] = useState("");
@@ -46,7 +47,7 @@ const OrderScreen = () => {
           onChangeText={setSearchText}
         />
 
-        <FlatList
+        <MyFlatList
           data={filteredOrders}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (

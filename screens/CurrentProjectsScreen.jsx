@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { projecttask } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
@@ -10,7 +10,7 @@ import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
-import MyFlatList from "../components/utility/MyFlatList"
+import MyFlatList from "./utility/MyFlatList";
 
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
