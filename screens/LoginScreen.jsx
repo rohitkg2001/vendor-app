@@ -14,8 +14,9 @@ import MyTextInput from "../components/input/MyTextInput";
 import Button from "../components/buttons/Button";
 import { styles } from "../styles/components.styles";
 import { layouts, spacing, typography } from "../styles";
-import { login } from "../redux/actions";
+import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
+import { login } from "../redux/actions/vendorActions";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
@@ -23,7 +24,7 @@ export default function LoginScreen() {
   const [error, setError] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigation = useNavigation();
-
+  const dispatch = useDispatch()
   useEffect(() => {
     setError("");
   }, []);
@@ -31,13 +32,15 @@ export default function LoginScreen() {
   const onSubmit = async () => {
     setError("");
     try {
-      const result = await login(username, password);
+      const result = await dispatch(login(username, password))
+      console.log(`login Result is ${result}`)
       if (result) {
         navigation.navigate("homeScreen");
       } else {
         setError("Please provide the correct credentials");
       }
     } catch (error) {
+      console.log(error)
       setError("An error occurred during login");
     }
   };

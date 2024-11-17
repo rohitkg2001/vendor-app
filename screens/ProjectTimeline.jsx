@@ -5,7 +5,7 @@ import { cardtasks } from "../utils/faker";
 import DateSelector from "../components/DateSelector";
 import ProjectCard from "../components/card/ProjectCard";
 import { SCREEN_WIDTH, spacing } from "../styles";
-import MyFlatList from "./utility/MyFlatList";
+import MyFlatList from "../components/utility/MyFlatList";
 
 export default function ProjectTimelineScreen() {
   const [dates, setDates] = useState([

@@ -10,12 +10,12 @@ import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
-import MyFlatList from "./utility/MyFlatList";
+import MyFlatList from "../components/utility/MyFlatList";
 
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   const filteredProjects = projecttask.filter((item) =>
     item.projectName.toLowerCase().includes(searchText.toLowerCase())
