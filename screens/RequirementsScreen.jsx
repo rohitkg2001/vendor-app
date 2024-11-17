@@ -33,7 +33,7 @@ const RequirementsScreen = ({ navigation }) => {
           placeholder="Search sites..."
           value={searchText}
           onChangeText={setSearchText}
-          style={{ marginVertical: 8, marginHorizontal: 22 }}
+          style={{ marginVertical: 8, marginHorizontal: 20 }}
         />
 
         <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
