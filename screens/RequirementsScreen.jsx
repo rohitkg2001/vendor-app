@@ -49,5 +49,4 @@ const RequirementsScreen = ({ navigation }) => {
     </ContainerComponent>
   );
 };
-
 export default RequirementsScreen;

@@ -1,19 +1,20 @@
 import React from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Card } from "react-native-paper";
-import { tasksData } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
 import { H6, P } from "../components/text";
-import { useNavigation } from "@react-navigation/native";
+import MyFlatList from "../components/utility/MyFlatList";
+import { tasksData } from "../utils/faker";
+import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
 
 const TasksScreen = () => {
   const navigation = useNavigation();
 
   const renderTaskItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate("fileUploadScreen")} 
+      onPress={() => navigation.navigate("fileUploadScreen")}
     >
       <Card
         style={[
@@ -38,7 +39,7 @@ const TasksScreen = () => {
   return (
     <ContainerComponent>
       <MyHeader title="Task List" hasIcon={true} icon={"ellipsis-vertical"} />
-      <FlatList
+      <MyFlatList
         data={tasksData}
         renderItem={renderTaskItem}
         keyExtractor={(item) => item.id.toString()}

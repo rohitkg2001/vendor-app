@@ -12,7 +12,6 @@ import TotalEarningScreen from "../screens/TotalEarningScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import InternalSetting from "../screens/InternalSetting";
-import NoRecord from "../screens/NoRecord";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import OrderScreen from "../screens/OrderScreen";
 import RequirementsScreen from "../screens/RequirementsScreen";
@@ -44,7 +43,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
       <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
       <Stack.Screen name="internalSetting" component={InternalSetting} />
-      <Stack.Screen name="NoRecord" component={NoRecord} />
       <Stack.Screen name="NoTask" component={NoTask} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="orderScreen" component={OrderScreen} />
