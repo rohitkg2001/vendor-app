@@ -1,4 +1,4 @@
-import { View, FlatList } from "react-native";
+import { View} from "react-native";
 import { Avatar, List, Divider } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";

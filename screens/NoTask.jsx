@@ -8,15 +8,12 @@ import { H4 } from "../components/text";
 const NoTask = () => {
   return (
     <ContainerComponent>
-      <View>
-        <MyHeader title="Task Management " isBack={true} hasIcon={true} />
-
-        <MyImageBackground imageSource={require("../assets/norecode.png")}>
-          <View>
-            <H4>No tasks available</H4>
-          </View>
-        </MyImageBackground>
-      </View>
+      <MyHeader title="Task Management " isBack={true} hasIcon={true} />
+      <MyImageBackground imageSource={require("../assets/norecode.png")}>
+        <View>
+          <H4>No tasks available</H4>
+        </View>
+      </MyImageBackground>
     </ContainerComponent>
   );
 };

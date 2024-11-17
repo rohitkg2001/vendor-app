@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
@@ -21,18 +21,14 @@ import {
   typography,
 } from "../styles";
 import { staff, tasks, categories } from "../utils/faker";
+import { useSelector } from "react-redux";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
   const today = useState(moment().format("DD MMM YYYY"));
+  const { userName } = useSelector(state => state);
 
 
-  const navigateToNoRecord = () => {
-    navigation.navigate("NoRecord");
-  };
-  const navigateToNoTask = () => {
-    navigation.navigate("NoTask");
-  };
 
   const firstFourTasks = tasks.slice(0, 4);
   const lastTwoTasks = tasks.slice(4, 6);
@@ -47,7 +43,7 @@ export default function DashboardScreen() {
         ]}
       >
         <View>
-          <H3 style={typography.textBold}>Good Morning, {staff.first_name}</H3>
+          <H3 style={typography.textBold}>Good Morning, {userName} </H3>
           <P style={spacing.ml1}>{today}</P>
         </View>
         <Image
@@ -80,21 +76,21 @@ export default function DashboardScreen() {
             >
               <TouchableOpacity
                 style={{ alignItems: "center" }}
-                onPress={navigateToNoRecord}
+                onPress={() => navigation.navigate('NoRecord')}
               >
                 <P style={typography.textBold}>Open</P>
                 <P>0</P>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ alignItems: "center" }}
-                onPress={navigateToNoRecord}
+                onPress={() => navigation.navigate('NoRecord')}
               >
                 <P style={typography.textBold}>Completed</P>
                 <P>0</P>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ alignItems: "center" }}
-                onPress={navigateToNoRecord}
+                onPress={() => navigation.navigate('NoRecord')}
               >
                 <P style={typography.textBold}>Hold</P>
                 <P>0</P>
@@ -159,7 +155,7 @@ export default function DashboardScreen() {
               <TouchableOpacity
                 key={item.id}
                 style={styles.gridItem}
-                onPress={navigateToNoTask}
+                onPress={() => navigation.navigate('NoTask')}
               >
                 <Icon name={item.icon} size={20} color={DARK} />
                 <P>{item.label}</P>

@@ -32,11 +32,10 @@ const ProfileScreen = () => {
             name={`${staff.first_name} ${staff.last_name}`}
             online={false}
           />
-          {/* Removed the Edit Profile button */}
         </View>
       </CardFullWidth>
       <TabNavigation
-        tabs={["Personal", "Document"]} // Removed "Job Info"
+        tabs={["Personal", "Document"]} 
         currentTab={activeTab}
         setCurrentTab={setActiveTab}
       />
