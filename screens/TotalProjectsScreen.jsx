@@ -1,77 +1,51 @@
 import React, { useState } from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
+import { ScrollView , View} from "react-native";
 import { project } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
-import { SCREEN_WIDTH, spacing } from "../styles";
-import { styles } from "../styles/components.styles";
 import MyHeader from "../components/header/MyHeader";
-import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
-import Filter from "../components/filters";
+import ClickableCard from "../components/card/Clickablecard";
+import { SCREEN_WIDTH, spacing, styles } from "../styles";
 
-const TotalProjectsScreen = () => {
+const TotalProjectsScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const filteredProjects = project.filter((item) =>
     item.projectName.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
+  const handleViewDetails = (item) => {
+    navigation.navigate("ProjectDetailScreen", { item });
   };
-
-  const menuOptions = [
-    { label: "Search", onPress: () => console.log("Search clicked") },
-    { label: "Sort", onPress: () => console.log("Sort clicked") },
-    { label: "Filter", onPress: () => console.log("Filter clicked") },
-  ];
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
+      <View style={[spacing.mh1, { width: SCREEN_WIDTH - -32 }]}>
         <MyHeader
+          isBack
           title="Total Projects"
-          hasIcon={true}
-          icon={"ellipsis-vertical"}
-          onIconPress={toggleMenu}
-          isBack={true}
-        
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: 4,
-          }}
-        ></View>
-        <View style={{ width: "30%" }}>
-          <SearchBar
-            placeholder="Search projects..."
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-        </View>
-
-        <FlatList
-          data={filteredProjects}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity style={styles.card}>
-              <View style={{ flex: 1 }}>
-                <H5>{item.projectName}</H5>
-                <P>{`Duration: ${item.duration}`}</P>
-                <P>{`Status: ${item.status}`}</P>
-              </View>
-            </TouchableOpacity>
-          )}
+          hasIcon
+          icon="ellipsis-vertical"
+          onIconPress={() => console.log("Menu clicked")}
         />
 
-        <Filter
-          visible={isMenuVisible}
-          onClose={toggleMenu}
-          options={menuOptions}
+        <SearchBar
+          placeholder="Search projects..."
+          value={searchText}
+          onChangeText={setSearchText}
+          style={{ marginVertical: 8, marginHorizontal: 22 }}
         />
+
+        <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
+          {filteredProjects.map((item) => (
+            <ClickableCard
+              key={item.id}
+              item={item}
+              handleViewDetails={handleViewDetails}
+              isProject={true}
+            />
+          ))}
+        </ScrollView>
       </View>
     </ContainerComponent>
   );
