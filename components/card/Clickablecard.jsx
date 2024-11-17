@@ -3,11 +3,7 @@ import { Card } from "react-native-paper";
 import { H6, P } from "../text";
 import { spacing, typography, SCREEN_WIDTH, LIGHT } from "../../styles";
 
-export default function ClickableCard({
-  item,
-  handleViewDetails,
-  isProject = false,
-}) {
+export default function ClickableCard({ item, handleViewDetails }) {
   return (
     <TouchableOpacity>
       <Card

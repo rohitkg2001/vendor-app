@@ -9,6 +9,7 @@ import ClickableCard from "../components/card/Clickablecard";
 import { styles } from "../styles/components.styles";
 import { H2 } from "../components/text";
 import { typography } from "../styles";
+
 const RequisitionScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
 
