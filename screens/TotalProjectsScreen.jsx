@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView , View} from "react-native";
+import { ScrollView, View } from "react-native";
 import { project } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -20,7 +20,7 @@ const TotalProjectsScreen = ({ navigation }) => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - -32 }]}>
+      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
         <MyHeader
           isBack
           title="Total Projects"
@@ -33,10 +33,14 @@ const TotalProjectsScreen = ({ navigation }) => {
           placeholder="Search projects..."
           value={searchText}
           onChangeText={setSearchText}
-          style={{ marginVertical: 8, marginHorizontal: 22 }}
         />
 
-        <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
+        <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: 16,
+            // paddingVertical: 8,
+          }}
+        >
           {filteredProjects.map((item) => (
             <ClickableCard
               key={item.id}

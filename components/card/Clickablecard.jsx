@@ -6,7 +6,7 @@ import { spacing, typography, SCREEN_WIDTH, LIGHT } from "../../styles";
 export default function ClickableCard({
   item,
   handleViewDetails,
-  isProject = false, 
+  isProject = false,
 }) {
   return (
     <TouchableOpacity onPress={() => handleViewDetails(item)}>
