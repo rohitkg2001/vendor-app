@@ -1,10 +1,28 @@
 import { LOGIN_VENDOR } from "../constant";
+import moment from "moment";
+import { staff } from '../../utils/faker'
+
+export const greet = () => {
+    // Write a logic to get morning, afternoon, evening and night as per time from moment
+    const currentTime = moment().format('HH');
+    console.log(currentTime)
+    if (0 < currentTime && currentTime < 12) {
+        return 'Good Morning';
+    }
+    else if (12 < currentTime && currentTime < 16) {
+        return 'Good Afternoon'
+    }
+    else if (16 < currentTime && currentTime < 21) {
+        return 'Good Evening'
+    } else {
+        return 'Come Tomorrow'
+    }
+}
 
 export const login = (user, pass) => async (dispatch) => {
-    console.log(user, pass)
-    if (user === "abc" && pass === "123") {
-        const user = { userId: 1, userName: "rakesh.sharma", password: "1234", sessionId: "ABC123" }
-        await dispatch({ type: LOGIN_VENDOR, payload: user })
+
+    if (user === staff.email && pass === staff.password) {
+        await dispatch({ type: LOGIN_VENDOR, payload: staff })
         return true
     } else {
         return false

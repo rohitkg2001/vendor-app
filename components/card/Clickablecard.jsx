@@ -8,49 +8,46 @@ export default function ClickableCard({
   handleViewDetails,
   isProject = false,
   isRequisition = false,
-
+  isSite = false
 }) {
   return (
-    <TouchableOpacity onPress={() => handleViewDetails(item)}>
-      accessibilityLabel=
-      {`View details for ${
-        item.projectName || item.requisitionName || item.siteName
-      }`}
-      <Card
-        style={[
-          spacing.mv1,
-          {
-            width: SCREEN_WIDTH - 16,
-            backgroundColor: LIGHT,
-            marginHorizontal: 8,
-          },
-        ]}
+    <Card
+      style={[
+        spacing.mv1,
+        {
+          width: SCREEN_WIDTH - 16,
+          backgroundColor: LIGHT,
+          marginHorizontal: 8,
+        },
+      ]}
+      onPress={() => handleViewDetails(item)}
+    >
+      <View
+        style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
       >
-        <View
-          style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
-        >
-          <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
 
-            {isProject ? (
-              <>
-                <H6 style={[typography.textBold]}>{item.projectName}</H6>
-                <P style={{ fontSize: 14 }}>Duration: {item.duration}</P>
-                <P style={{ fontSize: 14 }}>Status: {item.status}</P>
-              </>
-            ) : (
-              
-              <>
-                <H6 style={[typography.textBold]}>
-                  {item.siteName || item.id}
-                </H6>
-                <P style={{ fontSize: 14 }}>Location: {item.location}</P>
-                <P style={{ fontSize: 14 }}>Date: {item.date}</P>
-                <P style={{ fontSize: 14 }}>Amount: {item.amount}</P>
-              </>
-            )}
-          </View>
+          {isProject && (
+            <>
+              <H6 style={[typography.textBold]}>{item.projectName}</H6>
+              <P style={{ fontSize: 14 }}>Duration: {item.duration}</P>
+              <P style={{ fontSize: 14 }}>Status: {item.status}</P>
+            </>
+          )
+          }
+          {isSite && (
+
+            <>
+              <H6 style={[typography.textBold]}>
+                {item.siteName || item.id}
+              </H6>
+              <P style={{ fontSize: 14 }}> {item.location},{item.dist}</P>
+              {/* FIXME: */}
+            </>
+          )}
         </View>
-      </Card>
-    </TouchableOpacity>
+      </View>
+    </Card>
+
   );
 }

@@ -22,11 +22,18 @@ import {
 } from "../styles";
 import { staff, tasks, categories } from "../utils/faker";
 import { useSelector } from "react-redux";
+import { greet } from "../redux/actions/vendorActions";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
   const today = useState(moment().format("DD MMM YYYY"));
-  const { userName } = useSelector(state => state);
+  const [greeting, setGreeting] = useState("Good morning")
+  const { first_name } = useSelector(state => state);
+
+  useEffect(() => {
+    setGreeting(greet())
+  }, [])
+
 
 
 
@@ -43,7 +50,7 @@ export default function DashboardScreen() {
         ]}
       >
         <View>
-          <H3 style={typography.textBold}>Good Morning, {userName} </H3>
+          <H3 style={typography.textBold}>{greeting}, {first_name} </H3>
           <P style={spacing.ml1}>{today}</P>
         </View>
         <Image
@@ -77,13 +84,15 @@ export default function DashboardScreen() {
               <TouchableOpacity
                 style={{ alignItems: "center" }}
                 onPress={() => navigation.navigate('NoRecord')}
+              // TODO: change the path on project overview
               >
                 <P style={typography.textBold}>Open</P>
-                <P>0</P>
+                <P></P>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ alignItems: "center" }}
                 onPress={() => navigation.navigate('NoRecord')}
+              // TODO: change the path on project overview
               >
                 <P style={typography.textBold}>Completed</P>
                 <P>0</P>
@@ -91,6 +100,7 @@ export default function DashboardScreen() {
               <TouchableOpacity
                 style={{ alignItems: "center" }}
                 onPress={() => navigation.navigate('NoRecord')}
+              // TODO: change the path on project overview
               >
                 <P style={typography.textBold}>Hold</P>
                 <P>0</P>
