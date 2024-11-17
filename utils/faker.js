@@ -70,7 +70,7 @@ export const sites = [
   },
 ];
 
-export const project = [
+export const projects = [
   {
     id: 1,
     sites: [1, 2],
@@ -97,58 +97,20 @@ export const project = [
   },
 ];
 
+
+
 export const tasks = [
   {
     id: 1,
+    projectId: 1,
     title: "Task 1",
     description: "This is task 1",
-    count: 28,
-    status: "Total Projects ",
-    page: "totalProjectsScreen",
-    backgroundColor: "#A0D3E8",
-  },
-  {
-    id: 2,
-    title: "Task 2",
-    description: "This is task 2",
-    count: 31,
-    status: "Total Earning",
-    page: "totalEarningScreen",
-    backgroundColor: "#C8E6C9",
-  },
-  {
-    id: 3,
-    title: "Task 3",
-    description: "This is task 3",
-    count: 24,
-    status: "Total Sites",
-    page: "requirementsScreen",
-    backgroundColor: "#E1BEE7",
-  },
-  {
-    id: 4,
-    title: "Task 4",
-    description: "This is task 4",
-    count: 7,
-    status: "Inventory",
-    page: "orderScreen",
-    backgroundColor: "#F8BBD0",
-  },
-  {
-    id: 5,
-    title: "Task 5",
-    description: "This is task 5",
-    count: 12,
-    status: "Inventory",
-    backgroundColor: "#FFF9C4",
-  },
-  {
-    id: 6,
-    title: "Task 6",
-    description: "This is task 5",
-    count: 12,
-    status: "Inventory",
-    backgroundColor: "#FFABAB",
+    start_date: "15-11-2024",
+    end_date: "16-11-2024",
+    assigned_by: "Sumit Ranjan",
+    assigned_to: 1,
+    approved_by: null,
+    status: 0
   },
 ];
 

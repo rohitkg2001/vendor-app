@@ -20,9 +20,10 @@ import {
   styles,
   typography,
 } from "../styles";
-import { staff, tasks, categories } from "../utils/faker";
+import { staff, tasks, categories, projects } from "../utils/faker";
 import { useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
+import { ongoingProjects, projectCounts, statCards } from "../redux/actions/projectActions";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -33,12 +34,6 @@ export default function DashboardScreen() {
   useEffect(() => {
     setGreeting(greet())
   }, [])
-
-
-
-
-  const firstFourTasks = tasks.slice(0, 4);
-  const lastTwoTasks = tasks.slice(4, 6);
 
   return (
     <ContainerComponent>
@@ -68,49 +63,37 @@ export default function DashboardScreen() {
           ]}
         >
           <CardFullWidth backgroundColor={LIGHT}>
-            <View style={[styles.row, spacing.mr5, { alignItems: "center" }]}>
+            <View style={[styles.row, spacing.mr5, spacing.bbw05, spacing.mv1, spacing.pv1, { alignItems: "center" }]}>
               <Icon name="calendar-clear" size={34} color={PRIMARY_COLOR} />
               <H5 style={[typography.textBold, { marginRight: 130 }]}>
                 Project Overview
               </H5>
             </View>
-            <View style={[spacing.bbw05, spacing.mv1]} />
+
             <View
               style={[
                 styles.row,
                 { justifyContent: "space-between", paddingVertical: 10 },
               ]}
             >
-              <TouchableOpacity
-                style={{ alignItems: "center" }}
-                onPress={() => navigation.navigate('NoRecord')}
-              // TODO: change the path on project overview
-              >
-                <P style={typography.textBold}>Open</P>
-                <P></P>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ alignItems: "center" }}
-                onPress={() => navigation.navigate('NoRecord')}
-              // TODO: change the path on project overview
-              >
-                <P style={typography.textBold}>Completed</P>
-                <P>0</P>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ alignItems: "center" }}
-                onPress={() => navigation.navigate('NoRecord')}
-              // TODO: change the path on project overview
-              >
-                <P style={typography.textBold}>Hold</P>
-                <P>0</P>
-              </TouchableOpacity>
+              {
+                projectCounts.map((item, index) =>
+                  <TouchableOpacity
+                    style={{ alignItems: "center" }}
+                    onPress={() => navigation.navigate(item.page, { DATA: item.data })}
+                  // TODO: change the path on project overview
+                  >
+                    <P style={typography.textBold}>{item.title}</P>
+                    <P>{item.count || 0}</P>
+                  </TouchableOpacity>
+                )
+              }
             </View>
           </CardFullWidth>
         </View>
 
         <MyFlatList
-          data={firstFourTasks}
+          data={statCards}
           renderItem={({ item, index }) => {
             const isRightColumn = index % 2 !== 0;
             const marginTop = isRightColumn ? 20 : 0;
@@ -119,8 +102,8 @@ export default function DashboardScreen() {
                 key={item.id}
                 backgroundColor={item.backgroundColor}
                 tasks={item.count}
-                status={item.status}
-                onPress={() => navigation.navigate(item.page)}
+                status={item.title}
+                onPress={() => navigation.navigate(item.page, { DATA: projects })}
                 style={{ marginTop }}
               />
             );
