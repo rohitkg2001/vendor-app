@@ -20,7 +20,7 @@ const RequirementsScreen = ({ navigation }) => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 32 }]}>
+      <View style={[spacing.mh1, { width: SCREEN_WIDTH - (-32) }]}>
         <MyHeader
           isBack
           title="Total Sites"

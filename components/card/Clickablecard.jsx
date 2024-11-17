@@ -7,8 +7,8 @@ import { spacing, typography, SCREEN_WIDTH, LIGHT } from "../../styles";
 export default function ClickableCard({
   item,
   handleViewDetails,
-  isProject = false, // For project data
-  isRequisition = false, // For requisition data
+  isProject = false, 
+  isRequisition = false, 
 }) {
   return (
     <TouchableOpacity onPress={() => handleViewDetails(item)}>
@@ -51,8 +51,6 @@ export default function ClickableCard({
                 <H6 style={[typography.textBold]}>{item.siteName}</H6>
                 <P style={{ fontSize: 14 }}>Location: {item.location}</P>
                 <P style={{ fontSize: 14 }}>Dist: {item.dist}</P>
-                <P style={{ fontSize: 14 }}>Date: {item.date}</P>
-                <P style={{ fontSize: 14 }}>Amount: {item.amount}</P>
               </>
             )}
           </View>
