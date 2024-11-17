@@ -20,7 +20,7 @@ const RequirementsScreen = ({ navigation }) => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - (-32) }]}>
+      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 4 }]}>
         <MyHeader
           isBack
           title="Total Sites"
@@ -33,10 +33,10 @@ const RequirementsScreen = ({ navigation }) => {
           placeholder="Search sites..."
           value={searchText}
           onChangeText={setSearchText}
-          style={{ marginVertical: 8, marginHorizontal: 20 }}
+          style={{ marginVertical: 8, marginHorizontal: 4 }}
         />
 
-        <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
+        <ScrollView contentContainerStyle={{}}>
           {filteredRequirements.map((item) => (
             <ClickableCard
               key={item.id}
