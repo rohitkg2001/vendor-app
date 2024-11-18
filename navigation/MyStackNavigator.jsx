@@ -16,7 +16,7 @@ import FileUploadScreen from "../screens/FileUploadScreen";
 import OrderScreen from "../screens/OrderScreen";
 import RequirementsScreen from "../screens/RequirementsScreen";
 import NoTask from "../screens/NoTask";
-import TotalProjectsScreen from "../screens/TotalProjectsScreen";
+import ProjectsScreen from "../screens/ProjectsScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
 const Stack = createNativeStackNavigator();
@@ -48,10 +48,7 @@ export default function MyStackNavigator() {
       <Stack.Screen name="orderScreen" component={OrderScreen} />
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
-      <Stack.Screen
-        name="totalProjectsScreen"
-        component={TotalProjectsScreen}
-      />
+      <Stack.Screen name="projectsScreen" component={ProjectsScreen} />
       <Stack.Screen
         name="CurrentProjectsScreen"
         component={CurrentProjectsScreen}
