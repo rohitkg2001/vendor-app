@@ -5,7 +5,6 @@ import {
   WARNING_COLOR,
 } from "../styles/constant";
 
-
 export const staff = {
   id: 1,
   first_name: "Rakesh",
@@ -77,7 +76,7 @@ export const projects = [
     vendorId: 1,
     projectName: "BREDA",
     duration: "2 days",
-    status: 0
+    status: 0,
   },
   {
     id: 2,
@@ -85,7 +84,7 @@ export const projects = [
     vendorId: 1,
     projectName: "Indian Railway",
     duration: "5 days",
-    status: 1
+    status: 1,
   },
   {
     id: 3,
@@ -93,11 +92,9 @@ export const projects = [
     sites: [4],
     projectName: "Delhi Government",
     duration: "3 days",
-    status: 2
+    status: 2,
   },
 ];
-
-
 
 export const tasks = [
   {
@@ -110,7 +107,7 @@ export const tasks = [
     assigned_by: "Sumit Ranjan",
     assigned_to: 1,
     approved_by: null,
-    status: 0
+    status: 0,
   },
 ];
 
@@ -147,26 +144,21 @@ export const categories = [
   },
 ];
 
-
-
 export const projecttask = [
   {
     id: 1,
     projectName: "Project 01A",
     siteName: " SBI Bank , Rampur School , Lakhisarai",
-
   },
   {
     id: 2,
     projectName: "Project 02B",
     siteName: "Block Office, Shershah Road ,Madhepura",
-
   },
   {
     id: 3,
     projectName: "Project 03C",
     siteName: "Purnea Mahila College , Sipahi Tola , Purnea",
-
   },
 ];
 export const tasksData = [
@@ -305,7 +297,6 @@ export const notifications = [
   },
 ];
 
-
 export const requisitions = [
   {
     id: "PR - 10050019",
@@ -343,11 +334,7 @@ export const itemsData = [
   { id: "P004", name: "Product D", price: 150.75, quantity: 5, total: 753.75 },
   { id: "P005", name: "Product E", price: 99.99, quantity: 4, total: 399.96 },
 ];
-export const amountDetailsData = [
-  { label: "Subtotal", value: 1000 },
-  { label: "Tax", value: 100 },
-  { label: "Total", value: 1100 },
-];
+
 export const handleTaskProgress = (
   tasks,
   projectId,
@@ -364,4 +351,3 @@ export const handleTaskProgress = (
 // statuscode=0->open,
 //statuscode = 1 -> completed,
 //statuscode = 2 -> hold
-
