@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
-import { sites } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
-import { SCREEN_WIDTH, spacing, styles } from "../styles";
+import { SCREEN_WIDTH, spacing } from "../styles";
+import { sites } from "../utils/faker";
 
 const RequirementsScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");

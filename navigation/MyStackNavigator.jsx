@@ -14,7 +14,7 @@ import SettingsScreen from "../screens/SettingScreen";
 import InternalSetting from "../screens/InternalSetting";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import InventoryScreen from "../screens/InventoryScreen";
-import RequirementsScreen from "../screens/RequirementsScreen";
+import RequirementsScreen from "../screens/SiteScreen";
 import NoTask from "../screens/NoTask";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
