@@ -1,16 +1,15 @@
-
 import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { projecttask } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
-import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
 import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
 import MyFlatList from "../components/utility/MyFlatList";
+import ClickableCard from "../components/card/Clickablecard";
 
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
@@ -33,43 +32,47 @@ const CurrentProjectsScreen = () => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
-        <MyHeader
-          title="Current Projects"
-          hasIcon={true}
-          icon={"ellipsis-vertical"}
-          onIconPress={toggleMenu}
-          isBack={true}
-        />
+      <MyHeader
+        title="Current Projects"
+        hasIcon={true}
+        icon={"ellipsis-vertical"}
+        onIconPress={toggleMenu}
+        isBack={true}
+      />
 
-        <SearchBar
-          placeholder="Search current projects..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
+      <MyFlatList
+        data={filteredProjects}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.card}
+            item={item}
+            isCureentProject={true}
+            onPress={() =>
+              navigation.navigate("taskScreen", { projectId: item.id })
+            }
+          >
+            <View style={{ flex: 1 }}>
+              <H5>{item.projectName}</H5>
+              <P>{` ${item.siteName}`}</P>
+            </View>
+          </TouchableOpacity>
+        )}
+        ListHeaderComponent={() => (
+          <SearchBar
+            placeholder="Search current projects..."
+            value={searchText}
+            onChangeText={setSearchText}
+            style={{ marginVertical: 8, marginHorizontal: 4 }}
+          />
+        )}
+      />
 
-        <MyFlatList
-          data={filteredProjects}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.card}
-              onPress={() => navigation.navigate("taskScreen")}
-            >
-              <View style={{ flex: 1 }}>
-                <H5>{item.projectName}</H5>
-                <P>{` ${item.siteName}`}</P>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-
-        <Filter
-          visible={isMenuVisible}
-          onClose={toggleMenu}
-          options={menuOptions}
-        />
-      </View>
+      <Filter
+        visible={isMenuVisible}
+        onClose={toggleMenu}
+        options={menuOptions}
+      />
     </ContainerComponent>
   );
 };

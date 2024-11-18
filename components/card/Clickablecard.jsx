@@ -11,6 +11,7 @@ export default function ClickableCard({
   isSite = false,
   isPurchaseOrder = false,
   isEarning = false,
+  isCureentProject = false,
 }) {
   return (
     <Card
@@ -61,6 +62,12 @@ export default function ClickableCard({
               <P style={{ fontSize: 14 }}>
                 CompletionDate: {item.completionDate}
               </P>
+            </>
+          )}
+          {isCureentProject && (
+            <>
+              <H6 style={[typography.textBold]}>{item.projectName}</H6>
+              <P style={{ fontSize: 14 }}>SiteName: {item.siteName}</P>
             </>
           )}
         </View>
