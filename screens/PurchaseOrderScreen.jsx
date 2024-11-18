@@ -94,25 +94,27 @@ const PurchaseOrderScreen = () => {
           <View>
             <MyImageBackground imageSource={require("../assets/norecode.png")}>
               <View style={{ alignItems: "center", marginTop: 20 }}>
-                <H4>No records found</H4>
+                <H4>No Projects found</H4>
               </View>
             </MyImageBackground>
           </View>
         )}
       </ScrollView>
 
-      <Button
-        style={[
-          styles.btn,
-          styles.bgPrimary,
-          { justifyContent: "center", marginHorizontal: 12 },
-        ]}
-        onPress={() => console.log("Create Purchase Order")}
-      >
-        <H2 style={[styles.btnText, styles.textLarge, typography.textLight]}>
-          Create Purchase Order
-        </H2>
-      </Button>
+      {filteredItems.length > 0 && (
+        <Button
+          style={[
+            styles.btn,
+            styles.bgPrimary,
+            { justifyContent: "center", marginHorizontal: 12 },
+          ]}
+          onPress={() => console.log("Create Purchase Order")}
+        >
+          <H2 style={[styles.btnText, styles.textLarge, typography.textLight]}>
+            Create Purchase Order
+          </H2>
+        </Button>
+      )}
     </ContainerComponent>
   );
 };
