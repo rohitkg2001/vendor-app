@@ -5,72 +5,127 @@ import {
   WARNING_COLOR,
 } from "../styles/constant";
 
-export const tasks = [
+
+export const staff = {
+  id: 1,
+  first_name: "Rakesh",
+  last_name: "Sharma",
+  user_type: "staff",
+  is_admin: 0,
+  role_id: 0,
+  email: "rakesh.sharma@gmail.com",
+  password: "12345678",
+  image: "https://randomuser.me/api/portraits/men/1.jpg",
+  status: "active",
+  job_title: "Technical Assistant",
+  salary: "20000",
+  salary_term: "Monthly",
+  Date_of_hire: "2024-08-27",
+  disable_login: 0,
+  note: [],
+  address: "123 gali, jhajjar, Haryana",
+  alternative_address: "",
+  phone: "9909230912",
+  alternative_phone: "",
+  dob: "",
+  gender: "male",
+  sticky_note: [],
+  skype: "",
+  language: "",
+  last_online: "2024-10-03 05:41:49",
+  file: "file-pdf",
+  size: "",
+  uploaded_by: "rakesh sharma",
+  created_date: "",
+};
+
+export const sites = [
+  {
+    id: "1",
+    vendorId: 1,
+    siteName: "P S SHIKSHA NAGAR BANMANKHI",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "2",
+    vendorId: 1,
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "3",
+    vendorId: 1,
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "4",
+    vendorId: 1,
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+];
+
+export const projects = [
   {
     id: 1,
-    title: "Task 1",
-    description: "This is task 1",
-    count: 28,
-    status: "Total Projects ",
-    page : "totalProjectsScreen" ,
-    backgroundColor: "#A0D3E8",
+    sites: [1, 2],
+    vendorId: 1,
+    projectName: "BREDA",
+    duration: "2 days",
+    status: 0
   },
   {
     id: 2,
-    title: "Task 2",
-    description: "This is task 2",
-    count: 31,
-    status: "Total Earning",
-    page : "totalEarningScreen",
-    backgroundColor: "#C8E6C9",
+    sites: [3],
+    vendorId: 1,
+    projectName: "Indian Railway",
+    duration: "5 days",
+    status: 1
   },
   {
     id: 3,
-    title: "Task 3",
-    description: "This is task 3",
-    count: 24,
-    status: "Total Sites",
-    page : "requirementsScreen",
-    backgroundColor: "#E1BEE7",
-  },
-  {
-    id: 4,
-    title: "Task 4",
-    description: "This is task 4",
-    count: 7,
-    status: "Inventory",
-    page : "orderScreen" ,
-    backgroundColor: "#F8BBD0",
-  },
-  {
-    id: 5,
-    title: "Task 5",
-    description: "This is task 5",
-    count: 12,
-    status: "Inventory",
-    backgroundColor: "#FFF9C4",
-  },
-  {
-    id: 6,
-    title: "Task 6",
-    description: "This is task 5",
-    count: 12,
-    status: "Inventory",
-    backgroundColor: "#FFABAB",
+    vendorId: 1,
+    sites: [4],
+    projectName: "Delhi Government",
+    duration: "3 days",
+    status: 2
   },
 ];
+
+
+
+export const tasks = [
+  {
+    id: 1,
+    projectId: 1,
+    title: "Task 1",
+    description: "This is task 1",
+    start_date: "15-11-2024",
+    end_date: "16-11-2024",
+    assigned_by: "Sumit Ranjan",
+    assigned_to: 1,
+    approved_by: null,
+    status: 0
+  },
+];
+
 export const categories = [
   {
     id: "1",
     label: "Installation",
     icon: "layers-outline",
-    count: 5, 
+    count: 5,
   },
   {
     id: "2",
     label: "Fixing Slip",
     icon: "grid-outline",
-    count: 3, 
+    count: 3,
   },
   {
     id: "3",
@@ -91,36 +146,27 @@ export const categories = [
     count: 4,
   },
 ];
-export const project = [
-  { id: 1, projectName: "Project 01A", duration: "2 days", status: "ongoing" },
-  { id: 2, projectName: "Project 02B", duration: "5 days", status: "completed" },
-  { id: 3, projectName: "Project 03C", duration: "3 days", status: "ongoing" },
-  { id: 4, projectName: "Project 04D", duration: "7 days", status: "completed" },
-  { id: 5, projectName: "Project 05E", duration: "4 days", status: "ongoing" },
-  { id: 6, projectName: "Project 06F", duration: "6 days", status: "ongoing" },
-  { id: 7, projectName: "Project 07G", duration: "1 day", status: "completed" },
-  { id: 8, projectName: "Project 08H", duration: "8 days", status: "ongoing" },
-  { id: 9, projectName: "Project 09I", duration: "10 days", status: "completed" },
-  { id: 10, projectName: "Project 10J", duration: "3 days", status: "ongoing" },
-];
+
+
+
 export const projecttask = [
   {
     id: 1,
     projectName: "Project 01A",
     siteName: " SBI Bank , Rampur School , Lakhisarai",
-  
+
   },
   {
     id: 2,
     projectName: "Project 02B",
     siteName: "Block Office, Shershah Road ,Madhepura",
-   
+
   },
   {
     id: 3,
     projectName: "Project 03C",
     siteName: "Purnea Mahila College , Sipahi Tola , Purnea",
-    
+
   },
 ];
 export const tasksData = [
@@ -130,6 +176,7 @@ export const tasksData = [
     installation: "Install the panel on top of the platform of 5kw of power.",
   },
 ];
+
 export const orders = [
   {
     id: "1",
@@ -175,6 +222,7 @@ export const orders = [
     url: "  https://th.bing.com/th?id=OPAC.CS1gpu%2fn0Pggmw474C474&w=592&h=550&o=5&dpr=1.1&pid=21.1 ",
   },
 ];
+
 export const earnings = [
   {
     id: 1,
@@ -207,6 +255,7 @@ export const earnings = [
     completionDate: "2023-06-12",
   },
 ];
+
 export const menuItems = [
   { label: "Site Inventory", icon: "cart-outline", page: "requisitions" },
   { label: "Reports", page: "", icon: "pie-chart-outline" },
@@ -214,6 +263,7 @@ export const menuItems = [
   { label: "My Tasks", page: "", icon: "grid-outline" },
   { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting" },
 ];
+
 export const internal = [
   {
     label: "Notification",
@@ -223,6 +273,7 @@ export const internal = [
   { label: "Privacy", page: "privacyPolicy", icon: "shield-checkmark-outline" },
   { label: "Data Usage", page: "", icon: "folder-outline" },
 ];
+
 export const notifications = [
   {
     id: "1",
@@ -253,10 +304,8 @@ export const notifications = [
     time: "25 sept,21:22 Pm",
   },
 ];
-export const profileImages = [
-  "https://randomuser.me/api/portraits/men/1.jpg",
-  "https://randomuser.me/api/portraits/women/1.jpg",
-];
+
+
 export const requisitions = [
   {
     id: "PR - 10050019",
@@ -311,67 +360,8 @@ export const handleTaskProgress = (
   setTasks(updatedTasks);
   setActiveStatus("inProgress");
 };
-export const staff = {
-  id: 1,
-  first_name: "Rakesh",
-  last_name: "Sharma",
-  user_type: "staff",
-  is_admin: 0,
-  role_id: 0,
-  email: "rakesh.sharma@gmail.com",
-  password: "12345678",
-  image: "https://randomuser.me/api/portraits/men/1.jpg",
-  status: "active",
-  job_title: "Technical Assistant",
-  salary: "20000",
-  salary_term: "Monthly",
-  Date_of_hire: "2024-08-27",
-  disable_login: 0,
-  note: [],
-  address: "123 gali, jhajjar, Haryana",
-  alternative_address: "",
-  phone: "9909230912",
-  alternative_phone: "",
-  dob: "",
-  gender: "male",
-  sticky_note: [],
-  skype: "",
-  language: "",
-  last_online: "2024-10-03 05:41:49",
-  file: "file-pdf",
-  size: "",
-  uploaded_by: "rakesh sharma",
-  created_date: "",
-};
-export const requirementsData = [
-  {
-    id: "1",
-    siteName: "P S SHIKSHA NAGAR BANMANKHI",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-  {
-    id: "2",
-    siteName: "P S MIRCHAIBARI UTTAR",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-  {
-    id: "3",
-    siteName: "P S MIRCHAIBARI UTTAR",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-  {
-    id: "4",
-    siteName: "P S MIRCHAIBARI UTTAR",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-  {
-    id: "5",
-    siteName: "P S MIRCHAIBARI UTTAR",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-];
+
+// statuscode=0->open,
+//statuscode = 1 -> completed,
+//statuscode = 2 -> hold
+
