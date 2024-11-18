@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
-import { requisitions } from "../utils/faker";
 import SearchBar from "../components/input/SearchBar";
 import MyHeader from "../components/header/MyHeader";
 import Button from "../components/buttons/Button";
@@ -9,6 +8,7 @@ import ClickableCard from "../components/card/Clickablecard";
 import { styles } from "../styles/components.styles";
 import { H2 } from "../components/text";
 import { typography } from "../styles";
+import { requisitions } from "../utils/faker";
 
 
 const RequisitionScreen = ({ navigation }) => {
@@ -39,6 +39,7 @@ const handleViewDetails = (item) => {
             key={index}
             item={item}
             handleViewDetails={handleViewDetails}
+            isRequisition={true}
           />
         ))}
       </ScrollView>
