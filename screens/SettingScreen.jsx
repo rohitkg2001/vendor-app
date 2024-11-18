@@ -8,7 +8,7 @@ import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
 import { DANGER_COLOR } from "../styles/constant";
 import { staff } from "../utils/faker";
-import { Button } from "../components/buttons/Button";
+import Button from "../components/buttons/Button";
 import { menuItems } from "../utils/faker";
 
 export default function SettingsScreen() {
