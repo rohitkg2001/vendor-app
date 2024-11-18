@@ -70,6 +70,14 @@ export default function ClickableCard({
               <P style={{ fontSize: 14 }}>SiteName: {item.siteName}</P>
             </>
           )}
+          {isRequisition && (
+            <>
+              <H6 style={[typography.textBold]}>{item.id}</H6>
+              <H6 style={{ fontSize: 14 }}>TotalEarnings: {item.location}</H6>
+              <P style={{ fontSize: 14 }}>CompletionDate: {item.date}</P>
+              <P style={{ fontSize: 14 }}>Amount: {item.amount}</P>
+            </>
+          )}
         </View>
       </View>
     </Card>
