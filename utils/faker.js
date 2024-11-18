@@ -364,4 +364,3 @@ export const handleTaskProgress = (
 // statuscode=0->open,
 //statuscode = 1 -> completed,
 //statuscode = 2 -> hold
-
