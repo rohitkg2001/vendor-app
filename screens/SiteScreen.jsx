@@ -15,7 +15,10 @@ const RequirementsScreen = ({ navigation }) => {
   );
 
   const handleViewDetails = (item) => {
-    navigation.navigate("SiteDetailScreen", { item });
+    navigation.navigate("viewDetailScreen", {
+      site: item,
+      formType: "site",
+    });
   };
 
   return (

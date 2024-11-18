@@ -12,7 +12,10 @@ export default function ProjectsScreen({ route }) {
   const { DATA } = route.params;
 
   const handleViewDetails = (item) => {
-    navigation.navigate("ProjectDetailScreen", { item });
+    navigation.navigate("viewDetailScreen", {
+      site: item,
+      formType: "project",
+    });
   };
 
   return (
@@ -28,11 +31,14 @@ export default function ProjectsScreen({ route }) {
       <MyFlatList
         data={DATA}
         renderItem={({ item, index }) => (
-          <ClickableCard key={index} item={item} isProject={true} />
+          <ClickableCard
+            key={index}
+            item={item}
+            handleViewDetails={handleViewDetails} 
+            isProject={true}
+          />
         )}
         keyExtractor={(item) => item.id.toString()}
-        // ListEmptyComponent={()=>}
-        // FIXME:Add no record component
         ListHeaderComponent={() => (
           <SearchBar
             placeholder="Search projects..."
