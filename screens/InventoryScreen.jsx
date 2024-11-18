@@ -38,13 +38,11 @@ const InventoryScreen = () => {
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />
-
         <SearchBar
           placeholder="Search orders..."
           value={searchText}
           onChangeText={setSearchText}
         />
-
         <MyFlatList
           data={filteredOrders}
           keyExtractor={(item) => item.id.toString()}
