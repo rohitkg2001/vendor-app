@@ -1,6 +1,8 @@
 {
-  "name": "Staff Management - Dashandots",
+  "name": "Vendor App Sugslloyds",
   "version": "1.0.0",
+  "description": "A CRM App built by and dashandots technology to maintain project execution at suggslloyds",
+  "author":"Mihir Rohit Bittu",
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
