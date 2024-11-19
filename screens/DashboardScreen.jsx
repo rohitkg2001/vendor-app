@@ -103,7 +103,8 @@ export default function DashboardScreen() {
                 backgroundColor={item.backgroundColor}
                 tasks={item.count}
                 status={item.title}
-                onPress={() => navigation.navigate(item.page, { DATA: projects })}
+                onPress={() => navigation.navigate(item.page, { DATA: projects, title: "hello" })
+                }
                 style={{ marginTop }}
               />
             );
