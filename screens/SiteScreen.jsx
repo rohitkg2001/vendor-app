@@ -10,7 +10,8 @@ import { sites } from "../utils/faker";
 const SiteScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
 
-  const filteredRequirements = sites.filter((item) =>
+
+  const filteredSites = sites.filter((item) =>
     item.siteName.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -40,7 +41,7 @@ const SiteScreen = ({ navigation }) => {
         />
 
         <ScrollView>
-          {filteredRequirements.map((item) => (
+          {filteredSites.map((item) => (
             <ClickableCard
               key={item.id}
               item={item}

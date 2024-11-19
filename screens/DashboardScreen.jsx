@@ -82,7 +82,6 @@ export default function DashboardScreen() {
                   <TouchableOpacity
                     style={{ alignItems: "center" }}
                     onPress={() => navigation.navigate(item.page, { DATA: item.data })}
-                  // TODO: change the path on project overview
                   >
                     <P style={typography.textBold}>{item.title}</P>
                     <P>{item.count || 0}</P>
