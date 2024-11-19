@@ -15,7 +15,6 @@ export default function SettingsScreen() {
   const navigation = useNavigation();
 
   const handleLogoutPress = () => {
-    console.log("Logout pressed");
     navigation.navigate("loginScreen");
   };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native"; 
+import { useNavigation } from "@react-navigation/native";
 import { projects } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import { styles } from "../styles/components.styles";
@@ -25,9 +25,9 @@ const CurrentProjectsScreen = () => {
   };
 
   const menuOptions = [
-    { label: "Search", onPress: () => console.log("Search clicked") },
-    { label: "Sort", onPress: () => console.log("Sort clicked") },
-    { label: "Filter", onPress: () => console.log("Filter clicked") },
+    { label: "Search", onPress: () => {} },
+    { label: "Sort", onPress: () => {} },
+    { label: "Filter", onPress: () => {} },
   ];
 
   return (

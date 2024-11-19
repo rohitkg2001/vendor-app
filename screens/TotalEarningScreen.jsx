@@ -19,14 +19,12 @@ const TotalEarningScreen = () => {
   };
 
   const menuOptions = [
-    { label: "Search", onPress: () => console.log("Search clicked") },
-    { label: "Sort", onPress: () => console.log("Sort clicked") },
-    { label: "Filter", onPress: () => console.log("Filter clicked") },
+    { label: "Search", onPress: () => {} },
+    { label: "Sort", onPress: () => {} },
+    { label: "Filter", onPress: () => {} },
   ];
 
-  const handleCardClick = (item) => {
-    console.log("Clicked item:", item);
-  };
+  const handleCardClick = (item) => {};
 
   return (
     <ContainerComponent>

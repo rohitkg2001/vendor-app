@@ -7,14 +7,10 @@ export const checkPermissions = async () => {
   const checkAndRequestPermission = async (permission) => {
     const result = await check(permission);
     if (result === RESULTS.GRANTED) {
-      console.log(`${permission} is already granted.`);
     } else if (result === RESULTS.DENIED) {
-      console.log(`${permission} is denied, requesting permission...`);
       const requestResult = await request(permission);
       if (requestResult === RESULTS.GRANTED) {
-        console.log(`${permission} granted.`);
       } else {
-        console.log(`${permission} denied by user.`);
       }
     }
   };
@@ -56,8 +52,6 @@ export const checkPermissions = async () => {
   // 6. Check network state (NetInfo)
   // const netInfo = await NetInfo.fetch();
   // if (netInfo.isConnected) {
-  //     console.log('Network is connected');
   // } else {
-  //     console.log('No network connection');
   // }
 };

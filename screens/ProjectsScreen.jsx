@@ -25,7 +25,7 @@ export default function ProjectsScreen({ route }) {
         title="Total Projects"
         hasIcon
         icon="ellipsis-vertical"
-        onIconPress={() => console.log("Menu clicked")}
+        onIconPress={() => {}}
       />
 
       <MyFlatList

@@ -10,7 +10,6 @@ import { sites } from "../utils/faker";
 const SiteScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
 
-
   const filteredSites = sites.filter((item) =>
     item.siteName.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -30,7 +29,7 @@ const SiteScreen = ({ navigation }) => {
           title="Total Sites"
           hasIcon
           icon="ellipsis-vertical"
-          onIconPress={() => console.log("Menu clicked")}
+          onIconPress={() => {}}
         />
 
         <SearchBar
