@@ -33,14 +33,14 @@ export default function LoginScreen() {
     setError("");
     try {
       const result = await dispatch(login(username, password))
-      console.log(`login Result is ${result}`)
+      // console.log(`login Result is ${result}`)
       if (result) {
         navigation.navigate("homeScreen");
       } else {
         setError("Please provide the correct credentials");
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setError("An error occurred during login");
     }
   };

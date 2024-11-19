@@ -23,9 +23,9 @@ const InventoryScreen = () => {
   };
 
   const menuOptions = [
-    { label: "Search", onPress: () => console.log("Search clicked") },
-    { label: "Sort", onPress: () => console.log("Sort clicked") },
-    { label: "Filter", onPress: () => console.log("Filter clicked") },
+    // { label: "Search", onPress: () => console.log("Search clicked") },
+    // { label: "Sort", onPress: () => console.log("Sort clicked") },
+    // { label: "Filter", onPress: () => console.log("Filter clicked") },
   ];
 
   return (
