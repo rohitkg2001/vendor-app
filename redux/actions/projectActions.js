@@ -5,51 +5,53 @@ import {
   COUNT_PROJECTS,
   CHANGE_PROJECT_STATUS,
 } from "../constant";
-import { orders, projects, sites } from "../../utils/faker";
+import { inventory, projects, sites } from "../../utils/faker";
 
-export const filterProjects = (status) => {
-  return projects.filter((project) => project.status === status)
-}
-export const ongoingProjects = filterProjects(0)
-export const completedProjects = filterProjects(1)
-export const holdProjects = filterProjects(2)
-export const rejectedProjects = filterProjects(3)
-export const cancelledProjects = filterProjects(4)
+export const filterByStatus = (arr, status) => {
+  return arr.filter((item) => item.status === status);
+};
+
+export const ongoingProjects = filterByStatus(projects, 0);
+export const completedProjects = filterByStatus(projects, 1);
+export const holdProjects = filterByStatus(projects, 2);
+export const rejectedProjects = filterByStatus(projects, 3);
+export const cancelledProjects = filterByStatus(projects, 4);
+
 export const projectCounts = [
   {
-    title: 'Ongoing',
+    title: "Ongoing",
     count: ongoingProjects.length,
     data: ongoingProjects,
-    page: 'projectsScreen'
+    page: "projectsScreen",
   },
   {
-    title: 'Completed',
+    title: "Completed",
     count: completedProjects.length,
     data: completedProjects,
-    page: 'projectsScreen'
+    page: "projectsScreen",
   },
   {
-    title: 'Hold',
+    title: "Hold",
     count: holdProjects.length,
     data: holdProjects,
-    page: 'projectsScreen'
+    page: "projectsScreen",
   },
   {
-    title: 'Rejected',
+    title: "Rejected",
     count: rejectedProjects.length,
     data: rejectedProjects,
-    page: 'projectsScreen'
-  }
-]
+    page: "projectsScreen",
+  },
+];
 // TODO:Add more status codes as per client requirement
 
 export const statCards = [
   {
     id: "1",
-    title: 'Total Projects',
+    title: "Total Projects",
     count: projects.length,
-    page: 'projectsScreen',
-    backgroundColor: "#A0D3E8"
+    page: "projectsScreen",
+    backgroundColor: "#A0D3E8",
   },
   {
     id: "2",
@@ -68,12 +70,11 @@ export const statCards = [
   {
     id: "4",
     title: "Inventory",
-    count: orders.length,
-    page: "orderScreen",
-    backgroundColor: "#FFF9C4"
-
-  }
-]
+    count: inventory.length,
+    page: "inventoryScreen",
+    backgroundColor: "#FFF9C4",
+  },
+];
 
 export const viewProject = (projectId) => async (dispatch, getState) => {
   const { projects } = getState();

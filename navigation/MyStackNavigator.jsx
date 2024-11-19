@@ -13,12 +13,13 @@ import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import InternalSetting from "../screens/InternalSetting";
 import FileUploadScreen from "../screens/FileUploadScreen";
-import OrderScreen from "../screens/OrderScreen";
-import RequirementsScreen from "../screens/RequirementsScreen";
+import InventoryScreen from "../screens/InventoryScreen";
+import RequirementsScreen from "../screens/SiteScreen";
 import NoTask from "../screens/NoTask";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
+import ViewDetailScreen from "../screens/ViewDetailScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -41,11 +42,11 @@ export default function MyStackNavigator() {
       <Stack.Screen name="notificationScreen" component={NotificationScreen} />
       <Stack.Screen name="privacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
-      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="internalSetting" component={InternalSetting} />
       <Stack.Screen name="NoTask" component={NoTask} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
-      <Stack.Screen name="orderScreen" component={OrderScreen} />
+      <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
       <Stack.Screen name="projectsScreen" component={ProjectsScreen} />
@@ -54,6 +55,7 @@ export default function MyStackNavigator() {
         component={CurrentProjectsScreen}
       />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
+      <Stack.Screen name="viewDetailScreen" component={ViewDetailScreen} />
     </Stack.Navigator>
   );
 }

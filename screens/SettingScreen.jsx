@@ -8,7 +8,7 @@ import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
 import { DANGER_COLOR } from "../styles/constant";
 import { staff } from "../utils/faker";
-import { Button } from "../components/buttons/Button"
+import Button from "../components/buttons/Button";
 import { menuItems } from "../utils/faker";
 
 export default function SettingsScreen() {
@@ -18,7 +18,7 @@ export default function SettingsScreen() {
     console.log("Logout pressed");
     navigation.navigate("loginScreen");
   };
-  
+
   return (
     <ContainerComponent justifyContent="space-between">
       <ProfileCard
@@ -33,7 +33,7 @@ export default function SettingsScreen() {
             key={index}
             label={item.label}
             icon={item.icon}
-           onPress={() => navigation.navigate(item.page)}
+            onPress={() => navigation.navigate(item.page)}
           />
         ))}
       </View>

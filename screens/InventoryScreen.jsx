@@ -10,15 +10,13 @@ import Filter from "../components/filters";
 import MyFlatList from "../components/utility/MyFlatList";
 import { orders } from "../utils/faker";
 
-const OrderScreen = () => {
+const InventoryScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-
 
   const filteredOrders = orders.filter((order) =>
     order.name.toLowerCase().includes(searchText.toLowerCase())
   );
-
 
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
@@ -40,13 +38,11 @@ const OrderScreen = () => {
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />
-
         <SearchBar
           placeholder="Search orders..."
           value={searchText}
           onChangeText={setSearchText}
         />
-
         <MyFlatList
           data={filteredOrders}
           keyExtractor={(item) => item.id.toString()}
@@ -83,4 +79,4 @@ const OrderScreen = () => {
   );
 };
 
-export default OrderScreen;
+export default InventoryScreen;
