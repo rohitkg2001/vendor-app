@@ -9,12 +9,12 @@ import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
 import MyFlatList from "../components/utility/MyFlatList";
-import ClickableCard from "../components/card/Clickablecard";
+
 
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const navigation = useNavigation(); // <-- Use useNavigation hook here
+  const navigation = useNavigation(); 
 
   const filteredProjects = projects.filter((item) =>
     item.projectName.toLowerCase().includes(searchText.toLowerCase())
