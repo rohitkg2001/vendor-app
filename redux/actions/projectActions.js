@@ -64,7 +64,7 @@ export const statCards = [
     id: "3",
     title: "Total Sites",
     count: sites.length,
-    page: "SiteScreen",
+    page: "siteScreen",
     backgroundColor: "#E1BEE7",
   },
   {

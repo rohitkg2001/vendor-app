@@ -7,7 +7,7 @@ import ClickableCard from "../components/card/Clickablecard";
 import { SCREEN_WIDTH, spacing } from "../styles";
 import { sites } from "../utils/faker";
 
-const SitesScreen = ({ navigation }) => {
+const SiteScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
 
 
@@ -54,5 +54,4 @@ const SitesScreen = ({ navigation }) => {
     </ContainerComponent>
   );
 };
-
-export default SitesScreen;
+export default SiteScreen;
