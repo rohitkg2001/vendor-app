@@ -251,7 +251,11 @@ export const earnings = [
 export const menuItems = [
   { label: "Site Inventory", icon: "cart-outline", page: "requisitions" },
   { label: "Reports", page: "", icon: "pie-chart-outline" },
-  { label: "My Projects", page: "", icon: "grid-outline" },
+  {
+    label: "My Projects",
+    icon: "grid-outline",
+    page: "projectsScreen",
+  },
   { label: "My Tasks", page: "", icon: "grid-outline" },
   { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting" },
 ];

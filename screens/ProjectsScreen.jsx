@@ -6,6 +6,7 @@ import ClickableCard from "../components/card/Clickablecard";
 import MyFlatList from "../components/utility/MyFlatList";
 import { useNavigation } from "@react-navigation/native";
 
+
 export default function ProjectsScreen({ route }) {
   const [searchText, setSearchText] = useState("");
   const navigation = useNavigation();
