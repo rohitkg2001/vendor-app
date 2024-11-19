@@ -7,8 +7,8 @@ import MenuItem from "../components/MenuItem";
 import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
 import { DANGER_COLOR } from "../styles/constant";
-import { staff } from "../utils/faker";
-import { Button } from "../components/buttons/Button";
+import { vendor } from "../utils/faker";
+import Button from "../components/buttons/Button";
 import { menuItems } from "../utils/faker";
 
 export default function SettingsScreen() {
@@ -22,9 +22,9 @@ export default function SettingsScreen() {
   return (
     <ContainerComponent justifyContent="space-between">
       <ProfileCard
-        imageUri={staff.image}
-        name={`${staff.first_name} ${staff.last_name}`}
-        phoneNumber={staff.phone}
+        imageUri={vendor.image}
+        name={`${vendor.first_name} ${vendor.last_name}`}
+        phoneNumber={vendor.phone}
         onPress={() => navigation.navigate("profileScreen")}
       />
       <View style={{ flex: 1 }}>

@@ -20,10 +20,11 @@ import {
   styles,
   typography,
 } from "../styles";
-import { staff, tasks, categories, projects } from "../utils/faker";
+import { vendor, projects } from "../utils/faker";
 import { useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
-import { ongoingProjects, projectCounts, statCards } from "../redux/actions/projectActions";
+import { projectCounts, statCards } from "../redux/actions/projectActions";
+import { tasksCounts } from "../redux/actions/taskActions";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -49,7 +50,7 @@ export default function DashboardScreen() {
           <P style={spacing.ml1}>{today}</P>
         </View>
         <Image
-          source={{ uri: staff.image }}
+          source={{ uri: vendor.image }}
           style={[layouts.circle12, spacing.mv3, layouts.center]}
         />
       </View>
@@ -81,7 +82,6 @@ export default function DashboardScreen() {
                   <TouchableOpacity
                     style={{ alignItems: "center" }}
                     onPress={() => navigation.navigate(item.page, { DATA: item.data })}
-                  // TODO: change the path on project overview
                   >
                     <P style={typography.textBold}>{item.title}</P>
                     <P>{item.count || 0}</P>
@@ -144,7 +144,7 @@ export default function DashboardScreen() {
           </View>
 
           <View style={styles.attendanceContainer}>
-            {categories.map((item) => (
+            {tasksCounts.map((item) => (
               <TouchableOpacity
                 key={item.id}
                 style={styles.gridItem}

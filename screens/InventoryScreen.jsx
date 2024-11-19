@@ -8,14 +8,14 @@ import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Filter from "../components/filters";
 import MyFlatList from "../components/utility/MyFlatList";
-import { orders } from "../utils/faker";
+import { inventory } from "../utils/faker";
 
 const InventoryScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const filteredOrders = orders.filter((order) =>
-    order.name.toLowerCase().includes(searchText.toLowerCase())
+  const filteredinventory = inventory.filter((item) =>
+    (item.name || " ").toLowerCase().includes(searchText.toLowerCase())
   );
 
   const toggleMenu = () => {
@@ -30,23 +30,17 @@ const InventoryScreen = () => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
+      <View>
         <MyHeader
-          title="Orders"
+          title="inventory"
           hasIcon={true}
           isBack={true}
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />
 
-        <SearchBar
-          placeholder="Search orders..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-
         <MyFlatList
-          data={filteredOrders}
+          data={filteredinventory}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.card}>
@@ -68,6 +62,17 @@ const InventoryScreen = () => {
                 </View>
               </View>
             </TouchableOpacity>
+          )}
+          ListEmptyComponent={() => (
+            <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+          )}
+          ListHeaderComponent={() => (
+            <SearchBar
+              placeholder="Search inventory..."
+              value={searchText}
+              onChangeText={setSearchText}
+              style={{ marginVertical: 8, marginHorizontal: 4 }}
+            />
           )}
         />
 

@@ -5,16 +5,18 @@ import {
   COUNT_PROJECTS,
   CHANGE_PROJECT_STATUS,
 } from "../constant";
-import { orders, projects, sites } from "../../utils/faker";
+import { inventory, projects, sites } from "../../utils/faker";
 
-export const filterProjects = (status) => {
-  return projects.filter((project) => project.status === status);
+export const filterByStatus = (arr, status) => {
+  return arr.filter((item) => item.status === status);
 };
-export const ongoingProjects = filterProjects(0);
-export const completedProjects = filterProjects(1);
-export const holdProjects = filterProjects(2);
-export const rejectedProjects = filterProjects(3);
-export const cancelledProjects = filterProjects(4);
+
+export const ongoingProjects = filterByStatus(projects, 0);
+export const completedProjects = filterByStatus(projects, 1);
+export const holdProjects = filterByStatus(projects, 2);
+export const rejectedProjects = filterByStatus(projects, 3);
+export const cancelledProjects = filterByStatus(projects, 4);
+
 export const projectCounts = [
   {
     title: "Ongoing",
@@ -41,7 +43,7 @@ export const projectCounts = [
     page: "projectsScreen",
   },
 ];
-// TODO:Add more status codes as per client requirement
+
 
 export const statCards = [
   {
@@ -62,13 +64,13 @@ export const statCards = [
     id: "3",
     title: "Total Sites",
     count: sites.length,
-    page: "requirementsScreen",
+    page: "siteScreen",
     backgroundColor: "#E1BEE7",
   },
   {
     id: "4",
     title: "Inventory",
-    count: orders.length,
+    count: inventory.length,
     page: "inventoryScreen",
     backgroundColor: "#FFF9C4",
   },

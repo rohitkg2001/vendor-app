@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
-import { sites } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
-import { SCREEN_WIDTH, spacing, styles } from "../styles";
+import { SCREEN_WIDTH, spacing } from "../styles";
+import { sites } from "../utils/faker";
 
-const RequirementsScreen = ({ navigation }) => {
+const SiteScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
 
-  const filteredRequirements = sites.filter((item) =>
+
+  const filteredSites = sites.filter((item) =>
     item.siteName.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const handleViewDetails = (item) => {
-    navigation.navigate("SiteDetailScreen", { item });
+    navigation.navigate("viewDetailScreen", {
+      site: item,
+      formType: "site",
+    });
   };
 
   return (
@@ -37,7 +41,7 @@ const RequirementsScreen = ({ navigation }) => {
         />
 
         <ScrollView>
-          {filteredRequirements.map((item) => (
+          {filteredSites.map((item) => (
             <ClickableCard
               key={item.id}
               item={item}
@@ -50,4 +54,4 @@ const RequirementsScreen = ({ navigation }) => {
     </ContainerComponent>
   );
 };
-export default RequirementsScreen;
+export default SiteScreen;

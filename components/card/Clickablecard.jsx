@@ -10,6 +10,8 @@ export default function ClickableCard({
   isRequisition = false,
   isSite = false,
   isPurchaseOrder = false,
+  isEarning = false,
+  isCureentProject = false,
 }) {
   return (
     <Card
@@ -49,6 +51,31 @@ export default function ClickableCard({
               <P style={{ fontSize: 14 }}>Price: {item.price}</P>
               <P style={{ fontSize: 14 }}>Quantity: {item.quantity}</P>
               <P style={{ fontSize: 14 }}>Total: {item.total}</P>
+            </>
+          )}
+          {isEarning && (
+            <>
+              <H6 style={[typography.textBold]}>{item.projectName}</H6>
+              <H6 style={{ fontSize: 14 }}>
+                TotalEarnings: {item.totalEarnings}
+              </H6>
+              <P style={{ fontSize: 14 }}>
+                CompletionDate: {item.completionDate}
+              </P>
+            </>
+          )}
+          {isCureentProject && (
+            <>
+              <H6 style={[typography.textBold]}>{item.projectName}</H6>
+              <P style={{ fontSize: 14 }}>SiteName: {item.siteName}</P>
+            </>
+          )}
+          {isRequisition && (
+            <>
+              <H6 style={[typography.textBold]}>{item.id}</H6>
+              <H6 style={{ fontSize: 14 }}>TotalEarnings: {item.location}</H6>
+              <P style={{ fontSize: 14 }}>CompletionDate: {item.date}</P>
+              <P style={{ fontSize: 14 }}>Amount: {item.amount}</P>
             </>
           )}
         </View>

@@ -5,7 +5,7 @@ import {
   WARNING_COLOR,
 } from "../styles/constant";
 
-export const staff = {
+export const vendor = {
   id: 1,
   first_name: "Rakesh",
   last_name: "Sharma",
@@ -38,37 +38,6 @@ export const staff = {
   created_date: "",
 };
 
-export const sites = [
-  {
-    id: "1",
-    vendorId: 1,
-    siteName: "P S SHIKSHA NAGAR BANMANKHI",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-  {
-    id: "2",
-    vendorId: 1,
-    siteName: "P S MIRCHAIBARI UTTAR",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-  {
-    id: "3",
-    vendorId: 1,
-    siteName: "P S MIRCHAIBARI UTTAR",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-  {
-    id: "4",
-    vendorId: 1,
-    siteName: "P S MIRCHAIBARI UTTAR",
-    dist: "Purnia",
-    location: "BANMANKHI",
-  },
-];
-
 export const projects = [
   {
     id: 1,
@@ -96,12 +65,45 @@ export const projects = [
   },
 ];
 
+export const sites = [
+  {
+    id: "1",
+    vendorId: 1,
+    siteName: "P S SHIKSHA NAGAR BANMANKHI",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "2",
+    vendorId: 1,
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "3",
+    tasks: [1],
+    inventory: [1, 2],
+    vendorId: 1,
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+  {
+    id: "4",
+    vendorId: 1,
+    siteName: "P S MIRCHAIBARI UTTAR",
+    dist: "Purnia",
+    location: "BANMANKHI",
+  },
+];
+
 export const tasks = [
   {
     id: 1,
     projectId: 1,
-    title: "Task 1",
-    description: "This is task 1",
+    title: "Solar Panel Installation at railway station.",
+    description: "Install the panel on top of the platform of 5kw of power.",
     start_date: "15-11-2024",
     end_date: "16-11-2024",
     assigned_by: "Sumit Ranjan",
@@ -111,109 +113,34 @@ export const tasks = [
   },
 ];
 
-export const categories = [
-  {
-    id: "1",
-    label: "Installation",
-    icon: "layers-outline",
-    count: 5,
-  },
-  {
-    id: "2",
-    label: "Fixing Slip",
-    icon: "grid-outline",
-    count: 3,
-  },
-  {
-    id: "3",
-    label: "RMS Status",
-    icon: "cart-outline",
-    count: 2,
-  },
-  {
-    id: "4",
-    label: "Final Inspection",
-    icon: "document-text-outline",
-    count: 1,
-  },
-  {
-    id: "5",
-    label: "Report",
-    icon: "pie-chart-outline",
-    count: 4,
-  },
-];
-
-export const projecttask = [
+export const inventory = [
   {
     id: 1,
-    projectName: "Project 01A",
-    siteName: " SBI Bank , Rampur School , Lakhisarai",
+    projectId: "",
+    siteId: "",
+    product_name: "Solar LED Street Light",
+    description: "Eco-friendly solar-powered street light with motion sensor.",
+    unit: "",
+    initial_quantity: "",
+    qty_stock: "",
+    dispatch_date: "",
+    delivery_date: "",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s"
   },
   {
     id: 2,
-    projectName: "Project 02B",
-    siteName: "Block Office, Shershah Road ,Madhepura",
-  },
-  {
-    id: 3,
-    projectName: "Project 03C",
-    siteName: "Purnea Mahila College , Sipahi Tola , Purnea",
-  },
-];
-export const tasksData = [
-  {
-    id: "1",
-    taskName: "Solar Panel Installlation at railway station.",
-    installation: "Install the panel on top of the platform of 5kw of power.",
-  },
-];
-
-export const orders = [
-  {
-    id: "1",
-    name: "Solar LED Street Light",
-    description: "Eco-friendly solar-powered street light with motion sensor.",
-    quantity: 1,
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
-  },
-  {
-    id: "2",
-    name: "Smart Street Light System",
+    projectId: "",
+    siteId: "",
+    product_name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
-    quantity: 2,
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
-  },
-  {
-    id: "3",
-    name: "LED Floodlight for Streets",
-    description: "High brightness LED floodlight for outdoor use.",
-    quantity: 3,
-    url: "https://m.media-amazon.com/images/I/81hIbQn03RL._AC_UF1000,1000_QL80_.jpg",
-  },
-  {
-    id: "4",
-    name: "Solar Street Light with Camera",
-    description: "Integrated street light with a security camera.",
-    quantity: 1,
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
-  },
-  {
-    id: "5",
-    name: "Street Light Pole",
-    description: "Durable street light pole for various applications.",
-    quantity: 5,
-    url: "https://th.bing.com/th?id=OPAC.9GyQh8O0Qccugw474C474&w=592&h=550&o=5&dpr=1.1&pid=21.1",
-  },
-  {
-    id: "6",
-    name: "Motion Sensor Street Light",
-    description:
-      "Street light with a built-in motion sensor for energy savings.",
-    quantity: 2,
-    url: "  https://th.bing.com/th?id=OPAC.CS1gpu%2fn0Pggmw474C474&w=592&h=550&o=5&dpr=1.1&pid=21.1 ",
-  },
-];
+    unit: "",
+    initial_quantity: "",
+    qty_stock: "",
+    dispatch_date: "",
+    delivery_date: "",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s"
+  }
+]
 
 export const earnings = [
   {
@@ -228,31 +155,17 @@ export const earnings = [
     totalEarnings: 8500.0,
     completionDate: "2023-09-15",
   },
-  {
-    id: 3,
-    projectName: "Solar Panel Setup for Schools",
-    totalEarnings: 4730.75,
-    completionDate: "2023-08-20",
-  },
-  {
-    id: 4,
-    projectName: "Solar Energy Solutions for Farms",
-    totalEarnings: 20500.0,
-    completionDate: "2023-07-30",
-  },
-  {
-    id: 5,
-    projectName: "Solar Roof Panels for Businesses",
-    totalEarnings: 13500.25,
-    completionDate: "2023-06-12",
-  },
 ];
 
 export const menuItems = [
-  { label: "Site Inventory", icon: "cart-outline", page: "requisitions" },
+  { label: "Site Inventory", icon: "cart-outline", page: "inventoryScreen" },
   { label: "Reports", page: "", icon: "pie-chart-outline" },
-  { label: "My Projects", page: "", icon: "grid-outline" },
-  { label: "My Tasks", page: "", icon: "grid-outline" },
+  {
+    label: "My Projects",
+    icon: "grid-outline",
+    page: "projectsScreen",
+  },
+  { label: "My Tasks", page: "taskScreen", icon: "grid-outline" },
   { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting" },
 ];
 
@@ -297,56 +210,8 @@ export const notifications = [
   },
 ];
 
-export const requisitions = [
-  {
-    id: "PR - 10050019",
-    location: "PL01 - Texas Houston Plant",
-    date: "08/19/2024",
-    amount: "₹ 24.40 ",
-    checked: false,
-  },
-  {
-    id: "PR - 10050018",
-    location: "PL01 - Texas Houston Plant",
-    date: "08/23/2024",
-    amount: "₹ 254.40 ",
-    checked: false,
-  },
-  {
-    id: "PR - 10050017",
-    location: "PL01 - Texas Houston Plant",
-    date: "09/11/2024",
-    amount: "₹ 100.00 ",
-    checked: false,
-  },
-  {
-    id: "PR - 10050016",
-    location: "PL01 - Texas Houston Plant",
-    date: "10/19/2024",
-    amount: "₹ 100.00 ",
-    checked: false,
-  },
-];
-export const itemsData = [
-  { id: "P001", name: "Product A", price: 120.5, quantity: 2, total: 241.0 },
-  { id: "P002", name: "Product B", price: 80.25, quantity: 3, total: 240.75 },
-  { id: "P003", name: "Product C", price: 50.0, quantity: 1, total: 50.0 },
-  { id: "P004", name: "Product D", price: 150.75, quantity: 5, total: 753.75 },
-  { id: "P005", name: "Product E", price: 99.99, quantity: 4, total: 399.96 },
-];
-
-export const handleTaskProgress = (
-  tasks,
-  projectId,
-  setTasks,
-  setActiveStatus
-) => {
-  const updatedTasks = tasks.map((task) =>
-    task.id === projectId ? { ...task, status: "inProgress" } : task
-  );
-  setTasks(updatedTasks);
-  setActiveStatus("inProgress");
-};
+export const PRIVACY_POLICY =
+  "At Dashandots Technology, we deeply value your privacy and are committed to safeguarding the personal information you share with us.We collect essential personal information, including but not limited to your name, email address, and contact details, to ensure the efficient delivery of our services, enhance user experience, and better understand your needs.We assure you that we do not sell,"
 
 // statuscode=0->open,
 //statuscode = 1 -> completed,
