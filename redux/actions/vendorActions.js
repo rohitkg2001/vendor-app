@@ -1,6 +1,6 @@
 import { LOGIN_VENDOR } from "../constant";
 import moment from "moment";
-import { staff } from "../../utils/faker";
+import { vendor } from "../../utils/faker";
 
 export const greet = () => {
   // Write a logic to get morning, afternoon, evening and night as per time from moment
@@ -18,8 +18,8 @@ export const greet = () => {
 };
 
 export const login = (user, pass) => async (dispatch) => {
-  if (user === staff.email && pass === staff.password) {
-    await dispatch({ type: LOGIN_VENDOR, payload: staff });
+  if (user === vendor.email && pass === vendor.password) {
+    await dispatch({ type: LOGIN_VENDOR, payload: vendor });
     return true;
   } else {
     return false;
