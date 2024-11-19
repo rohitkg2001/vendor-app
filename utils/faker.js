@@ -85,7 +85,7 @@ export const projects = [
     vendorId: 1,
     projectName: "Indian Railway",
     duration: "5 days",
-    status: 1
+    status: 2
   },
   {
     id: 3,
