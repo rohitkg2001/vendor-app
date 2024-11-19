@@ -49,6 +49,9 @@ const TotalEarningScreen = () => {
             onPress={() => handleViewDetails(item)}
           />
         )}
+        ListEmptyComponent={() => (
+          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+        )}
         ListHeaderComponent={() => (
           <SearchBar
             placeholder="Search earnings..."

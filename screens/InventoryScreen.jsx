@@ -15,7 +15,7 @@ const InventoryScreen = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const filteredinventory = inventory.filter((item) =>
-   (item.name || " ").toLowerCase().includes(searchText.toLowerCase())
+    (item.name || " ").toLowerCase().includes(searchText.toLowerCase())
   );
 
   const toggleMenu = () => {
@@ -30,7 +30,7 @@ const InventoryScreen = () => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
+      <View>
         <MyHeader
           title="inventory"
           hasIcon={true}
@@ -38,11 +38,7 @@ const InventoryScreen = () => {
           icon={"ellipsis-vertical"}
           onIconPress={toggleMenu}
         />
-        <SearchBar
-          placeholder="Search inventory..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
+
         <MyFlatList
           data={filteredinventory}
           keyExtractor={(item) => item.id.toString()}
@@ -66,6 +62,17 @@ const InventoryScreen = () => {
                 </View>
               </View>
             </TouchableOpacity>
+          )}
+          ListEmptyComponent={() => (
+            <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+          )}
+          ListHeaderComponent={() => (
+            <SearchBar
+              placeholder="Search inventory..."
+              value={searchText}
+              onChangeText={setSearchText}
+              style={{ marginVertical: 8, marginHorizontal: 4 }}
+            />
           )}
         />
 
