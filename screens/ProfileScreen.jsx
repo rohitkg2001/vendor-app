@@ -4,8 +4,8 @@ import PersonalInfo from "../components/PersonalInfo";
 import DocumentsList from "../components/DocumentsList";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import { staff } from "../utils/faker";
-import { layouts, LIGHT, PRIMARY_COLOR, styles, typography } from "../styles";
+import { vendor } from "../utils/faker";
+import { LIGHT, PRIMARY_COLOR, styles } from "../styles";
 import TabNavigation from "../components/TabNavigation";
 import CardFullWidth from "../components/card/CardFullWidth";
 import Avatar from "../components/Avatar";
@@ -15,9 +15,9 @@ const ProfileScreen = () => {
 
   const renderContent = () => {
     if (activeTab === "Personal") {
-      return <PersonalInfo data={staff} />;
+      return <PersonalInfo data={vendor} />;
     } else if (activeTab === "Document") {
-      return <DocumentsList documentData={staff} />;
+      return <DocumentsList documentData={vendor} />;
     }
     return null;
   };
@@ -28,8 +28,8 @@ const ProfileScreen = () => {
       <CardFullWidth backgroundColor={PRIMARY_COLOR}>
         <View style={styles.row}>
           <Avatar
-            avatar={staff.image}
-            name={`${staff.first_name} ${staff.last_name}`}
+            avatar={vendor.image}
+            name={`${vendor.first_name} ${vendor.last_name}`}
             online={false}
           />
         </View>
