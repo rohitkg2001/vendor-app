@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { projecttask } from "../utils/faker";
+import { useNavigation } from "@react-navigation/native"; 
+import { projects } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import { styles } from "../styles/components.styles";
 import MyHeader from "../components/header/MyHeader";
@@ -14,9 +14,9 @@ import ClickableCard from "../components/card/Clickablecard";
 const CurrentProjectsScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const navigation = useNavigation();
+  const navigation = useNavigation(); // <-- Use useNavigation hook here
 
-  const filteredProjects = projecttask.filter((item) =>
+  const filteredProjects = projects.filter((item) =>
     item.projectName.toLowerCase().includes(searchText.toLowerCase())
   );
 

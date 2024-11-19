@@ -6,7 +6,7 @@ import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { H6, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
-import { tasksData } from "../utils/faker";
+import { tasks } from "../utils/faker";
 import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
 
 const TasksScreen = () => {
@@ -17,18 +17,16 @@ const TasksScreen = () => {
       onPress={() => navigation.navigate("fileUploadScreen")}
     >
       <Card
-        style={[
-          spacing.mv1,
-          { width: SCREEN_WIDTH - 18, backgroundColor: "#ffffff" },
-        ]}
+        style={[spacing.mv1, { width: SCREEN_WIDTH - 18, backgroundColor: "#ffffff" }]}
       >
         <View
           style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
         >
           <View style={{ flex: 1, marginLeft: 16 }}>
-            <H6 style={[typography.textBold]}>{item.taskName}</H6>
+            {/* Update the properties to match your data */}
+            <H6 style={[typography.textBold]}>{item.title}</H6> {/* title instead of taskName */}
             <P style={{ fontSize: 14, color: "#020409" }}>
-              {item.installation}
+              {item.description} {/* description instead of installation */}
             </P>
           </View>
         </View>
@@ -40,7 +38,7 @@ const TasksScreen = () => {
     <ContainerComponent>
       <MyHeader title="Task List" hasIcon={true} icon={"ellipsis-vertical"} />
       <MyFlatList
-        data={tasksData}
+        data={tasks} 
         renderItem={renderTaskItem}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}

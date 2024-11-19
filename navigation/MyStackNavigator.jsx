@@ -2,8 +2,6 @@ import MyMaterialBottomNavigator from "./MyMaterialBottomNavigator";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import DashboardScreen from "../screens/DashboardScreen";
-import RequisitionScreen from "../screens/RequisitionScreen";
-import PurchaseOrderScreen from "../screens/PurchaseOrderScreen";
 import FormScreen from "../screens/FormScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
@@ -33,11 +31,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
       <Stack.Screen name="projectTimeLine" component={ProjectTimeline} />
-      <Stack.Screen name="requisitions" component={RequisitionScreen} />
-      <Stack.Screen
-        name="purchaseOrderScreen"
-        component={PurchaseOrderScreen}
-      />
       <Stack.Screen name="formScreen" component={FormScreen} />
       <Stack.Screen name="notificationScreen" component={NotificationScreen} />
       <Stack.Screen name="privacyPolicy" component={PrivacyPolicy} />
