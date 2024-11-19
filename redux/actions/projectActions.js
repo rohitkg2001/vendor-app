@@ -43,7 +43,7 @@ export const projectCounts = [
     page: "projectsScreen",
   },
 ];
-// TODO:Add more status codes as per client requirement
+
 
 export const statCards = [
   {
@@ -64,7 +64,7 @@ export const statCards = [
     id: "3",
     title: "Total Sites",
     count: sites.length,
-    page: "requirementsScreen",
+    page: "SiteScreen",
     backgroundColor: "#E1BEE7",
   },
   {

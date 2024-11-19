@@ -11,7 +11,7 @@ import SettingsScreen from "../screens/SettingScreen";
 import InternalSetting from "../screens/InternalSetting";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import InventoryScreen from "../screens/InventoryScreen";
-import RequirementsScreen from "../screens/SiteScreen";
+import SiteScreen from "../screens/SiteScreen";
 import NoTask from "../screens/NoTask";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
@@ -40,7 +40,7 @@ export default function MyStackNavigator() {
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
-      <Stack.Screen name="requirementsScreen" component={RequirementsScreen} />
+      <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="projectsScreen" component={ProjectsScreen} />
       <Stack.Screen
         name="CurrentProjectsScreen"
