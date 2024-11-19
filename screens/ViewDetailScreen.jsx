@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { View, ScrollView, Alert } from "react-native";
-import { SCREEN_WIDTH, spacing, typography } from "../styles";
+import { View, ScrollView } from "react-native";
+import { SCREEN_WIDTH, typography } from "../styles";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
-import { H1, H5, H6, P } from "../components/text";
-import Filter from "../components/filters";
-import MyButton from "../components/buttons/MyButton";
+import { H5 } from "../components/text";
 
-const ViewDetailScreen = ({ route, navigation }) => {
+const ViewDetailScreen = ({ route }) => {
   const { site, formType } = route.params;
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
@@ -65,48 +63,10 @@ const ViewDetailScreen = ({ route, navigation }) => {
       {renderDetailRow("Status", site.status)}
     </>
   );
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
-
-  const handleEdit = () => {
-    navigation.navigate("EditDetailsScreen", {
-      site: site,
-      formType: site.vendorName
-        ? "vendor"
-        : site.projectName
-        ? "project"
-        : "site",
-    });
-  };
-
-  const handleDelete = () => {
-    Alert.alert(
-      "Confirm Delete",
-      `Are you sure you want to delete this ${
-        site.vendorName ? "vendor" : site.projectName ? "project" : "site"
-      }?`,
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: () => {
-            navigation.goBack();
-          },
-        },
-      ]
-    );
-  };
-
-  const menuOptions = [
-    { label: "Edit", onPress: handleEdit },
-    { label: "Delete", onPress: handleDelete },
-  ];
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
+      <View style={[{ width: SCREEN_WIDTH - 16 }]}>
         <MyHeader
           title={
             formType === "vendor"
@@ -127,33 +87,9 @@ const ViewDetailScreen = ({ route, navigation }) => {
               ? renderProjectDetails()
               : renderSiteDetails()}
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginVertical: 16,
-            }}
-          >
-            <MyButton
-              title="Create Task"
-              onPress={() => navigation.navigate("taskListFormScreen")}
-              color="#DC4C64"
-            />
-            <MyButton
-              title="View Task"
-              onPress={() => navigation.navigate("taskListScreen")}
-            />
-          </View>
         </ScrollView>
-
-        <Filter
-          visible={isMenuVisible}
-          onClose={() => setIsMenuVisible(false)}
-          options={menuOptions}
-        />
       </View>
     </ContainerComponent>
   );
 };
-
 export default ViewDetailScreen;
