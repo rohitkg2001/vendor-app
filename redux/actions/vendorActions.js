@@ -56,7 +56,7 @@ export const viewProfile = (userId) => async (dispatch) => {
 export const logOut = (userId, sessionId) => async (dispatch) => {
   if (userId === 1 && sessionId === "ABC123") {
     await dispatch({ type: LOGOUT, payload: { userId, sessionId } });
-    console.log("User logged out successfully");
+
     return true;
   } else {
     console.error("Invalid user or session ID");

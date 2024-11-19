@@ -5,8 +5,6 @@ import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 
-import { earnings } from "../utils/faker";
-
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
 
@@ -25,6 +23,9 @@ const TotalEarningScreen = () => {
             isEarning={true}
             onPress={() => handleViewDetails(item)}
           />
+        )}
+        ListEmptyComponent={() => (
+          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
         )}
         ListHeaderComponent={() => (
           <SearchBar

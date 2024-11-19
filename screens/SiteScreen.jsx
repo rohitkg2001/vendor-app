@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { ScrollView, View } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
-import { SCREEN_WIDTH, spacing } from "../styles";
 import { sites } from "../utils/faker";
 import MyFlatList from "../components/utility/MyFlatList";
 

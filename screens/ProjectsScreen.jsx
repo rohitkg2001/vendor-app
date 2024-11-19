@@ -6,7 +6,6 @@ import ClickableCard from "../components/card/Clickablecard";
 import MyFlatList from "../components/utility/MyFlatList";
 import { useNavigation } from "@react-navigation/native";
 
-
 export default function ProjectsScreen({ route }) {
   const [searchText, setSearchText] = useState("");
   const navigation = useNavigation();
@@ -32,6 +31,9 @@ export default function ProjectsScreen({ route }) {
             handleViewDetails={handleViewDetails}
             isProject={true}
           />
+        )}
+        ListEmptyComponent={() => (
+          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
         )}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={() => (
