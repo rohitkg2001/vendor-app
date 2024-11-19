@@ -5,7 +5,6 @@ import DashboardScreen from "../screens/DashboardScreen";
 import FormScreen from "../screens/FormScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
-import ProjectTimeline from "../screens/ProjectTimeline";
 import TotalEarningScreen from "../screens/TotalEarningScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingScreen";
@@ -18,6 +17,7 @@ import ProjectsScreen from "../screens/ProjectsScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
 import ViewDetailScreen from "../screens/ViewDetailScreen";
+
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -30,7 +30,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
-      <Stack.Screen name="projectTimeLine" component={ProjectTimeline} />
       <Stack.Screen name="formScreen" component={FormScreen} />
       <Stack.Screen name="notificationScreen" component={NotificationScreen} />
       <Stack.Screen name="privacyPolicy" component={PrivacyPolicy} />

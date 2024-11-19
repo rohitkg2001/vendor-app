@@ -185,7 +185,7 @@ export const menuItems = [
     icon: "grid-outline",
     page: "projectsScreen",
   },
-  { label: "My Tasks", page: "", icon: "grid-outline" },
+  { label: "My Tasks", page: "taskScreen", icon: "grid-outline" },
   { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting" },
 ];
 
@@ -229,58 +229,6 @@ export const notifications = [
     time: "25 sept,21:22 Pm",
   },
 ];
-
-// export const requisitions = [
-//   {
-//     id: "PR - 10050019",
-//     location: "PL01 - Texas Houston Plant",
-//     date: "08/19/2024",
-//     amount: "₹ 24.40 ",
-//     checked: false,
-//   },
-//   {
-//     id: "PR - 10050018",
-//     location: "PL01 - Texas Houston Plant",
-//     date: "08/23/2024",
-//     amount: "₹ 254.40 ",
-//     checked: false,
-//   },
-//   {
-//     id: "PR - 10050017",
-//     location: "PL01 - Texas Houston Plant",
-//     date: "09/11/2024",
-//     amount: "₹ 100.00 ",
-//     checked: false,
-//   },
-//   {
-//     id: "PR - 10050016",
-//     location: "PL01 - Texas Houston Plant",
-//     date: "10/19/2024",
-//     amount: "₹ 100.00 ",
-//     checked: false,
-//   },
-// ];
-
-// export const itemsData = [
-//   { id: "P001", name: "Product A", price: 120.5, quantity: 2, total: 241.0 },
-//   { id: "P002", name: "Product B", price: 80.25, quantity: 3, total: 240.75 },
-//   { id: "P003", name: "Product C", price: 50.0, quantity: 1, total: 50.0 },
-//   { id: "P004", name: "Product D", price: 150.75, quantity: 5, total: 753.75 },
-//   { id: "P005", name: "Product E", price: 99.99, quantity: 4, total: 399.96 },
-// ];
-
-export const handleTaskProgress = (
-  tasks,
-  projectId,
-  setTasks,
-  setActiveStatus
-) => {
-  const updatedTasks = tasks.map((task) =>
-    task.id === projectId ? { ...task, status: "inProgress" } : task
-  );
-  setTasks(updatedTasks);
-  setActiveStatus("inProgress");
-};
 
 export const PRIVACY_POLICY =
   "At Dashandots Technology, we deeply value your privacy and are committed to safeguarding the personal information you share with us.We collect essential personal information, including but not limited to your name, email address, and contact details, to ensure the efficient delivery of our services, enhance user experience, and better understand your needs.We assure you that we do not sell,"
