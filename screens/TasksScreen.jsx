@@ -23,10 +23,10 @@ const TasksScreen = () => {
           style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
         >
           <View style={{ flex: 1, marginLeft: 16 }}>
-            {/* Update the properties to match your data */}
-            <H6 style={[typography.textBold]}>{item.title}</H6> {/* title instead of taskName */}
+       
+            <H6 style={[typography.textBold]}>{item.title}</H6> 
             <P style={{ fontSize: 14, color: "#020409" }}>
-              {item.description} {/* description instead of installation */}
+              {item.description} 
             </P>
           </View>
         </View>
