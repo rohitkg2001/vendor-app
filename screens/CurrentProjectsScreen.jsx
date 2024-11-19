@@ -58,6 +58,9 @@ const CurrentProjectsScreen = () => {
             </View>
           </TouchableOpacity>
         )}
+        ListEmptyComponent={() => (
+          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+        )}
         ListHeaderComponent={() => (
           <SearchBar
             placeholder="Search current projects..."

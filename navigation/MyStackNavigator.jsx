@@ -2,7 +2,6 @@ import MyMaterialBottomNavigator from "./MyMaterialBottomNavigator";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import DashboardScreen from "../screens/DashboardScreen";
-import FormScreen from "../screens/FormScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
 import TotalEarningScreen from "../screens/TotalEarningScreen";
@@ -17,20 +16,15 @@ import ProjectsScreen from "../screens/ProjectsScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
 import ViewDetailScreen from "../screens/ViewDetailScreen";
+import NoRecordScreen from "../screens/NoRecordScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
-    <Stack.Navigator
-      initialRouteName="loginScreen"
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <Stack.Navigator initialRouteName="loginScreen"  screenOptions={{  headerShown: false, }} >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
-      <Stack.Screen name="formScreen" component={FormScreen} />
       <Stack.Screen name="notificationScreen" component={NotificationScreen} />
       <Stack.Screen name="privacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
@@ -42,12 +36,10 @@ export default function MyStackNavigator() {
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="projectsScreen" component={ProjectsScreen} />
-      <Stack.Screen
-        name="CurrentProjectsScreen"
-        component={CurrentProjectsScreen}
-      />
+      <Stack.Screen name="CurrentProjectsScreen" component={CurrentProjectsScreen}/>
       <Stack.Screen name="taskScreen" component={TasksScreen} />
-      <Stack.Screen name="viewDetailScreen" component={ViewDetailScreen} />
+      <Stack.Screen name="viewDetailScreen" component={ ViewDetailScreen } />
+      <Stack.Screen name="noRecordScreen" component={NoRecordScreen} />
     </Stack.Navigator>
   );
 }
