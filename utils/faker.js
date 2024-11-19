@@ -178,7 +178,7 @@ export const earnings = [
 ];
 
 export const menuItems = [
-  { label: "Site Inventory", icon: "cart-outline", page: "requisitions" },
+  { label: "Site Inventory", icon: "cart-outline", page: "inventoryScreen" },
   { label: "Reports", page: "", icon: "pie-chart-outline" },
   {
     label: "My Projects",
