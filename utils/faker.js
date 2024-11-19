@@ -157,24 +157,6 @@ export const earnings = [
     totalEarnings: 8500.0,
     completionDate: "2023-09-15",
   },
-  {
-    id: 3,
-    projectName: "Solar Panel Setup for Schools",
-    totalEarnings: 4730.75,
-    completionDate: "2023-08-20",
-  },
-  {
-    id: 4,
-    projectName: "Solar Energy Solutions for Farms",
-    totalEarnings: 20500.0,
-    completionDate: "2023-07-30",
-  },
-  {
-    id: 5,
-    projectName: "Solar Roof Panels for Businesses",
-    totalEarnings: 13500.25,
-    completionDate: "2023-06-12",
-  },
 ];
 
 export const menuItems = [
