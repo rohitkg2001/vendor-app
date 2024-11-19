@@ -38,7 +38,6 @@ export const vendor = {
   created_date: "",
 };
 
-
 export const projects = [
   {
     id: 1,
@@ -142,7 +141,6 @@ export const inventory = [
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s"
   }
 ]
-
 
 export const earnings = [
   {
