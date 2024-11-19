@@ -1,45 +1,22 @@
 import React, { useState } from "react";
-import { earnings } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
-import Filter from "../components/filters";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
+
+import { earnings } from "../utils/faker";
+
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const filteredEarnings = earnings.filter((earning) =>
-    earning.projectName.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
-
-  const menuOptions = [
-    { label: "Search", onPress: () => console.log("Search clicked") },
-    { label: "Sort", onPress: () => console.log("Sort clicked") },
-    { label: "Filter", onPress: () => console.log("Filter clicked") },
-  ];
-
-  const handleCardClick = (item) => {
-    console.log("Clicked item:", item);
-  };
 
   return (
     <ContainerComponent>
-      <MyHeader
-        title="Total Earnings"
-        hasIcon={true}
-        isBack={true}
-        icon={"ellipsis-vertical"}
-        onIconPress={toggleMenu}
-      />
+      <MyHeader title="Total Earnings" hasIcon={true} isBack={true} />
 
       <MyFlatList
-        data={filteredEarnings}
+        data={[]}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item, index }) => (
           <ClickableCard
@@ -57,12 +34,6 @@ const TotalEarningScreen = () => {
             style={{ marginVertical: 8, marginHorizontal: 4 }}
           />
         )}
-      />
-
-      <Filter
-        visible={isMenuVisible}
-        onClose={toggleMenu}
-        options={menuOptions}
       />
     </ContainerComponent>
   );

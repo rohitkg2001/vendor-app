@@ -4,9 +4,7 @@ import { styles, spacing, layouts } from "../styles";
 import H1 from "./text/H2";
 
 export default function Avatar({ avatar, name, online = true }) {
-  useEffect(() => {
-    console.log(avatar);
-  }, [avatar]);
+
 
   return (
     <View style={spacing.mr4}>

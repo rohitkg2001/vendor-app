@@ -14,10 +14,6 @@ const InventoryScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const filteredinventory = inventory.filter((item) =>
-   (item.name || " ").toLowerCase().includes(searchText.toLowerCase())
-  );
-
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
   };
@@ -30,51 +26,39 @@ const InventoryScreen = () => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 16 }]}>
-        <MyHeader
-          title="inventory"
-          hasIcon={true}
-          isBack={true}
-          icon={"ellipsis-vertical"}
-          onIconPress={toggleMenu}
-        />
-        <SearchBar
-          placeholder="Search inventory..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-        <MyFlatList
-          data={filteredinventory}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity style={styles.card}>
-              <Image
-                source={{ uri: item.url }}
-                loadingIndicatorSource={require("../assets/img15.png")}
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 8,
-                  marginRight: 16,
-                }}
-              />
-              <View style={{ flex: 1 }}>
-                <H5>{item.name}</H5>
-                <P>{item.description}</P>
-                <View style={styles.quantityContainer}>
-                  <P style={styles.productQuantity}>Qty: {item.quantity}</P>
-                </View>
+      <MyHeader title="Inventory" hasIcon={true} isBack={true} />
+      <MyFlatList
+        data={inventory}
+        keyExtractor={(item) => item.id.toString()}
+        ListHeaderComponent={() =>
+          <SearchBar
+            placeholder="Search by name or code"
+            value={searchText}
+            onChangeText={setSearchText}
+            style={{ marginVertical: 8, marginHorizontal: 4 }}
+          />}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.card}>
+            <Image
+              source={{ uri: item.url }}
+              loadingIndicatorSource={require("../assets/img15.png")}
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: 8,
+                marginRight: 16,
+              }}
+            />
+            <View style={{ flex: 1 }}>
+              <H5>{item.name}</H5>
+              <P>{item.description}</P>
+              <View style={styles.quantityContainer}>
+                <P style={styles.productQuantity}>Qty: {item.qty_stock} {item.unit}</P>
               </View>
-            </TouchableOpacity>
-          )}
-        />
-
-        <Filter
-          visible={isMenuVisible}
-          onClose={toggleMenu}
-          options={menuOptions}
-        />
-      </View>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
     </ContainerComponent>
   );
 };

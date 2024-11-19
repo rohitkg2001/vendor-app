@@ -7,7 +7,7 @@ import MenuItem from "../components/MenuItem";
 import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
 import { DANGER_COLOR } from "../styles/constant";
-import { vendor } from "../utils/faker";
+import { projects, vendor } from "../utils/faker";
 import Button from "../components/buttons/Button";
 import { menuItems } from "../utils/faker";
 
@@ -33,7 +33,12 @@ export default function SettingsScreen() {
             key={index}
             label={item.label}
             icon={item.icon}
-            onPress={() => navigation.navigate(item.page)}
+            onPress={() => {
+              item.id === 0 ?
+                navigation.navigate(item.page, { DATA: projects, title: item.label })
+                :
+                navigation.navigate(item.page)
+            }}
           />
         ))}
       </View>

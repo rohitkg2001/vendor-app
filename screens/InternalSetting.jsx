@@ -11,12 +11,7 @@ export default function SettingsScreen() {
 
   return (
     <ContainerComponent justifyContent="space-between">
-      <MyHeader
-        title="Settings"
-        isBack={true}
-        hasIcon={true}
-        icon={"cog-outline"}
-      />
+      <MyHeader title="Settings" isBack={true} hasIcon={true} />
       <View style={{ flex: 1 }}>
         {internal.map((item, index) => (
           <MenuItem

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
@@ -11,10 +11,6 @@ export default function ProjectsScreen({ route }) {
   const [searchText, setSearchText] = useState("");
   const navigation = useNavigation();
   const { DATA, title } = route.params;
-  useEffect(() => {
-    console.log(title)
-  }, [])
-
 
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
