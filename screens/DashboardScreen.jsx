@@ -81,7 +81,7 @@ export default function DashboardScreen() {
                 projectCounts.map((item, index) =>
                   <TouchableOpacity
                     style={{ alignItems: "center" }}
-                    onPress={() => navigation.navigate(item.page, { DATA: item.data })}
+                    onPress={() => navigation.navigate(item.page, { DATA: item.data, title: `${item.title} Projects` })}
                   >
                     <P style={typography.textBold}>{item.title}</P>
                     <P>{item.count || 0}</P>
@@ -103,7 +103,8 @@ export default function DashboardScreen() {
                 backgroundColor={item.backgroundColor}
                 tasks={item.count}
                 status={item.title}
-                onPress={() => navigation.navigate(item.page, { DATA: projects })}
+                onPress={() => navigation.navigate(item.page, { DATA: projects, title: `${item.title}` })
+                }
                 style={{ marginTop }}
               />
             );
@@ -148,7 +149,7 @@ export default function DashboardScreen() {
               <TouchableOpacity
                 key={item.id}
                 style={styles.gridItem}
-                onPress={() => navigation.navigate('NoTask')}
+                onPress={() => navigation.navigate('taskScreen')}
               >
                 <Icon name={item.icon} size={20} color={DARK} />
                 <P>{item.label}</P>

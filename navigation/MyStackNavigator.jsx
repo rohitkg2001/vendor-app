@@ -11,17 +11,14 @@ import InternalSetting from "../screens/InternalSetting";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import InventoryScreen from "../screens/InventoryScreen";
 import SiteScreen from "../screens/SiteScreen";
-import NoTask from "../screens/NoTask";
 import ProjectsScreen from "../screens/ProjectsScreen";
-import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
 import ViewDetailScreen from "../screens/ViewDetailScreen";
-import NoRecordScreen from "../screens/NoRecordScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
-    <Stack.Navigator initialRouteName="loginScreen"  screenOptions={{  headerShown: false, }} >
+    <Stack.Navigator initialRouteName="loginScreen" screenOptions={{ headerShown: false, }} >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
@@ -30,16 +27,13 @@ export default function MyStackNavigator() {
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="internalSetting" component={InternalSetting} />
-      <Stack.Screen name="NoTask" component={NoTask} />
       <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="projectsScreen" component={ProjectsScreen} />
-      <Stack.Screen name="CurrentProjectsScreen" component={CurrentProjectsScreen}/>
       <Stack.Screen name="taskScreen" component={TasksScreen} />
-      <Stack.Screen name="viewDetailScreen" component={ ViewDetailScreen } />
-      <Stack.Screen name="noRecordScreen" component={NoRecordScreen} />
+      <Stack.Screen name="viewDetailScreen" component={ViewDetailScreen} />
     </Stack.Navigator>
   );
 }

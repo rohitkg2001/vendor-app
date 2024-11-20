@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function ProjectsScreen({ route }) {
   const [searchText, setSearchText] = useState("");
   const navigation = useNavigation();
-  const { DATA } = route.params;
+  const { DATA, title } = route.params;
 
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
@@ -20,13 +20,7 @@ export default function ProjectsScreen({ route }) {
 
   return (
     <ContainerComponent>
-      <MyHeader
-        isBack
-        title="Total Projects"
-        hasIcon
-        icon="ellipsis-vertical"
-        onIconPress={() => console.log("Menu clicked")}
-      />
+      <MyHeader isBack title={title} hasIcon />
 
       <MyFlatList
         data={DATA}
