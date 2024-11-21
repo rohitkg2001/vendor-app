@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   DANGER_COLOR,
   DARK,
@@ -6,7 +6,6 @@ import {
   LIGHT,
   PRIMARY_COLOR,
   PRIMARY_COLOR_TRANSPARENT,
-  SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
@@ -158,8 +157,8 @@ export const styles = StyleSheet.create({
   fullWidth: {
     width: SCREEN_WIDTH,
   },
- 
-  
+
+
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -355,7 +354,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
   },
- 
+
 
   // Attendancescreen
 
@@ -736,18 +735,6 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 15,
   },
-  
-  progressText: {
-    fontWeight: "bold",
-    marginTop: 6,
-    color: LIGHT,
-  },
-  completedText: {
-    textAlign: "center",
-    fontSize: 18,
-    color: PRIMARY_COLOR,
-    marginTop: 20,
-  },
 
   quantityContainer: {
     position: "absolute",
@@ -761,7 +748,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
-  
+
   popupMenu: {
     position: "absolute",
     top: 50,
@@ -772,7 +759,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 5,
   },
-  
+
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",

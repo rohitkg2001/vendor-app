@@ -7,6 +7,7 @@ import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import { inventory } from "../utils/faker";
+import { spacing } from "../styles";
 
 export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
@@ -28,13 +29,7 @@ export default function InventoryScreen() {
           <TouchableOpacity style={styles.card}>
             <Image
               source={{ uri: item.url }}
-              loadingIndicatorSource={require("../assets/img15.png")}
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: 8,
-                marginRight: 16,
-              }}
+              style={[{ width: 60, height: 60 }, spacing.mr4, spacing.br2]}
             />
             <View style={{ flex: 1 }}>
               <H5>{item.name}</H5>

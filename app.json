@@ -30,7 +30,6 @@
       "package": "com.dashandots.sugslloydsvendorapp"
     },
     "plugins": [
-      "expo-font",
       [
         "expo-camera",
         {
