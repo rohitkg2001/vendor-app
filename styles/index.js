@@ -19,6 +19,8 @@ export {
     PRIMARY_COLOR,
     PRIMARY_COLOR_TRANSPARENT,
     LIGHT,
+    DARK,
+    DANGER_COLOR,
     spacing,
     typography,
     styles,
