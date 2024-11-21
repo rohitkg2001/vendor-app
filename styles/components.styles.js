@@ -92,6 +92,22 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
+  rowItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: SCREEN_WIDTH - 16,
+    alignItems: "center",
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  onlineDot: {
+    position: "absolute",
+    bottom: 14,
+    right: 14,
+    borderWidth: 4,
+    borderColor: LIGHT,
+  },
   picker: {
     borderWidth: 1,
     borderColor: SECONDARY_COLOR,
@@ -265,11 +281,6 @@ export const styles = StyleSheet.create({
     color: PRIMARY_COLOR,
     fontWeight: "bold",
   },
-  label: {
-    fontSize: 14,
-    color: "#888",
-  },
-
   documentRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -333,7 +344,7 @@ export const styles = StyleSheet.create({
   actionButtonText: {
     color: PRIMARY_COLOR,
   },
-  
+
   addIconContainer: {
     borderRadius: 15,
     backgroundColor: LIGHT,
@@ -368,11 +379,6 @@ export const styles = StyleSheet.create({
     color: "#020409",
   },
 
-  status: {
-    color: LIGHT,
-    fontWeight: "bold",
-  },
-
   map: {
     height: SCREEN_WIDTH / 1.5,
   },
@@ -383,29 +389,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  taskInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-  },
   quantityContainer: {
     position: "absolute",
     bottom: 0,
     right: 0,
   },
-  card: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
-  },
 
-  actions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
   photoRow: {
     flexDirection: "row",
     flexWrap: "wrap",

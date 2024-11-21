@@ -1,11 +1,5 @@
 import { useState, useRef } from "react";
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-} from "react-native";
+import { View, Image, TouchableOpacity, TextInput, Alert } from "react-native";
 import { Card, Button } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
@@ -13,8 +7,9 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT, spacing } from "../styles";
 import { typography, PRIMARY_COLOR } from "../styles";
 import { styles } from "../styles/components.styles";
 import { H4, H5, H6, P } from "../components/text";
+import MyTextInput from "../components/input/MyTextInput";
 
-const FileUploadScreen = () => {
+export default function FileUploadScreen() {
   const [photos, setPhotos] = useState([]);
   const [photoMessage, setPhotoMessage] = useState("");
   const [description, setDescription] = useState("");
@@ -101,25 +96,19 @@ const FileUploadScreen = () => {
             </View>
 
             {/* Description Box */}
-            <TextInput
-              style={{
-                height: 100,
-                borderColor: "#ccc",
-                borderWidth: 1,
-                borderRadius: 8,
-                padding: 10,
-                marginTop: 14,
-              }}
-              placeholder="Enter a description..."
+            <MyTextInput
+              title="Description"
+              onChangeText={(text) => setDescription(text)}
+              type={text}
+              placeholder="Briefly describe in less than 80 words"
               multiline
               value={description}
-              onChangeText={(text) => setDescription(text)}
             />
           </Card.Content>
 
           {/* Actions - Cancel and Upload Buttons */}
           <Card.Actions
-            style={[styles.actions, { justifyContent: "space-between" }]}
+            style={[styles.row, spacing.mt5, { justifyContent: "space-between" }]}
           >
             <Button onPress={handleCancel} style={{ paddingVertical: 4 }}>
               Cancel
@@ -139,5 +128,3 @@ const FileUploadScreen = () => {
     </ContainerComponent>
   );
 };
-
-export default FileUploadScreen;
