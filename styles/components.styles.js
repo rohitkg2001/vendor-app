@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform, StatusBar } from "react-native";
 import {
   DANGER_COLOR,
   DARK,
@@ -181,11 +181,27 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  rowItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: SCREEN_WIDTH - 16,
+    alignItems: "center",
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
   rowBullet: {
     flexDirection: "row",
     alignItems: "center",
   },
 
+  onlineDot: {
+    position: "absolute",
+    bottom: 14,
+    right: 14,
+    borderWidth: 4,
+    borderColor: LIGHT,
+  },
   card: {
     borderRadius: 16,
     padding: 16,
@@ -195,7 +211,22 @@ export const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: LIGHT,
   },
-
+  taskLabel: {
+    borderRadius: 15,
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+    marginRight: 5,
+    backgroundColor: "#f87171",
+  },
+  taskFooterItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  footerText: {
+    marginHorizontal: 4,
+    color: DARK,
+    fontSize: 14,
+  },
   dropdown: {
     flexDirection: "row",
     alignItems: "center",
@@ -333,7 +364,7 @@ export const styles = StyleSheet.create({
   actionButtonText: {
     color: PRIMARY_COLOR,
   },
-
+  //PurchaseOrderScreen
   addIconContainer: {
     borderRadius: 15,
     backgroundColor: LIGHT,
