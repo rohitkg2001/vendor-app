@@ -522,21 +522,6 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
-  amountCard: {
-    padding: 10,
-    paddingRight: 20,
-    backgroundColor: LIGHT,
-    borderRadius: 6,
-  },
-  amountDetails: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-
-    marginBottom: 2,
-    marginLeft: 10,
-  },
-
-  //SearchableDropdown
   dropdownContainer: {
     padding: 8,
   },
@@ -552,13 +537,11 @@ export const styles = StyleSheet.create({
     color: "#020409",
   },
 
- 
   status: {
     color: LIGHT,
     fontWeight: "bold",
   },
 
- 
   map: {
     height: SCREEN_WIDTH / 1.5,
   },
@@ -585,7 +568,6 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
-  
   
   actions: {
     flexDirection: "row",
