@@ -333,7 +333,7 @@ export const styles = StyleSheet.create({
   actionButtonText: {
     color: PRIMARY_COLOR,
   },
-  //PurchaseOrderScreen
+
   addIconContainer: {
     borderRadius: 15,
     backgroundColor: LIGHT,
@@ -383,37 +383,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-<<<<<<< HEAD
-=======
-  taskInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  infoText: {
-    color: LIGHT,
-    marginLeft: 5,
-    marginRight: 15,
-  },
-
-  progressText: {
-    fontWeight: "bold",
-    marginTop: 6,
-    color: LIGHT,
-  },
-  completedText: {
-    textAlign: "center",
-    fontSize: 18,
-    color: PRIMARY_COLOR,
-    marginTop: 20,
-  },
-
-  quantityContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-  },
->>>>>>> 97df5e6b311d50130f10956af9975f48486550fe
   card: {
     flexDirection: "row",
     alignItems: "center",
