@@ -18,11 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: LIGHT,
     alignItems: "center",
   },
-  cameraContainer: {
-    borderWidth: 6,
-    borderColor: PRIMARY_COLOR,
-    overflow: "hidden",
-  },
+
   imageContainerImg: {
     width: 0.6 * SCREEN_WIDTH,
     height: 0.6 * SCREEN_WIDTH,
@@ -388,37 +384,13 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-
-  quantityContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-  },
-
-  photoRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 16,
-  },
-  photoContainer: {
-    position: "relative",
-    marginRight: 10,
-    marginBottom: 10,
-  },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
+    width: 64,
+    height: 64,
   },
-  removeButton: {
+  removeImageButton: {
     position: "absolute",
     top: -5,
     right: -5,
-    backgroundColor: "red",
-    borderRadius: 10,
-    width: 20,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

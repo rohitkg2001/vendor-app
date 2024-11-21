@@ -1,10 +1,3 @@
-import {
-  DANGER_COLOR,
-  INFO_COLOR,
-  SUCCESS_COLOR,
-  WARNING_COLOR,
-} from "../styles/constant";
-
 export const vendor = {
   id: 1,
   first_name: "Rakesh",
@@ -156,7 +149,7 @@ export const inventory = [
     initial_quantity: "1000",
     qty_stock: "1000",
     dispatch_date: "",
-    delivery_date: "",
+    delivery_date: "12 Nov 2024",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s"
   },
   {
@@ -169,7 +162,7 @@ export const inventory = [
     initial_quantity: "1000",
     qty_stock: "200",
     dispatch_date: "",
-    delivery_date: "",
+    delivery_date: "12 Nov 2024",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s"
   }
 ]

@@ -4,6 +4,7 @@ import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
+import NoRecord from "./NoRecord";
 
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
@@ -25,7 +26,7 @@ const TotalEarningScreen = () => {
           />
         )}
         ListEmptyComponent={() => (
-          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+          <NoRecord msg="Oops! No Projects available. Create the new one." />
         )}
         ListHeaderComponent={() => (
           <SearchBar
