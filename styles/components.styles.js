@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   DANGER_COLOR,
   DARK,
@@ -6,7 +6,6 @@ import {
   LIGHT,
   PRIMARY_COLOR,
   PRIMARY_COLOR_TRANSPARENT,
-  SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
@@ -158,8 +157,7 @@ export const styles = StyleSheet.create({
   fullWidth: {
     width: SCREEN_WIDTH,
   },
- 
-  
+
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -183,27 +181,11 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  rowItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: SCREEN_WIDTH - 16,
-    alignItems: "center",
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-  },
   rowBullet: {
     flexDirection: "row",
     alignItems: "center",
   },
 
-  onlineDot: {
-    position: "absolute",
-    bottom: 14,
-    right: 14,
-    borderWidth: 4,
-    borderColor: LIGHT,
-  },
   card: {
     borderRadius: 16,
     padding: 16,
@@ -213,22 +195,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: LIGHT,
   },
-  taskLabel: {
-    borderRadius: 15,
-    paddingVertical: 3,
-    paddingHorizontal: 10,
-    marginRight: 5,
-    backgroundColor: "#f87171",
-  },
-  taskFooterItem: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  footerText: {
-    marginHorizontal: 4,
-    color: DARK,
-    fontSize: 14,
-  },
+
   dropdown: {
     flexDirection: "row",
     alignItems: "center",
@@ -355,7 +322,6 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
   },
- 
 
   // Attendancescreen
 
@@ -736,7 +702,7 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 15,
   },
-  
+
   progressText: {
     fontWeight: "bold",
     marginTop: 6,
@@ -761,7 +727,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
-  
+
   popupMenu: {
     position: "absolute",
     top: 50,
@@ -772,7 +738,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 5,
   },
-  
+
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",
