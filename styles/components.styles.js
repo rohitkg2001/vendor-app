@@ -326,17 +326,7 @@ export const styles = StyleSheet.create({
     width: "30%",
     marginVertical: 10,
   },
-//Todo delete
-  activityTime: {
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  activityStatus: {
-    marginLeft: "auto",
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  //FormScreen
+
   label: {
     marginBottom: 10,
   },
@@ -357,327 +347,36 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  cardContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 14,
-  },
-  itemDetails: {
-    marginLeft: 10,
-  },
-  quantityRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   unit: {
     marginLeft: 5,
   },
-  saveButton: {
-    backgroundColor: "#ccc",
-    padding: 10,
-    alignItems: "center",
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  //Requisitionscreen
-  listItemContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
-  },
-  leftContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  textContainer: {
-    marginLeft: 10,
-  },
 
-  rightContainer: {
-    alignItems: "flex-end",
-  },
-
-  actionButton: {
-    marginTop: 10,
-    padding: 6,
-    backgroundColor: "#2b87b022",
-    borderRadius: 5,
-  },
-  actionButtonText: {
-    color: PRIMARY_COLOR,
-  },
-  //PurchaseOrderScreen
-  addIconContainer: {
-    borderRadius: 15,
-    backgroundColor: LIGHT,
-  },
-
-  cardRow: {
-    flexDirection: "row",
-    padding: 4,
-  },
-
-  itemInfo: {
-    flex: 3,
-  },
-
-  itemDetails: {
-    alignItems: "Center",
-    flex: 1,
-  },
-
-  amountCard: {
-    padding: 10,
-    paddingRight: 20,
-    backgroundColor: LIGHT,
-    borderRadius: 6,
-  },
-  amountDetails: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-
-    marginBottom: 2,
-    marginLeft: 10,
-  },
-
-  //SearchableDropdown
-  dropdownContainer: {
-    padding: 8,
-  },
-  itemStyle: {
-    padding: 4,
-    marginTop: 4,
-  },
-  itemsContainerStyle: {
-    maxHeight: 100,
-  },
   textInput: {
     width: 310,
     color: "#020409",
   },
 
-  leaveCard: {
-    position: "relative",
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: LIGHT,
-    marginBottom: 16,
-    elevation: 2,
-  },
-  approvedStatusContainer: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    backgroundColor: SUCCESS_COLOR,
-    borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-  },
   status: {
     color: LIGHT,
     fontWeight: "bold",
   },
 
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: LIGHT,
-  },
-  scrollViewContent: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    alignItems: "center",
-  },
-  tabContainer: {
-    marginTop: 16,
-    marginBottom: 20,
-  },
-  tabButtonActive: {
-    fontWeight: "bold",
-    borderBottomWidth: 2,
-    borderBottomColor: PRIMARY_COLOR,
-    paddingVertical: 8,
-  },
-  tabButton: {
-    color: "#888",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  checkoutButton: {
-    backgroundColor: PRIMARY_COLOR,
-    borderRadius: 100,
-    width: 150,
-    height: 150,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    marginBottom: 20,
-    elevation: 5,
-  },
-  checkoutText: {
-    color: LIGHT,
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
-  timerCard: {
-    backgroundColor: "#1B2940",
-    borderRadius: 15,
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-  },
-  timerContent: {
-    alignItems: "center",
-  },
-  locationRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  locationText: {
-    color: LIGHT,
-    fontSize: 14,
-  },
-  timeText: {
-    fontSize: 36,
-    color: "#50e3c2",
-    marginVertical: 10,
-  },
-  workHoursText: {
-    color: LIGHT,
-    fontSize: 12,
-  },
-  workHoursTimeText: {
-    fontSize: 16,
-    color: "#50e3c2",
-    marginTop: 5,
-  },
-  activityCard: {
-    backgroundColor: LIGHT,
-    borderRadius: 15,
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-    elevation: 3,
-  },
-  activityHeader: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 15,
-  },
-  activityRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  activityTitle: {
-    fontSize: 16,
-  },
-  activityTime: {
-    fontSize: 14,
-    color: "#020409",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  footerText: {
-    fontSize: 14,
-    color: "#020409",
-    marginLeft: 5,
-  },
   map: {
     height: SCREEN_WIDTH / 1.5,
   },
-  message: {
-    marginTop: 4,
-    fontSize: 14,
-    textAlign: "center",
-  },
-  //Todo
-  projectList: {
-    marginTop: 20,
-  },
 
-  radioItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  greeting: {
-    fontWeight: "bold",
-  },
-  statusContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-  },
-  statusButton: {
-    padding: 10,
-    backgroundColor: PRIMARY_COLOR_TRANSPARENT,
-    borderRadius: 20,
-  },
-  activeButton: {
-    backgroundColor: PRIMARY_COLOR,
-  },
-  activeText: {
-    color: LIGHT,
-  },
 
-  taskInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  infoText: {
-    color: LIGHT,
-    marginLeft: 5,
-    marginRight: 15,
-  },
-
-  progressText: {
-    fontWeight: "bold",
-    marginTop: 6,
-    color: LIGHT,
-  },
-  completedText: {
-    textAlign: "center",
-    fontSize: 18,
-    color: PRIMARY_COLOR,
-    marginTop: 20,
-  },
-
-  quantityContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-  },
   card: {
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
-  },
-
-  popupMenu: {
-    position: "absolute",
-    top: 50,
-    right: 8,
-    width: 120,
-    paddingVertical: 18,
-    backgroundColor: "#ffffff",
-    borderRadius: 8,
-    elevation: 5,
   },
 
   actions: {
