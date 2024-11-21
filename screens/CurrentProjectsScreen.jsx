@@ -1,66 +1,34 @@
-import  { useState } from "react";
-import { View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native"; 
-import { projects } from "../utils/faker";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
-import { styles } from "../styles/components.styles";
-import MyHeader from "../components/header/MyHeader";
-import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
-import Filter from "../components/filters";
 import MyFlatList from "../components/utility/MyFlatList";
+import ClickableCard from "../components/card/Clickablecard";
+import NoRecord from "./NoRecord";
+import { projects } from "../utils/faker";
 
-
-const CurrentProjectsScreen = () => {
+export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const navigation = useNavigation(); 
-
-  const filteredProjects = projects.filter((item) =>
-    item.projectName.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
-
-  const menuOptions = [
-    // { label: "Search", onPress: () => console.log("Search clicked") },
-    // { label: "Sort", onPress: () => console.log("Sort clicked") },
-    // { label: "Filter", onPress: () => console.log("Filter clicked") },
-  ];
 
   return (
     <ContainerComponent>
-      <MyHeader
-        title="Current Projects"
-        hasIcon={true}
-        icon={"ellipsis-vertical"}
-        onIconPress={toggleMenu}
-        isBack={true}
-      />
 
       <MyFlatList
-        data={filteredProjects}
+        data={projects}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.card}
+        renderItem={({ item, index }) => (
+          <ClickableCard
+            key={index}
             item={item}
             isCureentProject={true}
-            onPress={() =>
+            handleViewDetails={() =>
               navigation.navigate("taskScreen", { projectId: item.id })
             }
-          >
-            <View style={{ flex: 1 }}>
-              <H5>{item.projectName}</H5>
-              <P>{` ${item.siteName}`}</P>
-            </View>
-          </TouchableOpacity>
+          />
         )}
         ListEmptyComponent={() => (
-          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+          <NoRecord msg="Oops! No Projects available. Create the new one." />
         )}
+        // FIXME:Add Norecord at each and every place
         ListHeaderComponent={() => (
           <SearchBar
             placeholder="Search current projects..."
@@ -70,14 +38,6 @@ const CurrentProjectsScreen = () => {
           />
         )}
       />
-
-      <Filter
-        visible={isMenuVisible}
-        onClose={toggleMenu}
-        options={menuOptions}
-      />
     </ContainerComponent>
   );
 };
-
-export default CurrentProjectsScreen;

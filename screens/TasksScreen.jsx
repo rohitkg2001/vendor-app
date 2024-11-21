@@ -22,10 +22,10 @@ const TasksScreen = () => {
           style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
         >
           <View style={{ flex: 1, marginLeft: 16 }}>
-       
-            <H6 style={[typography.textBold]}>{item.title}</H6> 
+
+            <H6 style={[typography.textBold]}>{item.title}</H6>
             <P style={{ fontSize: 14, color: "#020409" }}>
-              {item.description} 
+              {item.description}
             </P>
           </View>
         </View>
@@ -35,9 +35,9 @@ const TasksScreen = () => {
 
   return (
     <ContainerComponent>
-      <MyHeader title="Task List" hasIcon={true} icon={"ellipsis-vertical"} />
+      <MyHeader title="Task List" hasIcon={true} />
       <MyFlatList
-        data={tasks} 
+        data={tasks}
         renderItem={renderTaskItem}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}

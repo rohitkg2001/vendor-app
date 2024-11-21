@@ -1,19 +1,13 @@
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
-import { SCREEN_WIDTH, spacing } from "../styles";
 import { sites } from "../utils/faker";
+import MyFlatList from "../components/utility/MyFlatList";
 
-const SiteScreen = ({ navigation }) => {
+export default function SiteScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
-
-
-  const filteredSites = sites.filter((item) =>
-    item.siteName.toLowerCase().includes(searchText.toLowerCase())
-  );
 
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
@@ -24,34 +18,27 @@ const SiteScreen = ({ navigation }) => {
 
   return (
     <ContainerComponent>
-      <View style={[spacing.mh1, { width: SCREEN_WIDTH - 4 }]}>
-        <MyHeader
-          isBack
-          title="Total Sites"
-          hasIcon
-          icon="ellipsis-vertical"
-          onIconPress={() => console.log("Menu clicked")}
-        />
+      <MyHeader isBack title="Total Sites" hasIcon />
+      <MyFlatList
+        data={sites}
+        renderItem={({ item }) =>
+          <ClickableCard
+            key={item.id}
+            item={item}
+            handleViewDetails={handleViewDetails}
+            isSite={true} />
+        }
+        ListHeaderComponent={() =>
+          <SearchBar
+            placeholder="Search by city, state or project code"
+            value={searchText}
+            onChangeText={setSearchText}
+            style={{ marginVertical: 8, marginHorizontal: 4 }}
+          />
 
-        <SearchBar
-          placeholder="Search by city, state or project code"
-          value={searchText}
-          onChangeText={setSearchText}
-          style={{ marginVertical: 8, marginHorizontal: 4 }}
-        />
-
-        <ScrollView>
-          {filteredSites.map((item) => (
-            <ClickableCard
-              key={item.id}
-              item={item}
-              handleViewDetails={handleViewDetails}
-              isSite={true}
-            />
-          ))}
-        </ScrollView>
-      </View>
+        }
+      />
     </ContainerComponent>
   );
 };
-export default SiteScreen;
+

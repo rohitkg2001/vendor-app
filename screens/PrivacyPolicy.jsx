@@ -11,7 +11,6 @@ const PrivacyPolicy = () => {
 
   const handleCheckboxChange = () => {
     setIsChecked((prev) => !prev);
-    console.log("Checkbox state changed:", !isChecked);
   };
 
   return (
@@ -25,9 +24,7 @@ const PrivacyPolicy = () => {
         />
         <ScrollView contentContainerStyle={styles.scrollView}>
           <P style={{ marginHorizontal: 2, textAlign: "justify" }}>
-            {
-              PRIVACY_POLICY
-            }
+            {PRIVACY_POLICY}
           </P>
         </ScrollView>
       </View>

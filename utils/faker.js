@@ -86,7 +86,7 @@ export const sites = [
     dist: "Purnia",
     location: "BANMANKHI",
     contact_number: "8298252994",
-    location: {
+    geo_location: {
       lat: 25.889458,
       lng: 87.190071
     },
@@ -152,9 +152,9 @@ export const inventory = [
     siteId: "",
     product_name: "Solar LED Street Light",
     description: "Eco-friendly solar-powered street light with motion sensor.",
-    unit: "",
-    initial_quantity: "",
-    qty_stock: "",
+    unit: "pcs",
+    initial_quantity: "1000",
+    qty_stock: "1000",
     dispatch_date: "",
     delivery_date: "",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s"
@@ -165,9 +165,9 @@ export const inventory = [
     siteId: "",
     product_name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
-    unit: "",
-    initial_quantity: "",
-    qty_stock: "",
+    unit: "pcs",
+    initial_quantity: "1000",
+    qty_stock: "200",
     dispatch_date: "",
     delivery_date: "",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s"
@@ -190,15 +190,11 @@ export const earnings = [
 ];
 
 export const menuItems = [
-  { label: "Site Inventory", icon: "cart-outline", page: "inventoryScreen" },
-  { label: "Reports", page: "", icon: "pie-chart-outline" },
-  {
-    label: "My Projects",
-    icon: "grid-outline",
-    page: "projectsScreen",
-  },
-  { label: "My Tasks", page: "taskScreen", icon: "grid-outline" },
-  { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting" },
+  { label: "My Projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
+  { label: "My Tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
+  { label: "Site Inventory", icon: "cart-outline", page: "inventoryScreen", id: 2 },
+  { label: "Reports", page: "", icon: "pie-chart-outline", id: 3 },
+  { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting", id: 4 },
 ];
 
 export const internal = [

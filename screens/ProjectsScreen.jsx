@@ -1,19 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
 import MyFlatList from "../components/utility/MyFlatList";
-import { useNavigation } from "@react-navigation/native";
 
-export default function ProjectsScreen({ route }) {
+export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
-  const navigation = useNavigation();
-  const { DATA, title } = route.params;
-  useEffect(() => {
-    console.log(title)
-  }, [])
 
+  const { DATA, title } = route.params;
 
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
