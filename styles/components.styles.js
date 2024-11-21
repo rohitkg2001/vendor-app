@@ -383,6 +383,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+<<<<<<< HEAD
+=======
   taskInfo: {
     flexDirection: "row",
     alignItems: "center",
@@ -411,6 +413,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+>>>>>>> 97df5e6b311d50130f10956af9975f48486550fe
   card: {
     flexDirection: "row",
     alignItems: "center",
