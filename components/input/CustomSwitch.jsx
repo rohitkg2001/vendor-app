@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Switch, Text, } from "react-native";
+import { useState } from "react";
+import { View, Switch,} from "react-native";
 import { styles } from "../../styles/components.styles";
 import { PRIMARY_COLOR, SECONDARY_COLOR } from "../../styles/constant";
 import { H5 } from "../text";

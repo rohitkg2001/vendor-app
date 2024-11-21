@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { DataTable } from 'react-native-paper';
 
 const MyDataTable = () => {
