@@ -108,7 +108,7 @@ export default function FileUploadScreen() {
 
           {/* Actions - Cancel and Upload Buttons */}
           <Card.Actions
-            style={[styles.actions, { justifyContent: "space-between" }]}
+            style={[styles.row, spacing.mt5, { justifyContent: "space-between" }]}
           >
             <Button onPress={handleCancel} style={{ paddingVertical: 4 }}>
               Cancel
