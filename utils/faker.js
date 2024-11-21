@@ -81,7 +81,7 @@ export const sites = [
     contact_number: "8298252994",
     geo_location: {
       lat: 25.889458,
-      lng: 87.190071
+      lng: 87.190071,
     },
     net_meter_no: 1234,
     solar_meter_no: 2345,
@@ -90,7 +90,7 @@ export const sites = [
     spp_installation_date: "13 Nov 2024",
     commissioning_date: "14 Nov 2024",
     tasks: [1],
-    inventory: [1, 2]
+    inventory: [1, 2],
   },
   {
     id: "2",
@@ -185,9 +185,20 @@ export const earnings = [
 export const menuItems = [
   { label: "My Projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
   { label: "My Tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
-  { label: "Site Inventory", icon: "cart-outline", page: "inventoryScreen", id: 2 },
+  {
+    label: "Site Inventory",
+    icon: "cart-outline",
+    page: "inventoryScreen",
+    id: 2,
+  },
   { label: "Reports", page: "", icon: "pie-chart-outline", id: 3 },
-  { label: "Settings", page: "", icon: "cog-outline", page: "internalSetting", id: 4 },
+  {
+    label: "Settings",
+    page: "",
+    icon: "cog-outline",
+    page: "internalSetting",
+    id: 4,
+  },
 ];
 
 export const internal = [
@@ -232,8 +243,39 @@ export const notifications = [
 ];
 
 export const PRIVACY_POLICY =
-  "At Dashandots Technology, we deeply value your privacy and are committed to safeguarding the personal information you share with us.We collect essential personal information, including but not limited to your name, email address, and contact details, to ensure the efficient delivery of our services, enhance user experience, and better understand your needs.We assure you that we do not sell,"
+  "At Dashandots Technology, we deeply value your privacy and are committed to safeguarding the personal information you share with us.We collect essential personal information, including but not limited to your name, email address, and contact details, to ensure the efficient delivery of our services, enhance user experience, and better understand your needs.We assure you that we do not sell,";
 
 // statuscode=0->open,
 //statuscode = 1 -> completed,
 //statuscode = 2 -> hold
+
+export const documentData = [
+  {
+    id: "1",
+    staffId: 1,
+    documentName: "Aadhar Card",
+    documentImage:
+      "https://static.dexform.com/media/docs/6915/sample-job-offer-letter_1.png",
+  },
+  {
+    id: "2",
+    staffId: 1,
+    documentName: "Pan Card",
+    documentImage:
+      "https://static.dexform.com/media/docs/6915/sample-job-offer-letter_1.png",
+  },
+  {
+    id: "3",
+    staffId: 1,
+    documentName: "Gst Letter",
+    documentImage:
+      "https://static.dexform.com/media/docs/6915/sample-job-offer-letter_1.png",
+  },
+  {
+    id: "4",
+    staffId: 1,
+    documentName: "Agreement",
+    documentImage:
+      "https://static.dexform.com/media/docs/6915/sample-job-offer-letter_1.png",
+  },
+];
