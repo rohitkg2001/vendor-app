@@ -6,7 +6,6 @@ import {
   LIGHT,
   PRIMARY_COLOR,
   PRIMARY_COLOR_TRANSPARENT,
-  SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
@@ -158,8 +157,7 @@ export const styles = StyleSheet.create({
   fullWidth: {
     width: SCREEN_WIDTH,
   },
- 
-  
+
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -318,61 +316,6 @@ export const styles = StyleSheet.create({
     color: "#020409",
   },
 
-  progressText: {
-    fontSize: 28,
-    fontWeight: "bold",
-  },
-  subText: {
-    fontSize: 14,
-    color: "#666",
-  },
-  profileImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    marginRight: 2,
-  },
-  addIcon: {
-    marginLeft: 8,
-  },
-  miniCard: {
-    width: "32%",
-    padding: 16,
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  cardText: {
-    marginTop: 8,
-    fontSize: 14,
-    textAlign: "center",
-  },
-
-  taskContent: {
-    justifyContent: "space-between",
-  },
-  taskText: {
-    color: LIGHT,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
- 
-
-  // Attendancescreen
-
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-
-  notificationIcon: {
-    marginLeft: "auto",
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginVertical: 16,
-  },
   attendanceContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -383,43 +326,7 @@ export const styles = StyleSheet.create({
     width: "30%",
     marginVertical: 10,
   },
-  attendanceCard: {
-    width: "48%",
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: LIGHT,
-    alignItems: "center",
-    marginVertical: 8,
-  },
-  attendanceText: {
-    fontSize: 14,
-    marginTop: 8,
-    fontWeight: "bold",
-  },
-  attendanceTime: {
-    fontSize: 16,
-    marginTop: 4,
-    fontWeight: "bold",
-  },
-  attendanceStatus: {
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  activityItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: LIGHT,
-    borderRadius: 8,
-    marginVertical: 8,
-  },
-  activityInfo: {
-    marginLeft: 12,
-  },
-  activityText: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
+//Todo delete
   activityTime: {
     fontSize: 12,
     color: "#6e6e6e",
@@ -736,7 +643,7 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 15,
   },
-  
+
   progressText: {
     fontWeight: "bold",
     marginTop: 6,
@@ -761,7 +668,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
-  
+
   popupMenu: {
     position: "absolute",
     top: 50,
@@ -772,7 +679,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 5,
   },
-  
+
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",

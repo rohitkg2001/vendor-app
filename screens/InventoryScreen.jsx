@@ -28,7 +28,6 @@ export default function InventoryScreen() {
           <TouchableOpacity style={styles.card}>
             <Image
               source={{ uri: item.url }}
-              loadingIndicatorSource={require("../assets/img15.png")}
               style={{
                 width: 60,
                 height: 60,
