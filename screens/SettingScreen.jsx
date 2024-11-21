@@ -9,6 +9,7 @@ import { DANGER_COLOR } from "../styles/constant";
 import { projects, vendor } from "../utils/faker";
 import Button from "../components/buttons/Button";
 import { menuItems } from "../utils/faker";
+import { layouts, spacing } from "../styles";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -42,11 +43,7 @@ export default function SettingsScreen() {
       </View>
 
       <Button
-        style={{
-          marginBottom: 8,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={[spacing.mb2, layouts.center]}
         onPress={handleLogoutPress}
       >
         <Icon name="power-outline" size={24} color={DANGER_COLOR} />
