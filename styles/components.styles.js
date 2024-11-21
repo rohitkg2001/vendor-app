@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   DANGER_COLOR,
   DARK,
@@ -6,7 +6,6 @@ import {
   LIGHT,
   PRIMARY_COLOR,
   PRIMARY_COLOR_TRANSPARENT,
-  SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
@@ -429,7 +428,7 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: "#6e6e6e",
   },
-  //FormScreen
+
   label: {
     marginBottom: 10,
   },
@@ -473,7 +472,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
   },
-  //Requisitionscreen
+  
   listItemContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -502,7 +501,7 @@ export const styles = StyleSheet.create({
   actionButtonText: {
     color: PRIMARY_COLOR,
   },
-  //PurchaseOrderScreen
+  
   addIconContainer: {
     borderRadius: 15,
     backgroundColor: LIGHT,
