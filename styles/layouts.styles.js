@@ -42,6 +42,13 @@ export const layouts = StyleSheet.create({
     width: SCREEN_WIDTH / 1.5,
     borderRadius: SCREEN_WIDTH / 3,
   },
+  hidden: {
+    overflow: 'hidden'
+  },
+  rec75: {
+    height: SCREEN_WIDTH / 1.5,
+    width: '100%',
+  },
   circle50: {
     width: SCREEN_WIDTH / 2,
     height: SCREEN_WIDTH / 2,

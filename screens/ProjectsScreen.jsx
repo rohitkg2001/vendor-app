@@ -4,6 +4,7 @@ import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
 import MyFlatList from "../components/utility/MyFlatList";
+import NoRecord from '../screens/NoRecord'
 
 export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
@@ -32,7 +33,7 @@ export default function ProjectsScreen({ route, navigation }) {
           />
         )}
         ListEmptyComponent={() => (
-          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+          <NoRecord msg="Oops! No Projects available right now..." />
         )}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={() => (
