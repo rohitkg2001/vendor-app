@@ -3,11 +3,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DashboardScreen from "../screens/DashboardScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
-
 import { INFO_COLOR, LIGHT, PRIMARY_COLOR } from "../styles/constant";
-
 const BottomTab = createMaterialBottomTabNavigator();
-
 export default function MyMaterialBottomNavigator() {
   return (
     <BottomTab.Navigator
