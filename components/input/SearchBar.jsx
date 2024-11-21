@@ -31,7 +31,7 @@ export default function SearchBar({
     >
       <Ionicons
         name="search-outline"
-        size={20}
+        size={24}
         color="#333"
         style={{ marginLeft: 4 }}
       />

@@ -15,7 +15,7 @@ export default function NotificationScreen() {
         description={<P style={styles.description}>{item.description}</P>}
         left={() => (
           <Avatar.Icon
-            size={40}
+            size={32}
             icon={item.icon}
             backgroundColor={PRIMARY_COLOR}
           />
