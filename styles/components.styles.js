@@ -351,6 +351,49 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
 
+  rightContainer: {
+    alignItems: "flex-end",
+  },
+
+  actionButton: {
+    marginTop: 10,
+    padding: 6,
+    backgroundColor: "#2b87b022",
+    borderRadius: 5,
+  },
+  actionButtonText: {
+    color: PRIMARY_COLOR,
+  },
+  //PurchaseOrderScreen
+  addIconContainer: {
+    borderRadius: 15,
+    backgroundColor: LIGHT,
+  },
+
+  cardRow: {
+    flexDirection: "row",
+    padding: 4,
+  },
+
+  itemInfo: {
+    flex: 3,
+  },
+
+  itemDetails: {
+    alignItems: "Center",
+    flex: 1,
+  },
+
+  dropdownContainer: {
+    padding: 8,
+  },
+  itemStyle: {
+    padding: 4,
+    marginTop: 4,
+  },
+  itemsContainerStyle: {
+    maxHeight: 100,
+  },
   textInput: {
     width: 310,
     color: "#020409",
