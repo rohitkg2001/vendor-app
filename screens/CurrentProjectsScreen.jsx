@@ -11,7 +11,6 @@ export default function CurrentProjectsScreen({ navigation }) {
 
   return (
     <ContainerComponent>
-
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}
@@ -40,4 +39,4 @@ export default function CurrentProjectsScreen({ navigation }) {
       />
     </ContainerComponent>
   );
-};
+}
