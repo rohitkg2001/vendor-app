@@ -55,7 +55,7 @@ export default function DashboardScreen() {
         />
       </View>
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={[
             spacing.mt2,
@@ -94,21 +94,15 @@ export default function DashboardScreen() {
 
         <MyFlatList
           data={statCards}
-          renderItem={({ item, index }) => {
-            const isRightColumn = index % 2 !== 0;
-            const marginTop = isRightColumn ? 20 : 0;
-            return (
-              <StatCard
-                key={item.id}
-                backgroundColor={item.backgroundColor}
-                tasks={item.count}
-                status={item.title}
-                onPress={() => navigation.navigate(item.page, { DATA: projects, title: `${item.title}` })
-                }
-                style={{ marginTop }}
-              />
-            );
-          }}
+          renderItem={({ item, index }) => <StatCard
+            key={item.id}
+            backgroundColor={item.backgroundColor}
+            tasks={item.count}
+            status={item.title}
+            onPress={() => navigation.navigate(item.page, { DATA: projects, title: `${item.title}` })
+            }
+          />
+          }
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
         />
@@ -121,13 +115,6 @@ export default function DashboardScreen() {
           ]}
         ></View>
 
-        <View
-          style={[
-            spacing.mt2,
-            { width: SCREEN_WIDTH - 18, alignSelf: "center" },
-            spacing.pv3,
-          ]}
-        ></View>
 
         <View
           style={[spacing.mb5, spacing.p3, spacing.br2, spacing.mh2, { elevation: 2, backgroundColor: PRIMARY_COLOR_TRANSPARENT, }]}
@@ -145,8 +132,8 @@ export default function DashboardScreen() {
                 <View
                   style={[styles.bgPrimary, layouts.circle625, layouts.center, {
                     position: "absolute",
-                    right: 28,
-                    top: -12
+                    right: 20,
+                    top: 2
                   }]}
                 >
                   <P style={{ color: "white", fontWeight: "bold" }}>
