@@ -52,7 +52,7 @@ export default function FileUploadScreen() {
 
           <View style={[styles.row, { justifyContent: 'flex-start' }]}>
             {photos.map((photoUri, index) => (
-              <View key={index} style={[spacing.mr3, spacing.mt2, { position: 'relative' }]}>
+              <View key={index} style={[spacing.mr2, spacing.mt2, { position: 'relative' }]}>
                 <Image source={{ uri: photoUri }} style={[styles.image, spacing.br1]} />
                 <TouchableOpacity
                   style={[layouts.circle625, layouts.center, styles.bgDanger, styles.removeImageButton]}

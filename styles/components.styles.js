@@ -316,7 +316,6 @@ export const styles = StyleSheet.create({
   gridItem: {
     alignItems: "center",
     width: "30%",
-    marginVertical: 10,
   },
 
   label: {
@@ -401,8 +400,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 64,
-    height: 64,
+    width: 55,
+    height: 60,
   },
   removeImageButton: {
     position: "absolute",
