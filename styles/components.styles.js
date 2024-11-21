@@ -157,8 +157,7 @@ export const styles = StyleSheet.create({
   fullWidth: {
     width: SCREEN_WIDTH,
   },
- 
-  
+
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -182,27 +181,11 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  rowItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: SCREEN_WIDTH - 16,
-    alignItems: "center",
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-  },
   rowBullet: {
     flexDirection: "row",
     alignItems: "center",
   },
 
-  onlineDot: {
-    position: "absolute",
-    bottom: 14,
-    right: 14,
-    borderWidth: 4,
-    borderColor: LIGHT,
-  },
   card: {
     borderRadius: 16,
     padding: 16,
@@ -212,22 +195,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: LIGHT,
   },
-  taskLabel: {
-    borderRadius: 15,
-    paddingVertical: 3,
-    paddingHorizontal: 10,
-    marginRight: 5,
-    backgroundColor: "#f87171",
-  },
-  taskFooterItem: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  footerText: {
-    marginHorizontal: 4,
-    color: DARK,
-    fontSize: 14,
-  },
+
   dropdown: {
     flexDirection: "row",
     alignItems: "center",
@@ -317,61 +285,6 @@ export const styles = StyleSheet.create({
     color: "#020409",
   },
 
-  progressText: {
-    fontSize: 28,
-    fontWeight: "bold",
-  },
-  subText: {
-    fontSize: 14,
-    color: "#666",
-  },
-  profileImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    marginRight: 2,
-  },
-  addIcon: {
-    marginLeft: 8,
-  },
-  miniCard: {
-    width: "32%",
-    padding: 16,
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  cardText: {
-    marginTop: 8,
-    fontSize: 14,
-    textAlign: "center",
-  },
-
-  taskContent: {
-    justifyContent: "space-between",
-  },
-  taskText: {
-    color: LIGHT,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
- 
-
-  // Attendancescreen
-
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-
-  notificationIcon: {
-    marginLeft: "auto",
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginVertical: 16,
-  },
   attendanceContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -381,52 +294,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "30%",
     marginVertical: 10,
-  },
-  attendanceCard: {
-    width: "48%",
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: LIGHT,
-    alignItems: "center",
-    marginVertical: 8,
-  },
-  attendanceText: {
-    fontSize: 14,
-    marginTop: 8,
-    fontWeight: "bold",
-  },
-  attendanceTime: {
-    fontSize: 16,
-    marginTop: 4,
-    fontWeight: "bold",
-  },
-  attendanceStatus: {
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  activityItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: LIGHT,
-    borderRadius: 8,
-    marginVertical: 8,
-  },
-  activityInfo: {
-    marginLeft: 12,
-  },
-  activityText: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  activityTime: {
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  activityStatus: {
-    marginLeft: "auto",
-    fontSize: 12,
-    color: "#6e6e6e",
   },
 
   label: {
@@ -449,43 +316,8 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  cardContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 14,
-  },
-  itemDetails: {
-    marginLeft: 10,
-  },
-  quantityRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   unit: {
     marginLeft: 5,
-  },
-  saveButton: {
-    backgroundColor: "#ccc",
-    padding: 10,
-    alignItems: "center",
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  
-  listItemContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
-  },
-  leftContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  textContainer: {
-    marginLeft: 10,
   },
 
   rightContainer: {
@@ -550,9 +382,28 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
- 
-  activeText: {
+
+  taskInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  infoText: {
     color: LIGHT,
+    marginLeft: 5,
+    marginRight: 15,
+  },
+
+  progressText: {
+    fontWeight: "bold",
+    marginTop: 6,
+    color: LIGHT,
+  },
+  completedText: {
+    textAlign: "center",
+    fontSize: 18,
+    color: PRIMARY_COLOR,
+    marginTop: 20,
   },
 
   quantityContainer: {
@@ -567,7 +418,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
-  
+
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",
