@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, ScrollView } from "react-native";
 import MyHeader from "../components/header/MyHeader";
 import { P } from "../components/text";

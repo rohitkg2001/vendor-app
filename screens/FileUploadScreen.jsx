@@ -1,12 +1,5 @@
-import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-} from "react-native";
+import { useState, useRef } from "react";
+import { View, Image, TouchableOpacity, TextInput, Alert } from "react-native";
 import { Card, Button } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
@@ -27,6 +20,7 @@ const FileUploadScreen = () => {
       const photo = await cameraRef.current.takePictureAsync();
       setPhotos([...photos, photo.uri]);
       setPhotoMessage("Photo has been taken!");
+      // console.log("Photo taken:", photo.uri);
     } else if (photos.length >= 5) {
       setPhotoMessage("Maximum of 5 photos reached.");
     }
@@ -34,6 +28,8 @@ const FileUploadScreen = () => {
 
   const handleUpload = () => {
     if (photos.length > 0) {
+      // console.log("Uploading photos:", photos);
+      // console.log("Description:", description);
       Alert.alert("Success", "Data Collected Successfully", [
         { text: "OK", onPress: () => handleCancel() }, // Optionally clear state after confirmation
       ]);
@@ -46,12 +42,12 @@ const FileUploadScreen = () => {
     setPhotos([]);
     setPhotoMessage("");
     setDescription("");
-   
+    // console.log("Upload canceled");
   };
 
   const removePhoto = (uri) => {
     setPhotos(photos.filter((photoUri) => photoUri !== uri));
-    
+    // console.log("Photo removed:", uri);
   };
 
   return (
