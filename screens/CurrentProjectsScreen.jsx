@@ -5,12 +5,14 @@ import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 import NoRecord from "./NoRecord";
 import { projects } from "../utils/faker";
+import MyHeader from "../components/header/MyHeader";
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
 
   return (
     <ContainerComponent>
+      <MyHeader title="Current Projects" isBack={true} hasIcon={true} icon={""} />
 
       <MyFlatList
         data={projects}
@@ -28,7 +30,6 @@ export default function CurrentProjectsScreen({ navigation }) {
         ListEmptyComponent={() => (
           <NoRecord msg="Oops! No Projects available. Create the new one." />
         )}
-        // FIXME:Add Norecord at each and every place
         ListHeaderComponent={() => (
           <SearchBar
             placeholder="Search current projects..."

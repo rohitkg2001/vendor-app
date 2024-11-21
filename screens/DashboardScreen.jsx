@@ -65,7 +65,7 @@ export default function DashboardScreen() {
         >
           <CardFullWidth backgroundColor={LIGHT}>
             <View style={[styles.row, spacing.mr5, spacing.bbw05, spacing.mv1, spacing.pv1, { alignItems: "center" }]}>
-              <Icon name="calendar-clear" size={34} color={PRIMARY_COLOR} />
+              <Icon name="calendar-clear" size={32} color={PRIMARY_COLOR} />
               <H5 style={[typography.textBold, { marginRight: 130 }]}>
                 Project Overview
               </H5>
