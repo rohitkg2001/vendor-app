@@ -1,4 +1,3 @@
-
 import { TouchableOpacity } from 'react-native'
 
 export default function Button({ style, onPress, children }) {

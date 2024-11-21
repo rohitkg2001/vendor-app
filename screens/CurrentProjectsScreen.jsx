@@ -1,16 +1,13 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
-import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 import NoRecord from "./NoRecord";
 import { projects } from "../utils/faker";
 
-export default function CurrentProjectsScreen() {
+export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
-  const navigation = useNavigation(); // <-- Use useNavigation hook here
 
   return (
     <ContainerComponent>

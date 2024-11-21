@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import { styles } from "../styles/components.styles";
@@ -8,9 +8,8 @@ import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import { inventory } from "../utils/faker";
 
-const InventoryScreen = () => {
+export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   return (
     <ContainerComponent>
@@ -50,5 +49,3 @@ const InventoryScreen = () => {
     </ContainerComponent>
   );
 };
-
-export default InventoryScreen;

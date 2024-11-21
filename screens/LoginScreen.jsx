@@ -1,13 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  KeyboardAvoidingView,
-  View,
-  Platform,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { KeyboardAvoidingView, View, Platform, ScrollView, Text, TouchableOpacity } from "react-native";
 import MyImageBackground from "../components/MyImageBackground";
 import { H1, H5, Span, H2 } from "../components/text";
 import MyTextInput from "../components/input/MyTextInput";
@@ -18,12 +10,12 @@ import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { login } from "../redux/actions/vendorActions";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const navigation = useNavigation();
+
   const dispatch = useDispatch();
   useEffect(() => {
     setError("");
@@ -32,14 +24,15 @@ export default function LoginScreen() {
   const onSubmit = async () => {
     setError("");
     try {
-      const result = await dispatch(login(username, password));
-
+      const result = await dispatch(login(username, password))
+      // console.log(`login Result is ${result}`)
       if (result) {
         navigation.navigate("homeScreen");
       } else {
         setError("Please provide the correct credentials");
       }
     } catch (error) {
+      // console.log(error)
       setError("An error occurred during login");
     }
   };
