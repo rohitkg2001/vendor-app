@@ -388,24 +388,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
   },
-  infoText: {
-    color: LIGHT,
-    marginLeft: 5,
-    marginRight: 15,
-  },
-
-  progressText: {
-    fontWeight: "bold",
-    marginTop: 6,
-    color: LIGHT,
-  },
-  completedText: {
-    textAlign: "center",
-    fontSize: 18,
-    color: PRIMARY_COLOR,
-    marginTop: 20,
-  },
-
   quantityContainer: {
     position: "absolute",
     bottom: 0,
