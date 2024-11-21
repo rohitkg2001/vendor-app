@@ -1,4 +1,3 @@
-import React from "react";
 import { Image, View } from "react-native";
 import ContainerComponent from "./ContainerComponent";
 import { layouts, spacing, styles } from "../styles";
