@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";

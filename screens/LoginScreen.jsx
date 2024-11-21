@@ -24,23 +24,15 @@ export default function LoginScreen({ navigation }) {
   const onSubmit = async () => {
     setError("");
     try {
-<<<<<<< HEAD
-      const result = await dispatch(login(username, password));
-
-=======
       const result = await dispatch(login(username, password))
       // console.log(`login Result is ${result}`)
->>>>>>> d6a541b1b7ea9acb962e2d227b846f2d62a6d8ca
       if (result) {
         navigation.navigate("homeScreen");
       } else {
         setError("Please provide the correct credentials");
       }
     } catch (error) {
-<<<<<<< HEAD
-=======
       // console.log(error)
->>>>>>> d6a541b1b7ea9acb962e2d227b846f2d62a6d8ca
       setError("An error occurred during login");
     }
   };

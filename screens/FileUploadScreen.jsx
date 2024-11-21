@@ -1,5 +1,11 @@
 import { useState, useRef } from "react";
-import { View, Image, TouchableOpacity, TextInput, Alert } from "react-native";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from "react-native";
 import { Card, Button } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
