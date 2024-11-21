@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
   },
 
   cardHalfWidth: {
-    width: SCREEN_WIDTH / 2.2,
+    width: SCREEN_WIDTH / 2.15,
     height: SCREEN_WIDTH / 3,
     elevation: 2,
   },
