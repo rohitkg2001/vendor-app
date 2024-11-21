@@ -99,7 +99,7 @@ export default function FileUploadScreen() {
             <MyTextInput
               title="Description"
               onChangeText={(text) => setDescription(text)}
-              type={text}
+              type="text"
               placeholder="Briefly describe in less than 80 words"
               multiline
               value={description}
