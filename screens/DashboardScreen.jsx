@@ -49,6 +49,7 @@ export default function DashboardScreen() {
           <H3 style={typography.textBold}>{greeting}, {first_name} </H3>
           <P style={spacing.ml1}>{today}</P>
         </View>
+        <Icon name='notifications-outline' size={32} color={DARK} />
         <Image
           source={{ uri: vendor.image }}
           style={[layouts.circle12, spacing.mv3, layouts.center]}
