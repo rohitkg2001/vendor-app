@@ -33,7 +33,7 @@ export default function LoginScreen() {
     setError("");
     try {
       const result = await dispatch(login(username, password))
-      // console.log(`login Result is ${result}`)
+
       if (result) {
         navigation.navigate("homeScreen");
       } else {

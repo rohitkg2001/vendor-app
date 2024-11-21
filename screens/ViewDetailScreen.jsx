@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { View, ScrollView } from "react-native";
 import { SCREEN_WIDTH, typography } from "../styles";
 import MyHeader from "../components/header/MyHeader";

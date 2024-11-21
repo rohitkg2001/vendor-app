@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
-import { SCREEN_WIDTH, spacing } from "../styles";
 import { styles } from "../styles/components.styles";
 import MyHeader from "../components/header/MyHeader";
 import { H5, P } from "../components/text";
