@@ -130,39 +130,24 @@ export default function DashboardScreen() {
         ></View>
 
         <View
-          style={[
-            spacing.mb5,
-            {
-              width: SCREEN_WIDTH - 10,
-              alignSelf: "center",
-              elevation: 5,
-              backgroundColor: PRIMARY_COLOR_TRANSPARENT,
-            },
-          ]}
+          style={[spacing.mb5, spacing.p3, spacing.br2, spacing.mh2, { elevation: 2, backgroundColor: PRIMARY_COLOR_TRANSPARENT, }]}
         >
-          <View>
-            <H3 style={[spacing.mb3, typography.textBold]}>Task Management</H3>
-          </View>
-
+          <H3 style={[spacing.mb3, typography.textBold]}>Task Management</H3>
           <View style={styles.attendanceContainer}>
             {tasksCounts.map((item) => (
               <TouchableOpacity
                 key={item.id}
-                style={styles.gridItem}
+                style={[spacing.mv4, styles.gridItem, spacing.bw1, spacing.br2, spacing.p4]}
                 onPress={() => navigation.navigate('taskScreen')}
               >
-                <Icon name={item.icon} size={20} color={DARK} />
+                <Icon name={item.icon} size={32} color={DARK} />
                 <P>{item.label}</P>
                 <View
-                  style={{
+                  style={[styles.bgPrimary, layouts.circle625, layouts.center, {
                     position: "absolute",
                     right: 28,
-                    top: -12,
-                    backgroundColor: "#76885B",
-                    borderRadius: 20,
-                    paddingHorizontal: 5,
-                    paddingVertical: 2,
-                  }}
+                    top: -12
+                  }]}
                 >
                   <P style={{ color: "white", fontWeight: "bold" }}>
                     {item.count}

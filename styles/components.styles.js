@@ -316,7 +316,6 @@ export const styles = StyleSheet.create({
   gridItem: {
     alignItems: "center",
     width: "30%",
-    marginVertical: 10,
   },
 
   label: {
