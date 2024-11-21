@@ -92,6 +92,22 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
+  rowItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: SCREEN_WIDTH - 16,
+    alignItems: "center",
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  onlineDot: {
+    position: "absolute",
+    bottom: 14,
+    right: 14,
+    borderWidth: 4,
+    borderColor: LIGHT,
+  },
   picker: {
     borderWidth: 1,
     borderColor: SECONDARY_COLOR,
