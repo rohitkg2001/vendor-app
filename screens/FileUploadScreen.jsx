@@ -1,17 +1,20 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { View, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView } from "react-native";
 import { Card } from "react-native-paper";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
-import { H2, H4, P } from "../components/text";
+import { H2, H4, H6, P } from "../components/text";
 import Button from "../components/buttons/Button";
 import MyTextInput from "../components/input/MyTextInput";
 import MyHeader from '../components/header/MyHeader'
 import { SCREEN_WIDTH, typography, spacing, styles, layouts } from "../styles";
+import { inventory } from "../utils/faker";
+import MyPickerInput from "../components/input/MyPickerInput";
 
 export default function FileUploadScreen() {
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
+  const [materials, setMaterials] = useState([])
 
   const cameraRef = useRef(null);
 
@@ -36,6 +39,15 @@ export default function FileUploadScreen() {
   const removePhoto = (uri) => {
     setPhotos(photos.filter((photoUri) => photoUri !== uri));
   };
+  useEffect(() => {
+    let myArr = []
+    inventory.map((item, index) => {
+      const myObj = { enabled: true, label: item.product_name, value: item.id }
+      myArr.push(myObj)
+    })
+    setMaterials(myArr)
+  }, [])
+
 
   return (
     <ContainerComponent>
@@ -66,6 +78,8 @@ export default function FileUploadScreen() {
             ))}
           </View>
         </Card>
+
+        <MyPickerInput title="Select Material" options={materials} />
 
         <MyTextInput
           title="Description"

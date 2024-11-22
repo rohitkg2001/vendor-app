@@ -13,7 +13,8 @@ export default function StatCard({
   return (
     <TouchableOpacity
       style={[
-        spacing.m2,
+        spacing.mr2,
+        spacing.mv2,
         spacing.p3,
         spacing.br2,
         { ...styles.cardHalfWidth, backgroundColor },
