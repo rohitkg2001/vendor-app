@@ -5,6 +5,7 @@
         "loginTitle": "Welcome Back",
         "loginSubtitle": "Sign in to continue",
         "loginBtnText": "Login",
-        "forgotPasswordText": "Forgot Password?"
+        "forgotPasswordText": "Forgot Password?",
+        "totalEarning" : "Total Earnings"
     }
 }
