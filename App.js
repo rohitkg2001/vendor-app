@@ -15,9 +15,11 @@ export default function App() {
 
   useEffect(() => {
     const fetchLanguage = async () => {
+      await AsyncStorage.clear()
       const storedLanguage = await AsyncStorage.getItem("appLanguage");
+      console.log(storedLanguage)
       if (storedLanguage) {
-        i18n.changeLanguage(language); // Set the language for i18n
+        i18n.changeLanguage(storedLanguage); // Set the language for i18n
         setLanguage(language);
         setIsLanguageSelected(true);
       } else {
@@ -25,7 +27,8 @@ export default function App() {
       }
     };
     fetchLanguage();
-  }, []);
+    console.log(isLanguageSelected)
+  }, [language]);
 
   const selectLanguage = async (lang) => {
     await AsyncStorage.setItem("appLanguage", lang);
@@ -51,14 +54,7 @@ export default function App() {
         <View style={{ height: 10 }} />
         <Button title="हिंदी" onPress={() => selectLanguage("hi")} />
       </View>
-    );
-  }
-
-  if (!language) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#6200ee" />
-      </View>
+      // FIXME:Move to an immediate component and apply styles
     );
   }
 

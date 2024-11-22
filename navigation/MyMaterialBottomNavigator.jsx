@@ -30,7 +30,7 @@ export default function MyMaterialBottomNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="currentProjects"
+        name="CurrentProjectScreen"
         component={CurrentProjectsScreen}
         options={{
           tabBarLabel: "Projects",

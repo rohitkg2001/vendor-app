@@ -10,6 +10,7 @@ import Button from "../components/buttons/Button";
 import { projects } from "../utils/faker";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
+import MyHeader from "../components/header/MyHeader";
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
@@ -17,6 +18,7 @@ export default function CurrentProjectsScreen({ navigation }) {
 
   return (
     <ContainerComponent>
+      <MyHeader title="Current Project" isBack={true} hasIcon={true} />
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}
