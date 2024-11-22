@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyFlatList from "../components/utility/MyFlatList";
-import { H3, H4, H5, H6, P, Span } from "../components/text";
+import { H3, H4, H5, P, Span } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
 
@@ -57,50 +57,12 @@ export default function DashboardScreen() {
         </TouchableOpacity>
       </View>
 
-<<<<<<< HEAD
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={[
-            spacing.mt2,
-            { width: SCREEN_WIDTH - 18, alignSelf: "center" },
-            spacing.pv3,
-          ]}
-        >
-          <CardFullWidth backgroundColor={LIGHT}>
-            <View style={[styles.row, spacing.mr5, spacing.bbw05, spacing.mv1, spacing.pv1, { alignItems: "center" }]}>
-              <Icon name="calendar-clear" size={32} color={PRIMARY_COLOR} />
-              <H5 style={[typography.textBold, { marginRight: 130 }]}>
-                Project Overview
-              </H5>
-            </View>
-
-            <View
-              style={[
-                styles.row,
-                { justifyContent: "space-between", paddingVertical: 10 },
-              ]}
-            >
-              {
-                projectCounts.map((item, index) =>
-                  <TouchableOpacity
-                    style={{ alignItems: "center" }}
-                    onPress={() => navigation.navigate(item.page, { DATA: item.data, title: `${item.title} Projects` })}
-                  >
-                    <P style={typography.textBold}>{item.title}</P>
-                    <P>{item.count || 0}</P>
-                  </TouchableOpacity>
-                )
-              }
-            </View>
-          </CardFullWidth>
-=======
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[spacing.mh2]}>
         <View style={[spacing.mv4, styles.row, { alignItems: 'center' }]}>
           <SearchBar placeholder="Search" style={{ width: SCREEN_WIDTH - 80 }} />
           <Button style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}>
             <Icon name="options-outline" size={28} color={LIGHT} />
           </Button>
->>>>>>> bddefdcbf7fd6488f87c3b8fea3f433401df4c32
         </View>
 
         <View style={[spacing.mv2, styles.row, { alignItems: 'center' }]}>
