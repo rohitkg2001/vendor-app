@@ -6,8 +6,10 @@ import { notifications } from "../utils/faker";
 import { H2, H5, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
 import { spacing, styles, PRIMARY_COLOR } from "../styles";
+import { useTranslation } from "react-i18next";
 
 export default function NotificationScreen() {
+  const { t } = useTranslation()
   const renderItem = ({ item }) => (
     <TouchableOpacity style={spacing.bbw05}>
       <List.Item
@@ -28,7 +30,7 @@ export default function NotificationScreen() {
   return (
     <ContainerComponent>
       <MyHeader
-        title="Notification"
+        title={t('notification_title')}
         isBack={true}
         hasIcon={true}
         icon={"search-outline"}

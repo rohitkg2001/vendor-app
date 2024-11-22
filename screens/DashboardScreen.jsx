@@ -52,7 +52,7 @@ export default function DashboardScreen() {
           <H4 style={typography.textBold}>
             {greeting}, {first_name}{" "}
           </H4>
-          <P style={spacing.ml1}>You have {dueTasks} due Today</P>
+          <P style={spacing.ml1}>You have {dueTasks} due tasks Today</P>
         </View>
         <TouchableOpacity
           style={[
