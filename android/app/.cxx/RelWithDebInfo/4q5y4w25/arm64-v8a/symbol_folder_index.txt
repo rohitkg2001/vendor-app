@@ -1,1 +1,0 @@
-D:\workspace_clean\react_native_projects\Sugs\vendor-app\android\app\build\intermediates\cxx\RelWithDebInfo\4q5y4w25\obj\arm64-v8a
