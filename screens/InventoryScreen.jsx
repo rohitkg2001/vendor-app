@@ -6,11 +6,11 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { inventory } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
-import { useTransition } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
-  const { t } = useTransition()
+  const { t } = useTranslation()
 
   return (
     <ContainerComponent>
