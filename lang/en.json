@@ -17,5 +17,7 @@
         "site_title": "Site Name",
         "total_earning": "Total Earnings",
         "completion_date": "Completion Date",
+        "option_title": "Select an option",
+        "no_project": "Oops! No Projects available. Create the new one."
     }
 }
