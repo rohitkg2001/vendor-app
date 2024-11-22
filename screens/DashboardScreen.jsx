@@ -96,7 +96,7 @@ export default function DashboardScreen() {
               projectCounts.map((item, index) =>
                 <TouchableOpacity
                   style={{ alignItems: "center" }}
-                  onPress={() => navigation.navigate(item.page, { DATA: item.data, title: `${item.title} Projects` })}
+                  onPress={() => navigation.navigate(item.page, { DATA: item.data, title: `${item.title}_projects`.toLowerCase() })}
                 >
                   <P style={typography.textBold}>{item.title}</P>
                   <P>{item.count || 0}</P>
@@ -114,7 +114,7 @@ export default function DashboardScreen() {
             backgroundColor={item.backgroundColor}
             tasks={item.count}
             status={item.title}
-            onPress={() => navigation.navigate(item.page, { DATA: projects, title: `${item.title}` })
+            onPress={() => navigation.navigate(item.page, { DATA: projects, title: t(`${item.title}`) })
             }
           />
           }

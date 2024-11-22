@@ -9,13 +9,15 @@ import { View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
+import { useTranslation } from "react-i18next";
 
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
+  const { t } = useTranslation();
 
   return (
     <ContainerComponent>
-      <MyHeader title="Total Earnings" hasIcon={true} isBack={true} />
+      <MyHeader title={t("total_earning")} hasIcon={true} isBack={true} />
 
       <MyFlatList
         data={[]}
@@ -28,9 +30,7 @@ const TotalEarningScreen = () => {
             onPress={() => handleViewDetails(item)}
           />
         )}
-        ListEmptyComponent={() => (
-          <NoRecord msg="Oops! No Projects available. Create the new one." />
-        )}
+        ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
         ListHeaderComponent={() => (
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -38,7 +38,7 @@ const TotalEarningScreen = () => {
           >
             <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
               <SearchBar
-                placeholder="Search"
+                placeholder={t("placeholder")}
                 style={{ width: SCREEN_WIDTH - 70 }}
               />
               <Button

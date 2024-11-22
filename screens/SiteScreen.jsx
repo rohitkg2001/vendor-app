@@ -8,6 +8,8 @@ import MyFlatList from "../components/utility/MyFlatList";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
+import { useTranslation } from "react-i18next";
+
 
 export default function SiteScreen({ navigation }) {
   
@@ -18,10 +20,12 @@ export default function SiteScreen({ navigation }) {
       formType: "site",
     });
   };
+   const { t } = useTranslation();
 
   return (
     <ContainerComponent>
-      <MyHeader isBack title="Total Sites" hasIcon />
+      <MyHeader isBack
+        title={ t( "total_sites" ) } hasIcon />
 
       <MyFlatList
         data={sites}

@@ -26,7 +26,7 @@ export default function ProjectsScreen({ route, navigation }) {
 
   return (
     <ContainerComponent>
-      <MyHeader isBack title={title} hasIcon />
+      <MyHeader isBack title={t(title)} hasIcon />
 
       <MyFlatList
         data={DATA}
