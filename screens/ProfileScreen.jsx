@@ -12,10 +12,12 @@ import {
 } from "../styles";
 import CardFullWidth from "../components/card/CardFullWidth";
 import Avatar from "../components/Avatar";
-import { H6, H4 } from "../components/text";
+import { H6 } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
+import { useTranslation } from "react-i18next";
 
 const ProfileItem = ({ iconName, label }) => {
+
   return (
     <View
       style={[
@@ -25,19 +27,18 @@ const ProfileItem = ({ iconName, label }) => {
         { width: SCREEN_WIDTH - 20, justifyContent: "flex-start" },
       ]}
     >
-
       <Image source={{ uri: iconName }} height={100} width={180} />
-      <H6 style={[typography.font16, { color: "black", flex: 1 }]}>
-        {label}
-      </H6>
+      <H6 style={[typography.font16, { color: "black", flex: 1 }]}>{label}</H6>
     </View>
   );
 };
 
 const ProfileScreen = () => {
+  const { t } = useTranslation();
+
   return (
     <ContainerComponent>
-      <MyHeader title="My Profile" isBack={true} hasIcon={true} />
+      <MyHeader title={t("profile_title")} isBack={true} hasIcon={true} />
 
       <CardFullWidth backgroundColor={PRIMARY_COLOR}>
         <View style={[styles.row, { alignItems: "center", marginTop: -10 }]}>

@@ -18,6 +18,11 @@
         "total_earning": "Total Earnings",
         "completion_date": "Completion Date",
         "option_title": "Select an option",
-        "no_project": "Oops! No Projects available. Create the new one."
+        "no_project": "Oops! No Projects available. Create the new one.",
+        "profile_title": "My Profile",
+        "placeholder": "Search",
+        "project_overview": "Project Overview",
+        "task_management": "Task Management",
+        "no_inventory": "No items found in inventory. Please contact admin. "
     }
 }
