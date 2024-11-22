@@ -41,7 +41,7 @@ export default function SearchBar({
         onChangeText={onChangeText}
         style={[
           { marginHorizontal: 4, height: 48, paddingLeft: 12, fontSize: 18 },
-          style, 
+          style,
         ]}
       />
     </View>
