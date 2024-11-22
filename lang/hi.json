@@ -40,6 +40,10 @@
         "hold_projects": "रुकी हुई परियोजनाएं",
         "rejected_projects": "अस्वीकृत परियोजनाएं",
         "total_projects": "कुल परियोजनाएं",
-        "inventory_title": "सूची"
+        "inventory_title": "सूची",
+        "my_projects": "मेरी परियोजनाएं",
+        "my_tasks": "मेरे कार्य",
+        "reports": "रिपोर्ट",
+        "settings": "सेटिंग्स"
     }
 }

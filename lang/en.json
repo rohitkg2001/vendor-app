@@ -40,6 +40,10 @@
         "hold_projects": "Hold Projects",
         "rejected_projects": "Rejected Projects",
         "total_projects": "Total Projects",
-        "inventory_title": "Inventory"
+        "inventory_title": "Inventory",
+        "my_projects": "My Projects",
+        "my_tasks": "My Tasks",
+        "reports": "Reports",
+        "settings": "Settings"
     }
 }
