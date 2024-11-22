@@ -7,9 +7,11 @@ import { H6, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
 import { tasks } from "../utils/faker";
 import { SCREEN_WIDTH, spacing, typography, styles } from "../styles";
+import { useTranslation } from "react-i18next";
 
 const TasksScreen = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   const renderTaskItem = ({ item }) => (
     <TouchableOpacity
@@ -35,7 +37,7 @@ const TasksScreen = () => {
 
   return (
     <ContainerComponent>
-      <MyHeader title="Task List" hasIcon={true} />
+      <MyHeader title={t("task_list")} hasIcon={true} />
       <MyFlatList
         data={tasks}
         renderItem={renderTaskItem}

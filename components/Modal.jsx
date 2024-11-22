@@ -2,7 +2,7 @@ import { Modal, Portal, } from "react-native-paper";
 import { DANGER_COLOR, LIGHT, SCREEN_HEIGHT, SCREEN_WIDTH, SECONDARY_COLOR } from "../styles/constant";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons"
-import { H4, P } from "./text";
+import { H4 } from "./text";
 import Button from "./buttons/Button";
 import { styles } from "../styles/components.styles";
 

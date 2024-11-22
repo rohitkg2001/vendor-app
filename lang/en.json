@@ -6,6 +6,22 @@
         "loginSubtitle": "Sign in to continue",
         "loginBtnText": "Login",
         "forgotPasswordText": "Forgot Password?",
-        "totalEarning" : "Total Earnings"
+        "privacy_policy_title": "Privacy Policy",
+        "notification_title": "Notifications",
+        "delivered_title": "Delivered",
+        "quantity_title":"Quantity",
+        "Total_Earning" : "Total Earnings" ,
+        "msg" : "Oops! No Projects available. Create the new one." , 
+        "placeholder" : "Search" ,
+        "task_list" : "Task List",
+        "total_sites" : "Total Sites",
+       "setting" : "Settings",
+       "submit_task" : "Submit Task",
+       "description" : "Description",
+       "select_material" : "Select Material",
+       "description_title" : "Briefly describe in less than 80 words",
+      "upload_photo" :  "Upload Photos",
+      "photo_description" : "Take upto 5 photos" ,
+      "take_photo" : "Take Photo" 
     }
 }

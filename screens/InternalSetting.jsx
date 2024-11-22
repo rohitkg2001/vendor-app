@@ -3,12 +3,14 @@ import { internal } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export default function SettingsScreen({ navigation }) {
 
+   const { t } = useTranslation();
   return (
     <ContainerComponent justifyContent="space-between">
-      <MyHeader title="Settings" isBack={true} hasIcon={true} />
+      <MyHeader title={t("setting")} isBack={true} hasIcon={true} />
       <View style={{ flex: 1 }}>
         {internal.map((item, index) => (
           <MenuItem
