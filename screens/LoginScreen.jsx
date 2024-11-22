@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { KeyboardAvoidingView, View, Platform, ScrollView, Text, TouchableOpacity } from "react-native";
 import MyImageBackground from "../components/MyImageBackground";
 import { H1, H5, Span, H2 } from "../components/text";
