@@ -25,7 +25,7 @@ export default function MyMaterialBottomNavigator() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
-            <Icon name="desktop-outline" size={26} color={color} />
+            <Icon name="desktop-outline" size={28} color={color} />
           ),
         }}
       />
@@ -35,7 +35,7 @@ export default function MyMaterialBottomNavigator() {
         options={{
           tabBarLabel: "Projects",
           tabBarIcon: ({ color }) => (
-            <Icon name="grid-outline" size={26} color={color} />
+            <Icon name="grid-outline" size={28} color={color} />
           ),
         }}
       />
@@ -46,7 +46,7 @@ export default function MyMaterialBottomNavigator() {
         options={{
           tabBarLabel: "Me",
           tabBarIcon: ({ color }) => (
-            <Icon name="person-outline" size={26} color={color} />
+            <Icon name="person-outline" size={28} color={color} />
           ),
         }}
       />

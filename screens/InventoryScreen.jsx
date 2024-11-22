@@ -13,19 +13,23 @@ export default function InventoryScreen() {
   return (
     <ContainerComponent>
       <MyHeader title="Inventory" hasIcon={true} isBack={true} />
+
       <MyFlatList
         data={inventory}
         keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={() =>
+        ListHeaderComponent={() => (
           <SearchBar
             placeholder="Search by name or code"
             value={searchText}
             onChangeText={setSearchText}
             style={{ marginVertical: 8, marginHorizontal: 4 }}
-          />}
-        ListEmptyComponent={() => <NoRecord msg="No items found in inventory. Please contact admin. " />}
+          />
+        )}
+        ListEmptyComponent={() => (
+          <NoRecord msg="No items found in inventory. Please contact admin. " />
+        )}
         renderItem={({ item }) => <InventoryCard item={item} />}
       />
     </ContainerComponent>
   );
-};
+}

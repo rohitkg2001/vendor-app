@@ -400,7 +400,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 60,
+    width: 55,
     height: 60,
   },
   removeImageButton: {
