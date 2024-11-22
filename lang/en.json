@@ -5,6 +5,8 @@
         "loginTitle": "Welcome Back",
         "loginSubtitle": "Sign in to continue",
         "loginBtnText": "Login",
-        "forgotPasswordText": "Forgot Password?"
+        "forgotPasswordText": "Forgot Password?",
+        "privacy_policy_title": "Privacy Policy",
+        "notification_title": "Notifications"
     }
 }
