@@ -1,14 +1,17 @@
 {
-    "translation": {
-        "credentialError": "Please provide the correct credentials",
-        "catchError": "An error occurred during login",
-        "loginTitle": "Welcome Back",
-        "loginSubtitle": "Sign in to continue",
-        "loginBtnText": "Login",
-        "forgotPasswordText": "Forgot Password?",
-        "privacy_policy_title": "Privacy Policy",
-        "notification_title": "Notifications",
-        "delivered_title": "Delivered",
-        "quantity_title":"Quantity"
-    }
+  "translation": {
+    "credentialError": "Please provide the correct credentials",
+    "catchError": "An error occurred during login",
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Sign in to continue",
+    "loginBtnText": "Login",
+    "forgotPasswordText": "Forgot Password?",
+    "privacy_policy_title": "Privacy Policy",
+    "notification_title": "Notifications",
+    "delivered_title": "Delivered",
+    "quantity_title": "Quantity",
+    "profile_title": "My Profile",
+    "norecord_msg": "Oops! No Projects available right now...",
+    "placeholder": "Search"
+  }
 }

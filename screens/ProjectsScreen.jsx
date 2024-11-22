@@ -9,9 +9,11 @@ import { View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
+import { useTranslation } from "react-i18next";
 
 export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
+  const { t } = useTranslation();
 
   const { DATA, title } = route.params;
 
@@ -36,9 +38,7 @@ export default function ProjectsScreen({ route, navigation }) {
             isProject={true}
           />
         )}
-        ListEmptyComponent={() => (
-          <NoRecord msg="Oops! No Projects available right now..." />
-        )}
+        ListEmptyComponent={() => <NoRecord msg={t("norecord_msg")} />}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={() => (
           <ScrollView
@@ -47,7 +47,7 @@ export default function ProjectsScreen({ route, navigation }) {
           >
             <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
               <SearchBar
-                placeholder="Search"
+                placeholder={t("placeholder")}
                 style={{ width: SCREEN_WIDTH - 70 }}
               />
               <Button
