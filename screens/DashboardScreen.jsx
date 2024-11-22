@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyFlatList from "../components/utility/MyFlatList";
-import { H3, H4, H5, H6, P, Span } from "../components/text";
+import { H3, H4, H5, P, Span } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
 
@@ -59,7 +59,7 @@ export default function DashboardScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[spacing.mh2]}>
         <View style={[spacing.mv4, styles.row, { alignItems: 'center' }]}>
-          <SearchBar placeholder="Search" style={{ width: SCREEN_WIDTH - 80 }} />
+          <SearchBar placeholder="Search" style={{ width: SCREEN_WIDTH - 70 }} />
           <Button style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}>
             <Icon name="options-outline" size={28} color={LIGHT} />
           </Button>

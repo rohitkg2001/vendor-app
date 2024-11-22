@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import { View, ScrollView } from "react-native";
 import MyHeader from "../components/header/MyHeader";
@@ -11,7 +10,7 @@ import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 
 export default function SiteScreen({ navigation }) {
-  const [searchText, setSearchText] = useState("");
+  
 
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
@@ -42,7 +41,7 @@ export default function SiteScreen({ navigation }) {
             <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
               <SearchBar
                 placeholder="Search"
-                style={{ width: SCREEN_WIDTH - 80 }}
+                style={{ width: SCREEN_WIDTH - 70 }}
               />
               <Button
                 style={[
