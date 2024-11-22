@@ -9,6 +9,13 @@
         "privacy_policy_title": "Privacy Policy",
         "notification_title": "Notifications",
         "delivered_title": "Delivered",
-        "quantity_title":"Quantity"
+        "quantity_title": "Quantity",
+        "duration_title": "Duration",
+        "status_title": "Status",
+        "priceTitle": "Price",
+        "total_title": "Total",
+        "site_title": "Site Name",
+        "total_earning": "Total Earnings",
+        "completion_date": "Completion Date",
     }
 }
