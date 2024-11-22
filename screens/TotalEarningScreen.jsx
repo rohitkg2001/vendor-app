@@ -5,10 +5,13 @@ import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 import NoRecord from "./NoRecord";
+import { View, ScrollView } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import Button from "../components/buttons/Button";
+import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
-
 
   return (
     <ContainerComponent>
@@ -29,12 +32,27 @@ const TotalEarningScreen = () => {
           <NoRecord msg="Oops! No Projects available. Create the new one." />
         )}
         ListHeaderComponent={() => (
-          <SearchBar
-            placeholder="Search earnings..."
-            value={searchText}
-            onChangeText={setSearchText}
-            style={{ marginVertical: 8, marginHorizontal: 4 }}
-          />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[spacing.mh2]}
+          >
+            <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
+              <SearchBar
+                placeholder="Search"
+                style={{ width: SCREEN_WIDTH - 70 }}
+              />
+              <Button
+                style={[
+                  styles.btn,
+                  styles.bgPrimary,
+                  spacing.mh1,
+                  { width: 50 },
+                ]}
+              >
+                <Icon name="options-outline" size={28} color={LIGHT} />
+              </Button>
+            </View>
+          </ScrollView>
         )}
       />
     </ContainerComponent>
