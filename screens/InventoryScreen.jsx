@@ -13,6 +13,7 @@ export default function InventoryScreen() {
   return (
     <ContainerComponent>
       <MyHeader title="Inventory" hasIcon={true} isBack={true} />
+
       <MyFlatList
         data={inventory}
         keyExtractor={(item) => item.id.toString()}
