@@ -59,7 +59,7 @@ export default function DashboardScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[spacing.mh2]}>
         <View style={[spacing.mv4, styles.row, { alignItems: 'center' }]}>
-          <SearchBar placeholder="Search" style={{ width: SCREEN_WIDTH - 80 }} />
+          <SearchBar placeholder="Search" style={{ width: SCREEN_WIDTH - 70 }} />
           <Button style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}>
             <Icon name="options-outline" size={28} color={LIGHT} />
           </Button>
