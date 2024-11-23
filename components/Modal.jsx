@@ -21,10 +21,10 @@ export default function ModalPopup({ close, visible, negativeButton, positiveBut
           <View style={{ flexDirection: 'row', padding: 16, justifyContent: 'space-between', alignItems: 'center', borderTopColor: SECONDARY_COLOR, borderTopWidth: 1 }}>
             <Button
               style={{ borderRightColor: SECONDARY_COLOR, borderRightWidth: 1, paddingHorizontal: (SCREEN_WIDTH / 6) - 36, marginLeft: 20 }} onPress={close}>
-              <H4 style={[styles.textSecondary, styles.textLarge, { textAlign: 'right', textTransform: 'uppercase' }]} >{negativeButton}</H4>
+              <H4 style={[styles.textSecondary, typography.font20, { textAlign: 'right', textTransform: 'uppercase' }]} >{negativeButton}</H4>
             </Button>
             <Button style={{ paddingHorizontal: (SCREEN_WIDTH / 6) - 36, marginRight: 20 }} onPress={action} >
-              <H4 style={[styles.textSecondary, styles.textLarge, styles.textDanger, { textAlign: 'left', textTransform: 'uppercase' }]}>{positiveButton}</H4>
+              <H4 style={[styles.textSecondary, typography.font20, styles.textDanger, { textAlign: 'left', textTransform: 'uppercase' }]}>{positiveButton}</H4>
             </Button>
           </View>
         </View>

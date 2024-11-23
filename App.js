@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import i18n from "./i18n";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import LanguageSelector from "./components/LanguageSelector";
+import LanguageSelector from './components/LanguageSelector'
 
 export default function App() {
   const [language, setLanguage] = useState(null);

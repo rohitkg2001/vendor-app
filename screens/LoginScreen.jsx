@@ -103,7 +103,7 @@ export default function LoginScreen({ navigation }) {
           style={[styles.btn, styles.bgPrimary, { justifyContent: "center" }]}
           onPress={onSubmit}
         >
-          <H2 style={[styles.btnText, styles.textLarge, typography.textLight]}>
+          <H2 style={[styles.btnText, typography.font20, typography.textLight]}>
             {t("loginBtnText")}
           </H2>
         </Button>
