@@ -17,7 +17,7 @@ import {
 export default function LanguageSelector({ onSelectLanguage }) {
   return (
     <MyImageBackground imageSource={ImageSource}>
-      <H4 style={[typography.textDark, typography.textBold, spacing.mh2]}>
+      <H4 style={[typography.textDark, typography.textBold, spacing.mh2, spacing.mb3]}>
         {PageData[0].description}
       </H4>
 
