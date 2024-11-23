@@ -8,7 +8,6 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { H3, H4, H5, P, Span } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
-
 import {
   layouts,
   LIGHT,
@@ -19,6 +18,7 @@ import {
   spacing,
   styles,
   typography,
+  ICON_SMALL,
 } from "../styles";
 import { vendor, projects } from "../utils/faker";
 import { useSelector } from "react-redux";
@@ -71,7 +71,7 @@ export default function DashboardScreen() {
         <View style={[spacing.mv2, styles.row, { alignItems: 'center' }]}>
           <H4>Today</H4>
           <View style={{ flexDirection: 'row' }}>
-            <Icon name="calendar-outline" size={24} color={DARK} />
+            <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
             <H5 style={spacing.ml1}>{today}</H5>
           </View>
 
