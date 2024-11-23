@@ -1,3 +1,16 @@
+import { Alert } from "react-native";
+
+export const alertMessage = ({ title, message, negativeTextClick = null, positiveText, positiveTextClick = null }) => {
+  Alert.alert(
+    title,
+    message,
+    [
+      { text: "Cancel", style: "cancel", onPress: negativeTextClick },
+      { text: positiveText, onPress: positiveTextClick },
+    ]
+  );
+}
+
 export const vendor = {
   id: 1,
   first_name: "Rakesh",
@@ -286,22 +299,21 @@ export const PageData = [
   {
     description: "Streamline Your Projects with Sugs Lloyd – Efficiency at Its Best!",
   },
- 
-      {
-        id: 1,
-        text: "Manage & Track Projects Anytime, Anywhere!", 
-      },
-      {
-        id: 2,
-        text: "Stay Updated – Receive Tasks & Progress Instantly!", 
-      },
-      {
-        id: 3,
-        text: "Share Work Details with Real-Time Location & Visuals!", 
-      },
-      {
-        id: 4,
-        text: "Keep a Sharp Eye on Your Stock Levels with Ease!", 
-      },
-    ]
-  
+
+  {
+    id: 1,
+    text: "Manage & Track Projects Anytime, Anywhere!",
+  },
+  {
+    id: 2,
+    text: "Stay Updated – Receive Tasks & Progress Instantly!",
+  },
+  {
+    id: 3,
+    text: "Share Work Details with Real-Time Location & Visuals!",
+  },
+  {
+    id: 4,
+    text: "Keep a Sharp Eye on Your Stock Levels with Ease!",
+  },
+]
