@@ -27,6 +27,8 @@ import { projectCounts, statCards } from "../redux/actions/projectActions";
 import { tasksCounts } from "../redux/actions/taskActions";
 import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
+import { useTranslation } from "react-i18next";
+
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -34,6 +36,7 @@ export default function DashboardScreen() {
   const [dueTasks, setDueTasks] = useState(4)
   const [greeting, setGreeting] = useState("Good morning")
   const { first_name } = useSelector(state => state);
+  const { t } = useTranslation()
 
   useEffect(() => {
     setGreeting(greet())
@@ -79,7 +82,7 @@ export default function DashboardScreen() {
           <View style={[styles.row, spacing.bbw05, spacing.mv1, spacing.pv1, { alignItems: "center", justifyContent: 'flex-start' }]}>
             <Icon name="calendar-clear" size={34} color={PRIMARY_COLOR} />
             <H5 style={[typography.textBold, spacing.ml2]}>
-              Project Overview
+              {t('project_overview')}
             </H5>
           </View>
 
@@ -93,7 +96,7 @@ export default function DashboardScreen() {
               projectCounts.map((item, index) =>
                 <TouchableOpacity
                   style={{ alignItems: "center" }}
-                  onPress={() => navigation.navigate(item.page, { DATA: item.data, title: `${item.title} Projects` })}
+                  onPress={() => navigation.navigate(item.page, { DATA: item.data, title: `${item.title}_projects`.toLowerCase() })}
                 >
                   <P style={typography.textBold}>{item.title}</P>
                   <P>{item.count || 0}</P>
@@ -111,7 +114,7 @@ export default function DashboardScreen() {
             backgroundColor={item.backgroundColor}
             tasks={item.count}
             status={item.title}
-            onPress={() => navigation.navigate(item.page, { DATA: projects, title: `${item.title}` })
+            onPress={() => navigation.navigate(item.page, { DATA: projects, title: t(`${item.title}`) })
             }
           />
           }
@@ -124,7 +127,7 @@ export default function DashboardScreen() {
         <View
           style={[spacing.mb5, spacing.p3, spacing.br2, { elevation: 2, backgroundColor: PRIMARY_COLOR_TRANSPARENT, }]}
         >
-          <H3 style={[spacing.mb3, typography.textBold]}>Task Management</H3>
+          <H3 style={[spacing.mb3, typography.textBold]}>{t('task_management')}</H3>
           <View style={styles.attendanceContainer}>
             {tasksCounts.map((item) => (
               <TouchableOpacity

@@ -9,13 +9,16 @@ import NoRecord from "./NoRecord";
 import Button from "../components/buttons/Button";
 import { projects } from "../utils/faker";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
-
+import { useTranslation } from "react-i18next";
+import MyHeader from "../components/header/MyHeader";
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
+  const { t } = useTranslation()
 
   return (
     <ContainerComponent>
+      <MyHeader title="Current Project" isBack={true} hasIcon={true} />
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}
@@ -30,7 +33,7 @@ export default function CurrentProjectsScreen({ navigation }) {
           />
         )}
         ListEmptyComponent={() => (
-          <NoRecord msg="Oops! No Projects available. Create the new one." />
+          <NoRecord msg={t('no_project')} />
         )}
         ListHeaderComponent={() => (
           <ScrollView
@@ -39,7 +42,6 @@ export default function CurrentProjectsScreen({ navigation }) {
           >
             <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
               <SearchBar
-                placeholder="Search"
                 style={{ width: SCREEN_WIDTH - 70 }}
               />
               <Button

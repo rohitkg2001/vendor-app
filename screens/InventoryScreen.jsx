@@ -6,27 +6,28 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { inventory } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
+import { useTranslation } from "react-i18next";
 
 export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
+  const { t } = useTranslation()
 
   return (
     <ContainerComponent>
-      <MyHeader title="Inventory" hasIcon={true} isBack={true} />
+      <MyHeader title={t('inventory_title')} hasIcon={true} isBack={true} />
 
       <MyFlatList
         data={inventory}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={() => (
           <SearchBar
-            placeholder="Search by name or code"
             value={searchText}
             onChangeText={setSearchText}
             style={{ marginVertical: 8, marginHorizontal: 4 }}
           />
         )}
         ListEmptyComponent={() => (
-          <NoRecord msg="No items found in inventory. Please contact admin. " />
+          <NoRecord msg={t('no_inventory')} />
         )}
         renderItem={({ item }) => <InventoryCard item={item} />}
       />

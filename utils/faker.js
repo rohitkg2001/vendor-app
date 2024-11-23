@@ -183,17 +183,17 @@ export const earnings = [
 ];
 
 export const menuItems = [
-  { label: "My Projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
-  { label: "My Tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
+  { label: "my_projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
+  { label: "my_tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
   {
-    label: "Site Inventory",
+    label: "inventory_title",
     icon: "cart-outline",
     page: "inventoryScreen",
     id: 2,
   },
-  { label: "Reports", page: "", icon: "pie-chart-outline", id: 3 },
+  { label: "reports", page: "", icon: "pie-chart-outline", id: 3 },
   {
-    label: "Settings",
+    label: "settings",
     page: "",
     icon: "cog-outline",
     page: "internalSetting",

@@ -2,6 +2,7 @@ import { View, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../../styles/components.styles";
 import { SCREEN_WIDTH } from "../../styles/constant";
+import {useTranslation} from 'react-i18next'
 
 export default function SearchBar({
   placeholder,
@@ -9,6 +10,7 @@ export default function SearchBar({
   onChangeText,
   style,
 }) {
+  const {t}=useTranslation()
   return (
     <View
       style={[
@@ -36,7 +38,7 @@ export default function SearchBar({
         style={{ marginLeft: 4 }}
       />
       <TextInput
-        placeholder={placeholder}
+        placeholder={t('placeholder')}
         value={value}
         onChangeText={onChangeText}
         style={[
