@@ -1,10 +1,10 @@
 import { View, TouchableOpacity, Image } from 'react-native'
 import { H5, P } from '../../components/text'
-import { styles, spacing, SCREEN_WIDTH, SECONDARY_COLOR, LIGHT } from '../../styles'
+import { styles, spacing, SCREEN_WIDTH, LIGHT } from '../../styles'
 import { useTranslation } from 'react-i18next'
 import { Card } from 'react-native-paper'
 
-export default function InventoryCard({ item }) {
+export default function InventoryCard({ item, onPress }) {
     const { t } = useTranslation()
     return (
         <Card
@@ -17,7 +17,7 @@ export default function InventoryCard({ item }) {
                     backgroundColor: LIGHT,
                 },
             ]}>
-            <View style={[styles.row, { alignItems: 'center' }]}>
+            <TouchableOpacity style={[styles.row, { alignItems: 'center' }]} onPress={onPress}>
                 <Image
                     source={{ uri: item.url }}
                     style={[{ width: 72, height: 72 }, spacing.mr4, spacing.br2]}
@@ -32,7 +32,7 @@ export default function InventoryCard({ item }) {
                         <P>{t('quantity_title')}: {item.qty_stock} {item.unit}</P>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         </Card>
     )
 }
