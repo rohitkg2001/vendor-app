@@ -86,7 +86,7 @@ export const projects = [
 
 export const sites = [
   {
-    id: "1",
+    id: 1,
     vendorId: 1,
     siteName: "P S SHIKSHA NAGAR BANMANKHI",
     dist: "Purnia",
@@ -154,8 +154,8 @@ export const tasks = [
 export const inventory = [
   {
     id: 1,
-    projectId: "",
-    siteId: "",
+    projectId: 1,
+    siteId: 1,
     product_name: "Solar LED Street Light",
     description: "Eco-friendly solar-powered street light with motion sensor.",
     unit: "pcs",
@@ -167,8 +167,8 @@ export const inventory = [
   },
   {
     id: 2,
-    projectId: "",
-    siteId: "",
+    projectId: 1,
+    siteId: 1,
     product_name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
     unit: "pcs",
