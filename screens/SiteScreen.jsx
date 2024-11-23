@@ -25,7 +25,7 @@ export default function SiteScreen({ navigation }) {
   return (
     <ContainerComponent>
       <MyHeader isBack
-        title={ t( "total_sites" ) } hasIcon />
+        title={t("total_sites")} hasIcon />
 
       <MyFlatList
         data={sites}
