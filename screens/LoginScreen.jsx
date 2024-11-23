@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { KeyboardAvoidingView, View, Platform, ScrollView, Text, TouchableOpacity } from "react-native";
+import {
+  KeyboardAvoidingView,
+  View,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import MyImageBackground from "../components/MyImageBackground";
 import { H1, H5, Span, H2 } from "../components/text";
 import MyTextInput from "../components/input/MyTextInput";
@@ -16,27 +23,27 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
-  const changeLanguage = value => {
+  const changeLanguage = (value) => {
     i18n
       .changeLanguage(value)
       .then(() => setLanguage(value))
-      .catch(err => console.log(err));
-  }
+      .catch((err) => console.log(err));
+  };
 
   const onSubmit = async () => {
     setError("");
     try {
-      const result = await dispatch(login(username, password))
+      const result = await dispatch(login(username, password));
       if (result) {
         navigation.navigate("homeScreen");
       } else {
-        setError(t('credentialError'));
+        setError(t("credentialError"));
       }
     } catch (error) {
-      setError(t('catchError'));
+      setError(t("catchError"));
     }
   };
 
@@ -48,8 +55,8 @@ export default function LoginScreen({ navigation }) {
     <MyImageBackground imageSource={require("../assets/Login.png")}>
       <ScrollView style={{ flex: 1 }}>
         <View style={[layouts.center, spacing.mv5]}>
-          <H1 style={spacing.mv2}>{t('loginTitle')}</H1>
-          <H5 style={spacing.mb5}>{t('loginSubtitle')}</H5>
+          <H1 style={spacing.mv2}>{t("loginTitle")}</H1>
+          <H5 style={spacing.mb5}>{t("loginSubtitle")}</H5>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -90,14 +97,14 @@ export default function LoginScreen({ navigation }) {
             <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
           ) : null}
 
-          <Span style={styles.rightLink}>{t('forgotPasswordText')}</Span>
+          <Span style={styles.rightLink}>{t("forgotPasswordText")}</Span>
         </KeyboardAvoidingView>
         <Button
           style={[styles.btn, styles.bgPrimary, { justifyContent: "center" }]}
           onPress={onSubmit}
         >
-          <H2 style={[styles.btnText, styles.textLarge, typography.textLight]}>
-            {t('loginBtnText')}
+          <H2 style={[styles.btnText, typography.font20, typography.textLight]}>
+            {t("loginBtnText")}
           </H2>
         </Button>
       </ScrollView>

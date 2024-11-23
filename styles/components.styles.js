@@ -24,10 +24,6 @@ export const styles = StyleSheet.create({
     height: 0.6 * SCREEN_WIDTH,
   },
 
-  textLarge: {
-    fontSize: 18,
-  },
-
   textInputField: {
     backgroundColor: PRIMARY_COLOR_TRANSPARENT,
     borderRadius: 6,

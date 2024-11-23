@@ -17,8 +17,8 @@ export default function FileUploadScreen() {
   const [description, setDescription] = useState("");
   const [materials, setMaterials] = useState([])
 
-  const cameraRef = useRef( null );
- 
+  const cameraRef = useRef(null);
+
 
   const handleTakePicture = async () => {
     if (cameraRef.current && photos.length < 5) {
@@ -41,7 +41,7 @@ export default function FileUploadScreen() {
   const removePhoto = (uri) => {
     setPhotos(photos.filter((photoUri) => photoUri !== uri));
   };
- 
+
   useEffect(() => {
     let myArr = []
     inventory.map((item, index) => {
@@ -50,7 +50,7 @@ export default function FileUploadScreen() {
     })
     setMaterials(myArr)
   }, [])
- const { t } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <ContainerComponent>
@@ -68,7 +68,7 @@ export default function FileUploadScreen() {
             onPress={handleTakePicture}
           >
             <H2
-              style={[styles.btnText, styles.textLarge, typography.textLight]}
+              style={[styles.btnText, typography.font20, typography.textLight]}
             >
               {t("take_photo")}
             </H2>
@@ -126,7 +126,7 @@ export default function FileUploadScreen() {
               { width: SCREEN_WIDTH / 2 - 20 },
             ]}
           >
-            <H2 style={[styles.btnText, styles.textLarge, typography.textDark]}>
+            <H2 style={[styles.btnText, typography.font20, typography.textDark]}>
               Cancel
             </H2>
           </Button>
@@ -140,7 +140,7 @@ export default function FileUploadScreen() {
             ]}
           >
             <H2
-              style={[styles.btnText, styles.textLarge, typography.textLight]}
+              style={[styles.btnText, typography.font20, typography.textLight]}
             >
               Submit
             </H2>
