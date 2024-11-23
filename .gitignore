@@ -3,7 +3,10 @@
 # dependencies
 node_modules/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4eb1480b095e85717a2bcdc6832d573320c91ac8
 #Dont push anything over git
 android/
 

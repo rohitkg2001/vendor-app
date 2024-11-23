@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { login } from "../redux/actions/vendorActions";
 import { useTranslation } from "react-i18next";
+import { ICON_LARGE } from "../styles/constant";
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -87,7 +88,7 @@ export default function LoginScreen({ navigation }) {
             >
               <Icon
                 name={isPasswordVisible ? "eye-off" : "eye"}
-                size={32}
+                size={ICON_LARGE}
                 color="gray"
               />
             </TouchableOpacity>

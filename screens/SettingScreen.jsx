@@ -5,11 +5,9 @@ import ProfileCard from "../components/ProfileCard";
 import MenuItem from "../components/MenuItem";
 import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
-import { DANGER_COLOR } from "../styles/constant";
-import { projects, vendor } from "../utils/faker";
 import Button from "../components/buttons/Button";
-import { menuItems } from "../utils/faker";
-import { layouts, spacing } from "../styles";
+import { menuItems, vendor, projects } from "../utils/faker";
+import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -33,20 +31,19 @@ export default function SettingsScreen() {
             label={item.label}
             icon={item.icon}
             onPress={() => {
-              item.id === 0 ?
-                navigation.navigate(item.page, { DATA: projects, title: item.label })
-                :
-                navigation.navigate(item.page)
+              item.id === 0
+                ? navigation.navigate(item.page, {
+                  DATA: projects,
+                  title: item.label,
+                })
+                : navigation.navigate(item.page);
             }}
           />
         ))}
       </View>
 
-      <Button
-        style={[spacing.mb2, layouts.center]}
-        onPress={handleLogoutPress}
-      >
-        <Icon name="power-outline" size={24} color={DANGER_COLOR} />
+      <Button style={[spacing.mb2, layouts.center]} onPress={handleLogoutPress}>
+        <Icon name="power-outline" size={ICON_SMALL} color={DANGER_COLOR} />
         <H5 style={{ color: DANGER_COLOR }}>Logout</H5>
       </Button>
     </ContainerComponent>
