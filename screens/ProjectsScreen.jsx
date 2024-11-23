@@ -8,7 +8,7 @@ import NoRecord from "../screens/NoRecord";
 import { View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
-import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
+import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
 
 export default function ProjectsScreen({ route, navigation }) {
@@ -46,9 +46,7 @@ export default function ProjectsScreen({ route, navigation }) {
             contentContainerStyle={[spacing.mh2]}
           >
             <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
-              <SearchBar
-                style={{ width: SCREEN_WIDTH - 70 }}
-              />
+              <SearchBar style={{ width: SCREEN_WIDTH - 70 }} />
               <Button
                 style={[
                   styles.btn,
@@ -57,7 +55,7 @@ export default function ProjectsScreen({ route, navigation }) {
                   { width: 50 },
                 ]}
               >
-                <Icon name="options-outline" size={28} color={LIGHT} />
+                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
             </View>
           </ScrollView>

@@ -8,7 +8,7 @@ import NoRecord from "./NoRecord";
 import { View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
-import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
+import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
 
 const TotalEarningScreen = () => {
@@ -49,7 +49,7 @@ const TotalEarningScreen = () => {
                   { width: 50 },
                 ]}
               >
-                <Icon name="options-outline" size={28} color={LIGHT} />
+                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
             </View>
           </ScrollView>
