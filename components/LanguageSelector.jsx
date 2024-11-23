@@ -1,9 +1,12 @@
 import Button from "../components/buttons/Button";
 import { styles } from "../styles/components.styles";
-import { H2, H4, H6, P } from "../components/text";
+import { H2, H4, H5, H6, P, Span } from "../components/text";
 import { typography, SCREEN_WIDTH, spacing, PRIMARY_COLOR } from "../styles";
 import ImageSource from '../assets/welcomeImage.png'
 import MyImageBackground from "./MyImageBackground";
+import Icon from 'react-native-vector-icons/Ionicons'
+import { ICON_SMALL } from "../styles/constant";
+import { View } from "react-native";
 
 export default function LanguageSelector({ onSelectLanguage }) {
   return (
@@ -11,12 +14,25 @@ export default function LanguageSelector({ onSelectLanguage }) {
       <H4 style={[typography.textDark, typography.textBold, spacing.mh2]}>
         Almost there! Now manage your projects easily with Sugs Lloyd
       </H4>
-      <P>
-
-      </P>
-      <H6 style={[typography.font20, spacing.mv4, spacing.mh2]}>
+      <View style={[styles.row, spacing.mh2, spacing.mv1, spacing.mt5, { justifyContent: 'flex-start', alignItems: "center" }]}>
+        <Icon name="checkmark-circle" size={ICON_SMALL} color={PRIMARY_COLOR} />
+        <P style={{ lineHeight: 30 }}>Manage and track your tasks easily</P>
+      </View>
+      <View style={[styles.row, spacing.mh2, spacing.mv1, { justifyContent: 'flex-start', alignItems: "center" }]}>
+        <Icon name="checkmark-circle" size={ICON_SMALL} color={PRIMARY_COLOR} />
+        <P style={{ lineHeight: 30 }}>Manage and track your tasks easily</P>
+      </View>
+      <View style={[styles.row, spacing.mh2, spacing.mv1, { justifyContent: 'flex-start', alignItems: "center" }]}>
+        <Icon name="checkmark-circle" size={ICON_SMALL} color={PRIMARY_COLOR} />
+        <P style={{ lineHeight: 30 }}>Manage and track your tasks easily</P>
+      </View>
+      <View style={[styles.row, spacing.mh2, spacing.mv1, spacing.mb5, { justifyContent: 'flex-start', alignItems: "center" }]}>
+        <Icon name="checkmark-circle" size={ICON_SMALL} color={PRIMARY_COLOR} />
+        <P style={{ lineHeight: 30 }}>Manage and track your tasks easily</P>
+      </View>
+      <Span style={[typography.font16, spacing.mt5, spacing.mh2]}>
         Please select your preferred language:
-      </H6>
+      </Span>
       <Button
         style={[
           styles.btn,
