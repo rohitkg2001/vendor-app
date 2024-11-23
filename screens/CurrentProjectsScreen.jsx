@@ -11,10 +11,11 @@ import { projects } from "../utils/faker";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
 import MyHeader from "../components/header/MyHeader";
+import { ICON_MEDIUM } from "../styles/constant";
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ContainerComponent>
@@ -32,18 +33,14 @@ export default function CurrentProjectsScreen({ navigation }) {
             }
           />
         )}
-        ListEmptyComponent={() => (
-          <NoRecord msg={t('no_project')} />
-        )}
+        ListEmptyComponent={() => <NoRecord msg={t("no_project")} />}
         ListHeaderComponent={() => (
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={[spacing.mh2]}
           >
             <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
-              <SearchBar
-                style={{ width: SCREEN_WIDTH - 70 }}
-              />
+              <SearchBar style={{ width: SCREEN_WIDTH - 70 }} />
               <Button
                 style={[
                   styles.btn,
@@ -52,7 +49,7 @@ export default function CurrentProjectsScreen({ navigation }) {
                   { width: 50 },
                 ]}
               >
-                <Icon name="options-outline" size={28} color={LIGHT} />
+                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
             </View>
           </ScrollView>

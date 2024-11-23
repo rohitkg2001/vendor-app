@@ -3,7 +3,13 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DashboardScreen from "../screens/DashboardScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
-import { INFO_COLOR, LIGHT, PRIMARY_COLOR } from "../styles/constant";
+import {
+  INFO_COLOR,
+  LIGHT,
+  PRIMARY_COLOR,
+  ICON_MEDIUM,
+} from "../styles/constant";
+
 const BottomTab = createMaterialBottomTabNavigator();
 export default function MyMaterialBottomNavigator() {
   return (
@@ -25,7 +31,7 @@ export default function MyMaterialBottomNavigator() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
-            <Icon name="desktop-outline" size={28} color={color} />
+            <Icon name="desktop-outline" size={ICON_MEDIUM} color={color} />
           ),
         }}
       />
@@ -35,7 +41,7 @@ export default function MyMaterialBottomNavigator() {
         options={{
           tabBarLabel: "Projects",
           tabBarIcon: ({ color }) => (
-            <Icon name="grid-outline" size={28} color={color} />
+            <Icon name="grid-outline" size={ICON_MEDIUM} color={color} />
           ),
         }}
       />
@@ -46,7 +52,7 @@ export default function MyMaterialBottomNavigator() {
         options={{
           tabBarLabel: "Me",
           tabBarIcon: ({ color }) => (
-            <Icon name="person-outline" size={28} color={color} />
+            <Icon name="person-outline" size={ICON_MEDIUM} color={color} />
           ),
         }}
       />
