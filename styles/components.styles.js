@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   DANGER_COLOR,
   DARK,
@@ -204,22 +204,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: LIGHT,
   },
-  taskLabel: {
-    borderRadius: 15,
-    paddingVertical: 3,
-    paddingHorizontal: 10,
-    marginRight: 5,
-    backgroundColor: "#f87171",
-  },
-  taskFooterItem: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  footerText: {
-    marginHorizontal: 4,
-    color: DARK,
-    fontSize: 14,
-  },
+
   dropdown: {
     flexDirection: "row",
     alignItems: "center",
@@ -326,66 +311,14 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: LIGHT,
   },
-  scrollView: {
-    padding: 4,
-  },
-  sectionTitle: {
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-
-  unit: {
-    marginLeft: 5,
-  },
-
-  rightContainer: {
-    alignItems: "flex-end",
-  },
-
-  actionButton: {
-    marginTop: 10,
-    padding: 6,
-    backgroundColor: "#2b87b022",
-    borderRadius: 5,
-  },
-  actionButtonText: {
-    color: PRIMARY_COLOR,
-  },
-
-  addIconContainer: {
-    borderRadius: 15,
-    backgroundColor: LIGHT,
-  },
-
-  cardRow: {
-    flexDirection: "row",
-    padding: 4,
-  },
-
-  itemInfo: {
-    flex: 3,
-  },
-
-  itemDetails: {
-    alignItems: "Center",
-    flex: 1,
-  },
-
-  dropdownContainer: {
-    padding: 8,
-  },
   itemStyle: {
     padding: 4,
     marginTop: 4,
-  },
-  itemsContainerStyle: {
-    maxHeight: 100,
   },
   textInput: {
     width: 310,
     color: "#020409",
   },
-
   map: {
     height: SCREEN_WIDTH / 1.5,
   },

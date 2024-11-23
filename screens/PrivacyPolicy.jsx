@@ -2,10 +2,10 @@ import { useState } from "react";
 import { View, ScrollView } from "react-native";
 import MyHeader from "../components/header/MyHeader";
 import { P } from "../components/text";
-import { styles } from "../styles/components.styles";
 import ContainerComponent from "../components/ContainerComponent";
 import { PRIVACY_POLICY } from "../utils/faker";
 import { useTranslation } from "react-i18next";
+import { spacing, styles } from "../styles";
 
 const PrivacyPolicy = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -24,7 +24,7 @@ const PrivacyPolicy = () => {
           hasIcon={true}
           icon={""}
         />
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView contentContainerStyle={spacing.p1}>
           <P style={{ marginHorizontal: 2, textAlign: "justify" }}>
             {PRIVACY_POLICY}
           </P>
