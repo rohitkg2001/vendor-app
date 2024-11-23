@@ -46,7 +46,7 @@ export default function DashboardScreen() {
       >
         <View>
           <H4 style={typography.textBold}>{greeting}, {first_name} </H4>
-          <P style={spacing.ml1}>You have {dueTasks} due Today</P>
+          <P style={spacing.ml1}>You have {dueTasks} due tasks Today</P>
         </View>
         <TouchableOpacity style={[layouts.circle12, layouts.center, spacing.bw05, spacing.br5, { position: 'relative' }]}>
           <Icon name='notifications-outline' size={28} color={DARK} />

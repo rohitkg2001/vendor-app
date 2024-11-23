@@ -1,0 +1,10 @@
+{
+    "translation": {
+        "credentialError": "कृपया सही क्रेडेंशियल प्रदान करें",
+        "catchError": "एक त्रुटि पाई गई",
+        "loginTitle": "स्वागत है",
+        "loginSubtitle": "जारी रखने के लिए साइन इन करें",
+        "loginBtnText": "लॉग इन करें",
+        "forgotPasswordText": "पासवर्ड भूल गए?"
+    }
+}
