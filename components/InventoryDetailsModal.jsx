@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Image } from "react-native";
 import ModalPopup from "./Modal";
-import { P } from "./text";
-import { layouts  ,  PRIMARY_COLOR_TRANSPARENT , typography } from "../styles";
+import { P, Span } from "./text";
+import { layouts } from "../styles";
 
 export default function InventoryDetailsModal({
   visible,
@@ -40,6 +40,8 @@ export default function InventoryDetailsModal({
           }}
           resizeMode="contain"
         />
+
+        <Span style={[{ marginLeft: "auto" }]}>View Details</Span>
       </View>
     </ModalPopup>
   );
