@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image } from "react-native";
 import ModalPopup from "./Modal";
-import { P } from "./text";
+import { P, Span } from "./text";
 import { layouts } from "../styles";
 
 export default function InventoryDetailsModal({
@@ -37,6 +37,8 @@ export default function InventoryDetailsModal({
           style={{ height: 200, width: 200 }}
           resizeMode="contain"
         />
+
+        <Span style={[{ marginLeft: "auto" }]}>View Details</Span>
       </View>
     </ModalPopup>
   );
