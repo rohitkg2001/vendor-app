@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { ICON_MEDIUM, LIGHT, styles, spacing, SCREEN_WIDTH, layouts, typography } from "../styles";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import ModalPopup from "../components/Modal";
 import { P } from "../components/text";
 
@@ -65,8 +65,7 @@ export default function InventoryScreen() {
           >
 
             <P style={typography.textDark}>{selectedItem.product_name} allocated for {selectedItem.projectName} on site {selectedItem.siteName}, {selectedItem.location}, {selectedItem.dist}</P>
-            <P style={typography.textDark}>{selectedItem.product_name} allocated for {selectedItem.projectName} on site {selectedItem.siteName}, {selectedItem.location}, {selectedItem.dist}</P>
-
+           
             <View style={layouts.center}>
               <Image source={{ uri: selectedItem.url }} style={{ height: 200, width: 200 }} resizeMode="contain" />
             </View>

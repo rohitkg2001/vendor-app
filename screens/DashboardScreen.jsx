@@ -98,7 +98,7 @@ export default function DashboardScreen() {
           </Button>
         </View>
 
-        <View style={[spacing.mv2, styles.row, { alignItems: "center" }]}>
+        <View style={[spacing.mv2,spacing.mr3, styles.row, { alignItems: "center" }]}>
           <H4>Today</H4>
           <View style={{ flexDirection: "row" }}>
             <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
