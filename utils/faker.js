@@ -1,15 +1,17 @@
 import { Alert } from "react-native";
 
-export const alertMessage = ({ title, message, negativeTextClick = null, positiveText, positiveTextClick = null }) => {
-  Alert.alert(
-    title,
-    message,
-    [
-      { text: "Cancel", style: "cancel", onPress: negativeTextClick },
-      { text: positiveText, onPress: positiveTextClick },
-    ]
-  );
-}
+export const alertMessage = ({
+  title,
+  message,
+  negativeTextClick = null,
+  positiveText,
+  positiveTextClick = null,
+}) => {
+  Alert.alert(title, message, [
+    { text: "Cancel", style: "cancel", onPress: negativeTextClick },
+    { text: positiveText, onPress: positiveTextClick },
+  ]);
+};
 
 export const vendor = {
   id: 1,
@@ -161,9 +163,10 @@ export const inventory = [
     unit: "pcs",
     initial_quantity: "1000",
     qty_stock: "1000",
-    dispatch_date: "",
-    delivery_date: "12 Nov 2024",
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s"
+    material_dispatch_date: "20 Nov 2024",
+    delivery_date: "20 Nov 2024",
+    allocation_officer : "Bittu Gupta",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
   },
   {
     id: 2,
@@ -174,11 +177,11 @@ export const inventory = [
     unit: "pcs",
     initial_quantity: "1000",
     qty_stock: "200",
-    dispatch_date: "",
-    delivery_date: "12 Nov 2024",
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s"
-  }
-]
+    material_dispatch_date: "20 Nov 2024",
+    delivery_date: "24 Nov 2024",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
+  },
+];
 
 export const earnings = [
   {
@@ -293,11 +296,10 @@ export const documentData = [
   },
 ];
 
-
 export const PageData = [
-
   {
-    description: "Streamline Your Projects with Sugs Lloyd – Efficiency at Its Best!",
+    description:
+      "Streamline Your Projects with Sugs Lloyd – Efficiency at Its Best!",
   },
 
   {
@@ -316,4 +318,4 @@ export const PageData = [
     id: 4,
     text: "Keep a Sharp Eye on Your Stock Levels with Ease!",
   },
-]
+];
