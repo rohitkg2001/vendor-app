@@ -86,7 +86,7 @@ export default function DashboardScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh2]}
       >
-        <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
+        <View style={[spacing.mv4, styles.row, spacing.mh1, { alignItems: "center" }]}>
           <SearchBar
             placeholder="Search"
             style={{ width: SCREEN_WIDTH - 70 }}
