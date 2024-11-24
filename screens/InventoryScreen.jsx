@@ -9,18 +9,10 @@ import NoRecord from "./NoRecord";
 import { useTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
-import {
-  ICON_MEDIUM,
-  LIGHT,
-  styles,
-  spacing,
-  SCREEN_WIDTH,
-  layouts,
-  typography,
-} from "../styles";
-import { View, Text, Image } from "react-native";
-import ModalPopup from "../components/Modal";
-import { P } from "../components/text";
+import { ICON_MEDIUM, LIGHT, styles, spacing, SCREEN_WIDTH } from "../styles";
+import { View } from "react-native";
+
+import InventoryDetailsModal from "../components/InventoryDetailsModal";
 
 export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
@@ -71,29 +63,11 @@ export default function InventoryScreen() {
           <InventoryCard item={item} onPress={() => viewItem(item.id)} />
         )}
       />
-      {selectedItem && (
-        <ModalPopup
-          visible={isVisible}
-          close={() => setVisible(false)}
-          negativeButton="Close"
-          positiveButton="OK"
-          action={null}
-        >
-          <P> {selectedItem.product_name} Allocated for {selectedItem.projectName} </P>
-          <P> Site: {selectedItem.location}, Dist:{selectedItem.dist} </P>
-          <P> Initial Quantity: {selectedItem.initial_quantity}</P>
-          <P> Material Dispatch Date: {selectedItem.material_dispatch_date}</P>
-          <P> Delivery Date: {selectedItem.delivery_date}  </P>
-          <P> Allocated By : {selectedItem.allocation_officer} </P>
-          <View style={layouts.center}>
-            <Image
-              source={{ uri: selectedItem.url }}
-              style={{ height: 200, width: 200 }}
-              resizeMode="contain"
-            />
-          </View>
-        </ModalPopup>
-      )}
+      <InventoryDetailsModal
+        visible={isVisible}
+        onClose={() => setVisible(false)}
+        selectedItem={selectedItem}
+      />
     </ContainerComponent>
   );
 }

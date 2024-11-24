@@ -165,7 +165,7 @@ export const inventory = [
     qty_stock: "1000",
     material_dispatch_date: "20 Nov 2024",
     delivery_date: "20 Nov 2024",
-    allocation_officer : "Bittu Gupta",
+    allocation_officer: "Bittu Gupta",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
   },
   {
@@ -179,6 +179,7 @@ export const inventory = [
     qty_stock: "200",
     material_dispatch_date: "20 Nov 2024",
     delivery_date: "24 Nov 2024",
+    allocation_officer: "Bittu Mishra",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
   },
 ];
