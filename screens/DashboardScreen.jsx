@@ -8,19 +8,7 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { H3, H4, H5, P, Span } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
-import { ICON_SMALL, ICON_MEDIUM, ICON_LARGE } from "../styles/constant";
-
-import {
-  layouts,
-  LIGHT,
-  PRIMARY_COLOR,
-  PRIMARY_COLOR_TRANSPARENT,
-  DARK,
-  SCREEN_WIDTH,
-  spacing,
-  styles,
-  typography,
-} from "../styles";
+import { layouts, LIGHT, PRIMARY_COLOR, PRIMARY_COLOR_TRANSPARENT, DARK, SCREEN_WIDTH, spacing, styles, typography, ICON_SMALL, ICON_MEDIUM, ICON_LARGE } from "../styles";
 import { vendor, projects } from "../utils/faker";
 import { useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
@@ -98,7 +86,7 @@ export default function DashboardScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh2]}
       >
-        <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
+        <View style={[spacing.mv4, styles.row, spacing.mh1, { alignItems: "center" }]}>
           <SearchBar
             placeholder="Search"
             style={{ width: SCREEN_WIDTH - 70 }}
@@ -231,7 +219,7 @@ export default function DashboardScreen() {
             ))}
           </View>
         </View>
-      </ScrollView>
-    </ContainerComponent>
+      </ScrollView >
+    </ContainerComponent >
   );
 }

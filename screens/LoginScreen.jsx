@@ -18,6 +18,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { login } from "../redux/actions/vendorActions";
 import { useTranslation } from "react-i18next";
 import { ICON_LARGE } from "../styles/constant";
+import { alertMessage } from "../utils/faker";
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -97,8 +98,13 @@ export default function LoginScreen({ navigation }) {
           {error ? (
             <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
           ) : null}
-
-          <Span style={styles.rightLink}>{t("forgotPasswordText")}</Span>
+          <TouchableOpacity onPress={() => alertMessage({
+            title: 'Forgot Password',
+            message: 'No worries. Contact admin to change your existing password',
+            positiveText: 'OK'
+          })}>
+            <Span style={styles.rightLink}>{t("forgotPasswordText")}</Span>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
         <Button
           style={[styles.btn, styles.bgPrimary, { justifyContent: "center" }]}

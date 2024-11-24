@@ -1,3 +1,16 @@
+import { Alert } from "react-native";
+
+export const alertMessage = ({ title, message, negativeTextClick = null, positiveText, positiveTextClick = null }) => {
+  Alert.alert(
+    title,
+    message,
+    [
+      { text: "Cancel", style: "cancel", onPress: negativeTextClick },
+      { text: positiveText, onPress: positiveTextClick },
+    ]
+  );
+}
+
 export const vendor = {
   id: 1,
   first_name: "Rakesh",
@@ -73,7 +86,7 @@ export const projects = [
 
 export const sites = [
   {
-    id: "1",
+    id: 1,
     vendorId: 1,
     siteName: "P S SHIKSHA NAGAR BANMANKHI",
     dist: "Purnia",
@@ -141,8 +154,8 @@ export const tasks = [
 export const inventory = [
   {
     id: 1,
-    projectId: "",
-    siteId: "",
+    projectId: 1,
+    siteId: 1,
     product_name: "Solar LED Street Light",
     description: "Eco-friendly solar-powered street light with motion sensor.",
     unit: "pcs",
@@ -154,8 +167,8 @@ export const inventory = [
   },
   {
     id: 2,
-    projectId: "",
-    siteId: "",
+    projectId: 1,
+    siteId: 1,
     product_name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
     unit: "pcs",
@@ -279,3 +292,28 @@ export const documentData = [
       "https://static.dexform.com/media/docs/6915/sample-job-offer-letter_1.png",
   },
 ];
+
+
+export const PageData = [
+
+  {
+    description: "Streamline Your Projects with Sugs Lloyd – Efficiency at Its Best!",
+  },
+
+  {
+    id: 1,
+    text: "Manage & Track Projects Anytime, Anywhere!",
+  },
+  {
+    id: 2,
+    text: "Stay Updated – Receive Tasks & Progress Instantly!",
+  },
+  {
+    id: 3,
+    text: "Share Work Details with Real-Time Location & Visuals!",
+  },
+  {
+    id: 4,
+    text: "Keep a Sharp Eye on Your Stock Levels with Ease!",
+  },
+]

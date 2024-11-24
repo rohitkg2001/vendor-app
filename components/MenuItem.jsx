@@ -1,9 +1,9 @@
 import { TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { H5 } from "./text";
-import { typography, styles, spacing } from "../styles";
+import { typography, styles, spacing, ICON_SMALL } from "../styles";
 import { useTranslation } from "react-i18next";
-import { ICON_SMALL } from "../styles/constant";
+
 
 export default function MenuItem({ label, icon, onPress }) {
   const { t } = useTranslation();

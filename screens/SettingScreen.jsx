@@ -5,11 +5,9 @@ import ProfileCard from "../components/ProfileCard";
 import MenuItem from "../components/MenuItem";
 import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
-import { DANGER_COLOR } from "../styles/constant";
-import { projects, vendor } from "../utils/faker";
 import Button from "../components/buttons/Button";
-import { menuItems } from "../utils/faker";
-import { layouts, spacing, ICON_SMALL } from "../styles";
+import { menuItems, vendor, projects } from "../utils/faker";
+import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -35,9 +33,9 @@ export default function SettingsScreen() {
             onPress={() => {
               item.id === 0
                 ? navigation.navigate(item.page, {
-                    DATA: projects,
-                    title: item.label,
-                  })
+                  DATA: projects,
+                  title: item.label,
+                })
                 : navigation.navigate(item.page);
             }}
           />

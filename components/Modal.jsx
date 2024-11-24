@@ -1,17 +1,18 @@
 import { Modal, Portal } from "react-native-paper";
+import { TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import { H4 } from "./text";
+import Button from "./buttons/Button";
 import {
-  DANGER_COLOR,
+  typography, styles, DANGER_COLOR,
   LIGHT,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   ICON_LARGE,
-} from "../styles/constant";
-import { View } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
-import { H4 } from "./text";
-import Button from "./buttons/Button";
-import { styles } from "../styles/components.styles";
+  layouts,
+  ICON_MEDIUM,
+} from "../styles";
 
 export default function ModalPopup({
   close,
@@ -34,12 +35,13 @@ export default function ModalPopup({
           }}
         >
           {/* Popup header */}
-          <Icon
-            name="close-outline"
-            style={{ position: "absolute", right: -12, top: -10 }}
-            color={DANGER_COLOR}
-            size={ICON_LARGE}
-          />
+          <TouchableOpacity style={[layouts.circle625, styles.bgDanger, layouts.center, { position: "absolute", right: -12, top: -10 }]} onPress={close}>
+            <Icon
+              name="close-sharp"
+              color={LIGHT}
+              size={ICON_MEDIUM}
+            />
+          </TouchableOpacity>
 
           <View style={{ padding: 16 }}>{children}</View>
           <View
@@ -63,8 +65,9 @@ export default function ModalPopup({
             >
               <H4
                 style={[
-                  styles.textSecondary,
+                  typography.textBold,
                   typography.font20,
+                  typography.textDanger,
                   { textAlign: "right", textTransform: "uppercase" },
                 ]}
               >
@@ -80,9 +83,9 @@ export default function ModalPopup({
             >
               <H4
                 style={[
-                  styles.textSecondary,
+                  typography.textBold,
                   typography.font20,
-                  styles.textDanger,
+                  typography.textPrimary,
                   { textAlign: "left", textTransform: "uppercase" },
                 ]}
               >

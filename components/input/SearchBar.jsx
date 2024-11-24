@@ -1,7 +1,6 @@
 import { View, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { styles } from "../../styles/components.styles";
-import { SCREEN_WIDTH, ICON_SMALL } from "../../styles/constant";
+import { SCREEN_WIDTH, ICON_SMALL, styles } from "../../styles";
 import { useTranslation } from "react-i18next";
 
 export default function SearchBar({ placeholder, value, onChangeText, style }) {
@@ -20,7 +19,7 @@ export default function SearchBar({ placeholder, value, onChangeText, style }) {
           justifyContent: "flex-start",
           height: 48,
           width: SCREEN_WIDTH - 8,
-          marginHorizontal: -4,
+          // marginHorizontal: -4,
           borderRadius: 12,
         },
         style,
