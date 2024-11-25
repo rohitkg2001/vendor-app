@@ -220,12 +220,12 @@ export const menuItems = [
 
 export const internal = [
   {
-    label: "Notification",
+    label: "notification_title",
     page: "notificationScreen",
     icon: "notifications-outline",
   },
-  { label: "Privacy", page: "privacyPolicy", icon: "shield-checkmark-outline" },
-  { label: "Data Usage", page: "", icon: "folder-outline" },
+  { label: "privacy_policy_title", page: "privacyPolicy", icon: "shield-checkmark-outline" },
+  // { label: "Data Usage", page: "", icon: "folder-outline" },
 ];
 
 export const notifications = [

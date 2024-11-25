@@ -25,7 +25,7 @@ export default function InventoryDetailsModal({
       </P>
       <P>
         {" "}
-        Site: {selectedItem.location}, Dist:{selectedItem.dist}{" "}
+        Site Name: {selectedItem.location}, Dist:{selectedItem.dist}{" "}
       </P>
       <P> Initial Quantity: {selectedItem.initial_quantity}</P>
       <P> Material Dispatch Date: {selectedItem.material_dispatch_date}</P>
