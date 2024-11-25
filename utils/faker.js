@@ -262,9 +262,9 @@ export const notifications = [
 export const PRIVACY_POLICY =
   "At Dashandots Technology, we deeply value your privacy and are committed to safeguarding the personal information you share with us.We collect essential personal information, including but not limited to your name, email address, and contact details, to ensure the efficient delivery of our services, enhance user experience, and better understand your needs.We assure you that we do not sell,";
 
-// statuscode=0->open,
-//statuscode = 1 -> completed,
-//statuscode = 2 -> hold
+  // statuscode=0->open,
+  //statuscode = 1 -> completed,
+  //statuscode = 2 -> hold
 
 export const documentData = [
   {
