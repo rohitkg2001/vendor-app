@@ -1,6 +1,7 @@
 import { LOGIN_VENDOR } from "../constant";
 import moment from "moment";
 import { vendor } from "../../utils/faker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const greet = () => {
   // Write a logic to get morning, afternoon, evening and night as per time from moment
@@ -53,13 +54,7 @@ export const viewProfile = (userId) => async (dispatch) => {
   }
 };
 
-export const logOut = (userId, sessionId) => async (dispatch) => {
-  if (userId === 1 && sessionId === "ABC123") {
-    await dispatch({ type: LOGOUT, payload: { userId, sessionId } });
-
-    return true;
-  } else {
-    console.error("Invalid user or session ID");
-    return false;
-  }
+export const logOut = async () => {
+  await AsyncStorage.setItem("userId", null)
+  await AsyncStorage.setItem("sessionId", null)
 };
