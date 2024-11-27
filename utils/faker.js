@@ -18,7 +18,6 @@ export const vendor = {
   first_name: "Rakesh",
   last_name: "Sharma",
   user_type: "staff",
-  is_admin: 0,
   role_id: 0,
   email: "rakesh.sharma@gmail.com",
   password: "12345678",
@@ -29,21 +28,13 @@ export const vendor = {
   salary_term: "Monthly",
   Date_of_hire: "2024-08-27",
   disable_login: 0,
-  note: [],
   address: "123 gali, jhajjar, Haryana",
-  alternative_address: "",
-  phone: "9909230912",
-  alternative_phone: "",
-  dob: "",
-  gender: "male",
-  sticky_note: [],
-  skype: "",
-  language: "",
+  contactNo: "9909230912",
   last_online: "2024-10-03 05:41:49",
   file: "file-pdf",
-  size: "",
   uploaded_by: "rakesh sharma",
-  created_date: "",
+  createdAt: "",
+  updatedAt: "",
 };
 
 export const projects = [
@@ -220,12 +211,16 @@ export const menuItems = [
 
 export const internal = [
   {
-    label: "Notification",
+    label: "notification_title",
     page: "notificationScreen",
     icon: "notifications-outline",
   },
-  { label: "Privacy", page: "privacyPolicy", icon: "shield-checkmark-outline" },
-  { label: "Data Usage", page: "", icon: "folder-outline" },
+  {
+    label: "privacy_policy_title",
+    page: "privacyPolicy",
+    icon: "shield-checkmark-outline",
+  },
+  // { label: "Data Usage", page: "", icon: "folder-outline" },
 ];
 
 export const notifications = [
