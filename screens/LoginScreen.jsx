@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   View,
@@ -7,7 +7,6 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import MyImageBackground from "../components/MyImageBackground";
 import { H1, H5, Span, H2 } from "../components/text";
 import MyTextInput from "../components/input/MyTextInput";
@@ -16,26 +15,37 @@ import { styles } from "../styles/components.styles";
 import { layouts, spacing, typography } from "../styles";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
-import { login } from "../redux/actions/loginActions";
+import { login } from "../redux/actions/vendorActions";
+import { useTranslation } from "react-i18next";
+import { ICON_LARGE } from "../styles/constant";
+import { alertMessage } from "../utils/faker";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error,setError]=useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-  const { error, isAuthenticated } = useSelector((state:any) => state.login || {});
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigation.navigate("homeScreen");
-    }
-  }, [isAuthenticated, navigation]);
+  const changeLanguage = (value) => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setLanguage(value))
+      .catch((err) => console.log(err));
+  };
 
   const onSubmit = async () => {
-    const success = await dispatch(login(username, password));
-    if (success) {
-      navigation.navigate("homeScreen");
+    setError("");
+    try {
+      const result = await dispatch(login(username, password));
+      if (result) {
+        navigation.navigate("homeScreen");
+      } else {
+        setError(t("credentialError"));
+      }
+    } catch (error) {
+      setError(t("catchError"));
     }
   };
 
@@ -47,8 +57,8 @@ export default function LoginScreen() {
     <MyImageBackground imageSource={require("../assets/Login.png")}>
       <ScrollView style={{ flex: 1 }}>
         <View style={[layouts.center, spacing.mv5]}>
-          <H1 style={spacing.mv2}>Welcome Back</H1>
-          <H5 style={spacing.mb5}>Sign in to continue</H5>
+          <H1 style={spacing.mv2}>{t("loginTitle")}</H1>
+          <H5 style={spacing.mb5}>{t("loginSubtitle")}</H5>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -79,7 +89,7 @@ export default function LoginScreen() {
             >
               <Icon
                 name={isPasswordVisible ? "eye-off" : "eye"}
-                size={30}
+                size={ICON_LARGE}
                 color="gray"
               />
             </TouchableOpacity>
@@ -88,15 +98,20 @@ export default function LoginScreen() {
           {error ? (
             <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
           ) : null}
-
-          <Span style={styles.rightLink}>Forgot Password?</Span>
+          <TouchableOpacity onPress={() => alertMessage({
+            title: 'Forgot Password',
+            message: 'No worries. Contact admin to change your existing password',
+            positiveText: 'OK'
+          })}>
+            <Span style={styles.rightLink}>{t("forgotPasswordText")}</Span>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
         <Button
           style={[styles.btn, styles.bgPrimary, { justifyContent: "center" }]}
           onPress={onSubmit}
         >
-          <H2 style={[styles.btnText, styles.textLarge, typography.textLight]}>
-            Login
+          <H2 style={[styles.btnText, typography.font20, typography.textLight]}>
+            {t("loginBtnText")}
           </H2>
         </Button>
       </ScrollView>

@@ -5,9 +5,11 @@ import MyHeader from "../components/header/MyHeader";
 import { notifications } from "../utils/faker";
 import { H2, H5, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
-import { spacing, styles, PRIMARY_COLOR } from "../styles";
+import { spacing, styles, PRIMARY_COLOR, ICON_LARGE } from "../styles";
+import { useTranslation } from "react-i18next";
 
 export default function NotificationScreen() {
+  const { t } = useTranslation();
   const renderItem = ({ item }) => (
     <TouchableOpacity style={spacing.bbw05}>
       <List.Item
@@ -15,7 +17,7 @@ export default function NotificationScreen() {
         description={<P style={styles.description}>{item.description}</P>}
         left={() => (
           <Avatar.Icon
-            size={40}
+            size={ICON_LARGE}
             icon={item.icon}
             backgroundColor={PRIMARY_COLOR}
           />
@@ -28,7 +30,7 @@ export default function NotificationScreen() {
   return (
     <ContainerComponent>
       <MyHeader
-        title="Notification"
+        title={t("notification_title")}
         isBack={true}
         hasIcon={true}
         icon={"search-outline"}

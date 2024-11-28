@@ -1,54 +1,73 @@
-import React, { useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
-import { styles } from "../styles/components.styles";
 import MyHeader from "../components/header/MyHeader";
-import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
-import { inventory } from "../utils/faker";
+import { inventory, projects, sites } from "../utils/faker";
+import InventoryCard from "../components/card/InventoryCard";
+import NoRecord from "./NoRecord";
+import { useTranslation } from "react-i18next";
+import Icon from "react-native-vector-icons/Ionicons";
+import Button from "../components/buttons/Button";
+import { ICON_MEDIUM, LIGHT, styles, spacing, SCREEN_WIDTH } from "../styles";
+import { View } from "react-native";
 
-const InventoryScreen = () => {
+import InventoryDetailsModal from "../components/InventoryDetailsModal";
+
+export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isVisible, setVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const { t } = useTranslation();
+
+  const viewItem = (id) => {
+    setVisible(true);
+    const thisItem = inventory.find((item) => item.id === id);
+    const thisProject = projects.find((item) => item.id === thisItem.projectId);
+    const thisSite = sites.find((item) => item.id === thisItem.siteId);
+    const itemDetails = { ...thisItem, ...thisProject, ...thisSite };
+    console.log(itemDetails);
+    setSelectedItem(itemDetails);
+  };
+  // TODO:This logic will be replaced by api and reducer
 
   return (
     <ContainerComponent>
-      <MyHeader title="Inventory" hasIcon={true} isBack={true} />
+      <MyHeader title={t("inventory_title")} hasIcon={true} isBack={true} />
       <MyFlatList
         data={inventory}
         keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={() =>
-          <SearchBar
-            placeholder="Search by name or code"
-            value={searchText}
-            onChangeText={setSearchText}
-            style={{ marginVertical: 8, marginHorizontal: 4 }}
-          />}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.card}>
-            <Image
-              source={{ uri: item.url }}
-              loadingIndicatorSource={require("../assets/img15.png")}
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: 8,
-                marginRight: 16,
-              }}
+        ListHeaderComponent={() => (
+          <View
+            style={[
+              styles.row,
+              spacing.mh2,
+              spacing.mb5,
+              { alignItems: "center" },
+            ]}
+          >
+            <SearchBar
+              value={searchText}
+              onChangeText={setSearchText}
+              style={{ width: SCREEN_WIDTH - 70 }}
             />
-            <View style={{ flex: 1 }}>
-              <H5>{item.name}</H5>
-              <P>{item.description}</P>
-              <View style={styles.quantityContainer}>
-                <P style={styles.productQuantity}>Qty: {item.qty_stock} {item.unit}</P>
-              </View>
-            </View>
-          </TouchableOpacity>
+            <Button
+              style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}
+            >
+              <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
+            </Button>
+          </View>
         )}
+        ListEmptyComponent={() => <NoRecord msg={t("no_inventory")} />}
+        renderItem={({ item }) => (
+          <InventoryCard item={item} onPress={() => viewItem(item.id)} />
+        )}
+      />
+      <InventoryDetailsModal
+        visible={isVisible}
+        onClose={() => setVisible(false)}
+        selectedItem={selectedItem}
       />
     </ContainerComponent>
   );
-};
-
-export default InventoryScreen;
+}

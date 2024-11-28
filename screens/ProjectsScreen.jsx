@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
 import MyFlatList from "../components/utility/MyFlatList";
-import { useNavigation } from "@react-navigation/native";
+import NoRecord from "../screens/NoRecord";
+import { View, ScrollView } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import Button from "../components/buttons/Button";
+import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
+import { useTranslation } from "react-i18next";
 
-export default function ProjectsScreen({ route }) {
+export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
-  const navigation = useNavigation();
+  const { t } = useTranslation();
+
   const { DATA, title } = route.params;
 
   const handleViewDetails = (item) => {
@@ -20,7 +26,7 @@ export default function ProjectsScreen({ route }) {
 
   return (
     <ContainerComponent>
-      <MyHeader isBack title={title} hasIcon />
+      <MyHeader isBack title={t(title)} hasIcon />
 
       <MyFlatList
         data={DATA}
@@ -32,17 +38,27 @@ export default function ProjectsScreen({ route }) {
             isProject={true}
           />
         )}
-        ListEmptyComponent={() => (
-          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
-        )}
+        ListEmptyComponent={() => <NoRecord msg={t("no_project")} />}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={() => (
-          <SearchBar
-            placeholder="Search projects..."
-            value={searchText}
-            onChangeText={setSearchText}
-            style={{ marginVertical: 8, marginHorizontal: 4 }}
-          />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[spacing.mh2]}
+          >
+            <View style={[spacing.mv4, styles.row, { alignItems: "center" }]}>
+              <SearchBar style={{ width: SCREEN_WIDTH - 70 }} />
+              <Button
+                style={[
+                  styles.btn,
+                  styles.bgPrimary,
+                  spacing.mh1,
+                  { width: 50 },
+                ]}
+              >
+                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
+              </Button>
+            </View>
+          </ScrollView>
         )}
       />
     </ContainerComponent>

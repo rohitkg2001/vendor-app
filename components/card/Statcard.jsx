@@ -1,7 +1,7 @@
 import { View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Span, H1 } from "../text";
-import { styles, LIGHT, spacing } from "../../styles";
+import { styles, LIGHT, spacing, ICON_LARGE } from "../../styles";
 
 export default function StatCard({
   backgroundColor,
@@ -13,7 +13,8 @@ export default function StatCard({
   return (
     <TouchableOpacity
       style={[
-        spacing.m2,
+        spacing.mr2,
+        spacing.mv2,
         spacing.p3,
         spacing.br2,
         { ...styles.cardHalfWidth, backgroundColor },
@@ -26,7 +27,7 @@ export default function StatCard({
           <H1 style={styles.titleText}>{tasks}</H1>
           <Span>{status}</Span>
         </View>
-        <Icon name="add-circle-outline" color={LIGHT} size={32} />
+        <Icon name="add-circle-outline" color={LIGHT} size={ICON_LARGE} />
       </View>
     </TouchableOpacity>
   );
