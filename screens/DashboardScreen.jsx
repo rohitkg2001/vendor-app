@@ -84,7 +84,7 @@ export default function DashboardScreen() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={[spacing.mh2]}
+        contentContainerStyle={[spacing.mh1]}
       >
         <View style={[spacing.mv4, styles.row, spacing.mh1, { alignItems: "center" }]}>
           <SearchBar
