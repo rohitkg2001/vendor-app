@@ -21,7 +21,7 @@ export default function SettingsScreen() {
       <ProfileCard
         imageUri={vendor.image}
         name={`${vendor.first_name} ${vendor.last_name}`}
-        phoneNumber={vendor.phone}
+        contactNo={vendor.contactNo}
         onPress={() => navigation.navigate("profileScreen")}
       />
       <View style={{ flex: 1 }}>
@@ -33,9 +33,9 @@ export default function SettingsScreen() {
             onPress={() => {
               item.id === 0
                 ? navigation.navigate(item.page, {
-                  DATA: projects,
-                  title: item.label,
-                })
+                    DATA: projects,
+                    title: item.label,
+                  })
                 : navigation.navigate(item.page);
             }}
           />
