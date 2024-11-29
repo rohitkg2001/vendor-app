@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import { KeyboardAvoidingView, View, Platform, ScrollView, Text, TouchableOpacity } from "react-native";
+=======
+import { useState } from "react";
+import {
+  KeyboardAvoidingView,
+  View,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 import MyImageBackground from "../components/MyImageBackground";
 import { H1, H5, Span, H2 } from "../components/text";
 import MyTextInput from "../components/input/MyTextInput";
@@ -9,31 +21,50 @@ import { layouts, spacing, typography } from "../styles";
 import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { login } from "../redux/actions/vendorActions";
+import { useTranslation } from "react-i18next";
+import { ICON_LARGE } from "../styles/constant";
+import { alertMessage } from "../utils/faker";
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+<<<<<<< HEAD
 
+=======
+  const { t, i18n } = useTranslation();
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   const dispatch = useDispatch();
-  useEffect(() => {
-    setError("");
-  }, []);
+
+  const changeLanguage = (value) => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setLanguage(value))
+      .catch((err) => console.log(err));
+  };
 
   const onSubmit = async () => {
     setError("");
     try {
+<<<<<<< HEAD
       const result = await dispatch(login(username, password))
       // console.log(`login Result is ${result}`)
+=======
+      const result = await dispatch(login(username, password));
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
       if (result) {
         navigation.navigate("homeScreen");
       } else {
-        setError("Please provide the correct credentials");
+        setError(t("credentialError"));
       }
     } catch (error) {
+<<<<<<< HEAD
       // console.log(error)
       setError("An error occurred during login");
+=======
+      setError(t("catchError"));
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
     }
   };
 
@@ -45,8 +76,8 @@ export default function LoginScreen({ navigation }) {
     <MyImageBackground imageSource={require("../assets/Login.png")}>
       <ScrollView style={{ flex: 1 }}>
         <View style={[layouts.center, spacing.mv5]}>
-          <H1 style={spacing.mv2}>Welcome Back</H1>
-          <H5 style={spacing.mb5}>Sign in to continue</H5>
+          <H1 style={spacing.mv2}>{t("loginTitle")}</H1>
+          <H5 style={spacing.mb5}>{t("loginSubtitle")}</H5>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -77,7 +108,11 @@ export default function LoginScreen({ navigation }) {
             >
               <Icon
                 name={isPasswordVisible ? "eye-off" : "eye"}
+<<<<<<< HEAD
                 size={32}
+=======
+                size={ICON_LARGE}
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
                 color="gray"
               />
             </TouchableOpacity>
@@ -86,15 +121,20 @@ export default function LoginScreen({ navigation }) {
           {error ? (
             <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
           ) : null}
-
-          <Span style={styles.rightLink}>Forgot Password?</Span>
+          <TouchableOpacity onPress={() => alertMessage({
+            title: 'Forgot Password',
+            message: 'No worries. Contact admin to change your existing password',
+            positiveText: 'OK'
+          })}>
+            <Span style={styles.rightLink}>{t("forgotPasswordText")}</Span>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
         <Button
           style={[styles.btn, styles.bgPrimary, { justifyContent: "center" }]}
           onPress={onSubmit}
         >
-          <H2 style={[styles.btnText, styles.textLarge, typography.textLight]}>
-            Login
+          <H2 style={[styles.btnText, typography.font20, typography.textLight]}>
+            {t("loginBtnText")}
           </H2>
         </Button>
       </ScrollView>

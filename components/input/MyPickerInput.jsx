@@ -2,6 +2,10 @@ import { View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { styles } from "../../styles/components.styles";
 import { H5 } from "../text";
+<<<<<<< HEAD
+=======
+import {useTranslation} from 'react-i18next'
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 
 export default function MyPickerInput({
   title,
@@ -9,6 +13,7 @@ export default function MyPickerInput({
   onChange,
   options = [],
 }) {
+  const {t}=useTranslation()
   return (
     <View style={styles.textInput}>
       <H5>{title}</H5>
@@ -17,7 +22,7 @@ export default function MyPickerInput({
         style={styles.textInputField}
         mode="dropdown"
         onValueChange={(val) => onChange(val)}
-        prompt="Select an option"
+        prompt={t('option_title')}
       >
         {options.map((option, index) => (
           <Picker.Item

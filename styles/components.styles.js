@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   DANGER_COLOR,
   DARK,
@@ -22,10 +22,6 @@ export const styles = StyleSheet.create({
   imageContainerImg: {
     width: 0.6 * SCREEN_WIDTH,
     height: 0.6 * SCREEN_WIDTH,
-  },
-
-  textLarge: {
-    fontSize: 18,
   },
 
   textInputField: {
@@ -208,22 +204,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: LIGHT,
   },
-  taskLabel: {
-    borderRadius: 15,
-    paddingVertical: 3,
-    paddingHorizontal: 10,
-    marginRight: 5,
-    backgroundColor: "#f87171",
-  },
-  taskFooterItem: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  footerText: {
-    marginHorizontal: 4,
-    color: DARK,
-    fontSize: 14,
-  },
+
   dropdown: {
     flexDirection: "row",
     alignItems: "center",
@@ -330,6 +311,7 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: LIGHT,
   },
+<<<<<<< HEAD
   scrollView: {
     padding: 4,
   },
@@ -378,18 +360,20 @@ export const styles = StyleSheet.create({
   dropdownContainer: {
     padding: 8,
   },
+=======
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   itemStyle: {
     padding: 4,
     marginTop: 4,
-  },
-  itemsContainerStyle: {
-    maxHeight: 100,
   },
   textInput: {
     width: 310,
     color: "#020409",
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   map: {
     height: SCREEN_WIDTH / 1.5,
   },
