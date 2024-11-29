@@ -88,7 +88,14 @@ export default function DashboardScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh1]}
       >
-        <View style={[spacing.mv4, styles.row, spacing.mh1, { alignItems: "center" }]}>
+        <View
+          style={[
+            spacing.mv4,
+            styles.row,
+            spacing.mh1,
+            { alignItems: "center" },
+          ]}
+        >
           <SearchBar
             placeholder="Search"
             style={{ width: SCREEN_WIDTH - 70 }}
@@ -101,7 +108,14 @@ export default function DashboardScreen() {
           </Button>
         </View>
 
-        <View style={[spacing.mv2,spacing.mr3, styles.row, { alignItems: "center" }]}>
+        <View
+          style={[
+            spacing.mv2,
+            spacing.mr3,
+            styles.row,
+            { alignItems: "center" },
+          ]}
+        >
           <H4>Today</H4>
           <View style={{ flexDirection: "row" }}>
             <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
@@ -198,7 +212,14 @@ export default function DashboardScreen() {
                   spacing.br2,
                   spacing.p4,
                 ]}
-                onPress={() => navigation.navigate("taskScreen")}
+                onPress={() => {
+                  if (
+                    item.label === "Installation" ||
+                    item.label === "Fixing Slip"
+                  ) {
+                    navigation.navigate("taskScreen");
+                  }
+                }}
               >
                 <Icon name={item.icon} size={ICON_LARGE} color={DARK} />
                 <P>{item.label}</P>
@@ -222,8 +243,8 @@ export default function DashboardScreen() {
             ))}
           </View>
         </View>
-      </ScrollView >
+      </ScrollView>
       {showBottomSheet && <Filter />}
-    </ContainerComponent >
+    </ContainerComponent>
   );
 }

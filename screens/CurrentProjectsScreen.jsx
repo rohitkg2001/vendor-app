@@ -21,7 +21,6 @@ export default function CurrentProjectsScreen({ navigation }) {
   const [showBottomSheet, setShowBottomSheet] = useState(false)
   return (
     <ContainerComponent>
-      <MyHeader title="Current Project" isBack={true} hasIcon={true} />
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}
