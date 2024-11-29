@@ -41,6 +41,15 @@ export default function FileUploadScreen() {
   const removePhoto = (uri) => {
     setPhotos(photos.filter((photoUri) => photoUri !== uri));
   };
+  useEffect(() => {
+    let myArr = []
+    inventory.map((item, index) => {
+      const myObj = { enabled: true, label: item.product_name, value: item.id }
+      myArr.push(myObj)
+    })
+    setMaterials(myArr)
+  }, [])
+
 
   useEffect(() => {
     let myArr = []

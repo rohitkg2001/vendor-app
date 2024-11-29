@@ -17,6 +17,7 @@ import { tasksCounts } from "../redux/actions/taskActions";
 import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
 import { useTranslation } from "react-i18next";
+import Filter from "../components/Filter";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -25,6 +26,7 @@ export default function DashboardScreen() {
   const [greeting, setGreeting] = useState("Good morning");
   const { first_name } = useSelector((state) => state);
   const { t } = useTranslation();
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
 
   useEffect(() => {
     setGreeting(greet());
@@ -93,6 +95,7 @@ export default function DashboardScreen() {
           />
           <Button
             style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}
+            onPress={() => setShowBottomSheet(!showBottomSheet)}
           >
             <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
           </Button>
@@ -220,6 +223,7 @@ export default function DashboardScreen() {
           </View>
         </View>
       </ScrollView >
+      {showBottomSheet && <Filter />}
     </ContainerComponent >
   );
 }
