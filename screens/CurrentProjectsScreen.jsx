@@ -19,6 +19,7 @@ export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false)
+  
   return (
     <ContainerComponent>
       <MyHeader title="Current Project" isBack={true} hasIcon={true} />
