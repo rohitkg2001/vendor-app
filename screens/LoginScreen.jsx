@@ -98,11 +98,16 @@ export default function LoginScreen({ navigation }) {
           {error ? (
             <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
           ) : null}
-          <TouchableOpacity onPress={() => alertMessage({
-            title: 'Forgot Password',
-            message: 'No worries. Contact admin to change your existing password',
-            positiveText: 'OK'
-          })}>
+          <TouchableOpacity
+            onPress={() =>
+              alertMessage({
+                title: "Forgot Password",
+                message:
+                  "Forgot your password? Don’t worry—we’re here to help! Please contact your admin for assistance with resetting your password and getting back into your account quickly",
+                positiveText: "OK",
+              })
+            }
+          >
             <Span style={styles.rightLink}>{t("forgotPasswordText")}</Span>
           </TouchableOpacity>
         </KeyboardAvoidingView>

@@ -16,6 +16,7 @@ import { projectCounts, statCards } from "../redux/actions/projectActions";
 import { tasksCounts } from "../redux/actions/taskActions";
 import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
+import Filter from "../components/Filter";
 import { useTranslation } from "react-i18next";
 
 export default function DashboardScreen() {
