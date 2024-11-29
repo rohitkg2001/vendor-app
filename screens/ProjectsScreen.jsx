@@ -8,11 +8,13 @@ import NoRecord from "../screens/NoRecord";
 import { View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
+import Filter from "../components/Filter";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
 
 export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const { t } = useTranslation();
 
   const { DATA, title } = route.params;
@@ -61,6 +63,9 @@ export default function ProjectsScreen({ route, navigation }) {
           </ScrollView>
         )}
       />
+       {
+        showBottomSheet && <Filter />
+      }
     </ContainerComponent>
   );
 }

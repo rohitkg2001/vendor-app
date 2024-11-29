@@ -44,6 +44,7 @@
         "my_projects": "My Projects",
         "my_tasks": "My Tasks",
         "reports": "Reports",
-        "settings": "Settings"
+        "settings": "Settings",
+        "current_project":"Current Projects"
     }
 }

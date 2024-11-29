@@ -6,18 +6,22 @@ import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 import NoRecord from "./NoRecord";
+import MyHeader from "../components/header/MyHeader";
 import Button from "../components/buttons/Button";
 import { projects } from "../utils/faker";
+import Filter from "../components/Filter";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
 import { ICON_MEDIUM } from "../styles/constant";
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const { t } = useTranslation();
 
   return (
     <ContainerComponent>
+      <MyHeader title={t("current_project")} hasIcon={true} isBack={true} />
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}
@@ -46,6 +50,7 @@ export default function CurrentProjectsScreen({ navigation }) {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -53,6 +58,9 @@ export default function CurrentProjectsScreen({ navigation }) {
           </ScrollView>
         )}
       />
+      {
+        showBottomSheet && <Filter />
+      }
     </ContainerComponent>
   );
 }

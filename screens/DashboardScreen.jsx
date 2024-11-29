@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const today = useState(moment().format("DD MMM YYYY"));
   const [dueTasks, setDueTasks] = useState(4);
   const [greeting, setGreeting] = useState("Good morning");
@@ -94,6 +95,7 @@ export default function DashboardScreen() {
           />
           <Button
             style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}
+            onPress={() => setShowBottomSheet(!showBottomSheet)}
           >
             <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
           </Button>
@@ -221,6 +223,9 @@ export default function DashboardScreen() {
           </View>
         </View>
       </ScrollView >
+      {
+        showBottomSheet && <Filter />
+      }
     </ContainerComponent >
   );
 }

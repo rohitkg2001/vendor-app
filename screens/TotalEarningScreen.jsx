@@ -10,9 +10,11 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
+import Filter from "../components/Filter";
 
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const { t } = useTranslation();
 
   return (
@@ -48,6 +50,7 @@ const TotalEarningScreen = () => {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -55,6 +58,9 @@ const TotalEarningScreen = () => {
           </ScrollView>
         )}
       />
+       {
+        showBottomSheet && <Filter />
+      }
     </ContainerComponent>
   );
 };

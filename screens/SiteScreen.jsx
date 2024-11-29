@@ -1,4 +1,5 @@
 import ContainerComponent from "../components/ContainerComponent";
+import { useState } from "react";
 import { View, ScrollView } from "react-native";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
@@ -7,10 +8,12 @@ import { sites } from "../utils/faker";
 import MyFlatList from "../components/utility/MyFlatList";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
+import Filter from "../components/Filter";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
 
 export default function SiteScreen({ navigation }) {
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
       site: item,
@@ -49,6 +52,7 @@ export default function SiteScreen({ navigation }) {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -56,6 +60,9 @@ export default function SiteScreen({ navigation }) {
           </ScrollView>
         )}
       />
+       {
+        showBottomSheet && <Filter />
+      }
     </ContainerComponent>
   );
 }

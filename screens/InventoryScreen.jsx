@@ -11,12 +11,14 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { ICON_MEDIUM, LIGHT, styles, spacing, SCREEN_WIDTH } from "../styles";
 import { View } from "react-native";
+import Filter from "../components/Filter";
 
 import InventoryDetailsModal from "../components/InventoryDetailsModal";
 
 export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
   const [isVisible, setVisible] = useState(false);
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null);
   const { t } = useTranslation();
 
@@ -53,6 +55,7 @@ export default function InventoryScreen() {
             />
             <Button
               style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}
+              onPress={() => setShowBottomSheet(!showBottomSheet)}
             >
               <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
             </Button>
@@ -68,6 +71,9 @@ export default function InventoryScreen() {
         onClose={() => setVisible(false)}
         selectedItem={selectedItem}
       />
+      {
+        showBottomSheet && <Filter />
+      }
     </ContainerComponent>
   );
 }
