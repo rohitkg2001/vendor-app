@@ -13,7 +13,9 @@ export default function App() {
   const [language, setLanguage] = useState(null);
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
 
-  const selectLanguage = async (lang) => {
+  const selectLanguage = async ( lang ) =>
+  {
+ 
     await AsyncStorage.setItem("appLanguage", lang);
     i18n.changeLanguage(lang);
     setLanguage(lang);
@@ -24,11 +26,11 @@ export default function App() {
     const fetchLanguage = async () => {
       const storedLanguage = await AsyncStorage.getItem("appLanguage");
       if (storedLanguage) {
-        i18n.changeLanguage(storedLanguage); // Set the language for i18n
+        i18n.changeLanguage(storedLanguage); 
         setLanguage(storedLanguage);
         setIsLanguageSelected(true);
       } else {
-        setIsLanguageSelected(false); // Prompt for language selection
+        setIsLanguageSelected(false); 
       }
     };
 
