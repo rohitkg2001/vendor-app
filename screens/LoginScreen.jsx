@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import { useState, useEffect } from "react";
-import { KeyboardAvoidingView, View, Platform, ScrollView, Text, TouchableOpacity } from "react-native";
-=======
 import { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -11,7 +7,6 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 import MyImageBackground from "../components/MyImageBackground";
 import { H1, H5, Span, H2 } from "../components/text";
 import MyTextInput from "../components/input/MyTextInput";
@@ -30,11 +25,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-<<<<<<< HEAD
-
-=======
   const { t, i18n } = useTranslation();
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   const dispatch = useDispatch();
 
   const changeLanguage = (value) => {
@@ -47,24 +38,14 @@ export default function LoginScreen({ navigation }) {
   const onSubmit = async () => {
     setError("");
     try {
-<<<<<<< HEAD
-      const result = await dispatch(login(username, password))
-      // console.log(`login Result is ${result}`)
-=======
       const result = await dispatch(login(username, password));
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
       if (result) {
         navigation.navigate("homeScreen");
       } else {
         setError(t("credentialError"));
       }
     } catch (error) {
-<<<<<<< HEAD
-      // console.log(error)
-      setError("An error occurred during login");
-=======
       setError(t("catchError"));
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
     }
   };
 
@@ -108,11 +89,7 @@ export default function LoginScreen({ navigation }) {
             >
               <Icon
                 name={isPasswordVisible ? "eye-off" : "eye"}
-<<<<<<< HEAD
-                size={32}
-=======
                 size={ICON_LARGE}
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
                 color="gray"
               />
             </TouchableOpacity>

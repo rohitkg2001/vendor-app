@@ -27,11 +27,7 @@ export default function SearchBar({ placeholder, value, onChangeText, style }) {
     >
       <Ionicons
         name="search-outline"
-<<<<<<< HEAD
-        size={24}
-=======
         size={ICON_SMALL}
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
         color="#333"
         style={{ marginLeft: 4 }}
       />

@@ -5,18 +5,17 @@ import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 import NoRecord from "./NoRecord";
-<<<<<<< HEAD
-=======
 import { View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
+import Filter from "../components/Filter";
 
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
 
   return (
     <ContainerComponent>
@@ -33,13 +32,7 @@ const TotalEarningScreen = () => {
             onPress={() => handleViewDetails(item)}
           />
         )}
-<<<<<<< HEAD
-        ListEmptyComponent={() => (
-          <NoRecord msg="Oops! No Projects available. Create the new one." />
-        )}
-=======
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
         ListHeaderComponent={() => (
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -57,6 +50,7 @@ const TotalEarningScreen = () => {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -64,6 +58,7 @@ const TotalEarningScreen = () => {
           </ScrollView>
         )}
       />
+       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 };

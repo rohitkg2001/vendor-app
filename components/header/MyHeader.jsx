@@ -1,9 +1,5 @@
 import { View, TouchableOpacity } from "react-native";
-<<<<<<< HEAD
-import {  H4 } from "../text";
-=======
 import { H4 } from "../text";
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 import Icon from "react-native-vector-icons/Ionicons";
 import { Badge } from "react-native-paper";
 import { styles } from "../../styles/components.styles";

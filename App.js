@@ -35,14 +35,14 @@ export default function App() {
     fetchLanguage();
   }, []);
 
-  if (!language) {
-    // Show a loading indicator while language is being fetched
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#6200ee" />
-      </View>
-    );
-  }
+  // if (!language) {
+  //   // Show a loading indicator while language is being fetched
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  //       <ActivityIndicator size="large" color="#6200ee" />
+  //     </View>
+  //   );
+  // }
 
   // 1.App loads
   // 2. Check for appLanguage key in localstorage

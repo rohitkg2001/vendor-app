@@ -3,10 +3,6 @@ import { internal } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { View } from "react-native";
-<<<<<<< HEAD
-
-export default function SettingsScreen({ navigation }) {
-=======
 import { useTranslation } from "react-i18next";
 import Button from "../components/buttons/Button";
 import { PRIMARY_COLOR, SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -17,7 +13,6 @@ import { useEffect, useState } from "react";
 
 export default function SettingsScreen({ navigation }) {
   const [language, setLanguage] = useState(null)
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 
   const { t } = useTranslation();
   useEffect(() => {

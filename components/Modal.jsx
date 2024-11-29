@@ -1,15 +1,7 @@
-<<<<<<< HEAD
-import { Modal, Portal, } from "react-native-paper";
-import { DANGER_COLOR, LIGHT, SCREEN_HEIGHT, SCREEN_WIDTH, SECONDARY_COLOR } from "../styles/constant";
-import { View } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons"
-import { H4, P } from "./text";
-=======
 import { Modal, Portal } from "react-native-paper";
 import { TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { H4 } from "./text";
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 import Button from "./buttons/Button";
 import {
   typography, styles, DANGER_COLOR,

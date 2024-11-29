@@ -12,19 +12,12 @@ import {
 } from "../styles";
 import CardFullWidth from "../components/card/CardFullWidth";
 import Avatar from "../components/Avatar";
-<<<<<<< HEAD
-import { H6, H4 } from "../components/text";
-import MyFlatList from "../components/utility/MyFlatList";
-
-const ProfileItem = ({ iconName, label }) => {
-=======
 import { H6 } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
 import { useTranslation } from "react-i18next";
 
 const ProfileItem = ({ iconName, label }) => {
 
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   return (
     <View
       style={[
@@ -34,32 +27,18 @@ const ProfileItem = ({ iconName, label }) => {
         { width: SCREEN_WIDTH - 20, justifyContent: "flex-start" },
       ]}
     >
-<<<<<<< HEAD
-
-      <Image source={{ uri: iconName }} height={100} width={180} />
-      <H6 style={[typography.font16, { color: "black", flex: 1 }]}>
-        {label}
-      </H6>
-=======
       <Image source={{ uri: iconName }} height={100} width={180} />
       <H6 style={[typography.font16, { color: "black", flex: 1 }]}>{label}</H6>
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
     </View>
   );
 };
 
 const ProfileScreen = () => {
-<<<<<<< HEAD
-  return (
-    <ContainerComponent>
-      <MyHeader title="My Profile" isBack={true} hasIcon={true} />
-=======
   const { t } = useTranslation();
 
   return (
     <ContainerComponent>
       <MyHeader title={t("profile_title")} isBack={true} hasIcon={true} />
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 
       <CardFullWidth backgroundColor={PRIMARY_COLOR}>
         <View style={[styles.row, { alignItems: "center", marginTop: -10 }]}>

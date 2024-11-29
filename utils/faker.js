@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import { Alert } from "react-native";
 
 export const alertMessage = ({
@@ -15,7 +13,6 @@ export const alertMessage = ({
   ]);
 };
 
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 export const vendor = {
   id: 1,
   first_name: "Rakesh",
@@ -166,16 +163,10 @@ export const inventory = [
     unit: "pcs",
     initial_quantity: "1000",
     qty_stock: "1000",
-<<<<<<< HEAD
-    dispatch_date: "",
-    delivery_date: "12 Nov 2024",
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s"
-=======
     material_dispatch_date: "20 Nov 2024",
     delivery_date: "20 Nov 2024",
     allocation_officer: "Bittu Gupta",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   },
   {
     id: 2,
@@ -186,20 +177,12 @@ export const inventory = [
     unit: "pcs",
     initial_quantity: "1000",
     qty_stock: "200",
-<<<<<<< HEAD
-    dispatch_date: "",
-    delivery_date: "12 Nov 2024",
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s"
-  }
-]
-=======
     material_dispatch_date: "20 Nov 2024",
     delivery_date: "24 Nov 2024",
     allocation_officer: "Bittu Mishra",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
   },
 ];
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 
 export const earnings = [
   {
@@ -217,30 +200,17 @@ export const earnings = [
 ];
 
 export const menuItems = [
-<<<<<<< HEAD
-  { label: "My Projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
-  { label: "My Tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
-  {
-    label: "Site Inventory",
-=======
   { label: "my_projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
   { label: "my_tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
   {
     label: "inventory_title",
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
     icon: "cart-outline",
     page: "inventoryScreen",
     id: 2,
   },
-<<<<<<< HEAD
-  { label: "Reports", page: "", icon: "pie-chart-outline", id: 3 },
-  {
-    label: "Settings",
-=======
   { label: "reports", page: "", icon: "pie-chart-outline", id: 3 },
   {
     label: "settings",
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
     page: "",
     icon: "cog-outline",
     page: "internalSetting",
@@ -326,8 +296,6 @@ export const documentData = [
       "https://static.dexform.com/media/docs/6915/sample-job-offer-letter_1.png",
   },
 ];
-<<<<<<< HEAD
-=======
 
 export const PageData = [
   {
@@ -352,4 +320,3 @@ export const PageData = [
     text: "Keep a Sharp Eye on Your Stock Levels with Ease!",
   },
 ];
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc

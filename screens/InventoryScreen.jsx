@@ -3,14 +3,6 @@ import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
-<<<<<<< HEAD
-import { inventory } from "../utils/faker";
-import InventoryCard from "../components/card/InventoryCard";
-import NoRecord from "./NoRecord";
-
-export default function InventoryScreen() {
-  const [searchText, setSearchText] = useState("");
-=======
 import { inventory, projects, sites } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
@@ -19,6 +11,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { ICON_MEDIUM, LIGHT, styles, spacing, SCREEN_WIDTH } from "../styles";
 import { View } from "react-native";
+import Filter from "../components/Filter";
 
 import InventoryDetailsModal from "../components/InventoryDetailsModal";
 
@@ -27,6 +20,7 @@ export default function InventoryScreen() {
   const [isVisible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const { t } = useTranslation();
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
 
   const viewItem = (id) => {
     setVisible(true);
@@ -38,7 +32,6 @@ export default function InventoryScreen() {
     setSelectedItem(itemDetails);
   };
   // TODO:This logic will be replaced by api and reducer
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
 
   return (
     <ContainerComponent>
@@ -46,21 +39,6 @@ export default function InventoryScreen() {
       <MyFlatList
         data={inventory}
         keyExtractor={(item) => item.id.toString()}
-<<<<<<< HEAD
-        ListHeaderComponent={() =>
-          <SearchBar
-            placeholder="Search by name or code"
-            value={searchText}
-            onChangeText={setSearchText}
-            style={{ marginVertical: 8, marginHorizontal: 4 }}
-          />}
-        ListEmptyComponent={() => <NoRecord msg="No items found in inventory. Please contact admin. " />}
-        renderItem={({ item }) => <InventoryCard item={item} />}
-      />
-    </ContainerComponent>
-  );
-};
-=======
         ListHeaderComponent={() => (
           <View
             style={[
@@ -77,6 +55,7 @@ export default function InventoryScreen() {
             />
             <Button
               style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}
+              onPress={() => setShowBottomSheet(!showBottomSheet)}
             >
               <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
             </Button>
@@ -92,7 +71,7 @@ export default function InventoryScreen() {
         onClose={() => setVisible(false)}
         selectedItem={selectedItem}
       />
+       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc

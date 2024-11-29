@@ -311,57 +311,6 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: LIGHT,
   },
-<<<<<<< HEAD
-  scrollView: {
-    padding: 4,
-  },
-  sectionTitle: {
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-
-  unit: {
-    marginLeft: 5,
-  },
-
-  rightContainer: {
-    alignItems: "flex-end",
-  },
-
-  actionButton: {
-    marginTop: 10,
-    padding: 6,
-    backgroundColor: "#2b87b022",
-    borderRadius: 5,
-  },
-  actionButtonText: {
-    color: PRIMARY_COLOR,
-  },
-
-  addIconContainer: {
-    borderRadius: 15,
-    backgroundColor: LIGHT,
-  },
-
-  cardRow: {
-    flexDirection: "row",
-    padding: 4,
-  },
-
-  itemInfo: {
-    flex: 3,
-  },
-
-  itemDetails: {
-    alignItems: "Center",
-    flex: 1,
-  },
-
-  dropdownContainer: {
-    padding: 8,
-  },
-=======
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   itemStyle: {
     padding: 4,
     marginTop: 4,
@@ -370,10 +319,6 @@ export const styles = StyleSheet.create({
     width: 310,
     color: "#020409",
   },
-<<<<<<< HEAD
-
-=======
->>>>>>> a85e4be1654a673a6c01d9c3c97de764acfbdfdc
   map: {
     height: SCREEN_WIDTH / 1.5,
   },
