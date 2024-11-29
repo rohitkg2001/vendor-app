@@ -23,7 +23,7 @@ export default function CurrentProjectsScreen({ navigation }) {
     <ContainerComponent>
       <MyHeader title="Current Project" isBack={true} hasIcon={true} />
       <MyFlatList
-       data={projects}
+        data={projects}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item, index }) => (
           <ClickableCard
@@ -56,7 +56,14 @@ export default function CurrentProjectsScreen({ navigation }) {
           </ScrollView>
         )}
       />
-       {showBottomSheet && <Filter />}
+      {showBottomSheet && (
+        <Filter
+          style={{
+            position: "absolute",
+            bottom: 0,
+          }}
+        />
+      )}
     </ContainerComponent>
   );
 }
