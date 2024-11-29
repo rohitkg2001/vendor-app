@@ -1,4 +1,3 @@
-import React from "react";
 import { View, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../../styles/components.styles";
@@ -32,7 +31,7 @@ export default function SearchBar({
     >
       <Ionicons
         name="search-outline"
-        size={20}
+        size={24}
         color="#333"
         style={{ marginLeft: 4 }}
       />
@@ -42,7 +41,7 @@ export default function SearchBar({
         onChangeText={onChangeText}
         style={[
           { marginHorizontal: 4, height: 48, paddingLeft: 12, fontSize: 18 },
-          style, 
+          style,
         ]}
       />
     </View>

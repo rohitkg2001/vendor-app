@@ -6,7 +6,6 @@ import {
   LIGHT,
   PRIMARY_COLOR,
   PRIMARY_COLOR_TRANSPARENT,
-  SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
@@ -19,11 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: LIGHT,
     alignItems: "center",
   },
-  cameraContainer: {
-    borderWidth: 6,
-    borderColor: PRIMARY_COLOR,
-    overflow: "hidden",
-  },
+
   imageContainerImg: {
     width: 0.6 * SCREEN_WIDTH,
     height: 0.6 * SCREEN_WIDTH,
@@ -77,7 +72,7 @@ export const styles = StyleSheet.create({
   },
 
   cardHalfWidth: {
-    width: SCREEN_WIDTH / 2.2,
+    width: SCREEN_WIDTH / 2.15,
     height: SCREEN_WIDTH / 3,
     elevation: 2,
   },
@@ -93,6 +88,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
+
   picker: {
     borderWidth: 1,
     borderColor: SECONDARY_COLOR,
@@ -158,8 +154,7 @@ export const styles = StyleSheet.create({
   fullWidth: {
     width: SCREEN_WIDTH,
   },
- 
-  
+
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -298,11 +293,6 @@ export const styles = StyleSheet.create({
     color: PRIMARY_COLOR,
     fontWeight: "bold",
   },
-  label: {
-    fontSize: 14,
-    color: "#888",
-  },
-
   documentRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -318,61 +308,6 @@ export const styles = StyleSheet.create({
     color: "#020409",
   },
 
-  progressText: {
-    fontSize: 28,
-    fontWeight: "bold",
-  },
-  subText: {
-    fontSize: 14,
-    color: "#666",
-  },
-  profileImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    marginRight: 2,
-  },
-  addIcon: {
-    marginLeft: 8,
-  },
-  miniCard: {
-    width: "32%",
-    padding: 16,
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  cardText: {
-    marginTop: 8,
-    fontSize: 14,
-    textAlign: "center",
-  },
-
-  taskContent: {
-    justifyContent: "space-between",
-  },
-  taskText: {
-    color: LIGHT,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
- 
-
-  // Attendancescreen
-
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-
-  notificationIcon: {
-    marginLeft: "auto",
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginVertical: 16,
-  },
   attendanceContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -381,55 +316,8 @@ export const styles = StyleSheet.create({
   gridItem: {
     alignItems: "center",
     width: "30%",
-    marginVertical: 10,
   },
-  attendanceCard: {
-    width: "48%",
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: LIGHT,
-    alignItems: "center",
-    marginVertical: 8,
-  },
-  attendanceText: {
-    fontSize: 14,
-    marginTop: 8,
-    fontWeight: "bold",
-  },
-  attendanceTime: {
-    fontSize: 16,
-    marginTop: 4,
-    fontWeight: "bold",
-  },
-  attendanceStatus: {
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  activityItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: LIGHT,
-    borderRadius: 8,
-    marginVertical: 8,
-  },
-  activityInfo: {
-    marginLeft: 12,
-  },
-  activityText: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  activityTime: {
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  activityStatus: {
-    marginLeft: "auto",
-    fontSize: 12,
-    color: "#6e6e6e",
-  },
-  //FormScreen
+
   label: {
     marginBottom: 10,
   },
@@ -450,43 +338,8 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  cardContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 14,
-  },
-  itemDetails: {
-    marginLeft: 10,
-  },
-  quantityRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   unit: {
     marginLeft: 5,
-  },
-  saveButton: {
-    backgroundColor: "#ccc",
-    padding: 10,
-    alignItems: "center",
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  //Requisitionscreen
-  listItemContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
-  },
-  leftContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  textContainer: {
-    marginLeft: 10,
   },
 
   rightContainer: {
@@ -502,7 +355,7 @@ export const styles = StyleSheet.create({
   actionButtonText: {
     color: PRIMARY_COLOR,
   },
-  //PurchaseOrderScreen
+
   addIconContainer: {
     borderRadius: 15,
     backgroundColor: LIGHT,
@@ -522,21 +375,6 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
-  amountCard: {
-    padding: 10,
-    paddingRight: 20,
-    backgroundColor: LIGHT,
-    borderRadius: 6,
-  },
-  amountDetails: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-
-    marginBottom: 2,
-    marginLeft: 10,
-  },
-
-  //SearchableDropdown
   dropdownContainer: {
     padding: 8,
   },
@@ -552,256 +390,22 @@ export const styles = StyleSheet.create({
     color: "#020409",
   },
 
-  leaveCard: {
-    position: "relative",
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: LIGHT,
-    marginBottom: 16,
-    elevation: 2,
-  },
-  approvedStatusContainer: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    backgroundColor: SUCCESS_COLOR,
-    borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-  },
-  status: {
-    color: LIGHT,
-    fontWeight: "bold",
-  },
-
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: LIGHT,
-  },
-  scrollViewContent: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    alignItems: "center",
-  },
-  tabContainer: {
-    marginTop: 16,
-    marginBottom: 20,
-  },
-  tabButtonActive: {
-    fontWeight: "bold",
-    borderBottomWidth: 2,
-    borderBottomColor: PRIMARY_COLOR,
-    paddingVertical: 8,
-  },
-  tabButton: {
-    color: "#888",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  checkoutButton: {
-    backgroundColor: PRIMARY_COLOR,
-    borderRadius: 100,
-    width: 150,
-    height: 150,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    marginBottom: 20,
-    elevation: 5,
-  },
-  checkoutText: {
-    color: LIGHT,
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
-  timerCard: {
-    backgroundColor: "#1B2940",
-    borderRadius: 15,
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-  },
-  timerContent: {
-    alignItems: "center",
-  },
-  locationRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  locationText: {
-    color: LIGHT,
-    fontSize: 14,
-  },
-  timeText: {
-    fontSize: 36,
-    color: "#50e3c2",
-    marginVertical: 10,
-  },
-  workHoursText: {
-    color: LIGHT,
-    fontSize: 12,
-  },
-  workHoursTimeText: {
-    fontSize: 16,
-    color: "#50e3c2",
-    marginTop: 5,
-  },
-  activityCard: {
-    backgroundColor: LIGHT,
-    borderRadius: 15,
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-    elevation: 3,
-  },
-  activityHeader: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 15,
-  },
-  activityRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  activityTitle: {
-    fontSize: 16,
-  },
-  activityTime: {
-    fontSize: 14,
-    color: "#020409",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  footerText: {
-    fontSize: 14,
-    color: "#020409",
-    marginLeft: 5,
-  },
   map: {
     height: SCREEN_WIDTH / 1.5,
   },
-  message: {
-    marginTop: 4,
-    fontSize: 14,
-    textAlign: "center",
-  },
-  //Todo
-  projectList: {
-    marginTop: 20,
-  },
 
-  radioItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  greeting: {
-    fontWeight: "bold",
-  },
-  statusContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-  },
-  statusButton: {
-    padding: 10,
-    backgroundColor: PRIMARY_COLOR_TRANSPARENT,
-    borderRadius: 20,
-  },
-  activeButton: {
-    backgroundColor: PRIMARY_COLOR,
-  },
-  activeText: {
-    color: LIGHT,
-  },
-
-  taskInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  infoText: {
-    color: LIGHT,
-    marginLeft: 5,
-    marginRight: 15,
-  },
-  
-  progressText: {
-    fontWeight: "bold",
-    marginTop: 6,
-    color: LIGHT,
-  },
-  completedText: {
-    textAlign: "center",
-    fontSize: 18,
-    color: PRIMARY_COLOR,
-    marginTop: 20,
-  },
-
-  quantityContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-  },
-  card: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
-  },
-  
-  popupMenu: {
-    position: "absolute",
-    top: 50,
-    right: 8,
-    width: 120,
-    paddingVertical: 18,
-    backgroundColor: "#ffffff",
-    borderRadius: 8,
-    elevation: 5,
-  },
-  
-  actions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  photoRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 16,
-  },
-  photoContainer: {
-    position: "relative",
-    marginRight: 10,
-    marginBottom: 10,
-  },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
+    width: 55,
+    height: 60,
   },
-  removeButton: {
+  removeImageButton: {
     position: "absolute",
     top: -5,
     right: -5,
-    backgroundColor: "red",
-    borderRadius: 10,
-    width: 20,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

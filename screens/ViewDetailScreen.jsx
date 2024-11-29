@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, ScrollView } from "react-native";
 import { SCREEN_WIDTH, typography } from "../styles";
 import MyHeader from "../components/header/MyHeader";
@@ -18,11 +18,8 @@ const ViewDetailScreen = ({ route }) => {
     </View>
   );
 
-  const renderSectionTitle = (title) => <H5>{title}</H5>;
-
   const renderSiteDetails = () => (
     <>
-      {renderSectionTitle("Site Information")}
       {renderDetailRow("Site Name", site.siteName)}
       {renderDetailRow("State", site.state)}
       {renderDetailRow("District", site.dist)}
@@ -54,7 +51,6 @@ const ViewDetailScreen = ({ route }) => {
 
   const renderVendorDetails = () => (
     <>
-      {renderSectionTitle("Vendor Information")}
       {renderDetailRow("Vendor Name", site.name)}
       {renderDetailRow("Mail ID", site.mailId)}
       {renderDetailRow("Contact No", site.contactNumber)}
@@ -72,8 +68,8 @@ const ViewDetailScreen = ({ route }) => {
             formType === "vendor"
               ? "Vendor Details"
               : site.projectName
-              ? "Project Details"
-              : "Site Details"
+                ? "Project Details"
+                : "Site Details"
           }
           isBack={true}
           hasIcon={true}
@@ -84,8 +80,8 @@ const ViewDetailScreen = ({ route }) => {
             {formType === "vendor"
               ? renderVendorDetails()
               : site.projectName
-              ? renderProjectDetails()
-              : renderSiteDetails()}
+                ? renderProjectDetails()
+                : renderSiteDetails()}
           </View>
         </ScrollView>
       </View>

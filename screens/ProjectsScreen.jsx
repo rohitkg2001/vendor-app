@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
 import MyFlatList from "../components/utility/MyFlatList";
-import { useNavigation } from "@react-navigation/native";
+import NoRecord from '../screens/NoRecord'
 
-export default function ProjectsScreen({ route }) {
+export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
-  const navigation = useNavigation();
+
   const { DATA, title } = route.params;
 
   const handleViewDetails = (item) => {
@@ -33,7 +33,7 @@ export default function ProjectsScreen({ route }) {
           />
         )}
         ListEmptyComponent={() => (
-          <NoRecordScreen msg="Oops! No Projects available. Create the new one." />
+          <NoRecord msg="Oops! No Projects available right now..." />
         )}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={() => (

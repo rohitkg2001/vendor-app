@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
-import { styles } from "../styles/components.styles";
 import MyHeader from "../components/header/MyHeader";
-import { H5, P } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import { inventory } from "../utils/faker";
+import InventoryCard from "../components/card/InventoryCard";
+import NoRecord from "./NoRecord";
 
-const InventoryScreen = () => {
+export default function InventoryScreen() {
   const [searchText, setSearchText] = useState("");
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   return (
     <ContainerComponent>
@@ -25,30 +23,9 @@ const InventoryScreen = () => {
             onChangeText={setSearchText}
             style={{ marginVertical: 8, marginHorizontal: 4 }}
           />}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.card}>
-            <Image
-              source={{ uri: item.url }}
-              loadingIndicatorSource={require("../assets/img15.png")}
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: 8,
-                marginRight: 16,
-              }}
-            />
-            <View style={{ flex: 1 }}>
-              <H5>{item.name}</H5>
-              <P>{item.description}</P>
-              <View style={styles.quantityContainer}>
-                <P style={styles.productQuantity}>Qty: {item.qty_stock} {item.unit}</P>
-              </View>
-            </View>
-          </TouchableOpacity>
-        )}
+        ListEmptyComponent={() => <NoRecord msg="No items found in inventory. Please contact admin. " />}
+        renderItem={({ item }) => <InventoryCard item={item} />}
       />
     </ContainerComponent>
   );
 };
-
-export default InventoryScreen;

@@ -3,6 +3,7 @@ import {
     SCREEN_WIDTH,
     PRIMARY_COLOR,
     PRIMARY_COLOR_TRANSPARENT,
+    SECONDARY_COLOR,
     LIGHT,
     DARK,
     DANGER_COLOR
@@ -18,7 +19,10 @@ export {
     SCREEN_WIDTH,
     PRIMARY_COLOR,
     PRIMARY_COLOR_TRANSPARENT,
+    SECONDARY_COLOR,
     LIGHT,
+    DARK,
+    DANGER_COLOR,
     spacing,
     typography,
     styles,

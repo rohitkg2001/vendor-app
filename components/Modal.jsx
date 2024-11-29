@@ -1,4 +1,4 @@
-import { Modal, Portal, Text, } from "react-native-paper";
+import { Modal, Portal, } from "react-native-paper";
 import { DANGER_COLOR, LIGHT, SCREEN_HEIGHT, SCREEN_WIDTH, SECONDARY_COLOR } from "../styles/constant";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons"
