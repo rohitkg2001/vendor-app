@@ -18,7 +18,7 @@ export default function MyPickerInput({
         selectedValue={value}
         style={styles.textInputField}
         mode="dropdown"
-        onValueChange={(val) => onChange(val)}
+        onChange={(val) => onChange(val)}
         prompt={t('option_title')}
       >
         {options.map((option, index) => (

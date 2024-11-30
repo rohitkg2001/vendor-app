@@ -2,7 +2,8 @@ import { View } from "react-native";
 import { Card } from "react-native-paper";
 import { H6, P } from "../text";
 import { spacing, typography, SCREEN_WIDTH, LIGHT } from "../../styles";
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from "react-i18next";
+
 
 export default function ClickableCard({
   item,
@@ -12,7 +13,7 @@ export default function ClickableCard({
   isEarning = false,
   isCureentProject = false,
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Card
       style={[
@@ -29,9 +30,14 @@ export default function ClickableCard({
         <View style={{ flex: 1 }}>
           {isProject && (
             <>
-              <H6 style={[typography.textBold]}>{item.projectName}</H6>
-              <P style={{ fontSize: 14 }}>{t('duration_title')}: {item.duration}</P>
-              <P style={{ fontSize: 14 }}>{t('status_title')}: {item.status}</P>
+              <H6 style={[typography.textBold]}>
+                Project Name: {item.projectName}
+              </H6>
+              <P style={{ fontSize: 14 }}>
+                Work Order Number: {item.workOrderNumber}
+              </P>
+              <P style={{ fontSize: 14 }}>Start Date: {item.startDate}</P>
+              <P style={{ fontSize: 14 }}>Price: {item.price}</P>
             </>
           )}
           {isSite && (
@@ -47,20 +53,23 @@ export default function ClickableCard({
             <>
               <H6 style={[typography.textBold]}>{item.projectName}</H6>
               <H6 style={{ fontSize: 14 }}>
-                {t('total_earning')}: {item.totalEarnings}
+                {t("total_earning")}: {item.totalEarnings}
               </H6>
               <P style={{ fontSize: 14 }}>
-                {t('completion_date')}: {item.completionDate}
+                {t("completion_date")}: {item.completionDate}
               </P>
             </>
           )}
           {isCureentProject && (
             <>
               <H6 style={[typography.textBold]}>{item.projectName}</H6>
-              <P style={{ fontSize: 14 }}>{t('site_title')}: {item.siteName}</P>
+              <P style={{ fontSize: 14 }}>
+                {t("site_title")}: {item.siteName}
+              </P>
             </>
           )}
         </View>
+        <Icon name="arrow-forward" size={20} color="black" />
       </View>
     </Card>
   );

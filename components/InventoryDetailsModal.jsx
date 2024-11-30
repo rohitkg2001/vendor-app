@@ -13,11 +13,11 @@ export default function InventoryDetailsModal({
 
   return (
     <ModalPopup
-      visible={ visible }
-      close={ onClose }
+      visible={visible}
+      close={onClose}
       negativeButton="Close"
       positiveButton="OK"
-      action={ null }
+      action={null}
     >
       <P>
         {" "}
