@@ -6,7 +6,6 @@ import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 import NoRecord from "./NoRecord";
-import MyHeader from "../components/header/MyHeader";
 import Button from "../components/buttons/Button";
 import { projects } from "../utils/faker";
 import Filter from "../components/Filter";
@@ -21,7 +20,6 @@ export default function CurrentProjectsScreen({ navigation }) {
 
   return (
     <ContainerComponent>
-      <MyHeader title={t("current_project")} hasIcon={true} isBack={true} />
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}
