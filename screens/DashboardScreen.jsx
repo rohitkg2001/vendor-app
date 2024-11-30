@@ -9,7 +9,20 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { H3, H4, H5, P, Span } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
-import { layouts, LIGHT, PRIMARY_COLOR, PRIMARY_COLOR_TRANSPARENT, DARK, SCREEN_WIDTH, spacing, styles, typography, ICON_SMALL, ICON_MEDIUM, ICON_LARGE } from "../styles";
+import {
+  layouts,
+  LIGHT,
+  PRIMARY_COLOR,
+  PRIMARY_COLOR_TRANSPARENT,
+  DARK,
+  SCREEN_WIDTH,
+  spacing,
+  styles,
+  typography,
+  ICON_SMALL,
+  ICON_MEDIUM,
+  ICON_LARGE,
+} from "../styles";
 import { vendor, projects } from "../utils/faker";
 import { useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
@@ -22,33 +35,32 @@ import Filter from "../components/Filter";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
-  const today = useState( moment().format( "DD MMM YYYY" ) );
+  const today = useState(moment().format("DD MMM YYYY"));
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dueTasks, setDueTasks] = useState(4);
   const [greeting, setGreeting] = useState("Good morning");
   const { first_name } = useSelector((state) => state);
   const { t } = useTranslation();
-  const [showBottomSheet, setShowBottomSheet] = useState(false)
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
 
   useEffect(() => {
     setGreeting(greet());
-  }, [] );
-  
+  }, []);
 
-   const handleDateChange = (event, date) => {
-     if (event.type === "set") {
-       setShowDatePicker(false);
-       setSelectedDate(date);
-       setToday(moment(date).format("DD MMM YYYY"));
-     } else {
-       setShowDatePicker(false);
-     }
-   };
+  const handleDateChange = (event, date) => {
+    if (event.type === "set") {
+      setShowDatePicker(false);
+      setSelectedDate(date);
+      setToday(moment(date).format("DD MMM YYYY"));
+    } else {
+      setShowDatePicker(false);
+    }
+  };
 
-   const showCalendar = () => {
-     setShowDatePicker(true);
-   };
+  const showCalendar = () => {
+    setShowDatePicker(true);
+  };
 
   return (
     <ContainerComponent>
@@ -180,7 +192,7 @@ export default function DashboardScreen() {
                   })
                 }
               >
-                <P style={typography.textBold}>{item.title}</P>
+                <P style={typography.textBold}>{t(item.title)}</P>
                 <P>{item.count || 0}</P>
               </TouchableOpacity>
             ))}
@@ -195,7 +207,7 @@ export default function DashboardScreen() {
               key={item.id}
               backgroundColor={item.backgroundColor}
               tasks={item.count}
-              status={item.title}
+              status={t(item.title)}
               onPress={() =>
                 navigation.navigate(item.page, {
                   DATA: projects,

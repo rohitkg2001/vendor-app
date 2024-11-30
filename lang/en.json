@@ -32,7 +32,7 @@
         "description": "Description",
         "select_material": "Select Material",
         "description_title": "Briefly describe in less than 80 words",
-        "enter_sitename" : "Enter Site Name",
+        "enter_sitename": "Enter Site Name",
         "upload_photo": "Upload Photos",
         "photo_description": "Take upto 5 photos",
         "take_photo": "Take Photo",
@@ -48,6 +48,10 @@
         "settings": "Settings",
         "vendor_details": "Vendor Details",
         "project_details": "Project Details",
-        "site_details": "Site Details"
+        "site_details": "Site Details",
+        "ongoing": "Ongoing",
+        "completed": "Completed",
+        "hold": "Hold",
+        "rejected": "Rejected"
     }
 }

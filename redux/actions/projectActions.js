@@ -19,57 +19,56 @@ export const cancelledProjects = filterByStatus(projects, 4);
 
 export const projectCounts = [
   {
-    title: "Ongoing",
+    title: "ongoing",
     count: ongoingProjects.length,
     data: ongoingProjects,
     page: "projectsScreen",
   },
   {
-    title: "Completed",
+    title: "completed",
     count: completedProjects.length,
     data: completedProjects,
     page: "projectsScreen",
   },
   {
-    title: "Hold",
+    title: "hold",
     count: holdProjects.length,
     data: holdProjects,
     page: "projectsScreen",
   },
   {
-    title: "Rejected",
+    title: "rejected",
     count: rejectedProjects.length,
     data: rejectedProjects,
     page: "projectsScreen",
   },
 ];
 
-
 export const statCards = [
   {
     id: "1",
-    title: "Total Projects",
+    title: "total_projects",
     count: projects.length,
     page: "projectsScreen",
     backgroundColor: "#A0D3E8",
   },
   {
     id: "2",
-    title: "Total Earning",
+    title: "total_earning",
     count: 0,
     page: "totalEarningScreen",
     backgroundColor: "#C8E6C9",
   },
   {
     id: "3",
-    title: "Total Sites",
+    title: "total_sites",
     count: sites.length,
     page: "siteScreen",
     backgroundColor: "#E1BEE7",
   },
   {
     id: "4",
-    title: "Inventory",
+    title: "inventory_title",
     count: inventory.length,
     page: "inventoryScreen",
     backgroundColor: "#FFF9C4",
