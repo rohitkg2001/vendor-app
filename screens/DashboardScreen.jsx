@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import MyFlatList from "../components/utility/MyFlatList";
 import { H3, H4, H5, P, Span } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
@@ -21,7 +22,9 @@ import Filter from "../components/Filter";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
-  const today = useState(moment().format("DD MMM YYYY"));
+  const today = useState( moment().format( "DD MMM YYYY" ) );
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [dueTasks, setDueTasks] = useState(4);
   const [greeting, setGreeting] = useState("Good morning");
   const { first_name } = useSelector((state) => state);
@@ -30,7 +33,22 @@ export default function DashboardScreen() {
 
   useEffect(() => {
     setGreeting(greet());
-  }, []);
+  }, [] );
+  
+
+   const handleDateChange = (event, date) => {
+     if (event.type === "set") {
+       setShowDatePicker(false);
+       setSelectedDate(date);
+       setToday(moment(date).format("DD MMM YYYY"));
+     } else {
+       setShowDatePicker(false);
+     }
+   };
+
+   const showCalendar = () => {
+     setShowDatePicker(true);
+   };
 
   return (
     <ContainerComponent>
@@ -118,7 +136,9 @@ export default function DashboardScreen() {
         >
           <H4>Today</H4>
           <View style={{ flexDirection: "row" }}>
-            <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
+            <TouchableOpacity onPress={showCalendar}>
+              <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
+            </TouchableOpacity>
             <H5 style={spacing.ml1}>{today}</H5>
           </View>
         </View>
@@ -244,6 +264,14 @@ export default function DashboardScreen() {
           </View>
         </View>
       </ScrollView>
+      {showDatePicker && (
+        <DateTimePicker
+          value={selectedDate}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
+        />
+      )}
       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import { View, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView } from "react-native";
+import { View, Image, TouchableOpacity, ScrollView} from "react-native";
 import { Card } from "react-native-paper";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
 import { H2, H4, H6, P } from "../components/text";
@@ -14,7 +15,10 @@ import { useTranslation } from "react-i18next";
 
 export default function FileUploadScreen() {
   const [photos, setPhotos] = useState([]);
-  const [description, setDescription] = useState("");
+  const [ description, setDescription ] = useState( "" );
+  const [ sitename, setSiteName ] = useState( "" );
+    const [date, setDate] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
   const [materials, setMaterials] = useState([])
 
   const cameraRef = useRef(null);
@@ -35,12 +39,20 @@ export default function FileUploadScreen() {
 
   const handleCancel = () => {
     setPhotos([]);
-    setDescription("");
+    setDescription( "" );
+    setSiteName( "" );
   };
 
   const removePhoto = (uri) => {
     setPhotos(photos.filter((photoUri) => photoUri !== uri));
   };
+  const handleDateChange = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+
   useEffect(() => {
     let myArr = []
     inventory.map((item, index) => {
@@ -110,8 +122,34 @@ export default function FileUploadScreen() {
             ))}
           </View>
         </Card>
+        <MyTextInput
+          title={t("site_title")}
+          placeholder={t("enter_sitename")}
+          value={sitename}
+          onChangeText={setSiteName}
+        />
+        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+          <MyTextInput
+            title="Date"
+            value={date.toLocaleDateString()}
+            placeholder="Select Date"
+            editable={false}
+          />
+        </TouchableOpacity>
+        {showDatePicker && (
+          <DateTimePicker
+            value={date}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
 
-        <MyPickerInput title={t("select_material")} options={materials} />
+        <MyPickerInput
+          title={t("select_material")}
+          options={materials}
+          style={{ width: SCREEN_WIDTH - 30 }}
+        />
 
         <MyTextInput
           title={t("description")}
@@ -135,7 +173,9 @@ export default function FileUploadScreen() {
               { width: SCREEN_WIDTH / 2 - 20 },
             ]}
           >
-            <H2 style={[styles.btnText, typography.font20, typography.textDark]}>
+            <H2
+              style={[styles.btnText, typography.font20, typography.textDark]}
+            >
               Cancel
             </H2>
           </Button>
