@@ -17,40 +17,19 @@ export const vendor = {
   id: 1,
   first_name: "Rakesh",
   last_name: "Sharma",
-<<<<<<< HEAD
-  name:"",
-  contact_person:"",
-  contact_number:"",
-  aadhar_number:"",
-  account_name:"",
-  account_number:"",
-  ifsc:"",
-  bank_name:"",
-  gst_number:"",
-  pan_number:"",
-  user_type: "vendor",
-  is_admin: 0,
-  role_id: 1,
-=======
   user_type: "staff",
-  role_id: 0,
->>>>>>> b2b2ae553ec766dc2ea5a862e5e16e41f61e3ea8
+  role: 0,
   email: "rakesh.sharma@gmail.com",
   password: "12345678",
   status: "active",
   disable_login: 0,
   address: "123 gali, jhajjar, Haryana",
-<<<<<<< HEAD
-  last_online: "2024-10-03 05:41:49",
-  created_date: "",
-=======
   contactNo: "9909230912",
   last_online: "2024-10-03 05:41:49",
   file: "file-pdf",
   uploaded_by: "rakesh sharma",
   createdAt: "",
   updatedAt: "",
->>>>>>> b2b2ae553ec766dc2ea5a862e5e16e41f61e3ea8
 };
 
 export const projects = [
