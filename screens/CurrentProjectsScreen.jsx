@@ -11,11 +11,13 @@ import { projects } from "../utils/faker";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
 import { ICON_MEDIUM } from "../styles/constant";
+import Filter from "../components/Filter";
+
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
-
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   return (
     <ContainerComponent>
       <MyFlatList
@@ -26,9 +28,7 @@ export default function CurrentProjectsScreen({ navigation }) {
             key={index}
             item={item}
             isCureentProject={true}
-            handleViewDetails={() =>
-              navigation.navigate("taskScreen", { projectId: item.id })
-            }
+            handleViewDetails={() => handleViewDetails(item.id)}
           />
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_project")} />}
@@ -46,6 +46,7 @@ export default function CurrentProjectsScreen({ navigation }) {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -53,6 +54,14 @@ export default function CurrentProjectsScreen({ navigation }) {
           </ScrollView>
         )}
       />
+      {showBottomSheet && (
+        <Filter
+          style={{
+            position: "absolute",
+            bottom: 0,
+          }}
+        />
+      )}
     </ContainerComponent>
   );
 }

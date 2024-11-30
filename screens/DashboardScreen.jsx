@@ -17,6 +17,7 @@ import { tasksCounts } from "../redux/actions/taskActions";
 import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
 import { useTranslation } from "react-i18next";
+import Filter from "../components/Filter";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -25,6 +26,7 @@ export default function DashboardScreen() {
   const [greeting, setGreeting] = useState("Good morning");
   const { first_name } = useSelector((state) => state);
   const { t } = useTranslation();
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
 
   useEffect(() => {
     setGreeting(greet());
@@ -86,19 +88,34 @@ export default function DashboardScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh1]}
       >
-        <View style={[spacing.mv4, styles.row, spacing.mh1, { alignItems: "center" }]}>
+        <View
+          style={[
+            spacing.mv4,
+            styles.row,
+            spacing.mh1,
+            { alignItems: "center" },
+          ]}
+        >
           <SearchBar
             placeholder="Search"
             style={{ width: SCREEN_WIDTH - 70 }}
           />
           <Button
             style={[styles.btn, styles.bgPrimary, spacing.mh1, { width: 50 }]}
+            onPress={() => setShowBottomSheet(!showBottomSheet)}
           >
             <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
           </Button>
         </View>
 
-        <View style={[spacing.mv2,spacing.mr3, styles.row, { alignItems: "center" }]}>
+        <View
+          style={[
+            spacing.mv2,
+            spacing.mr3,
+            styles.row,
+            { alignItems: "center" },
+          ]}
+        >
           <H4>Today</H4>
           <View style={{ flexDirection: "row" }}>
             <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
@@ -195,7 +212,14 @@ export default function DashboardScreen() {
                   spacing.br2,
                   spacing.p4,
                 ]}
-                onPress={() => navigation.navigate("taskScreen")}
+                onPress={() => {
+                  if (
+                    item.label === "Installation" ||
+                    item.label === "Fixing Slip"
+                  ) {
+                    navigation.navigate("taskScreen");
+                  }
+                }}
               >
                 <Icon name={item.icon} size={ICON_LARGE} color={DARK} />
                 <P>{item.label}</P>
@@ -219,7 +243,8 @@ export default function DashboardScreen() {
             ))}
           </View>
         </View>
-      </ScrollView >
-    </ContainerComponent >
+      </ScrollView>
+      {showBottomSheet && <Filter />}
+    </ContainerComponent>
   );
 }
