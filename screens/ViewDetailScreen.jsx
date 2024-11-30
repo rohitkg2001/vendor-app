@@ -24,28 +24,30 @@ const ViewDetailScreen = ({ route }) => {
       {renderDetailRow("State", site.state)}
       {renderDetailRow("District", site.dist)}
       {renderDetailRow("Location", site.location)}
-      {renderDetailRow("Project Serial Code", site.projectSerialCode)}
-      {renderDetailRow("Project Capacity", site.ProjectCapacity)}
+      {renderDetailRow("Contact No", site.contact_number)}
+      {renderDetailRow("Project Serial Code", site.project_Serial_Code)}
+      {renderDetailRow("Project Capacity", site.project_Capacity)}
       {renderDetailRow("CA Number", site.cANumber)}
-      {renderDetailRow("I&C Vendor Name", site.iCVendorName)}
-      {renderDetailRow("Contact No", site.ContactNo)}
+      {renderDetailRow("Sanction Load", site.sanctionLoad)}
+      {renderDetailRow("Meter Number", site.meterNumber)}
+      {renderDetailRow("Load Enhancement Status", site.loadEnhancementStatus)}
+      {renderDetailRow("Site Survey Status", site.siteSurveyStatus)}
+      {renderDetailRow("Net Meter Sr No", site.net_meter_no)}
+      {renderDetailRow("Solar Meter Sr NO", site.solar_meter_no)}
+      {renderDetailRow("Material Inspection Date", site.material_dispatch_date)}
+      {renderDetailRow("SPP INSTALLATION DATE", site.material_inspection_date)}
+      {renderDetailRow("COMMISSIONING DATE", site.commissioning_date)}
+      {renderDetailRow("Remarks", site.remarks)}
+      {renderDetailRow("I & C Vendor Name", site.iCVendorName)}
     </>
   );
 
   const renderProjectDetails = () => (
     <>
       {renderDetailRow("Project Name", site.projectName)}
-      {renderDetailRow("Duration", site.duration)}
-      {renderDetailRow("Status", site.status)}
-      {renderDetailRow("Project Serial", site.projectSerial)}
-      {renderDetailRow("Site Name", site.siteName)}
-      {renderDetailRow("Sanction Load", site.sanctionLoad)}
-      {renderDetailRow("Project Capacity", site.projectCapacity)}
-      {renderDetailRow("CA Number", site.caNumber)}
-      {renderDetailRow("Survey Status", site.surveyStatus)}
-      {renderDetailRow("Contact No", site.contactNo)}
-      {renderDetailRow("Solar Meter Serial", site.solarMeterSerial)}
-      {renderDetailRow("Vendor Name", site.vendorName)}
+      {renderDetailRow("Work Order Number", site.workOrderNumber)}
+      {renderDetailRow("Price", site.price)}
+      {renderDetailRow("Start Date", site.startDate)}
     </>
   );
 
@@ -66,10 +68,10 @@ const ViewDetailScreen = ({ route }) => {
         <MyHeader
           title={
             formType === "vendor"
-              ? "Vendor Details"
-              : site.projectName
-                ? "Project Details"
-                : "Site Details"
+              ? "vendor_details"
+              : formType === "project"
+                ? "project_details"
+                : "site_details"
           }
           isBack={true}
           hasIcon={true}

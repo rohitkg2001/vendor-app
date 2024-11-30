@@ -44,7 +44,7 @@ export const viewProfile = (userId) => async (dispatch) => {
       userId: 1,
       userName: "rakesh.sharma",
       email: "rakesh.sharma@example.com",
-      phone: "9634762365",
+      contactNo: "9634762365",
     };
     await dispatch({ type: VIEW_PROFILE, payload: profileData });
     return true;

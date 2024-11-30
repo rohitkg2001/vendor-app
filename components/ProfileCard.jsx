@@ -11,7 +11,7 @@ import {
   ICON_SMALL,
 } from "../styles";
 
-export default function ProfileCard({ imageUri, name, phoneNumber, onPress }) {
+export default function ProfileCard({ imageUri, name, contactNo, onPress }) {
   return (
     <TouchableOpacity
       style={[styles.rowItem, spacing.p3, { height: 120, width: SCREEN_WIDTH }]}
@@ -20,7 +20,7 @@ export default function ProfileCard({ imageUri, name, phoneNumber, onPress }) {
       <Avatar avatar={imageUri} name={name} />
       <View style={layouts.flex1}>
         <P style={typography.textBold}>{name}</P>
-        <Span>{phoneNumber}</Span>
+        <Span>{contactNo}</Span>
       </View>
       <Icon name="chevron-forward-outline" size={ICON_SMALL} color="#333" />
     </TouchableOpacity>

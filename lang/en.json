@@ -44,6 +44,9 @@
         "my_projects": "My Projects",
         "my_tasks": "My Tasks",
         "reports": "Reports",
-        "settings": "Settings"
+        "settings": "Settings",
+        "vendor_details": "Vendor Details",
+        "project_details": "Project Details",
+        "site_details": "Site Details"
     }
 }

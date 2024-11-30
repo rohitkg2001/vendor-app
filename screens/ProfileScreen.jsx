@@ -17,7 +17,6 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { useTranslation } from "react-i18next";
 
 const ProfileItem = ({ iconName, label }) => {
-
   return (
     <View
       style={[
@@ -56,7 +55,7 @@ const ProfileScreen = () => {
               {vendor.email}
             </H6>
             <H6 style={[typography.font14, { color: LIGHT }]}>
-              {vendor.phone}
+              {vendor.contactNo}
             </H6>
             <H6 style={[typography.font14, { color: LIGHT }]}>
               {vendor.address}

@@ -10,16 +10,16 @@ import Button from "../components/buttons/Button";
 import { projects } from "../utils/faker";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
-import MyHeader from "../components/header/MyHeader";
 import { ICON_MEDIUM } from "../styles/constant";
+import Filter from "../components/Filter";
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
 
   return (
     <ContainerComponent>
-      <MyHeader title="Current Project" isBack={true} hasIcon={true} />
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}
@@ -28,6 +28,7 @@ export default function CurrentProjectsScreen({ navigation }) {
             key={index}
             item={item}
             isCureentProject={true}
+            showArrow={true}
             handleViewDetails={() =>
               navigation.navigate("taskScreen", { projectId: item.id })
             }
@@ -48,6 +49,7 @@ export default function CurrentProjectsScreen({ navigation }) {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -55,6 +57,14 @@ export default function CurrentProjectsScreen({ navigation }) {
           </ScrollView>
         )}
       />
+      {showBottomSheet && (
+        <Filter
+          style={{
+            position: "absolute",
+            bottom: 0,
+          }}
+        />
+      )}
     </ContainerComponent>
   );
 }
