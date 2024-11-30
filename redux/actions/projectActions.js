@@ -25,7 +25,7 @@ export const projectCounts = [
     page: "projectsScreen",
   },
   {
-    title: "Completed",
+    title: "completed",
     count: completedProjects.length,
     data: completedProjects,
     page: "projectsScreen",
