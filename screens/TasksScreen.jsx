@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Card } from "react-native-paper";
@@ -9,6 +9,7 @@ import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { H6, H4, H5, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
+import Button from "../components/buttons/Button";
 import { tasks } from "../utils/faker";
 import {
   SCREEN_WIDTH,
@@ -17,6 +18,7 @@ import {
   ICON_SMALL,
   DARK,
   styles,
+  LIGHT,
 } from "../styles";
 import { useTranslation } from "react-i18next";
 
@@ -63,7 +65,6 @@ const TasksScreen = () => {
   return (
     <ContainerComponent>
       <MyHeader title={t("task_list")} isBack={true} hasIcon={true} />
-
       <View
         style={[
           styles.row,
@@ -72,13 +73,15 @@ const TasksScreen = () => {
         ]}
       >
         <H4>Today</H4>
-        <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
+        <Button
+          style={[styles.btn, styles.bgPrimary, spacing.ph3]}
           onPress={() => setShowDatePicker(true)}
         >
-          <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
-          <H5 style={spacing.ml1}>{today}</H5>
-        </TouchableOpacity>
+          <Icon name="calendar-outline" size={ICON_SMALL} color={LIGHT} />
+          <H5 style={[spacing.ml1, { color: "#fff", fontWeight: "600" }]}>
+            {today}
+          </H5>
+        </Button>
       </View>
 
       {showDatePicker && (
