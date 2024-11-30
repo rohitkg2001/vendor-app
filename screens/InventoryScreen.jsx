@@ -71,9 +71,7 @@ export default function InventoryScreen() {
         onClose={() => setVisible(false)}
         selectedItem={selectedItem}
       />
-      {
-        showBottomSheet && <Filter />
-      }
+       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }

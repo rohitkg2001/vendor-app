@@ -58,9 +58,7 @@ const TotalEarningScreen = () => {
           </ScrollView>
         )}
       />
-       {
-        showBottomSheet && <Filter />
-      }
+       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 };

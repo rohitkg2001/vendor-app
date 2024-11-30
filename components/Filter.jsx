@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
-import BottomSheet from './bottomsheet/BottomSheet'
+import BottomSheet from './bottomsheet/Bottomsheet'
 import { SCREEN_WIDTH, spacing, styles, typography } from '../styles'
 import Button from './buttons/Button'
 import { H2, H1, Span } from './text'

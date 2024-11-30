@@ -56,6 +56,7 @@ export default function ProjectsScreen({ route, navigation }) {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -63,9 +64,7 @@ export default function ProjectsScreen({ route, navigation }) {
           </ScrollView>
         )}
       />
-       {
-        showBottomSheet && <Filter />
-      }
+       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }

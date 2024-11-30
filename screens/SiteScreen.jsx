@@ -21,7 +21,6 @@ export default function SiteScreen({ navigation }) {
     });
   };
   const { t } = useTranslation();
-
   return (
     <ContainerComponent>
       <MyHeader isBack title={t("total_sites")} hasIcon />
@@ -60,9 +59,7 @@ export default function SiteScreen({ navigation }) {
           </ScrollView>
         )}
       />
-       {
-        showBottomSheet && <Filter />
-      }
+       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }

@@ -13,7 +13,9 @@ export default function App() {
   const [language, setLanguage] = useState(null);
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
 
-  const selectLanguage = async (lang) => {
+  const selectLanguage = async ( lang ) =>
+  {
+ 
     await AsyncStorage.setItem("appLanguage", lang);
     i18n.changeLanguage(lang);
     setLanguage(lang);
@@ -24,25 +26,25 @@ export default function App() {
     const fetchLanguage = async () => {
       const storedLanguage = await AsyncStorage.getItem("appLanguage");
       if (storedLanguage) {
-        i18n.changeLanguage(storedLanguage); // Set the language for i18n
+        i18n.changeLanguage(storedLanguage); 
         setLanguage(storedLanguage);
         setIsLanguageSelected(true);
       } else {
-        setIsLanguageSelected(false); // Prompt for language selection
+        setIsLanguageSelected(false); 
       }
     };
 
     fetchLanguage();
   }, []);
 
-  if (!language) {
-    // Show a loading indicator while language is being fetched
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#6200ee" />
-      </View>
-    );
-  }
+  // if (!language) {
+  //   // Show a loading indicator while language is being fetched
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  //       <ActivityIndicator size="large" color="#6200ee" />
+  //     </View>
+  //   );
+  // }
 
   // 1.App loads
   // 2. Check for appLanguage key in localstorage
