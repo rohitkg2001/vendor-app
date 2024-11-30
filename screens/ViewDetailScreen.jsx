@@ -69,7 +69,7 @@ const ViewDetailScreen = ({ route }) => {
           title={
             formType === "vendor"
               ? "Vendor Details"
-              : site.projectName
+              : formType === "project"
               ? "Project Details"
               : "Site Details"
           }
