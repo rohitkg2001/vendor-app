@@ -37,7 +37,7 @@ const TasksScreen = () => {
 
   return (
     <ContainerComponent>
-      <MyHeader title={t("task_list")} hasIcon={true} />
+      <MyHeader title={t("task_list")} isBack={true} hasIcon={true} />
       <MyFlatList
         data={tasks}
         renderItem={renderTaskItem}

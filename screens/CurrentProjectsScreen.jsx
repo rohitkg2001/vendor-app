@@ -18,8 +18,10 @@ export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false)
+  
   return (
     <ContainerComponent>
+      
       <MyFlatList
         data={projects}
         keyExtractor={(item) => item.id.toString()}

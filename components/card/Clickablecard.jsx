@@ -6,6 +6,7 @@ import { H6, P } from "../text";
 import { spacing, typography, SCREEN_WIDTH, LIGHT } from "../../styles";
 import { useTranslation } from "react-i18next";
 
+
 export default function ClickableCard({
   item,
   handleViewDetails,
