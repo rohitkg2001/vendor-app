@@ -41,6 +41,15 @@ export default function FileUploadScreen() {
   const removePhoto = (uri) => {
     setPhotos(photos.filter((photoUri) => photoUri !== uri));
   };
+  useEffect(() => {
+    let myArr = []
+    inventory.map((item, index) => {
+      const myObj = { enabled: true, label: item.product_name, value: item.id }
+      myArr.push(myObj)
+    })
+    setMaterials(myArr)
+  }, [])
+
 
   useEffect(() => {
     let myArr = []
@@ -101,7 +110,15 @@ export default function FileUploadScreen() {
             ))}
           </View>
         </Card>
-
+        <MyTextInput
+          title={t("description")}
+          onChangeText={(text) => setDescription(text)}
+          type="text"
+          placeholder={t("description_title")}
+          multiline
+          numberOfLines={4}
+          value={description}
+        />
         <MyPickerInput title={t("select_material")} options={materials} />
 
         <MyTextInput
@@ -126,7 +143,9 @@ export default function FileUploadScreen() {
               { width: SCREEN_WIDTH / 2 - 20 },
             ]}
           >
-            <H2 style={[styles.btnText, typography.font20, typography.textDark]}>
+            <H2
+              style={[styles.btnText, typography.font20, typography.textDark]}
+            >
               Cancel
             </H2>
           </Button>

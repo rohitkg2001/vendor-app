@@ -9,6 +9,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
+import Filter from "../components/Filter";
+import { useState } from "react";
 
 export default function SiteScreen({ navigation }) {
   const handleViewDetails = (item) => {
@@ -18,7 +20,7 @@ export default function SiteScreen({ navigation }) {
     });
   };
   const { t } = useTranslation();
-
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   return (
     <ContainerComponent>
       <MyHeader isBack title={t("total_sites")} hasIcon />
@@ -49,6 +51,7 @@ export default function SiteScreen({ navigation }) {
                   spacing.mh1,
                   { width: 50 },
                 ]}
+                onPress={() => setShowBottomSheet(!showBottomSheet)}
               >
                 <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
               </Button>
@@ -56,6 +59,7 @@ export default function SiteScreen({ navigation }) {
           </ScrollView>
         )}
       />
+       {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }
