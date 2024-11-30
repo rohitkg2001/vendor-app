@@ -28,6 +28,7 @@ export default function CurrentProjectsScreen({ navigation }) {
             key={index}
             item={item}
             isCureentProject={true}
+            showArrow={true}
             handleViewDetails={() => handleViewDetails(item.id)}
           />
         )}
