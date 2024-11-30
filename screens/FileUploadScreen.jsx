@@ -148,6 +148,7 @@ export default function FileUploadScreen() {
         <MyPickerInput
           title={t("select_material")}
           options={materials}
+          style={{ width: SCREEN_WIDTH - 30 }}
         />
 
         <MyTextInput
