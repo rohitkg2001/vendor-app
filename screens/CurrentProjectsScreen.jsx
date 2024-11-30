@@ -13,11 +13,11 @@ import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
 import { ICON_MEDIUM } from "../styles/constant";
 
-
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
-  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const { t } = useTranslation();
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
+
   return (
     <ContainerComponent>
       <MyFlatList
@@ -28,7 +28,10 @@ export default function CurrentProjectsScreen({ navigation }) {
             key={index}
             item={item}
             isCureentProject={true}
-            handleViewDetails={() => handleViewDetails(item.id)}
+            showArrow={true}
+            handleViewDetails={() =>
+              navigation.navigate("taskScreen", { projectId: item.id })
+            }
           />
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_project")} />}

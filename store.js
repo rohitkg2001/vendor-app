@@ -6,7 +6,7 @@ import Thunk from 'redux-thunk'
 
 
 const store = createStore(vendorReducer, initialState, applyMiddleware(Thunk))
-export default store;
+export default store;
 
 
 ``

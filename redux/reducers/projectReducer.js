@@ -11,6 +11,7 @@ export const projectReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case VIEW_PROJECT:
       return { ...state, currentProject: payload };
+      
 
     case SEARCH_PROJECT:
       return {
@@ -45,6 +46,6 @@ export const projectReducer = (state = initialState, { type, payload }) => {
       };
 
     default:
-      return state;
-  }
+      return state;
+  }
 };

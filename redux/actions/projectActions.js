@@ -79,6 +79,7 @@ export const statCards = [
 export const viewProject = (projectId) => async (dispatch, getState) => {
   const { projects } = getState();
   const project = projects.find((project) => project.id === projectId);
+  
 
   if (project) {
     await dispatch({ type: VIEW_PROJECT, payload: project });
@@ -148,5 +149,5 @@ export const changeProjectStatus =
     } else {
       console.error("Project not found");
       return false;
-    }
-  };
+    }
+  };
