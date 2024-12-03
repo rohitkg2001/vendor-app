@@ -1,16 +1,17 @@
+import { useEffect, useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import { View, ScrollView } from "react-native";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ClickableCard from "../components/card/Clickablecard";
-import { sites } from "../utils/faker";
+import NoRecord from "./NoRecord";
 import MyFlatList from "../components/utility/MyFlatList";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function SiteScreen({ navigation }) {
   const handleViewDetails = (item) => {
@@ -20,7 +21,15 @@ export default function SiteScreen({ navigation }) {
     });
   };
   const { t } = useTranslation();
-  const [showBottomSheet, setShowBottomSheet] = useState(false)
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
+
+  const { sites } = useSelector((state) => state.site);
+
+  useEffect(() => {
+    console.log(sites)
+  }, [])
+
+
   return (
     <ContainerComponent>
       <MyHeader isBack title={t("total_sites")} hasIcon />
@@ -34,6 +43,7 @@ export default function SiteScreen({ navigation }) {
             isSite={true}
           />
         )}
+        ListEmptyComponent={() => <NoRecord msg={t("no_site")} />}
         ListHeaderComponent={() => (
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -59,7 +69,7 @@ export default function SiteScreen({ navigation }) {
           </ScrollView>
         )}
       />
-       {showBottomSheet && <Filter />}
+      {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }

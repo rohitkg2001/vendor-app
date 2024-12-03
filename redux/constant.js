@@ -1,4 +1,4 @@
-//export const BASE_URL = "http://192.168.1.9:8000";
+// export const BASE_URL = "http://192.168.1.9:8000";
 export const BASE_URL = "https://slldm.com";
 
 export const initialState = {};
@@ -14,6 +14,7 @@ export const GET_ALL_TASKS = "GET_ALL_TASKS";
 export const VIEW_TASK = "VIEW_TASK";
 export const UPDATE_TASK = "UPDATE_TASK,";
 
+export const GET_ALL_SITES = "GET_ALL_SITES";
 export const VIEW_SITE = "VIEW_SITE";
 export const SEARCH_SITE = "SEARCH_SITE";
 

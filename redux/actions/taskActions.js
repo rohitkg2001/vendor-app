@@ -1,12 +1,11 @@
 import { VIEW_TASK, UPDATE_TASK, BASE_URL, GET_ALL_TASKS } from "../constant";
-import { inventory, tasks, sites, projects } from "../../utils/faker";
 import { filterByStatus } from "./projectActions";
 
-export const INSTALLATION = filterByStatus(tasks, 0);
-export const FIXING_SLIP = filterByStatus(tasks, 1);
-export const RMS = filterByStatus(tasks, 2);
-export const INSPECTION = filterByStatus(tasks, 3);
-export const REPORT = filterByStatus(tasks, 4);
+export const INSTALLATION = filterByStatus([], 0);
+export const FIXING_SLIP = filterByStatus([], 1);
+export const RMS = filterByStatus([], 2);
+export const INSPECTION = filterByStatus([], 3);
+export const REPORT = filterByStatus([], 4);
 
 export const tasksCounts = [
   {

@@ -49,7 +49,8 @@ export const typography = StyleSheet.create({
     },
 
     font14: {
-        fontSize: 14
+        fontSize: 14,
+
     },
     font16: {
         fontSize: 16

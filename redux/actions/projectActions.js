@@ -1,23 +1,21 @@
 import {
   VIEW_PROJECT,
   SEARCH_PROJECT,
-  UPDATE_PROJECT,
   COUNT_PROJECTS,
   CHANGE_PROJECT_STATUS,
   BASE_URL,
   GET_ALL_PROJECTS,
 } from "../constant";
-import { inventory, projects, sites } from "../../utils/faker";
 
 export const filterByStatus = (arr, status) => {
   return arr.filter((item) => item.status === status);
 };
 
-export const ongoingProjects = filterByStatus(projects, 0);
-export const completedProjects = filterByStatus(projects, 1);
-export const holdProjects = filterByStatus(projects, 2);
-export const rejectedProjects = filterByStatus(projects, 3);
-export const cancelledProjects = filterByStatus(projects, 4);
+export const ongoingProjects = filterByStatus([], 0);
+export const completedProjects = filterByStatus([], 1);
+export const holdProjects = filterByStatus([], 2);
+export const rejectedProjects = filterByStatus([], 3);
+export const cancelledProjects = filterByStatus([], 4);
 
 export const getAllProjects = () => async (dispatch) => {
   try {
@@ -59,7 +57,7 @@ export const statCards = [
   {
     id: "1",
     title: "total_projects",
-    count: projects.length,
+    count: 0,
     page: "projectsScreen",
     backgroundColor: "#A0D3E8",
   },
@@ -73,30 +71,25 @@ export const statCards = [
   {
     id: "3",
     title: "total_sites",
-    count: sites.length,
+    count: 0,
     page: "siteScreen",
     backgroundColor: "#E1BEE7",
   },
   {
     id: "4",
     title: "inventory_title",
-    count: inventory.length,
+    count: 0,
     page: "inventoryScreen",
     backgroundColor: "#FFF9C4",
   },
 ];
 
-export const viewProject = (projectId) => async (dispatch, getState) => {
-  const { projects } = getState();
-  const project = projects.find((project) => project.id === projectId);
 
-  if (project) {
-    await dispatch({ type: VIEW_PROJECT, payload: project });
-    return true;
-  } else {
-    console.error("Project not found");
-    return false;
-  }
+
+export const viewProject = (projectId) => async (dispatch) => {
+  const response = await fetch(`${BASE_URL}/api/projects/${projectId}`);
+  const data = await response.json();
+  dispatch({ type: VIEW_PROJECT, payload: data });
 };
 
 export const searchProject = (searchQuery) => async (dispatch, getState) => {
@@ -109,27 +102,36 @@ export const searchProject = (searchQuery) => async (dispatch, getState) => {
   return searchResults;
 };
 
-export const updateProject =
-  (projectId, updatedProjectData) => async (dispatch, getState) => {
-    const { projects } = getState();
-    const projectIndex = projects.findIndex(
-      (project) => project.id === projectId
-    );
 
-    if (projectIndex !== -1) {
-      const updatedProjects = [...projects];
-      updatedProjects[projectIndex] = {
-        ...updatedProjects[projectIndex],
-        ...updatedProjectData,
-      };
 
-      await dispatch({ type: UPDATE_PROJECT, payload: updatedProjects });
-      return true;
-    } else {
-      console.error("Project not found");
-      return false;
+export const updateProject = (projectId, updatedData) => async (dispatch) => {
+  dispatch({ type: "UPDATE_PROJECT_REQUEST" });
+  try {
+    const response = await fetch(`API_URL_HERE/projects/${projectId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update project');
     }
-  };
+
+    const data = await response.json();
+    dispatch({
+      type: "UPDATE_PROJECT_SUCCESS",
+      payload: data, // the updated project
+    });
+  } catch (error) {
+    dispatch({
+      type: "UPDATE_PROJECT_FAILURE",
+      error: error.message,
+    });
+  }
+};
+
 
 export const countProjects = () => async (dispatch, getState) => {
   const { projects } = getState();

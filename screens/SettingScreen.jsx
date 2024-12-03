@@ -46,9 +46,8 @@ export default function SettingsScreen() {
             onPress={() => {
               item.id === 0
                 ? navigation.navigate(item.page, {
-                    DATA: projects,
-                    title: item.label,
-                  })
+                  title: item.label,
+                })
                 : navigation.navigate(item.page);
             }}
           />

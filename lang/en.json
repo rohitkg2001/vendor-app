@@ -24,6 +24,7 @@
     "no_project": "Oops! No Projects available. Please contact admin.",
     "no_inventory": "No items found in inventory.Please contact admin.",
     "no_task": "Oops! No Tasks available. Please contact admin.",
+    "no_site": "Oops! No Sites available. Please contact admin.",
     "placeholder": "Search",
     "task_list": "Task List",
     "total_sites": "Total Sites",

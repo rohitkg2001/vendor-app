@@ -3,7 +3,6 @@ import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import MyFlatList from "../components/utility/MyFlatList";
-import { inventory, projects, sites } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
 import { useTranslation } from "react-i18next";
@@ -26,9 +25,7 @@ export default function InventoryScreen() {
   const viewItem = (id) => {
     setVisible(true);
     const thisItem = inventory.find((item) => item.id === id);
-    const thisProject = projects.find((item) => item.id === thisItem.projectId);
-    const thisSite = sites.find((item) => item.id === thisItem.siteId);
-    const itemDetails = { ...thisItem, ...thisProject, ...thisSite };
+    const itemDetails = { ...thisItem, };
     setSelectedItem(itemDetails);
   };
 

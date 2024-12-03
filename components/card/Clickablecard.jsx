@@ -39,14 +39,13 @@ export default function ClickableCard({
                 Work Order Number: {item.work_order_number}
               </P>
               <P style={{ fontSize: 14 }}>Start Date: {item.start_date}</P>
-              <P style={{ fontSize: 14 }}>Price: {item.rate}</P>
             </>
           )}
           {isSite && (
             <>
               <H6 style={[typography.textBold]}>{item.site_name || item.id}</H6>
               <P style={{ fontSize: 14 }}>
-                {item.location},{item.dist}
+                {item.location},{item.district}
               </P>
               {/* FIXME: */}
             </>
@@ -79,7 +78,7 @@ export default function ClickableCard({
           <Button
             style={{
               position: "absolute",
-              right: spacing.mr2,
+              right: 16,
               top: 40,
             }}
           >

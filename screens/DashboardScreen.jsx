@@ -23,15 +23,17 @@ import {
   ICON_MEDIUM,
   ICON_LARGE,
 } from "../styles";
-import { vendor, projects } from "../utils/faker";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
-import { projectCounts, statCards } from "../redux/actions/projectActions";
+import { getAllProjects, projectCounts, statCards } from "../redux/actions/projectActions";
 import { tasksCounts } from "../redux/actions/taskActions";
 import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
 import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
+import { getAllSites } from "../redux/actions/siteActions";
+import { getAllItems } from "../redux/actions/inventoryActions";
+
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -43,9 +45,13 @@ export default function DashboardScreen() {
   const { firstName } = useSelector((state) => state.vendor);
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setGreeting(greet());
+    dispatch(getAllProjects())
+    dispatch(getAllSites())
+    dispatch(getAllItems())
   }, []);
 
   const handleDateChange = (event, date) => {
@@ -187,15 +193,14 @@ export default function DashboardScreen() {
           >
             {projectCounts.map((item, index) => (
               <TouchableOpacity
-                style={{ alignItems: "center" }}
+                style={{ alignItems: "center", width: '20%' }}
                 onPress={() =>
                   navigation.navigate(item.page, {
-                    DATA: item.data,
                     title: `${item.title}_projects`.toLowerCase(),
                   })
                 }
               >
-                <P style={typography.textBold}>{t(item.title)}</P>
+                <P style={[typography.textBold, { textTransform: "capitalize", flexWrap: 'wrap' }]}>{t(item.title)}</P>
                 <P>{item.count || 0}</P>
               </TouchableOpacity>
             ))}
@@ -213,7 +218,6 @@ export default function DashboardScreen() {
               status={t(item.title)}
               onPress={() =>
                 navigation.navigate(item.page, {
-                  DATA: projects,
                   title: t(`${item.title}`),
                 })
               }

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { View, Image, TouchableOpacity, ScrollView} from "react-native";
+import { View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { Card } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CameraComponent from "../components/CameraComponent";
@@ -9,17 +9,18 @@ import Button from "../components/buttons/Button";
 import MyTextInput from "../components/input/MyTextInput";
 import MyHeader from '../components/header/MyHeader'
 import { SCREEN_WIDTH, typography, spacing, styles, layouts } from "../styles";
-import { inventory } from "../utils/faker";
 import MyPickerInput from "../components/input/MyPickerInput";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function FileUploadScreen() {
   const [photos, setPhotos] = useState([]);
-  const [ description, setDescription ] = useState( "" );
-  const [ sitename, setSiteName ] = useState( "" );
-    const [date, setDate] = useState(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
+  const [description, setDescription] = useState("");
+  const [sitename, setSiteName] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [materials, setMaterials] = useState([])
+  const { inventory } = useSelector(state => state.inventory)
 
   const cameraRef = useRef(null);
 
@@ -39,8 +40,8 @@ export default function FileUploadScreen() {
 
   const handleCancel = () => {
     setPhotos([]);
-    setDescription( "" );
-    setSiteName( "" );
+    setDescription("");
+    setSiteName("");
   };
 
   const removePhoto = (uri) => {
