@@ -20,25 +20,25 @@ const ViewDetailScreen = ({ route }) => {
 
   const renderSiteDetails = () => (
     <>
-      {renderDetailRow("Site Name", site.siteName)}
+      {renderDetailRow("Site Name", site.site_name)}
       {renderDetailRow("State", site.state)}
       {renderDetailRow("District", site.dist)}
       {renderDetailRow("Location", site.location)}
-      {renderDetailRow("Contact No", site.contact_number)}
-      {renderDetailRow("Project Serial Code", site.project_Serial_Code)}
-      {renderDetailRow("Project Capacity", site.project_Capacity)}
-      {renderDetailRow("CA Number", site.cANumber)}
-      {renderDetailRow("Sanction Load", site.sanctionLoad)}
-      {renderDetailRow("Meter Number", site.meterNumber)}
-      {renderDetailRow("Load Enhancement Status", site.loadEnhancementStatus)}
-      {renderDetailRow("Site Survey Status", site.siteSurveyStatus)}
-      {renderDetailRow("Net Meter Sr No", site.net_meter_no)}
-      {renderDetailRow("Solar Meter Sr NO", site.solar_meter_no)}
+      {renderDetailRow("Contact No", site.contact_no)}
+      {renderDetailRow("Project Serial Code", site.project_serial_code)}
+      {renderDetailRow("Project Capacity", site.project_capacity)}
+      {renderDetailRow("CA Number", site.ca_number)}
+      {renderDetailRow("Sanction Load", site.sanction_load)}
+      {renderDetailRow("Meter Number", site.meter_number)}
+      {renderDetailRow("Load Enhancement Status", site.load_enhancement_status)}
+      {renderDetailRow("Site Survey Status", site.site_survey_status)}
+      {renderDetailRow("Net Meter Sr No", site.net_meter_sr_no)}
+      {renderDetailRow("Solar Meter Sr NO", site.solar_meter_sr_no)}
       {renderDetailRow("Material Inspection Date", site.material_dispatch_date)}
       {renderDetailRow("SPP INSTALLATION DATE", site.material_inspection_date)}
       {renderDetailRow("COMMISSIONING DATE", site.commissioning_date)}
       {renderDetailRow("Remarks", site.remarks)}
-      {renderDetailRow("I & C Vendor Name", site.iCVendorName)}
+      {renderDetailRow("I & C Vendor Name", site.ic_vendor_name)}
     </>
   );
 
@@ -55,49 +55,7 @@ const ViewDetailScreen = ({ route }) => {
     <>
       {renderDetailRow("Vendor Name", site.name)}
       {renderDetailRow("Mail ID", site.mailId)}
-      {renderDetailRow("Contact No", site.contactNumber)}import { useState } from "react";
-import { View, ScrollView } from "react-native";
-import { SCREEN_WIDTH, typography } from "../styles";
-import MyHeader from "../components/header/MyHeader";
-import ContainerComponent from "../components/ContainerComponent";
-import { H5 } from "../components/text";
-
-const ViewDetailScreen = ({ route }) => {
-  const { site, formType } = route.params;
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-
-  const renderDetailRow = (label, value) => (
-    <View style={{ flexDirection: "row", paddingVertical: 8 }}>
-      <H5 style={[typography.textBold]}>{label}</H5>
-      <H5 style={[typography.font16, { textAlign: "right", flex: 1 }]}>
-        {value}
-      </H5>
-    </View>
-  );
-
-  const renderDetails = () => {
-    switch (formType) {
-      case "vendor":
-        return renderVendorDetails();
-      case "project":
-        return renderProjectDetails();
-      default:
-        return renderSiteDetails();
-    }
-  };
-
-  const renderSiteDetails = () => (
-    <>
-      {renderDetailRow("Site Name", site.siteName)}
-      {renderDetailRow("State", site.state)}
-      {renderDetailRow("District", site.dist)}
-      {renderDetailRow("Location", site.location)}
-      {renderDetailRow("Contact No", site.contact_number)}
-      {renderDetailRow("Project Serial Code", site.project_Serial_Code)}
-      {renderDetailRow("Project Capacity", site.project_Capacity)}
-      {renderDetailRow("CA Number", site.cANumber)}
-      {renderDetailRow("Sanction Load", site.sanctionLoad)}
-      {renderDetail
+      {renderDetailRow("Contact No", site.contactNumber)}
       {renderDetailRow("Location", site.location)}
       {renderDetailRow("GST Number", site.gstNumber)}
       {renderDetailRow("Status", site.status)}
@@ -112,8 +70,8 @@ const ViewDetailScreen = ({ route }) => {
             formType === "vendor"
               ? "vendor_details"
               : formType === "project"
-                ? "project_details"
-                : "site_details"
+              ? "project_details"
+              : "site Details"
           }
           isBack={true}
           hasIcon={true}
@@ -124,8 +82,8 @@ const ViewDetailScreen = ({ route }) => {
             {formType === "vendor"
               ? renderVendorDetails()
               : formType === "project"
-                ? renderProjectDetails()
-                : renderSiteDetails()}
+              ? renderProjectDetails()
+              : renderSiteDetails()}
           </View>
         </ScrollView>
       </View>
