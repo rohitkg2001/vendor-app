@@ -6,21 +6,32 @@ import MenuItem from "../components/MenuItem";
 import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
 import Button from "../components/buttons/Button";
-import { menuItems, vendor, projects } from "../utils/faker";
+import { menuItems, projects } from "../utils/faker";
+import { useSelector, useDispatch } from "react-redux";
 import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
+import { getAllTasks } from "../redux/actions/taskActions";
+import { useEffect } from "react";
+import { getAllProjects } from "../redux/actions/projectActions";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { vendor } = useSelector(state => state)
 
   const handleLogoutPress = () => {
     navigation.navigate("loginScreen");
   };
 
+  useEffect(() => {
+    dispatch(getAllTasks());
+    dispatch(getAllProjects());
+  }, []);
+
   return (
     <ContainerComponent justifyContent="space-between">
       <ProfileCard
         imageUri={vendor.image}
-        name={`${vendor.first_name} ${vendor.last_name}`}
+        name={`${vendor.firstName} ${vendor.lastName}`}
         contactNo={vendor.contactNo}
         onPress={() => navigation.navigate("profileScreen")}
       />
@@ -33,9 +44,9 @@ export default function SettingsScreen() {
             onPress={() => {
               item.id === 0
                 ? navigation.navigate(item.page, {
-                    DATA: projects,
-                    title: item.label,
-                  })
+                  DATA: projects,
+                  title: item.label,
+                })
                 : navigation.navigate(item.page);
             }}
           />

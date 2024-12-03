@@ -1,12 +1,12 @@
-import { VIEW_TASK, UPDATE_TASK } from "../constant";
+import { VIEW_TASK, UPDATE_TASK, BASE_URL, GET_ALL_TASKS } from "../constant";
 import { inventory, tasks, sites, projects } from "../../utils/faker";
 import { filterByStatus } from "./projectActions";
 
 export const INSTALLATION = filterByStatus(tasks, 0);
-export const FIXING_SLIP = filterByStatus(tasks, 1)
-export const RMS = filterByStatus(tasks, 2)
-export const INSPECTION = filterByStatus(tasks, 3)
-export const REPORT = filterByStatus(tasks, 4)
+export const FIXING_SLIP = filterByStatus(tasks, 1);
+export const RMS = filterByStatus(tasks, 2);
+export const INSPECTION = filterByStatus(tasks, 3);
+export const REPORT = filterByStatus(tasks, 4);
 
 export const tasksCounts = [
   {
@@ -39,7 +39,17 @@ export const tasksCounts = [
     icon: "pie-chart-outline",
     count: REPORT.length,
   },
-]
+];
+
+export const getAllTasks = () => async (dispatch) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/tasks`);
+    const data = await response.json();
+    dispatch({ type: GET_ALL_TASKS, payload: data });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const viewTask = (taskId) => async (dispatch, getState) => {
   const { tasks } = getState();

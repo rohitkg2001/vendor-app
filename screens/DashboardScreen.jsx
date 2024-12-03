@@ -40,7 +40,7 @@ export default function DashboardScreen() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dueTasks, setDueTasks] = useState(4);
   const [greeting, setGreeting] = useState("Good morning");
-  const { first_name } = useSelector((state) => state);
+  const { firstName } = useSelector((state) => state.vendor);
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
 
@@ -73,7 +73,8 @@ export default function DashboardScreen() {
       >
         <View>
           <H4 style={typography.textBold}>
-            {greeting}, {first_name}{" "}
+            {greeting},
+            {firstName}
           </H4>
           <P style={spacing.ml1}>You have {dueTasks} due tasks Today</P>
         </View>
@@ -140,19 +141,21 @@ export default function DashboardScreen() {
 
         <View
           style={[
-            spacing.mv2,
-            spacing.mr3,
             styles.row,
-            { alignItems: "center" },
+            spacing.mh1,
+            { alignItems: "center", width: SCREEN_WIDTH - 16 },
           ]}
         >
-          <H4>Today</H4>
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={showCalendar}>
-              <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
-            </TouchableOpacity>
-            <H5 style={spacing.ml1}>{today}</H5>
-          </View>
+          <H4>{t("today")}</H4>
+          <Button
+            style={[styles.btn, styles.bgPrimary, spacing.ph3]}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Icon name="calendar-outline" size={ICON_SMALL} color={LIGHT} />
+            <H5 style={[spacing.ml1, { color: "#fff", fontWeight: "600" }]}>
+              {today}
+            </H5>
+          </Button>
         </View>
 
         {/* Project Overview Card */}

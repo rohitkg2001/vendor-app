@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
@@ -11,13 +11,15 @@ import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
+import { useSelector } from "react-redux";
 
 export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false)
+  const { projects } = useSelector(state => state.project)
 
-  const { DATA, title } = route.params;
+  const { title } = route.params;
 
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
@@ -31,7 +33,7 @@ export default function ProjectsScreen({ route, navigation }) {
       <MyHeader isBack title={t(title)} hasIcon />
 
       <MyFlatList
-        data={DATA}
+        data={projects}
         renderItem={({ item, index }) => (
           <ClickableCard
             key={index}
@@ -64,7 +66,7 @@ export default function ProjectsScreen({ route, navigation }) {
           </ScrollView>
         )}
       />
-       {showBottomSheet && <Filter />}
+      {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }

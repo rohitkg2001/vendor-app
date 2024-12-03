@@ -44,10 +44,10 @@ const ViewDetailScreen = ({ route }) => {
 
   const renderProjectDetails = () => (
     <>
-      {renderDetailRow("Project Name", site.projectName)}
-      {renderDetailRow("Work Order Number", site.workOrderNumber)}
-      {renderDetailRow("Price", site.price)}
-      {renderDetailRow("Start Date", site.startDate)}
+      {renderDetailRow("Project Name", site.project_name)}
+      {renderDetailRow("Work Order Number", site.work_order_number)}
+      {renderDetailRow("Price", site.rate)}
+      {renderDetailRow("Start Date", site.start_date)}
     </>
   );
 
@@ -81,7 +81,7 @@ const ViewDetailScreen = ({ route }) => {
           <View>
             {formType === "vendor"
               ? renderVendorDetails()
-              : site.projectName
+              : formType === "project"
                 ? renderProjectDetails()
                 : renderSiteDetails()}
           </View>

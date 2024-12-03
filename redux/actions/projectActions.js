@@ -4,6 +4,8 @@ import {
   UPDATE_PROJECT,
   COUNT_PROJECTS,
   CHANGE_PROJECT_STATUS,
+  BASE_URL,
+  GET_ALL_PROJECTS,
 } from "../constant";
 import { inventory, projects, sites } from "../../utils/faker";
 
@@ -17,6 +19,15 @@ export const holdProjects = filterByStatus(projects, 2);
 export const rejectedProjects = filterByStatus(projects, 3);
 export const cancelledProjects = filterByStatus(projects, 4);
 
+export const getAllProjects = () => async (dispatch) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/projects`)
+    const data = await response.json()
+    dispatch({ type: GET_ALL_PROJECTS, payload: data })
+  } catch (error) {
+    console.log(error)
+  }
+}
 export const projectCounts = [
   {
     title: "ongoing",

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-native-paper";
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -25,7 +26,8 @@ import { useTranslation } from "react-i18next";
 const TasksScreen = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
-
+  const dispatch = useDispatch();
+  const { tasks } = useSelector((state) => state.tasks);
   const [today, setToday] = useState(moment().format("DD MMM YYYY"));
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -54,8 +56,8 @@ const TasksScreen = () => {
           style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
         >
           <View style={{ flex: 1, marginLeft: 16 }}>
-            <H6 style={[typography.textBold]}>{item.title}</H6>
-            <P style={{ fontSize: 14, color: "#020409" }}>{item.description}</P>
+            <H6 style={[typography.textBold]}>{item.task_name}</H6>
+            <P style={{ fontSize: 14, color: "#020409" }}>{item.start_date}</P>
           </View>
         </View>
       </Card>

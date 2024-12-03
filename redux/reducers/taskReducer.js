@@ -1,18 +1,30 @@
-import { initialState, UPDATE_TASK, VIEW_TASK } from "../constant";
+import { UPDATE_TASK, VIEW_TASK, GET_ALL_TASKS } from "../constant";
 
-export const taskReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case VIEW_TASK:
-      return { ...state, currentTask: payload };
+const initialState = {
+  tasks: [],
+  currentTask: null,
+};
 
+export const taskReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_TASKS:
+      return { ...state, tasks: action.payload };
     case UPDATE_TASK:
       return {
         ...state,
         tasks: state.tasks.map((task) =>
-          task.id === payload.id ? { ...task, ...payload } : task
+          task.id === action.payload.id ? action.payload : task
         ),
+        currentTask:
+          state.currentTask && state.currentTask.id === action.payload.id
+            ? action.payload
+            : state.currentTask,
       };
-
+    case VIEW_TASK:
+      return {
+        ...state,
+        currentTask: state.tasks.find((task) => task.id === action.payload),
+      };
     default:
       return state;
   }
