@@ -1,7 +1,6 @@
-import { View, TouchableOpacity, Image } from "react-native";
+import { View, Image } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import { documentData, vendor } from "../utils/faker";
 import {
   LIGHT,
   PRIMARY_COLOR,
@@ -15,6 +14,7 @@ import Avatar from "../components/Avatar";
 import { H6 } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const ProfileItem = ({ iconName, label }) => {
   return (
@@ -34,6 +34,7 @@ const ProfileItem = ({ iconName, label }) => {
 
 const ProfileScreen = () => {
   const { t } = useTranslation();
+  const { vendor } = useSelector(state => state)
 
   return (
     <ContainerComponent>
@@ -43,13 +44,13 @@ const ProfileScreen = () => {
         <View style={[styles.row, { alignItems: "center", marginTop: -10 }]}>
           <Avatar
             avatar={vendor.image}
-            name={`${vendor.first_name} ${vendor.last_name}`}
+            name={`${vendor.firstName} ${vendor.lastName}`}
             online={false}
           />
 
           <View style={spacing.mh1}>
             <H6 style={[typography.font14, { color: LIGHT }]}>
-              {vendor.first_name} {vendor.last_name}
+              {vendor.firstName} {vendor.lastName}
             </H6>
             <H6 style={[typography.font14, { color: LIGHT }]}>
               {vendor.email}
@@ -65,7 +66,7 @@ const ProfileScreen = () => {
       </CardFullWidth>
 
       <MyFlatList
-        data={documentData}
+        data={[]}
         renderItem={({ item }, index) => (
           <ProfileItem
             key={index}
@@ -74,6 +75,7 @@ const ProfileScreen = () => {
           />
         )}
         keyExtractor={(item, index) => index.toString()}
+      // TODO:Apply no document here
       />
     </ContainerComponent>
   );

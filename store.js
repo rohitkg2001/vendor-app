@@ -1,12 +1,9 @@
 // import { configureStore, createSlice } from '@reduxjs/toolkit'
 import { initialState } from './redux/constant'
-import { vendorReducer } from './redux/reducers/vendorReducer'
+import reducer from './redux/reducers'
 import { createStore, applyMiddleware } from 'redux'
 import Thunk from 'redux-thunk'
 
 
-const store = createStore(vendorReducer, initialState, applyMiddleware(Thunk))
+const store = createStore(reducer, initialState, applyMiddleware(Thunk))
 export default store;
-
-
-``

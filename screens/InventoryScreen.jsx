@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
@@ -20,7 +20,7 @@ export default function InventoryScreen() {
   const [isVisible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const { t } = useTranslation();
-  const [showBottomSheet, setShowBottomSheet] = useState(false)
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
 
   const viewItem = (id) => {
     setVisible(true);
@@ -28,10 +28,12 @@ export default function InventoryScreen() {
     const thisProject = projects.find((item) => item.id === thisItem.projectId);
     const thisSite = sites.find((item) => item.id === thisItem.siteId);
     const itemDetails = { ...thisItem, ...thisProject, ...thisSite };
-    console.log(itemDetails);
     setSelectedItem(itemDetails);
   };
-  // TODO:This logic will be replaced by api and reducer
+
+  useEffect(() => {
+    console.log(inventory);
+  }, [inventory]);
 
   return (
     <ContainerComponent>
@@ -71,7 +73,7 @@ export default function InventoryScreen() {
         onClose={() => setVisible(false)}
         selectedItem={selectedItem}
       />
-       {showBottomSheet && <Filter />}
+      {showBottomSheet && <Filter />}
     </ContainerComponent>
   );
 }

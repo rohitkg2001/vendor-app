@@ -7,16 +7,17 @@ import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard from "../components/card/Clickablecard";
 import NoRecord from "./NoRecord";
 import Button from "../components/buttons/Button";
-import { projects } from "../utils/faker";
 import { LIGHT, SCREEN_WIDTH, spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
 import { ICON_MEDIUM } from "../styles/constant";
 import Filter from "../components/Filter";
+import { useSelector } from "react-redux";
 
 export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const { projects } = useSelector(state => state.project)
 
   return (
     <ContainerComponent>

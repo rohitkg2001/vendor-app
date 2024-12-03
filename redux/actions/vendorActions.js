@@ -1,4 +1,4 @@
-import { LOGIN_VENDOR } from "../constant";
+import { BASE_URL, LOGIN_VENDOR } from "../constant";
 import moment from "moment";
 import { vendor } from "../../utils/faker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -19,11 +19,28 @@ export const greet = () => {
 };
 
 export const login = (user, pass) => async (dispatch) => {
-  if (user === vendor.email && pass === vendor.password) {
-    await dispatch({ type: LOGIN_VENDOR, payload: vendor });
-    return true;
-  } else {
-    return false;
+  try {
+    const response = await fetch(`${BASE_URL}/api/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: user, password: pass })
+      }
+    )
+    const data = await response.json()
+    if (data.status === 200) {
+      if (data.user.role !== 3) {
+        alert("You are not authorised to use this app")
+        return false
+      }
+      dispatch({ type: LOGIN_VENDOR, payload: data.user })
+      return true
+    }
+  } catch (err) {
+    console.log(err)
+    return false
   }
   // TODO:Write api call for login
 };

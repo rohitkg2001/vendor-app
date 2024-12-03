@@ -44,10 +44,10 @@ const ViewDetailScreen = ({ route }) => {
 
   const renderProjectDetails = () => (
     <>
-      {renderDetailRow("Project Name", site.projectName)}
-      {renderDetailRow("Work Order Number", site.workOrderNumber)}
-      {renderDetailRow("Price", site.price)}
-      {renderDetailRow("Start Date", site.startDate)}
+      {renderDetailRow("Project Name", site.project_name)}
+      {renderDetailRow("Work Order Number", site.work_order_number)}
+      {renderDetailRow("Price", site.rate)}
+      {renderDetailRow("Start Date", site.start_date)}
     </>
   );
 
@@ -55,7 +55,49 @@ const ViewDetailScreen = ({ route }) => {
     <>
       {renderDetailRow("Vendor Name", site.name)}
       {renderDetailRow("Mail ID", site.mailId)}
-      {renderDetailRow("Contact No", site.contactNumber)}
+      {renderDetailRow("Contact No", site.contactNumber)}import { useState } from "react";
+import { View, ScrollView } from "react-native";
+import { SCREEN_WIDTH, typography } from "../styles";
+import MyHeader from "../components/header/MyHeader";
+import ContainerComponent from "../components/ContainerComponent";
+import { H5 } from "../components/text";
+
+const ViewDetailScreen = ({ route }) => {
+  const { site, formType } = route.params;
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const renderDetailRow = (label, value) => (
+    <View style={{ flexDirection: "row", paddingVertical: 8 }}>
+      <H5 style={[typography.textBold]}>{label}</H5>
+      <H5 style={[typography.font16, { textAlign: "right", flex: 1 }]}>
+        {value}
+      </H5>
+    </View>
+  );
+
+  const renderDetails = () => {
+    switch (formType) {
+      case "vendor":
+        return renderVendorDetails();
+      case "project":
+        return renderProjectDetails();
+      default:
+        return renderSiteDetails();
+    }
+  };
+
+  const renderSiteDetails = () => (
+    <>
+      {renderDetailRow("Site Name", site.siteName)}
+      {renderDetailRow("State", site.state)}
+      {renderDetailRow("District", site.dist)}
+      {renderDetailRow("Location", site.location)}
+      {renderDetailRow("Contact No", site.contact_number)}
+      {renderDetailRow("Project Serial Code", site.project_Serial_Code)}
+      {renderDetailRow("Project Capacity", site.project_Capacity)}
+      {renderDetailRow("CA Number", site.cANumber)}
+      {renderDetailRow("Sanction Load", site.sanctionLoad)}
+      {renderDetail
       {renderDetailRow("Location", site.location)}
       {renderDetailRow("GST Number", site.gstNumber)}
       {renderDetailRow("Status", site.status)}
@@ -68,10 +110,10 @@ const ViewDetailScreen = ({ route }) => {
         <MyHeader
           title={
             formType === "vendor"
-              ? "Vendor Details"
-              : site.projectName
-              ? "Project Details"
-              : "Site Details"
+              ? "vendor_details"
+              : formType === "project"
+                ? "project_details"
+                : "site_details"
           }
           isBack={true}
           hasIcon={true}
@@ -81,9 +123,9 @@ const ViewDetailScreen = ({ route }) => {
           <View>
             {formType === "vendor"
               ? renderVendorDetails()
-              : site.projectName
-              ? renderProjectDetails()
-              : renderSiteDetails()}
+              : formType === "project"
+                ? renderProjectDetails()
+                : renderSiteDetails()}
           </View>
         </ScrollView>
       </View>
