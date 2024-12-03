@@ -54,10 +54,10 @@ export default function ClickableCard({
           {isEarning && (
             <>
               <H6 style={[typography.textBold]}>{item.project_name}</H6>
-              <H6 style={{ fontSize: 14 }}>
+              <H6 style={typography.font14}>
                 {t("total_earning")}: {item.total_earnings}
               </H6>
-              <P style={{ fontSize: 14 }}>
+              <P style={typography.font14}>
                 {t("completion_date")}: {item.completion_date}
               </P>
             </>
@@ -79,7 +79,7 @@ export default function ClickableCard({
           <Button
             style={{
               position: "absolute",
-              right: spacing.mr2.marginRight,
+              right: spacing.mr2,
               top: 40,
             }}
           >
