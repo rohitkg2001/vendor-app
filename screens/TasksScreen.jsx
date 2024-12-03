@@ -11,7 +11,7 @@ import MyHeader from "../components/header/MyHeader";
 import { H6, H4, H5, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
 import Button from "../components/buttons/Button";
-import { tasks } from "../utils/faker";
+import NoRecord from './NoRecord'
 import {
   SCREEN_WIDTH,
   spacing,
@@ -100,6 +100,7 @@ const TasksScreen = () => {
         renderItem={renderTaskItem}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
+        ListEmptyComponent={() => <NoRecord msg={t('no_task')} />}
       />
     </ContainerComponent>
   );

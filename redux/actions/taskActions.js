@@ -45,6 +45,7 @@ export const getAllTasks = () => async (dispatch) => {
   try {
     const response = await fetch(`${BASE_URL}/api/tasks`);
     const data = await response.json();
+    console.log(data)
     dispatch({ type: GET_ALL_TASKS, payload: data });
   } catch (error) {
     console.error(error);

@@ -4,10 +4,12 @@ import { SCREEN_WIDTH, typography } from "../styles";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
+import { useTranslation } from "react-i18next";
 
 const ViewDetailScreen = ({ route }) => {
   const { site, formType } = route.params;
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const { t } = useTranslation();
 
   const renderDetailRow = (label, value) => (
     <View style={{ flexDirection: "row", paddingVertical: 8 }}>
@@ -46,7 +48,6 @@ const ViewDetailScreen = ({ route }) => {
     <>
       {renderDetailRow("Project Name", site.project_name)}
       {renderDetailRow("Work Order Number", site.work_order_number)}
-      {renderDetailRow("Price", site.rate)}
       {renderDetailRow("Start Date", site.start_date)}
     </>
   );
@@ -72,10 +73,10 @@ const ViewDetailScreen = ({ route }) => {
         <MyHeader
           title={
             formType === "vendor"
-              ? "vendor_details"
+              ? t("vendor_details")
               : formType === "project"
-              ? "project_details"
-              : "site Details"
+                ? t('project_overview')
+                : t("site_details")
           }
           isBack={true}
           hasIcon={true}
@@ -86,8 +87,8 @@ const ViewDetailScreen = ({ route }) => {
             {formType === "vendor"
               ? renderVendorDetails()
               : formType === "project"
-              ? renderProjectDetails()
-              : renderSiteDetails()}
+                ? renderProjectDetails()
+                : renderSiteDetails()}
           </View>
         </ScrollView>
       </View>

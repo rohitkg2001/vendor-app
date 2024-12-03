@@ -42,7 +42,6 @@ export const login = (user, pass) => async (dispatch) => {
     console.log(err)
     return false
   }
-  // TODO:Write api call for login
 };
 
 export const changePassword = (old_pass, new_pass) => async (dispatch) => {
