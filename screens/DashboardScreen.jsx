@@ -8,7 +8,20 @@ import MyFlatList from "../components/utility/MyFlatList";
 import { H3, H4, H5, P, Span } from "../components/text";
 import CardFullWidth from "../components/card/CardFullWidth";
 import StatCard from "../components/card/Statcard";
-import { layouts, LIGHT, PRIMARY_COLOR, PRIMARY_COLOR_TRANSPARENT, DARK, SCREEN_WIDTH, spacing, styles, typography, ICON_SMALL, ICON_MEDIUM, ICON_LARGE } from "../styles";
+import {
+  layouts,
+  LIGHT,
+  PRIMARY_COLOR,
+  PRIMARY_COLOR_TRANSPARENT,
+  DARK,
+  SCREEN_WIDTH,
+  spacing,
+  styles,
+  typography,
+  ICON_SMALL,
+  ICON_MEDIUM,
+  ICON_LARGE,
+} from "../styles";
 import { vendor, projects } from "../utils/faker";
 import { useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
@@ -26,7 +39,7 @@ export default function DashboardScreen() {
   const [greeting, setGreeting] = useState("Good morning");
   const { first_name } = useSelector((state) => state);
   const { t } = useTranslation();
-  const [showBottomSheet, setShowBottomSheet] = useState(false)
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
 
   useEffect(() => {
     setGreeting(greet());
@@ -110,17 +123,21 @@ export default function DashboardScreen() {
 
         <View
           style={[
-            spacing.mv2,
-            spacing.mr3,
             styles.row,
-            { alignItems: "center" },
+            spacing.mh1,
+            { alignItems: "center", width: SCREEN_WIDTH - 16 },
           ]}
         >
-          <H4>Today</H4>
-          <View style={{ flexDirection: "row" }}>
-            <Icon name="calendar-outline" size={ICON_SMALL} color={DARK} />
-            <H5 style={spacing.ml1}>{today}</H5>
-          </View>
+          <H4>{t("today")}</H4>
+          <Button
+            style={[styles.btn, styles.bgPrimary, spacing.ph3]}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Icon name="calendar-outline" size={ICON_SMALL} color={LIGHT} />
+            <H5 style={[spacing.ml1, { color: "#fff", fontWeight: "600" }]}>
+              {today}
+            </H5>
+          </Button>
         </View>
 
         {/* Project Overview Card */}

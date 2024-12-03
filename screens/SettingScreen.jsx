@@ -7,14 +7,21 @@ import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
 import Button from "../components/buttons/Button";
 import { menuItems, vendor, projects } from "../utils/faker";
+import { useSelector, useDispatch } from "react-redux";
 import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
+import { getAllTasks } from "../redux/actions/taskActions";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleLogoutPress = () => {
     navigation.navigate("loginScreen");
   };
+
+  useEffect(() => {
+    dispatch(getAllTasks());
+  }, []);
 
   return (
     <ContainerComponent justifyContent="space-between">

@@ -1,3 +1,6 @@
+//export const BASE_URL = "http://192.168.1.9:8000";
+export const BASE_URL = "https://dashandots.tech";
+
 export const LOGIN_VENDOR = "LOGIN_VENDOR";
 export const LOGIN_VENDOR_SUCCESS = "LOGIN_VENDOR_SUCCESS";
 export const LOGIN_VENDOR_FAILURE = "LOGIN_VENDOR_FAILURE";
@@ -16,6 +19,12 @@ export const SEARCH_PROJECT = "SEARCH_PROJECT";
 export const UPDATE_PROJECT = "UPDATE_PROJECT";
 export const COUNT_PROJECTS = "COUNT_PROJECTS";
 export const CHANGE_PROJECT_STATUS = "CHANGE_PROJECT_STATUS";
+
+export const GET_ALL_INVENTORY = "GET_ALL_INVENTORY";
+export const VIEW_INVENTORY = "VIEW_INVENTORY";
+export const UPDATE_INVENTORY = "UPDATE_INVENTORY";
+export const SEARCH_INVENTORY = "SEARCH_INVENTORY";
+export const COUNT_INVENTORY = "COUNT_INVENTORY";
 
 export const VIEW_PAYMENT = "VIEW_PAYMENT";
 export const SEARCH_PAYMENT = "SEARCH_PAYMENT";
