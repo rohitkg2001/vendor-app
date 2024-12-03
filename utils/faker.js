@@ -13,24 +13,7 @@ export const alertMessage = ({
   ]);
 };
 
-export const vendor = {
-  id: 1,
-  first_name: "Rakesh",
-  last_name: "Sharma",
-  user_type: "staff",
-  role: 0,
-  email: "rakesh.sharma@gmail.com",
-  password: "12345678",
-  status: "active",
-  disable_login: 0,
-  address: "123 gali, jhajjar, Haryana",
-  contactNo: "9909230912",
-  last_online: "2024-10-03 05:41:49",
-  file: "file-pdf",
-  uploaded_by: "rakesh sharma",
-  createdAt: "",
-  updatedAt: "",
-};
+
 
 export const projects = [
   {
@@ -149,14 +132,14 @@ export const inventory = [
     id: 1,
     projectId: 1,
     siteId: 1,
-    productName: "Solar LED Street Light",
+    product_name: "Solar LED Street Light",
     description: "Eco-friendly solar-powered street light with motion sensor.",
     unit: "pcs",
-    initialQuantity: "1000",
-    qtyStock: "1000",
-    materialDispatchDate: "20 Nov 2024",
-    deliveryDate: "20 Nov 2024",
-    allocationOfficer: "Bittu Gupta",
+    initial_quantity: "1000",
+    qty_stock: "1000",
+    material_dispatch_date: "20 Nov 2024",
+    delivery_date: "20 Nov 2024",
+    allocation_officer: "Bittu Gupta",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
   },
   {
@@ -166,11 +149,11 @@ export const inventory = [
     product_name: "Smart Street Light System",
     description: "Automated street light system with IoT connectivity.",
     unit: "pcs",
-    initialQuantity: "1000",
-    qtyStock: "200",
-    materialDispatchDate: "20 Nov 2024",
-    deliveryDate: "24 Nov 2024",
-    allocationOfficer: "Bittu Mishra",
+    initial_quantity: "1000",
+    qty_stock: "200",
+    material_dispatch_date: "20 Nov 2024",
+    delivery_date: "24 Nov 2024",
+    allocation_officer: "Bittu Mishra",
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
   },
 ];
