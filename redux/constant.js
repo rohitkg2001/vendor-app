@@ -1,6 +1,5 @@
-export const BASE_URL = "http://192.168.1.9:8000";
-// export const BASE_URL = "https://dashandots.tech";
-
+//export const BASE_URL = "http://192.168.1.9:8000";
+export const BASE_URL = "https://dashandots.tech";
 
 export const initialState = {};
 
@@ -11,14 +10,14 @@ export const LOGIN_VENDOR_LOGOUT = "LOGIN_VENDOR_LOGOUT";
 export const LOGIN_VENDOR_CHANGE_PASSWORD = "LOGIN_VENDOR_CHANGE_PASSWORD";
 export const LOGIN_VENDOR_VIEW_PROFILE = "LOGIN_VENDOR_VIEW_PROFILE";
 
-export const GET_ALL_TASKS = "GET_ALL_TASKS"
+export const GET_ALL_TASKS = "GET_ALL_TASKS";
 export const VIEW_TASK = "VIEW_TASK";
 export const UPDATE_TASK = "UPDATE_TASK,";
 
 export const VIEW_SITE = "VIEW_SITE";
 export const SEARCH_SITE = "SEARCH_SITE";
 
-export const GET_ALL_PROJECTS = "GET_ALL_PROJECTS"
+export const GET_ALL_PROJECTS = "GET_ALL_PROJECTS";
 export const VIEW_PROJECT = "VIEW_PROJECT";
 export const SEARCH_PROJECT = "SEARCH_PROJECT";
 export const UPDATE_PROJECT = "UPDATE_PROJECT";
@@ -36,7 +35,5 @@ export const SEARCH_PAYMENT = "SEARCH_PAYMENT";
 export const UPDATE_PAYMENT = "UPDATE_PAYMENT";
 export const DELETE_PAYMENT = "DELETE_PAYMENT";
 export const COUNT_PAYMENTS = "COUNT_PAYMENTS";
-
-
 
 // Set all constants here including assets, texts,etc

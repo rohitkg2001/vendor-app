@@ -6,7 +6,6 @@ import { H6, P } from "../text";
 import { spacing, typography, SCREEN_WIDTH, LIGHT } from "../../styles";
 import { useTranslation } from "react-i18next";
 
-
 export default function ClickableCard({
   item,
   handleViewDetails,
@@ -45,7 +44,7 @@ export default function ClickableCard({
           )}
           {isSite && (
             <>
-              <H6 style={[typography.textBold]}>{item.siteName || item.id}</H6>
+              <H6 style={[typography.textBold]}>{item.site_name || item.id}</H6>
               <P style={{ fontSize: 14 }}>
                 {item.location},{item.dist}
               </P>
@@ -54,12 +53,12 @@ export default function ClickableCard({
           )}
           {isEarning && (
             <>
-              <H6 style={[typography.textBold]}>{item.projectName}</H6>
+              <H6 style={[typography.textBold]}>{item.project_name}</H6>
               <H6 style={{ fontSize: 14 }}>
-                {t("total_earning")}: {item.totalEarnings}
+                {t("total_earning")}: {item.total_earnings}
               </H6>
               <P style={{ fontSize: 14 }}>
-                {t("completion_date")}: {item.completionDate}
+                {t("completion_date")}: {item.completion_date}
               </P>
             </>
           )}
