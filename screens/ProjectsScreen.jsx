@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
@@ -11,6 +12,11 @@ import Button from "../components/buttons/Button";
 import { LIGHT, SCREEN_WIDTH, spacing, styles, ICON_MEDIUM } from "../styles";
 import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
+import {
+  viewProject,
+  searchProjects,
+  updateProject,
+} from "../redux/actions/projectActions";
 
 export default function ProjectsScreen({ route, navigation }) {
   const [searchText, setSearchText] = useState("");
@@ -19,12 +25,29 @@ export default function ProjectsScreen({ route, navigation }) {
 
   const { DATA, title } = route.params;
 
-  const handleViewDetails = (item) => {
-    navigation.navigate("viewDetailScreen", {
-      site: item,
-      formType: "project",
-    });
-  };
+ useEffect(() => {
+   if (loading && Array.isArray(projects) && projects.length > 0) {
+     setFilteredProjects(projects);
+     setLoading(false);
+   }
+   setTimeout(() => {
+     setLoading(false);
+   }, 2000);
+ }, [loading, projects]);
+
+ useEffect(() => {
+   dispatch(fetchProjects());
+ }, [dispatch]);
+
+ const handleViewDetails = (item) => {
+   dispatch(viewProject(item));
+   navigation.navigate("ViewDetailScreen", { formType: "project" });
+ };
+
+ const handleSearch = (text) => {
+   setSearchText(text);
+   dispatch(searchProjects(text));
+ };
 
   return (
     <ContainerComponent>

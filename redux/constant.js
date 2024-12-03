@@ -1,3 +1,4 @@
+export const BASE_URL = "https://dashandots.tech";
 export const LOGIN_VENDOR = "LOGIN_VENDOR";
 export const LOGIN_VENDOR_SUCCESS = "LOGIN_VENDOR_SUCCESS";
 export const LOGIN_VENDOR_FAILURE = "LOGIN_VENDOR_FAILURE";

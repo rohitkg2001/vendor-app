@@ -76,17 +76,12 @@ export const statCards = [
   },
 ];
 
-export const viewProject = (projectId) => async (dispatch, getState) => {
-  const { projects } = getState();
-  const project = projects.find((project) => project.id === projectId);
 
-  if (project) {
-    await dispatch({ type: VIEW_PROJECT, payload: project });
-    return true;
-  } else {
-    console.error("Project not found");
-    return false;
-  }
+
+export const viewProject = (projectId) => async (dispatch) => {
+  const response = await fetch(`${BASE_URL}/api/projects/${projectId}`);
+  const data = await response.json();
+  dispatch({ type: VIEW_PROJECT, payload: data });
 };
 
 export const searchProject = (searchQuery) => async (dispatch, getState) => {
@@ -99,27 +94,36 @@ export const searchProject = (searchQuery) => async (dispatch, getState) => {
   return searchResults;
 };
 
-export const updateProject =
-  (projectId, updatedProjectData) => async (dispatch, getState) => {
-    const { projects } = getState();
-    const projectIndex = projects.findIndex(
-      (project) => project.id === projectId
-    );
 
-    if (projectIndex !== -1) {
-      const updatedProjects = [...projects];
-      updatedProjects[projectIndex] = {
-        ...updatedProjects[projectIndex],
-        ...updatedProjectData,
-      };
 
-      await dispatch({ type: UPDATE_PROJECT, payload: updatedProjects });
-      return true;
-    } else {
-      console.error("Project not found");
-      return false;
+export const updateProject = (projectId, updatedData) => async (dispatch) => {
+  dispatch({ type: "UPDATE_PROJECT_REQUEST" });
+  try {
+    const response = await fetch(`API_URL_HERE/projects/${projectId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to update project');
     }
-  };
+
+    const data = await response.json();
+    dispatch({
+      type: "UPDATE_PROJECT_SUCCESS",
+      payload: data, // the updated project
+    });
+  } catch (error) {
+    dispatch({
+      type: "UPDATE_PROJECT_FAILURE",
+      error: error.message,
+    });
+  }
+};
+
 
 export const countProjects = () => async (dispatch, getState) => {
   const { projects } = getState();
