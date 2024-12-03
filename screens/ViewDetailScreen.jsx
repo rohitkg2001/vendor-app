@@ -54,10 +54,14 @@ const ViewDetailScreen = ({ route }) => {
   const renderVendorDetails = () => (
     <>
       {renderDetailRow("Vendor Name", site.name)}
-      {renderDetailRow("Mail ID", site.mailId)}
-      {renderDetailRow("Contact No", site.contactNumber)}
-      {renderDetailRow("Location", site.location)}
-      {renderDetailRow("GST Number", site.gstNumber)}
+      {renderDetailRow("Mail ID", site.email)}
+      {renderDetailRow("Contact Number", site.contact_no)}
+      {renderDetailRow("Aadhar Number", site.aadhar_number)}
+      {renderDetailRow("Account Name", site.account_name)}
+      {renderDetailRow("Ifsc", site.ifsc)}
+      {renderDetailRow("Bank Name", site.bank_name)}
+      {renderDetailRow("Gst Number", site.gst_number)}
+      {renderDetailRow("Pan Number", site.pan_number)}
       {renderDetailRow("Status", site.status)}
     </>
   );
