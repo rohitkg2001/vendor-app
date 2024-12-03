@@ -1,5 +1,5 @@
 //export const BASE_URL = "http://192.168.1.9:8000";
-export const BASE_URL = "https://dashandots.tech";
+export const BASE_URL = "https://slldm.com";
 
 export const initialState = {};
 
