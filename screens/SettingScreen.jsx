@@ -12,11 +12,12 @@ import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
 import { getAllTasks } from "../redux/actions/taskActions";
 import { useEffect } from "react";
 import { getAllProjects } from "../redux/actions/projectActions";
+import { getAllItems } from "../redux/actions/inventoryActions";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { vendor } = useSelector(state => state)
+  const { vendor } = useSelector((state) => state);
 
   const handleLogoutPress = () => {
     navigation.navigate("loginScreen");
@@ -25,6 +26,7 @@ export default function SettingsScreen() {
   useEffect(() => {
     dispatch(getAllTasks());
     dispatch(getAllProjects());
+    dispatch(getAllItems());
   }, []);
 
   return (
@@ -44,9 +46,9 @@ export default function SettingsScreen() {
             onPress={() => {
               item.id === 0
                 ? navigation.navigate(item.page, {
-                  DATA: projects,
-                  title: item.label,
-                })
+                    DATA: projects,
+                    title: item.label,
+                  })
                 : navigation.navigate(item.page);
             }}
           />

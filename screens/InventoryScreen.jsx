@@ -12,7 +12,7 @@ import Button from "../components/buttons/Button";
 import { ICON_MEDIUM, LIGHT, styles, spacing, SCREEN_WIDTH } from "../styles";
 import { View } from "react-native";
 import Filter from "../components/Filter";
-
+import { useSelector } from "react-redux";
 import InventoryDetailsModal from "../components/InventoryDetailsModal";
 
 export default function InventoryScreen() {
@@ -21,6 +21,7 @@ export default function InventoryScreen() {
   const [selectedItem, setSelectedItem] = useState(null);
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const { inventory } = useSelector((state) => state.inventory);
 
   const viewItem = (id) => {
     setVisible(true);
