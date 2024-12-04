@@ -48,8 +48,8 @@ export default function DashboardScreen() {
   useEffect(() => {
     setGreeting(greet());
     dispatch(getAllProjects())
-    dispatch(getAllSites())
-    dispatch(getAllItems())
+    // dispatch(getAllSites())
+    // dispatch(getAllItems())
   }, []);
 
   const handleDateChange = (event, date) => {

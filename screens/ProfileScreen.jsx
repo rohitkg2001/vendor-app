@@ -13,6 +13,7 @@ import CardFullWidth from "../components/card/CardFullWidth";
 import Avatar from "../components/Avatar";
 import { H6 } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
+import NoRecord from "./NoRecord";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
@@ -48,7 +49,7 @@ const ProfileScreen = () => {
             online={false}
           />
 
-          <View style={spacing.mh1}>
+          <View style={spacing.mh2}>
             <H6 style={[typography.font14, { color: LIGHT }]}>
               {vendor.firstName} {vendor.lastName}
             </H6>
@@ -74,8 +75,8 @@ const ProfileScreen = () => {
             label={item.documentName}
           />
         )}
+        ListEmptyComponent={() => <NoRecord msg={t("no_document")} />}
         keyExtractor={(item, index) => index.toString()}
-      // TODO:Apply no document here
       />
     </ContainerComponent>
   );

@@ -25,6 +25,8 @@
     "no_inventory": "No items found in inventory.Please contact admin.",
     "no_task": "Oops! No Tasks available. Please contact admin.",
     "no_site": "Oops! No Sites available. Please contact admin.",
+    "no_document" : "Oops! No Documents available. Please contact admin",
+    "no_report" : "Oops! No Reports available. Please generate report",
     "placeholder": "Search",
     "task_list": "Task List",
     "total_sites": "Total Sites",
