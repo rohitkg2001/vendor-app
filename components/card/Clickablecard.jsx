@@ -79,7 +79,7 @@ export default function ClickableCard({
           <Button
             style={{
               position: "absolute",
-              right: spacing.mr2,
+              right: 16,
               top: 40,
             }}
           >
