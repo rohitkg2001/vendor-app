@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Avatar, List } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { notifications } from "../utils/faker";
@@ -10,18 +12,15 @@ import { useTranslation } from "react-i18next";
 
 export default function NotificationScreen() {
   const { t } = useTranslation();
+  const navigation = useNavigation();
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={spacing.bbw05}>
+    <TouchableOpacity
+      style={spacing.bbw05}
+      onPress={() => navigation.navigate("stockApprovalScreen", { item })}
+    >
       <List.Item
         title={<H5 style={styles.titleText}>{item.title}</H5>}
         description={<P style={styles.description}>{item.description}</P>}
-        left={() => (
-          <Avatar.Icon
-            size={ICON_LARGE}
-            icon={item.icon}
-            backgroundColor={PRIMARY_COLOR}
-          />
-        )}
         right={() => <H2 style={styles.time}>{item.time}</H2>}
       />
     </TouchableOpacity>
@@ -29,12 +28,7 @@ export default function NotificationScreen() {
 
   return (
     <ContainerComponent>
-      <MyHeader
-        title={t("notification_title")}
-        isBack={true}
-        hasIcon={true}
-        icon={"search-outline"}
-      />
+      <MyHeader title={t("notification_title")} isBack={true} hasIcon={true} />
       <MyFlatList
         data={notifications}
         renderItem={renderItem}
