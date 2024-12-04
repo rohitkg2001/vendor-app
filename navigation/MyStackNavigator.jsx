@@ -14,11 +14,15 @@ import SiteScreen from "../screens/SiteScreen";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
 import ViewDetailScreen from "../screens/ViewDetailScreen";
+import StockApprovalScreen from "../screens/StockApprovalScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
-    <Stack.Navigator initialRouteName="loginScreen" screenOptions={{ headerShown: false, }} >
+    <Stack.Navigator
+      initialRouteName="loginScreen"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
@@ -34,6 +38,10 @@ export default function MyStackNavigator() {
       <Stack.Screen name="projectsScreen" component={ProjectsScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
       <Stack.Screen name="viewDetailScreen" component={ViewDetailScreen} />
+      <Stack.Screen
+        name="stockApprovalScreen"
+        component={StockApprovalScreen}
+      />
     </Stack.Navigator>
   );
 }

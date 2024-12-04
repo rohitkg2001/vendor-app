@@ -31,9 +31,7 @@ import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
 import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
-import { getAllSites } from "../redux/actions/siteActions";
-import { getAllItems } from "../redux/actions/inventoryActions";
-
+import NotificationScreen from "./NotificationScreen";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -79,8 +77,7 @@ export default function DashboardScreen() {
       >
         <View>
           <H4 style={typography.textBold}>
-            {greeting},
-            {firstName}
+            {greeting},{firstName}
           </H4>
           <P style={spacing.ml1}>You have {dueTasks} due tasks Today</P>
         </View>
@@ -92,6 +89,7 @@ export default function DashboardScreen() {
             spacing.br5,
             { position: "relative" },
           ]}
+          onPress={() => navigation.navigate("notificationScreen")}
         >
           <Icon name="notifications-outline" size={ICON_MEDIUM} color={DARK} />
           <View
