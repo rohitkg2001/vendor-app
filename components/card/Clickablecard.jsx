@@ -70,7 +70,6 @@ export default function ClickableCard({
                 Work Order Number: {item.work_order_number}
               </P>
               <P style={{ fontSize: 14 }}>Start Date: {item.start_date}</P>
-              <P style={{ fontSize: 14 }}>Order Value: {item.rate}</P>
             </>
           )}
         </View>
