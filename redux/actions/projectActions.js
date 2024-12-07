@@ -39,18 +39,6 @@ export const projectCounts = [
     data: completedProjects,
     page: "projectsScreen",
   },
-  {
-    title: "hold",
-    count: holdProjects.length,
-    data: holdProjects,
-    page: "projectsScreen",
-  },
-  {
-    title: "rejected",
-    count: rejectedProjects.length,
-    data: rejectedProjects,
-    page: "projectsScreen",
-  },
 ];
 
 export const statCards = [
