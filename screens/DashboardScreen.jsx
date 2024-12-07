@@ -251,8 +251,7 @@ export default function DashboardScreen() {
                 ]}
                 onPress={() => {
                   if (
-                    item.label === "Installation" ||
-                    item.label === "Fixing Slip"
+                    item.label === "Installation" 
                   ) {
                     navigation.navigate("taskScreen");
                   }

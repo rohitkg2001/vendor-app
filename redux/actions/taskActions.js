@@ -15,12 +15,6 @@ export const tasksCounts = [
     count: INSTALLATION.length,
   },
   {
-    id: "2",
-    label: "Fixing Slip",
-    icon: "grid-outline",
-    count: FIXING_SLIP.length,
-  },
-  {
     id: "3",
     label: "RMS Status",
     icon: "cart-outline",
@@ -32,12 +26,7 @@ export const tasksCounts = [
     icon: "document-text-outline",
     count: INSPECTION.length,
   },
-  {
-    id: "5",
-    label: "Report",
-    icon: "pie-chart-outline",
-    count: REPORT.length,
-  },
+  
 ];
 
 export const getAllTasks = () => async (dispatch) => {
