@@ -25,13 +25,11 @@ export default function InventoryScreen() {
   const viewItem = (id) => {
     setVisible(true);
     const thisItem = inventory.find((item) => item.id === id);
-    const itemDetails = { ...thisItem, };
+    const itemDetails = { ...thisItem };
     setSelectedItem(itemDetails);
   };
 
-  useEffect(() => {
-    console.log(inventory);
-  }, [inventory]);
+  useEffect(() => {}, [inventory]);
 
   return (
     <ContainerComponent>

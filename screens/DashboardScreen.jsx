@@ -25,7 +25,11 @@ import {
 } from "../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
-import { getAllProjects, projectCounts, statCards } from "../redux/actions/projectActions";
+import {
+  getAllProjects,
+  projectCounts,
+  statCards,
+} from "../redux/actions/projectActions";
 import { tasksCounts } from "../redux/actions/taskActions";
 import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
@@ -43,11 +47,11 @@ export default function DashboardScreen() {
   const { firstName } = useSelector((state) => state.vendor);
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setGreeting(greet());
-    dispatch(getAllProjects())
+    dispatch(getAllProjects());
     // dispatch(getAllSites())
     // dispatch(getAllItems())
   }, []);
@@ -178,7 +182,7 @@ export default function DashboardScreen() {
               size={ICON_LARGE}
               color={PRIMARY_COLOR}
             />
-            <H5 style={[typography.textBold, spacing.ml2]}>
+            <H5 style={[typography.textBold, spacing.ml]}>
               {t("project_overview")}
             </H5>
           </View>
@@ -191,14 +195,21 @@ export default function DashboardScreen() {
           >
             {projectCounts.map((item, index) => (
               <TouchableOpacity
-                style={{ alignItems: "center", width: '20%' }}
+                style={{ alignItems: "center", width: "25%" }}
                 onPress={() =>
                   navigation.navigate(item.page, {
                     title: `${item.title}_projects`.toLowerCase(),
                   })
                 }
               >
-                <P style={[typography.textBold, { textTransform: "capitalize", flexWrap: 'wrap' }]}>{t(item.title)}</P>
+                <P
+                  style={[
+                    typography.textBold,
+                    { textTransform: "capitalize", flexWrap: "wrap" },
+                  ]}
+                >
+                  {t(item.title)}
+                </P>
                 <P>{item.count || 0}</P>
               </TouchableOpacity>
             ))}
@@ -250,9 +261,7 @@ export default function DashboardScreen() {
                   spacing.p4,
                 ]}
                 onPress={() => {
-                  if (
-                    item.label === "Installation" 
-                  ) {
+                  if (item.label === "Installation") {
                     navigation.navigate("taskScreen");
                   }
                 }}

@@ -20,27 +20,24 @@ export const greet = () => {
 
 export const login = (user, pass) => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email: user, password: pass })
-      }
-    )
-    const data = await response.json()
+    const response = await fetch(`${BASE_URL}/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: user, password: pass }),
+    });
+    const data = await response.json();
     if (data.status === 200) {
       if (data.user.role !== 3) {
-        alert("You are not authorised to use this app")
-        return false
+        alert("You are not authorised to use this app");
+        return false;
       }
-      dispatch({ type: LOGIN_VENDOR, payload: data.user })
-      return true
+      dispatch({ type: LOGIN_VENDOR, payload: data.user });
+      return true;
     }
   } catch (err) {
-    console.log(err)
-    return false
+    return false;
   }
 };
 
@@ -71,6 +68,6 @@ export const viewProfile = (userId) => async (dispatch) => {
 };
 
 export const logOut = async () => {
-  await AsyncStorage.setItem("userId", null)
-  await AsyncStorage.setItem("sessionId", null)
+  await AsyncStorage.setItem("userId", null);
+  await AsyncStorage.setItem("sessionId", null);
 };

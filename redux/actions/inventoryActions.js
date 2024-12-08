@@ -17,9 +17,7 @@ export const getAllItems = () => async (dispatch) => {
     const response = await fetch(`${BASE_URL}/api/inventories`);
     const data = await response.json();
     dispatch({ type: GET_ALL_INVENTORY, payload: data });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 export const updateInventory = (item) => ({

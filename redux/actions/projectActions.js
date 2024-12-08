@@ -19,13 +19,11 @@ export const cancelledProjects = filterByStatus([], 4);
 
 export const getAllProjects = () => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/projects`)
-    const data = await response.json()
-    dispatch({ type: GET_ALL_PROJECTS, payload: data })
-  } catch (error) {
-    console.log(error)
-  }
-}
+    const response = await fetch(`${BASE_URL}/api/projects`);
+    const data = await response.json();
+    dispatch({ type: GET_ALL_PROJECTS, payload: data });
+  } catch (error) {}
+};
 export const projectCounts = [
   {
     title: "ongoing",
@@ -72,8 +70,6 @@ export const statCards = [
   },
 ];
 
-
-
 export const viewProject = (projectId) => async (dispatch) => {
   const response = await fetch(`${BASE_URL}/api/projects/${projectId}`);
   const data = await response.json();
@@ -90,21 +86,19 @@ export const searchProject = (searchQuery) => async (dispatch, getState) => {
   return searchResults;
 };
 
-
-
 export const updateProject = (projectId, updatedData) => async (dispatch) => {
   dispatch({ type: "UPDATE_PROJECT_REQUEST" });
   try {
     const response = await fetch(`API_URL_HERE/projects/${projectId}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedData),
     });
 
     if (!response.ok) {
-      throw new Error('Failed to update project');
+      throw new Error("Failed to update project");
     }
 
     const data = await response.json();
@@ -119,7 +113,6 @@ export const updateProject = (projectId, updatedData) => async (dispatch) => {
     });
   }
 };
-
 
 export const countProjects = () => async (dispatch, getState) => {
   const { projects } = getState();

@@ -7,7 +7,7 @@ import ContainerComponent from "../components/ContainerComponent";
 import { H2, H4, H6, P } from "../components/text";
 import Button from "../components/buttons/Button";
 import MyTextInput from "../components/input/MyTextInput";
-import MyHeader from '../components/header/MyHeader'
+import MyHeader from "../components/header/MyHeader";
 import { SCREEN_WIDTH, typography, spacing, styles, layouts } from "../styles";
 import MyPickerInput from "../components/input/MyPickerInput";
 import { useTranslation } from "react-i18next";
@@ -19,11 +19,10 @@ export default function FileUploadScreen() {
   const [sitename, setSiteName] = useState("");
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [materials, setMaterials] = useState([])
-  const { inventory } = useSelector(state => state.inventory)
+  const [materials, setMaterials] = useState([]);
+  const { inventory } = useSelector((state) => state.inventory);
 
   const cameraRef = useRef(null);
-
 
   const handleTakePicture = async () => {
     if (cameraRef.current && photos.length < 5) {
@@ -34,7 +33,6 @@ export default function FileUploadScreen() {
 
   const handleUpload = () => {
     if (photos.length > 0) {
-      console.log("Done")
     }
   };
 
@@ -55,23 +53,22 @@ export default function FileUploadScreen() {
   };
 
   useEffect(() => {
-    let myArr = []
+    let myArr = [];
     inventory.map((item, index) => {
-      const myObj = { enabled: true, label: item.product_name, value: item.id }
-      myArr.push(myObj)
-    })
-    setMaterials(myArr)
-  }, [])
-
+      const myObj = { enabled: true, label: item.product_name, value: item.id };
+      myArr.push(myObj);
+    });
+    setMaterials(myArr);
+  }, []);
 
   useEffect(() => {
-    let myArr = []
+    let myArr = [];
     inventory.map((item, index) => {
-      const myObj = { enabled: true, label: item.product_name, value: item.id }
-      myArr.push(myObj)
-    })
-    setMaterials(myArr)
-  }, [])
+      const myObj = { enabled: true, label: item.product_name, value: item.id };
+      myArr.push(myObj);
+    });
+    setMaterials(myArr);
+  }, []);
   const { t } = useTranslation();
 
   return (
@@ -199,4 +196,4 @@ export default function FileUploadScreen() {
       </ScrollView>
     </ContainerComponent>
   );
-};
+}

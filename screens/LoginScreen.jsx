@@ -29,10 +29,7 @@ export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const changeLanguage = (value) => {
-    i18n
-      .changeLanguage(value)
-      .then(() => setLanguage(value))
-      .catch((err) => console.log(err));
+    i18n.changeLanguage(value).then(() => setLanguage(value));
   };
 
   const onSubmit = async () => {

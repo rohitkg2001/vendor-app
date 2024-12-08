@@ -25,10 +25,7 @@ export default function SiteScreen({ navigation }) {
 
   const { sites } = useSelector((state) => state.site);
 
-  useEffect(() => {
-    console.log(sites)
-  }, [])
-
+  useEffect(() => {}, []);
 
   return (
     <ContainerComponent>
