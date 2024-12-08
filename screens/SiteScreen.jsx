@@ -20,6 +20,12 @@ export default function SiteScreen({ navigation }) {
       formType: "site",
     });
   };
+
+       const closeFilter = () => {
+         setShowBottomSheet(!showBottomSheet);
+       };
+  const applyFilterFromRedux = ( ...args ) => { };
+  
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
 
@@ -66,7 +72,9 @@ export default function SiteScreen({ navigation }) {
           </ScrollView>
         )}
       />
-      {showBottomSheet && <Filter />}
+      {showBottomSheet && (
+        <Filter onClose={closeFilter} onApply={applyFilterFromRedux} />
+      )}
     </ContainerComponent>
   );
 }

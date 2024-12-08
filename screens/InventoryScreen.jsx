@@ -29,6 +29,11 @@ export default function InventoryScreen() {
     setSelectedItem(itemDetails);
   };
 
+     const closeFilter = () => {
+       setShowBottomSheet(!showBottomSheet);
+     };
+     const applyFilterFromRedux = (...args) => {};
+
   useEffect(() => {}, [inventory]);
 
   return (
@@ -69,7 +74,9 @@ export default function InventoryScreen() {
         onClose={() => setVisible(false)}
         selectedItem={selectedItem}
       />
-      {showBottomSheet && <Filter />}
+      {showBottomSheet && (
+        <Filter onClose={closeFilter} onApply={applyFilterFromRedux} />
+      )}
     </ContainerComponent>
   );
 }

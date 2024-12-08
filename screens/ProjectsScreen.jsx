@@ -21,6 +21,11 @@ export default function ProjectsScreen({ route, navigation }) {
 
   const { title } = route.params;
 
+     const closeFilter = () => {
+       setShowBottomSheet(!showBottomSheet);
+     };
+     const applyFilterFromRedux = (...args) => {};
+
   const handleViewDetails = (item) => {
     navigation.navigate("viewDetailScreen", {
       site: item,
@@ -66,7 +71,9 @@ export default function ProjectsScreen({ route, navigation }) {
           </ScrollView>
         )}
       />
-      {showBottomSheet && <Filter />}
+      {showBottomSheet && (
+        <Filter onClose={closeFilter} onApply={applyFilterFromRedux} />
+      )}
     </ContainerComponent>
   );
 }

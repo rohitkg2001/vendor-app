@@ -19,6 +19,11 @@ export default function CurrentProjectsScreen({ navigation }) {
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const { projects } = useSelector(state => state.project)
 
+   const closeFilter = () => {
+     setShowBottomSheet(!showBottomSheet);
+   };
+   const applyFilterFromRedux = (...args) => {};
+
   return (
     <ContainerComponent>
       <MyFlatList
@@ -59,12 +64,7 @@ export default function CurrentProjectsScreen({ navigation }) {
         )}
       />
       {showBottomSheet && (
-        <Filter
-          style={{
-            position: "absolute",
-            bottom: 0,
-          }}
-        />
+        <Filter onClose={closeFilter} onApply={applyFilterFromRedux} />
       )}
     </ContainerComponent>
   );
