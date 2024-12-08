@@ -49,12 +49,16 @@ export default function DashboardScreen() {
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const dispatch = useDispatch();
 
+  const { projectCount } = useSelector((state) => state.project);
+
   useEffect(() => {
     setGreeting(greet());
     dispatch(getAllProjects());
     // dispatch(getAllSites())
     // dispatch(getAllItems())
   }, []);
+
+  
 
   const handleDateChange = (event, date) => {
     if (event.type === "set") {
@@ -225,11 +229,11 @@ export default function DashboardScreen() {
         {/* Flatlist cards */}
         <MyFlatList
           data={statCards}
-          renderItem={({ item, index }) => (
+          renderItem={({ item }) => (
             <StatCard
               key={item.id}
               backgroundColor={item.backgroundColor}
-              tasks={item.count}
+              tasks={ item.count }
               status={t(item.title)}
               onPress={() =>
                 navigation.navigate(item.page, {
