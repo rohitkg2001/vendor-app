@@ -3,6 +3,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DashboardScreen from "../screens/DashboardScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
+import TasksScreen from "../screens/TasksScreen";
 import {
   INFO_COLOR,
   LIGHT,
@@ -36,10 +37,10 @@ export default function MyMaterialBottomNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="CurrentProjectScreen"
-        component={CurrentProjectsScreen}
+        name="TasksScreen"
+        component={TasksScreen}
         options={{
-          tabBarLabel: "Projects",
+          tabBarLabel: "Tasks",
           tabBarIcon: ({ color }) => (
             <Icon name="grid-outline" size={ICON_MEDIUM} color={color} />
           ),
