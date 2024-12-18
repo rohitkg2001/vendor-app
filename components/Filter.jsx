@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 //import BottomSheet from "./BottomSheet/BottomSheet";
-import BottomSheet from "./bottomSheet/Bottomsheet";
+import BottomSheet from "./BottomSheet/Bottomsheet";
 
 import {
   SCREEN_WIDTH,

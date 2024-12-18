@@ -6,7 +6,7 @@ import MenuItem from "../components/MenuItem";
 import ContainerComponent from "../components/ContainerComponent";
 import { H5 } from "../components/text";
 import Button from "../components/buttons/Button";
-import { menuItems, projects } from "../utils/faker";
+import { menuItems } from "../utils/faker";
 import { useSelector, useDispatch } from "react-redux";
 import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
 import { getAllTasks } from "../redux/actions/taskActions";
