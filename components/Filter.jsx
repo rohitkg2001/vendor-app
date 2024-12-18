@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-//import BottomSheet from "./BottomSheet/BottomSheet";
-import BottomSheet from "./BottomSheet/Bottomsheet";
+import BottomSheet from "./bottomSheet/Bottomsheet";
 
 import {
   SCREEN_WIDTH,
@@ -18,17 +17,22 @@ import { H2, H1, Span, H4 } from "./text";
 import states from "../utils/states.json";
 import { useSelector } from "react-redux";
 
-export default function Filter({ onClose, onApply }) {
+export default function Filter({ onClose, onApply, filterType }) {
   const [filterState, setFilterState] = useState(0);
   const [selectedState, setSelectedState] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
   const [rangeStartDate, setRangeStartDate] = useState(Date.now());
-  const [rangeEndDate, setRangeEndDate] = useState(Date.now()); //Not working. Make UI of Date filter first
+  const [rangeEndDate, setRangeEndDate] = useState(Date.now());
+  const [selectedRating, setSelectedRating] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
   const [showFromDatePicker, setShowFromDatePicker] = useState(false);
   const [showToDatePicker, setShowToDatePicker] = useState(false);
+
+  const [showInstallation, setShowInstallation] = useState(false);
+  const [showRMS, setShowRMS] = useState(false);
 
   const { projects } = useSelector((state) => state.project);
 
@@ -43,17 +47,25 @@ export default function Filter({ onClose, onApply }) {
   };
 
   const onClear = () => {
-    // implement logic to delete currentFilter
     setFilterState(0);
     setSelectedState("");
     setSelectedProject("");
     setRangeStartDate(Date.now());
     setRangeEndDate(Date.now());
+    setSelectedRating("");
+    setSelectedStatus("");
     onClose();
   };
-  // To clear temporarily selected filters and close the filter popup
+
   const applyFilter = () => {
-    onApply(selectedState, selectedProject, setRangeStartDate, setRangeEndDate);
+    onApply(
+      selectedState,
+      selectedProject,
+      selectedRating,
+      selectedStatus,
+      rangeStartDate,
+      rangeEndDate
+    );
   };
 
   return (
@@ -72,7 +84,7 @@ export default function Filter({ onClose, onApply }) {
           <Icon name="close-outline" color={DANGER_COLOR} size={ICON_LARGE} />
         </TouchableOpacity>
       </View>
-      {/* Header */}
+
       <View
         style={[
           styles.row,
@@ -85,91 +97,113 @@ export default function Filter({ onClose, onApply }) {
         <View
           style={[spacing.brw1, spacing.brc, { height: "100%", width: "40%" }]}
         >
-          <TouchableOpacity
-            style={[
-              spacing.bbw05,
-              spacing.p3,
-              spacing.mh1,
-              {
-                backgroundColor: filterState === 0 ? "#D1E7DD" : "#FFFFFF",
-              },
-            ]}
-            onPress={() => setFilterState(0)}
-          >
-            <Span style={typography.font16}>State</Span>
-          </TouchableOpacity>
+          {/* Conditionally render State filter */}
+          {filterType !== "site" && (
+            <TouchableOpacity
+              style={[
+                spacing.bbw05,
+                spacing.p3,
+                spacing.mh1,
+                { backgroundColor: filterState === 0 ? "#D1E7DD" : "#FFFFFF" },
+              ]}
+              onPress={() => setFilterState(0)}
+            >
+              <Span style={typography.font16}>State</Span>
+            </TouchableOpacity>
+          )}
 
-          <TouchableOpacity
-            style={[
-              spacing.bbw05,
-              spacing.p3,
-              spacing.mh1,
-              {
-                backgroundColor: filterState === 1 ? "#D1E7DD" : "#FFFFFF",
-              },
-            ]}
-            onPress={() => setFilterState(1)}
-          >
-            <Span style={typography.font16}>Project</Span>
-          </TouchableOpacity>
+          {/* Conditionally render Project filter */}
+          {filterType !== "site" && (
+            <TouchableOpacity
+              style={[
+                spacing.bbw05,
+                spacing.p3,
+                spacing.mh1,
+                { backgroundColor: filterState === 1 ? "#D1E7DD" : "#FFFFFF" },
+              ]}
+              onPress={() => setFilterState(1)}
+            >
+              <Span style={typography.font16}>Project</Span>
+            </TouchableOpacity>
+          )}
 
+          {/* Always render Date filter */}
           <TouchableOpacity
             style={[
               spacing.bbw05,
               spacing.p3,
               spacing.mh1,
-              {
-                backgroundColor: filterState === 2 ? "#D1E7DD" : "#FFFFFF",
-              },
+              { backgroundColor: filterState === 2 ? "#D1E7DD" : "#FFFFFF" },
             ]}
             onPress={() => setFilterState(2)}
           >
             <Span style={typography.font16}>Date</Span>
           </TouchableOpacity>
-        </View>
 
-        <ScrollView>
-          {/* Filters based on left selection */}
-          {/* array of states */}
-          {filterState === 0 ? (
-            states.states.map((state, index) => (
+          {/* Filters exclusive to "site" */}
+          {filterType === "site" && (
+            <>
               <TouchableOpacity
-                key={index}
                 style={[
                   spacing.bbw05,
                   spacing.p3,
                   spacing.mh1,
                   {
-                    backgroundColor:
-                      selectedState === state.name ? "#D1E7DD" : "#FFFFFF",
+                    backgroundColor: filterState === 3 ? "#D1E7DD" : "#FFFFFF",
                   },
                 ]}
+                onPress={() => setFilterState(3)}
+              >
+                <Span style={typography.font16}>Rating</Span>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  spacing.bbw05,
+                  spacing.p3,
+                  spacing.mh1,
+                  {
+                    backgroundColor: filterState === 4 ? "#D1E7DD" : "#FFFFFF",
+                  },
+                ]}
+                onPress={() => {
+                  setFilterState(4);
+                  setShowInstallation(!showInstallation);
+                  setShowRMS(!showRMS);
+                }}
+              >
+                <Span style={typography.font16}>Status</Span>
+              </TouchableOpacity>
+            </>
+          )}
+        </View>
+
+        <ScrollView>
+          {filterState === 0 &&
+            filterType !== "site" &&
+            states.states.map((state, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[spacing.bbw05, spacing.p3, spacing.mh1]}
                 onPress={() => setSelectedState(state.name)}
               >
                 <Text>{state.name}</Text>
               </TouchableOpacity>
-            ))
-          ) : filterState === 1 ? (
+            ))}
+
+          {filterState === 1 &&
+            filterType !== "site" &&
             projects.map((project, index) => (
               <TouchableOpacity
                 key={index}
-                style={[
-                  spacing.bbw05,
-                  spacing.p3,
-                  spacing.mh1,
-                  {
-                    backgroundColor:
-                      selectedProject === project.project_name
-                        ? "#D1E7DD"
-                        : "#FFFFFF",
-                  },
-                ]}
+                style={[spacing.bbw05, spacing.p3, spacing.mh1]}
                 onPress={() => setSelectedProject(project.project_name)}
               >
                 <Text>{project.project_name}</Text>
               </TouchableOpacity>
-            ))
-          ) : (
+            ))}
+
+          {filterState === 2 && (
             <>
               <H4>From</H4>
               {showFromDatePicker && (
@@ -177,60 +211,142 @@ export default function Filter({ onClose, onApply }) {
                   value={fromDate}
                   mode="date"
                   display="default"
-                  onChange={(event, date) => {
-                    handleFromDateChange(date);
-                  }}
+                  onChange={(event, date) => handleFromDateChange(date)}
                 />
               )}
-              <Button
-                onPress={() => setShowFromDatePicker(!showFromDatePicker)}
+              <TouchableOpacity
                 style={[
-                  spacing.mv4,
+                  spacing.bbw05,
                   spacing.p3,
-                  spacing.bw05,
-                  {
-                    backgroundColor: fromDate ? "#E8F5E9" : "#F8F8F8",
-                  },
+                  spacing.mh1,
+                  { backgroundColor: fromDate ? "#E8F5E9" : "#F8F8F8" },
                 ]}
+                onPress={() => setShowFromDatePicker(!showFromDatePicker)}
               >
-                <H4 style={[typography.font16, { color: "black" }]}>
+                <Span style={typography.font16}>
                   {fromDate
                     ? `${fromDate.toLocaleDateString()}`
                     : "Select From Date"}
-                </H4>
-              </Button>
+                </Span>
+              </TouchableOpacity>
 
+              {/* To Date */}
               <H4>To</H4>
               {showToDatePicker && (
                 <DateTimePicker
                   value={toDate}
                   mode="date"
                   display="default"
-                  onChange={(event, date) => {
-                    handleToDateChange(date);
-                  }}
+                  onChange={(event, date) => handleToDateChange(date)}
                 />
               )}
-              <Button
-                onPress={() => setShowToDatePicker(!showToDatePicker)}
+              <TouchableOpacity
                 style={[
-                  spacing.mv4,
+                  spacing.bbw05,
                   spacing.p3,
-                  spacing.bw05,
-                  {
-                    backgroundColor: toDate ? "#E3F2FD" : "#F8F8F8",
-                  },
+                  spacing.mh1,
+                  { backgroundColor: toDate ? "#E3F2FD" : "#F8F8F8" },
                 ]}
+                onPress={() => setShowToDatePicker(!showToDatePicker)}
               >
-                <H4 style={[typography.font16, { color: "black" }]}>
+                <Span style={typography.font16}>
                   {toDate ? `${toDate.toLocaleDateString()}` : "Select To Date"}
-                </H4>
-              </Button>
+                </Span>
+              </TouchableOpacity>
+            </>
+          )}
+
+          {filterState === 3 && (
+            <>
+              <>
+                <View
+                  style={{
+                    alignItems: "center",
+                  }}
+                >
+                  <View
+                    style={[
+                      styles.row,
+                      {
+                        justifyContent: "center",
+                        marginBottom: 16,
+                      },
+                    ]}
+                  >
+                    {["5kW", "10kW", "20kW"].map((option, index) => (
+                      <Text
+                        key={index}
+                        style={[spacing.mh3, typography.font20]}
+                      >
+                        {option}
+                      </Text>
+                    ))}
+                  </View>
+
+                  <View style={[styles.row]}>
+                    {["5kW", "10kW", "20kW"].map((_, index) => (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => setSelectedRating(index + 1)}
+                        style={[
+                          spacing.mh5,
+                          {
+                            height: 24,
+                            width: 24,
+                            borderRadius: 12,
+                            borderWidth: 2,
+                            justifyContent: "center",
+                            alignItems: "center",
+                          },
+                        ]}
+                      >
+                        {selectedRating === index + 1 && (
+                          <View
+                            style={{
+                              height: 12,
+                              width: 12,
+                              borderRadius: 6,
+                              backgroundColor: "#76885B",
+                            }}
+                          />
+                        )}
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                </View>
+              </>
+            </>
+          )}
+
+          {filterState === 4 && showInstallation && (
+            <>
+              <H4>Installation</H4>
+              {["Pending", "Completed"].map((status) => (
+                <TouchableOpacity
+                  key={status}
+                  style={[spacing.bbw05, spacing.p3]}
+                >
+                  <Text>{status}</Text>
+                </TouchableOpacity>
+              ))}
+            </>
+          )}
+          {filterState === 4 && showRMS && (
+            <>
+              <H4>RMS Status</H4>
+              {["Pending", "Completed"].map((status) => (
+                <TouchableOpacity
+                  key={status}
+                  style={[spacing.bbw05, spacing.p3]}
+                >
+                  <Text>{status}</Text>
+                </TouchableOpacity>
+              ))}
             </>
           )}
         </ScrollView>
       </View>
-      {/* Body */}
+
       <View
         style={[
           spacing.mh1,
@@ -264,11 +380,6 @@ export default function Filter({ onClose, onApply }) {
           </H2>
         </Button>
       </View>
-      {/* Footer */}
     </BottomSheet>
   );
 }
-
-// state filter id=state,
-// Project filter id=project
-// date filter id=date
