@@ -29,7 +29,8 @@ export default function SiteScreen({ navigation }) {
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
 
-  const { sites } = useSelector((state) => state.site);
+  const { sites } = useSelector( ( state ) => state.site );
+  console.log(sites);
 
   useEffect(() => {}, []);
 

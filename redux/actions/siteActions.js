@@ -1,32 +1,31 @@
-import { VIEW_SITE, SEARCH_SITE, BASE_URL, GET_ALL_SITES } from "../constant";
+import {
+  VIEW_SITE,
+  SEARCH_SITE,
+  FETCH_SITES,
+  BASE_URL,
+} from "../constant";
+import statesandcities from "../../utils/statesandcities.json";
 
-export const getAllSites = () => async (dispatch) => {
+export const setStatesAndCities = () => {
+  return statesandcities;
+};
+
+export const fetchSites = () => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/sites`);
+    const response = await fetch(${BASE_URL}/api/sites);
     const data = await response.json();
 
-    dispatch({ type: GET_ALL_SITES, payload: data });
+    dispatch({ type: FETCH_SITES, payload: data });
   } catch (error) {}
 };
-export const viewSite = (siteId) => async (dispatch, getState) => {
-  const { sites } = getState();
-  const site = sites.find((site) => site.id === siteId);
 
-  if (site) {
-    await dispatch({ type: VIEW_SITE, payload: site });
-    return true;
-  } else {
-    console.error("Site not found");
-    return false;
-  }
-};
+export const viewSite = (site) => ({
+  type: VIEW_SITE,
+  payload: site,
+});
 
-export const searchSite = (searchQuery) => async (dispatch, getState) => {
-  const { sites } = getState();
-  const searchResults = sites.filter((site) =>
-    site.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+export const searchSite = (searchText) => ({
+  type: SEARCH_SITE,
+  payload: searchText,
+});
 
-  await dispatch({ type: SEARCH_SITE, payload: searchResults });
-  return searchResults;
-};

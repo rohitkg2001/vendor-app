@@ -16,6 +16,8 @@ import TasksScreen from "../screens/TasksScreen";
 import ViewDetailScreen from "../screens/ViewDetailScreen";
 import StockApprovalScreen from "../screens/StockApprovalScreen";
 import ReportScreen from "../screens/ReportScreen";
+import SiteDetailScreen from "../screens/SiteDetailScreen";
+import InventoryDetailsScreen from "../screens/InventoryDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
@@ -44,6 +46,11 @@ export default function MyStackNavigator() {
         component={StockApprovalScreen}
       />
       <Stack.Screen name="reportScreen" component={ReportScreen} />
+      <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />
+      <Stack.Screen
+        name="inventoryDetailsScreen"
+        component={InventoryDetailsScreen}
+      />
     </Stack.Navigator>
   );
 }
