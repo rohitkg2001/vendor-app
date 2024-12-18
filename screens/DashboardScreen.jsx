@@ -58,7 +58,7 @@ export default function DashboardScreen() {
     // dispatch(getAllItems())
   }, []);
 
-  
+
 
   const handleDateChange = (event, date) => {
     if (event.type === "set") {
@@ -74,10 +74,10 @@ export default function DashboardScreen() {
     setShowDatePicker(true);
   };
 
-    const closeFilter = () => {
-      setShowBottomSheet(!showBottomSheet);
-    };
-    const applyFilterFromRedux = (...args) => {};
+  const closeFilter = () => {
+    setShowBottomSheet(!showBottomSheet);
+  };
+  const applyFilterFromRedux = (...args) => { };
 
 
   return (
@@ -137,7 +137,7 @@ export default function DashboardScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh1]}
       >
-        <View
+        {/* <View
           style={[
             spacing.mv4,
             styles.row,
@@ -155,7 +155,7 @@ export default function DashboardScreen() {
           >
             <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
           </Button>
-        </View>
+        </View> */}
 
         <View
           style={[
@@ -177,7 +177,7 @@ export default function DashboardScreen() {
         </View>
 
         {/* Project Overview Card */}
-        <CardFullWidth backgroundColor={LIGHT}>
+        {/* <CardFullWidth backgroundColor={LIGHT}>
           <View
             style={[
               styles.row,
@@ -224,7 +224,7 @@ export default function DashboardScreen() {
               </TouchableOpacity>
             ))}
           </View>
-        </CardFullWidth>
+        </CardFullWidth> */}
 
         {/* Flatlist cards */}
         <MyFlatList
@@ -233,7 +233,7 @@ export default function DashboardScreen() {
             <StatCard
               key={item.id}
               backgroundColor={item.backgroundColor}
-              tasks={ item.count }
+              tasks={item.count}
               status={t(item.title)}
               onPress={() =>
                 navigation.navigate(item.page, {

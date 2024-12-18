@@ -6,7 +6,7 @@ import { inventoryReducer } from './inventoryReducer';
 import { vendorReducer } from './vendorReducer';
 
 
-const reducer = combineReducers({
+const reducers = combineReducers({
     tasks: taskReducer,
     site: siteReducer,
     project: projectReducer,
@@ -14,4 +14,4 @@ const reducer = combineReducers({
     inventory: inventoryReducer,
 });
 
-export default reducer;
+export default reducers;
