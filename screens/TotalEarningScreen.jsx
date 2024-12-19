@@ -15,12 +15,12 @@ import Filter from "../components/Filter";
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
-  const [ showBottomSheet, setShowBottomSheet ] = useState( false )
-  
-       const closeFilter = () => {
-         setShowBottomSheet(!showBottomSheet);
-       };
-       const applyFilterFromRedux = (...args) => {};
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
+
+  const closeFilter = () => {
+    setShowBottomSheet(!showBottomSheet);
+  };
+  const applyFilterFromRedux = (...args) => {};
 
   return (
     <ContainerComponent>

@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,11 +7,13 @@ import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
+import ClickableCard from "../components/card/Clickablecard";
 import MyHeader from "../components/header/MyHeader";
 import { H6, H4, H5, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
 import Button from "../components/buttons/Button";
-import NoRecord from './NoRecord'
+import NoRecord from "./NoRecord";
+import { Task } from "../utils/faker";
 import {
   SCREEN_WIDTH,
   spacing,
@@ -26,8 +28,7 @@ import { useTranslation } from "react-i18next";
 const TasksScreen = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { tasks } = useSelector((state) => state.tasks);
+  const [tasks, setTasks] = useState(Task);
   const [today, setToday] = useState(moment().format("DD MMM YYYY"));
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -44,25 +45,9 @@ const TasksScreen = () => {
     }
   };
 
-  const renderTaskItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("fileUploadScreen")}>
-      <Card
-        style={[
-          spacing.mv1,
-          { width: SCREEN_WIDTH - 18, backgroundColor: "#ffffff" },
-        ]}
-      >
-        <View
-          style={{ flexDirection: "row", alignItems: "center", padding: 16 }}
-        >
-          <View style={{ flex: 1, marginLeft: 16 }}>
-            <H6 style={[typography.textBold]}>{item.task_name}</H6>
-            <P style={{ fontSize: 14, color: "#020409" }}>{item.start_date}</P>
-          </View>
-        </View>
-      </Card>
-    </TouchableOpacity>
-  );
+  const handleViewDetails = (itemId) => {
+    navigation.navigate("fileUploadScreen", { itemId: itemId });
+  };
 
   return (
     <ContainerComponent>
@@ -97,10 +82,18 @@ const TasksScreen = () => {
 
       <MyFlatList
         data={tasks}
-        renderItem={renderTaskItem}
+        renderItem={({ item, index }) => (
+          <ClickableCard
+            key={index}
+            item={item}
+            isTask={true}
+            showView={true}
+            handleViewDetails={(item) => handleViewDetails(item.id)}
+          />
+        )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
-        ListEmptyComponent={() => <NoRecord msg={t('no_task')} />}
+        ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
     </ContainerComponent>
   );
