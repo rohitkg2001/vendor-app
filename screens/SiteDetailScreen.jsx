@@ -23,7 +23,7 @@ const SiteDetailScreen = ({ route }) => {
     <>
       {renderDetailRow("Site Name", site.site_name)}
       {renderDetailRow("State", site.state)}
-      {renderDetailRow("District", site.dist)}
+      {renderDetailRow("District", site.district)}
       {renderDetailRow("Location", site.location)}
       {renderDetailRow("Contact No", site.contact_no)}
       {renderDetailRow("Project Serial Code", site.project_serial_code)}
@@ -34,15 +34,19 @@ const SiteDetailScreen = ({ route }) => {
       {renderDetailRow("Load Enhancement Status", site.load_enhancement_status)}
       {renderDetailRow("Site Survey Status", site.site_survey_status)}
       {renderDetailRow("Net Meter Sr No", site.net_meter_sr_no)}
-      {renderDetailRow("Solar Meter Sr No", site.solar_meter_sr_no)}
-      {renderDetailRow("Material Inspection Date", site.material_dispatch_date)}
-      {renderDetailRow("SPP Installation Date", site.material_inspection_date)}
-      {renderDetailRow("Commissioning Date", site.commissioning_date)}
+      {renderDetailRow("Solar Meter Sr NO", site.solar_meter_sr_no)}
+      {renderDetailRow(
+        "Material Inspection Date",
+        site.material_inspection_date
+      )}
+      {renderDetailRow("SPP INSTALLATION DATE", site.spp_installation_date)}
+      {renderDetailRow("COMMISSIONING DATE", site.commissioning_date)}
       {renderDetailRow("Remarks", site.remarks)}
       {renderDetailRow("I & C Vendor Name", site.ic_vendor_name)}
+      {renderDetailRow("Site Engineer", site.site_engineer)}
     </>
   );
-
+  
   return (
     <ContainerComponent>
       <View style={[{ width: SCREEN_WIDTH - 16 }]}>

@@ -21,15 +21,15 @@ export default function SiteScreen({ navigation }) {
     });
   };
 
-       const closeFilter = () => {
-         setShowBottomSheet(!showBottomSheet);
-       };
-  const applyFilterFromRedux = ( ...args ) => { };
-  
+  const closeFilter = () => {
+    setShowBottomSheet(!showBottomSheet);
+  };
+  const applyFilterFromRedux = (...args) => {};
+
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
 
-  const { sites } = useSelector( ( state ) => state.site );
+  const { sites } = useSelector((state) => state.site);
   console.log(sites);
 
   useEffect(() => {}, []);
@@ -74,7 +74,11 @@ export default function SiteScreen({ navigation }) {
         )}
       />
       {showBottomSheet && (
-        <Filter onClose={closeFilter} onApply={applyFilterFromRedux} />
+        <Filter
+          onClose={closeFilter}
+          onApply={applyFilterFromRedux}
+          filterType="site"
+        />
       )}
     </ContainerComponent>
   );
