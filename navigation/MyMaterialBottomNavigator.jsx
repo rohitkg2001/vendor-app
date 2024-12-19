@@ -12,6 +12,7 @@ import {
 } from "../styles/constant";
 
 const BottomTab = createMaterialBottomTabNavigator();
+
 export default function MyMaterialBottomNavigator() {
   return (
     <BottomTab.Navigator
@@ -46,7 +47,6 @@ export default function MyMaterialBottomNavigator() {
           ),
         }}
       />
-
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
