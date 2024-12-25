@@ -37,6 +37,7 @@ export const login = (user, pass) => async (dispatch) => {
       return true;
     }
   } catch (err) {
+    console.log(err);
     return false;
   }
 };
