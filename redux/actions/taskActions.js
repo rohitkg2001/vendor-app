@@ -28,17 +28,30 @@ export const tasksCounts = [
   },
 ];
 
-export const getAllTasks = () => async (dispatch) => {
+// export const getAllTasks = () => async (dispatch) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/api/tasks`);
+//     const data = await response.json();
+
+//     dispatch({ type: GET_ALL_TASKS, payload: data });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+export const getAllTasks = (my_id) => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/tasks`);
+    const response = await fetch(`${BASE_URL}/api/task`);
     const data = await response.json();
 
-    dispatch({ type: GET_ALL_TASKS, payload: data });
+    const myTasks =
+      Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
+    // console.log(myTasks);
+    dispatch({ type: GET_ALL_TASKS, payload: myTasks });
   } catch (error) {
     console.error(error);
   }
 };
-
 export const viewTask = (taskId) => async (dispatch, getState) => {
   const { tasks } = getState();
   const task = tasks.find((task) => task.id === taskId);

@@ -17,12 +17,12 @@ export default function CurrentProjectsScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const { projects } = useSelector(state => state.project)
+  const { projects } = useSelector((state) => state.project);
 
-   const closeFilter = () => {
-     setShowBottomSheet(!showBottomSheet);
-   };
-   const applyFilterFromRedux = (...args) => {};
+  const closeFilter = () => {
+    setShowBottomSheet(!showBottomSheet);
+  };
+  const applyFilterFromRedux = (...args) => {};
 
   return (
     <ContainerComponent>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Card } from "react-native-paper";
@@ -18,6 +19,9 @@ export default function ClickableCard({
   isTask = false,
 }) {
   const { t } = useTranslation();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   return (
     <Card
       style={[
@@ -77,12 +81,15 @@ export default function ClickableCard({
           {isTask && (
             <>
               <H6 style={[typography.textBold, typography.font20, spacing.pv1]}>
-                {item.task_name}
+                {item.site.site_name}
               </H6>
               <H5 style={[typography.font20]}>{item.activity}</H5>
-              <P style={[typography.font16]}>{item.location}</P>
+              <P style={[typography.font16]}>{item.site.location}</P>
               <P style={{ fontSize: 14 }}>{item.start_date}</P>
               <P style={{ fontSize: 14 }}>{item.end_date}</P>
+              <P style={{ fontSize: 16, textAlign: "right", top: 15 }}>
+                {item.status}
+              </P>
               <P
                 style={[
                   typography.font16,
@@ -115,13 +122,15 @@ export default function ClickableCard({
             <Ionicons name="chevron-forward-outline" size={32} color="gray" />
           </Button>
         )}
+
         {showView && (
           <Button
+            disabled={item.status !== "Pending"}
             style={{
               position: "absolute",
               right: spacing.mr3.marginRight,
               top: 65,
-              backgroundColor: "#76885B",
+              backgroundColor: isSubmitting ? "#A9A9A9" : "#76885B",
               borderRadius: 8,
             }}
           >
@@ -129,10 +138,16 @@ export default function ClickableCard({
               style={{
                 padding: 10,
               }}
-              onPress={() => handleViewDetails(item.id)}
+              onPress={async () => {
+                if (!isSubmitting) {
+                  setIsSubmitting(true);
+                  await handleViewDetails(item.id);
+                  setIsSubmitting(false);
+                }
+              }}
             >
               <P style={{ fontSize: 16, color: "white", textAlign: "center" }}>
-                Submit
+                {isSubmitting ? "Submitting..." : "Submit"}
               </P>
             </TouchableOpacity>
           </Button>
