@@ -68,6 +68,22 @@ export const spacing = StyleSheet.create({
     pl5: {
         paddingLeft: 20,
     },
+    //Styles for all padding
+    pr1: {
+        paddingLeft: 4,
+    },
+    pr2: {
+        paddingLeft: 8,
+    },
+    pr3: {
+        paddingLeft: 12,
+    },
+    pr4: {
+        paddingLeft: 16,
+    },
+    pr5: {
+        paddingLeft: 20,
+    },
     // TODO:pr,pt,pb
 
     // Styles for horizontal margin
