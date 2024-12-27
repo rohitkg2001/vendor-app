@@ -30,13 +30,21 @@ const InventoryDetailsScreen = ({ route, navigation }) => {
         {selectedItem ? (
           <>
             {renderDetailRow(t("product_name"), selectedItem.product_name)}
-            {renderDetailRow(t("quantity"), selectedItem.quantity)}
+            {renderDetailRow("Brand", selectedItem.brand)}
+            {renderDetailRow("Unit", selectedItem.unit)}
+            {renderDetailRow("InitalQuantity", selectedItem.intalQuantity)}
+            {renderDetailRow("QuantitySctock", selectedItem.quantityStock)}
             {renderDetailRow(t("category"), selectedItem.category)}
+            {renderDetailRow("Sub Category", selectedItem.sub_category)}
+            {renderDetailRow(t("price"), selectedItem.price)}
             {renderDetailRow(t("description"), selectedItem.description)}
             {renderDetailRow(
               t("material_dispatch_date"),
-              selectedItem.material_dispatch_date
+              selectedItem.materialDispatchDate
             )}
+            {renderDetailRow("DeliveryDate", selectedItem.deliveryDate)}
+            { renderDetailRow( "RecievedDate", selectedItem.receivedDate ) }
+            {renderDetailRow("AllocationOfficer", selectedItem.allocationOfficer)}
           </>
         ) : (
           <H5 style={[typography.textBold, { textAlign: "center" }]}>

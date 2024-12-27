@@ -4,14 +4,14 @@
 node_modules/
 
 #Dont push anything over git
-android/
+# android/
 
 # Expo
 .expo/
 dist/
 web-build/
 #Dont push anything over git
-android/
+# android/
 
 # Native
 *.orig.*

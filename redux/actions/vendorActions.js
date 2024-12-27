@@ -27,6 +27,7 @@ export const login = (user, pass) => async (dispatch) => {
       },
       body: JSON.stringify({ email: user, password: pass }),
     });
+    alert(response)
     const data = await response.json();
     if (data.status === 200) {
       if (data.user.role !== 3) {

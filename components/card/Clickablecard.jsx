@@ -1,8 +1,9 @@
-import { View } from "react-native";
+import { useState } from "react";
+import { View, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Card } from "react-native-paper";
 import Button from "../buttons/Button";
-import { H6, P } from "../text";
+import { H5, H6, P } from "../text";
 import { spacing, typography, SCREEN_WIDTH, LIGHT } from "../../styles";
 import { useTranslation } from "react-i18next";
 
@@ -10,12 +11,17 @@ export default function ClickableCard({
   item,
   handleViewDetails,
   showArrow,
+  showView,
   isProject = false,
   isSite = false,
   isEarning = false,
   isCureentProject = false,
+  isTask = false,
 }) {
   const { t } = useTranslation();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   return (
     <Card
       style={[
@@ -72,6 +78,38 @@ export default function ClickableCard({
               <P style={{ fontSize: 14 }}>Start Date: {item.start_date}</P>
             </>
           )}
+          {isTask && (
+            <>
+              <H6 style={[typography.textBold, typography.font20, spacing.pv1]}>
+                {item.site.site_name}
+              </H6>
+              <H5 style={[typography.font20]}>{item.activity}</H5>
+              <P style={[typography.font16]}>{item.site.location}</P>
+              <P style={{ fontSize: 14 }}>{item.start_date}</P>
+              <P style={{ fontSize: 14 }}>{item.end_date}</P>
+              <P style={{ fontSize: 16, textAlign: "right", top: 15 }}>
+                {item.status}
+              </P>
+              <P
+                style={[
+                  typography.font16,
+                  {
+                    textAlign: "right",
+                    color:
+                      item.priority === "High"
+                        ? "green"
+                        : item.priority === "Medium"
+                          ? "orange"
+                          : item.priority === "Low"
+                            ? "green"
+                            : "black",
+                  },
+                ]}
+              >
+                {item.priority}
+              </P>
+            </>
+          )}
         </View>
         {showArrow && (
           <Button
@@ -82,6 +120,36 @@ export default function ClickableCard({
             }}
           >
             <Ionicons name="chevron-forward-outline" size={32} color="gray" />
+          </Button>
+        )}
+
+        {showView && (
+          <Button
+            disabled={item.status !== "Pending"}
+            style={{
+              position: "absolute",
+              right: spacing.mr3.marginRight,
+              top: 65,
+              backgroundColor: isSubmitting ? "#A9A9A9" : "#76885B",
+              borderRadius: 8,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                padding: 10,
+              }}
+              onPress={() => {
+                setIsSubmitting(false);
+                if (!isSubmitting) {
+                  setIsSubmitting(true);
+                  handleViewDetails(item.id);
+                }
+              }}
+            >
+              <P style={{ fontSize: 16, color: "white", textAlign: "center" }}>
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </P>
+            </TouchableOpacity>
           </Button>
         )}
       </View>

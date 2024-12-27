@@ -19,21 +19,19 @@ export const tasksCounts = [
     label: "RMS Status",
     icon: "cart-outline",
     count: RMS.length,
-  },
-  {
-    id: "4",
-    label: "Final Inspection",
-    icon: "document-text-outline",
-    count: INSPECTION.length,
-  },
+  }
 ];
 
-export const getAllTasks = () => async (dispatch) => {
+
+export const getAllTasks = (my_id) => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/tasks`);
+    const response = await fetch(`${BASE_URL}/api/task`);
     const data = await response.json();
 
-    dispatch({ type: GET_ALL_TASKS, payload: data });
+    const myTasks =
+      Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
+    // console.log(myTasks);
+    dispatch({ type: GET_ALL_TASKS, payload: myTasks });
   } catch (error) {
     console.error(error);
   }
@@ -52,22 +50,24 @@ export const viewTask = (taskId) => async (dispatch, getState) => {
   }
 };
 
-export const updateTask =
-  (taskId, updatedTaskData) => async (dispatch, getState) => {
-    const { tasks } = getState();
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+export const updateTask = (taskId, updatedTaskData) => async (dispatch) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/task/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTaskData)
+    });
 
-    if (taskIndex !== -1) {
-      const updatedTask = { ...tasks[taskIndex], ...updatedTaskData };
-
-      await dispatch({ type: UPDATE_TASK, payload: updatedTask });
-
-      return true;
-    } else {
-      console.error("Task not found");
-      return false;
-    }
-  };
+    const updatedTask = await response.json();
+    console.log(updatedTask);
+    // await dispatch({ type: UPDATE_TASK, payload: updatedTask });
+    // return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // 0=INSTALLATION
 // 1 = FIXING SLIP

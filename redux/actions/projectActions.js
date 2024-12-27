@@ -22,7 +22,7 @@ export const getAllProjects = () => async (dispatch) => {
     const response = await fetch(`${BASE_URL}/api/projects`);
     const data = await response.json();
     dispatch({ type: GET_ALL_PROJECTS, payload: data });
-  } catch (error) {}
+  } catch (error) { }
 };
 export const projectCounts = [
   {
@@ -40,13 +40,6 @@ export const projectCounts = [
 ];
 
 export const statCards = [
-  // {
-  //   id: "1",
-  //   title: "total_projects",
-  //   count: 0,
-  //   page: "projectsScreen",
-  //   backgroundColor: "#A0D3E8",
-  // },
   {
     id: "2",
     title: "total_earning",

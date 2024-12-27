@@ -15,12 +15,11 @@ import Filter from "../components/Filter";
 const TotalEarningScreen = () => {
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
-  const [ showBottomSheet, setShowBottomSheet ] = useState( false )
-  
-       const closeFilter = () => {
-         setShowBottomSheet(!showBottomSheet);
-       };
-       const applyFilterFromRedux = (...args) => {};
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
+
+  const closeFilter = () => {
+    setShowBottomSheet(!showBottomSheet);
+  };
 
   return (
     <ContainerComponent>
@@ -37,7 +36,7 @@ const TotalEarningScreen = () => {
             onPress={() => handleViewDetails(item)}
           />
         )}
-        ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
+        ListEmptyComponent={() => <NoRecord msg={t("no_earning")} />}
         ListHeaderComponent={() => (
           <ScrollView
             showsVerticalScrollIndicator={false}

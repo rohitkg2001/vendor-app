@@ -28,6 +28,27 @@ export const earnings = [
   },
 ];
 
+export const Task = [
+  {
+    id: 1,
+    task_name: "Solar Lighting Installation for Homes",
+    activity: "Installation",
+    location: "Bihar, Bhagalpur",
+    start_date: "2024-10-12",
+    end_date: "2024-29-12",
+    priority: "High",
+  },
+  {
+    id: 2,
+    task_name: "Community Solar Street Lights Project",
+    activity: "RMS",
+    location: "Delhi, Gurugram",
+    start_date: "2024-11-12",
+    end_date: "2024-27-12",
+    priority: "Medium",
+  },
+];
+
 export const menuItems = [
   // { label: "my_projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
   { label: "My Sites", icon: "home-outline", page: "siteScreen" },

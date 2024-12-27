@@ -1,26 +1,30 @@
 import { useState, useRef, useEffect } from "react";
-import { View, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Image, TouchableOpacity, ScrollView, Text } from "react-native";
 import { Card } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CameraComponent from "../components/CameraComponent";
 import ContainerComponent from "../components/ContainerComponent";
-import { H2, H4, H6, P } from "../components/text";
+import { H2, H4, P } from "../components/text";
 import Button from "../components/buttons/Button";
 import MyTextInput from "../components/input/MyTextInput";
 import MyHeader from "../components/header/MyHeader";
+import ModalPopup from "../components/Modal";
 import { SCREEN_WIDTH, typography, spacing, styles, layouts } from "../styles";
-import MyPickerInput from "../components/input/MyPickerInput";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { updateTask } from "../redux/actions/taskActions";
 
-export default function FileUploadScreen() {
+export default function FileUploadScreen({ route }) {
+  const { itemId } = route.params || 0;
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
-  const [sitename, setSiteName] = useState("");
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [materials, setMaterials] = useState([]);
-  const { inventory } = useSelector((state) => state.inventory);
+  // const [materials, setMaterials] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  // const { inventory } = useSelector((state) => state.inventory);
+  const dispatch = useDispatch();
 
   const cameraRef = useRef(null);
 
@@ -32,19 +36,23 @@ export default function FileUploadScreen() {
   };
 
   const handleUpload = () => {
+    console.log(itemId, date, description, photos);
+    dispatch(updateTask(itemId, { date, description, photos, status: "In Progress" }));
     if (photos.length > 0) {
+
+      setShowModal(true);
     }
   };
 
   const handleCancel = () => {
     setPhotos([]);
     setDescription("");
-    setSiteName("");
   };
 
   const removePhoto = (uri) => {
     setPhotos(photos.filter((photoUri) => photoUri !== uri));
   };
+
   const handleDateChange = (event, selectedDate) => {
     setShowDatePicker(false);
     if (selectedDate) {
@@ -52,23 +60,15 @@ export default function FileUploadScreen() {
     }
   };
 
-  useEffect(() => {
-    let myArr = [];
-    inventory.map((item, index) => {
-      const myObj = { enabled: true, label: item.product_name, value: item.id };
-      myArr.push(myObj);
-    });
-    setMaterials(myArr);
-  }, []);
+  // useEffect(() => {
+  //   let myArr = [];
+  //   inventory.map((item) => {
+  //     const myObj = { enabled: true, label: item.product_name, value: item.id };
+  //     myArr.push(myObj);
+  //   });
+  //   setMaterials(myArr);
+  // }, [inventory]);
 
-  useEffect(() => {
-    let myArr = [];
-    inventory.map((item, index) => {
-      const myObj = { enabled: true, label: item.product_name, value: item.id };
-      myArr.push(myObj);
-    });
-    setMaterials(myArr);
-  }, []);
   const { t } = useTranslation();
 
   return (
@@ -104,12 +104,7 @@ export default function FileUploadScreen() {
                   style={[styles.image, spacing.br1]}
                 />
                 <TouchableOpacity
-                  style={[
-                    layouts.circle625,
-                    layouts.center,
-                    styles.bgDanger,
-                    styles.removeImageButton,
-                  ]}
+                  style={[layouts.circle625, layouts.center, styles.bgDanger, styles.removeImageButton]}
                   onPress={() => removePhoto(photoUri)}
                 >
                   <P style={{ fontSize: 14, color: "white", marginLeft: 2 }}>
@@ -120,12 +115,7 @@ export default function FileUploadScreen() {
             ))}
           </View>
         </Card>
-        <MyTextInput
-          title={t("site_title")}
-          placeholder={t("enter_sitename")}
-          value={sitename}
-          onChangeText={setSiteName}
-        />
+
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
           <MyTextInput
             title="Date"
@@ -138,16 +128,11 @@ export default function FileUploadScreen() {
           <DateTimePicker
             value={date}
             mode="date"
+            minimumDate={moment().toDate()}
             display="default"
             onChange={handleDateChange}
           />
         )}
-
-        <MyPickerInput
-          title={t("select_material")}
-          options={materials}
-          style={{ width: SCREEN_WIDTH - 30 }}
-        />
 
         <MyTextInput
           title={t("description")}
@@ -194,6 +179,19 @@ export default function FileUploadScreen() {
           </Button>
         </View>
       </ScrollView>
+
+      <ModalPopup
+        visible={showModal}
+        close={() => setShowModal(false)}
+        negativeButton={t("close")}
+        positiveButton={t("ok")}
+        action={() => {
+          setPhotos([]);
+          setShowModal(false);
+        }}
+      >
+        <H4>Your task has been submitted successfully!</H4>
+      </ModalPopup>
     </ContainerComponent>
   );
 }

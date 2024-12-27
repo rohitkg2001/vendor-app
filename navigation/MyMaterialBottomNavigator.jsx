@@ -2,7 +2,6 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 import Icon from "react-native-vector-icons/Ionicons";
 import DashboardScreen from "../screens/DashboardScreen";
 import SettingsScreen from "../screens/SettingScreen";
-import CurrentProjectsScreen from "../screens/CurrentProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
 import {
   INFO_COLOR,
@@ -12,6 +11,7 @@ import {
 } from "../styles/constant";
 
 const BottomTab = createMaterialBottomTabNavigator();
+
 export default function MyMaterialBottomNavigator() {
   return (
     <BottomTab.Navigator
@@ -37,7 +37,7 @@ export default function MyMaterialBottomNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TasksScreen"
+        name="tasksScreen"
         component={TasksScreen}
         options={{
           tabBarLabel: "Tasks",
@@ -46,7 +46,6 @@ export default function MyMaterialBottomNavigator() {
           ),
         }}
       />
-
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
