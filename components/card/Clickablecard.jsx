@@ -99,10 +99,10 @@ export default function ClickableCard({
                       item.priority === "High"
                         ? "green"
                         : item.priority === "Medium"
-                        ? "orange"
-                        : item.priority === "Low"
-                        ? "green"
-                        : "black",
+                          ? "orange"
+                          : item.priority === "Low"
+                            ? "green"
+                            : "black",
                   },
                 ]}
               >
@@ -138,11 +138,11 @@ export default function ClickableCard({
               style={{
                 padding: 10,
               }}
-              onPress={async () => {
+              onPress={() => {
+                setIsSubmitting(false);
                 if (!isSubmitting) {
                   setIsSubmitting(true);
-                  await handleViewDetails(item.id);
-                  setIsSubmitting(false);
+                  handleViewDetails(item.id);
                 }
               }}
             >

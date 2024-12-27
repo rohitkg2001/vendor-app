@@ -20,7 +20,6 @@ const TotalEarningScreen = () => {
   const closeFilter = () => {
     setShowBottomSheet(!showBottomSheet);
   };
-  const applyFilterFromRedux = (...args) => {};
 
   return (
     <ContainerComponent>
@@ -37,7 +36,7 @@ const TotalEarningScreen = () => {
             onPress={() => handleViewDetails(item)}
           />
         )}
-        ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
+        ListEmptyComponent={() => <NoRecord msg={t("no_earning")} />}
         ListHeaderComponent={() => (
           <ScrollView
             showsVerticalScrollIndicator={false}

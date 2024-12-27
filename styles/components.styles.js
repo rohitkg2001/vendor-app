@@ -296,7 +296,7 @@ export const styles = StyleSheet.create({
   },
   gridItem: {
     alignItems: "center",
-    width: "30%",
+    width: "46%",
   },
 
   label: {
@@ -337,4 +337,12 @@ export const styles = StyleSheet.create({
     top: -5,
     right: -5,
   },
+  notificationBadgeContainer: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    height: 24,
+    width: 24,
+    borderRadius: 12,
+  }
 });

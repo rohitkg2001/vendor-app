@@ -11,17 +11,20 @@ import MyHeader from "../components/header/MyHeader";
 import ModalPopup from "../components/Modal";
 import { SCREEN_WIDTH, typography, spacing, styles, layouts } from "../styles";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { updateTask } from "../redux/actions/taskActions";
 
-export default function FileUploadScreen() {
+export default function FileUploadScreen({ route }) {
+  const { itemId } = route.params || 0;
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
-  const [sitename, setSiteName] = useState("");
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [materials, setMaterials] = useState([]);
+  // const [materials, setMaterials] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const { inventory } = useSelector((state) => state.inventory);
+  // const { inventory } = useSelector((state) => state.inventory);
+  const dispatch = useDispatch();
 
   const cameraRef = useRef(null);
 
@@ -33,7 +36,10 @@ export default function FileUploadScreen() {
   };
 
   const handleUpload = () => {
+    console.log(itemId, date, description, photos);
+    dispatch(updateTask(itemId, { date, description, photos, status: "In Progress" }));
     if (photos.length > 0) {
+
       setShowModal(true);
     }
   };
@@ -41,7 +47,6 @@ export default function FileUploadScreen() {
   const handleCancel = () => {
     setPhotos([]);
     setDescription("");
-    setSiteName("");
   };
 
   const removePhoto = (uri) => {
@@ -55,14 +60,14 @@ export default function FileUploadScreen() {
     }
   };
 
-  useEffect(() => {
-    let myArr = [];
-    inventory.map((item) => {
-      const myObj = { enabled: true, label: item.product_name, value: item.id };
-      myArr.push(myObj);
-    });
-    setMaterials(myArr);
-  }, [inventory]);
+  // useEffect(() => {
+  //   let myArr = [];
+  //   inventory.map((item) => {
+  //     const myObj = { enabled: true, label: item.product_name, value: item.id };
+  //     myArr.push(myObj);
+  //   });
+  //   setMaterials(myArr);
+  // }, [inventory]);
 
   const { t } = useTranslation();
 
@@ -99,12 +104,7 @@ export default function FileUploadScreen() {
                   style={[styles.image, spacing.br1]}
                 />
                 <TouchableOpacity
-                  style={[
-                    layouts.circle625,
-                    layouts.center,
-                    styles.bgDanger,
-                    styles.removeImageButton,
-                  ]}
+                  style={[layouts.circle625, layouts.center, styles.bgDanger, styles.removeImageButton]}
                   onPress={() => removePhoto(photoUri)}
                 >
                   <P style={{ fontSize: 14, color: "white", marginLeft: 2 }}>
@@ -128,6 +128,7 @@ export default function FileUploadScreen() {
           <DateTimePicker
             value={date}
             mode="date"
+            minimumDate={moment().toDate()}
             display="default"
             onChange={handleDateChange}
           />
