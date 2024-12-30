@@ -43,6 +43,7 @@ export default function TasksScreen({ navigation }) {
             positiveText="Submit"
             isNegativeButtonVisible={true}
             negativeText="Survey"
+            negativeAction={() => navigation.navigate('surveyScreen', { itemId: item.id })}
           // leftContent={() => <View style={[layouts.circle625, {
           //   backgroundColor: item.priority === "High"
           //     ? "red"

@@ -61,13 +61,13 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
       name, // File name
       type: mimeType, // File type
     });
-    Array.isArray(image) && image.forEach(({ uri, name }) => {
-      formData.append("image[]", {
-        uri, // Local file URI
-        name, // File name
-        type: "image/jpg", // File type
-      });
-    });
+    // Array.isArray(image) && image.forEach(({ uri, name }) => {
+    //   formData.append("image[]", {
+    //     uri, // Local file URI
+    //     name, // File name
+    //     type: "image/jpg", // File type
+    //   });
+    // });
     formData.append("status", "In Progress");
     formData.append("description", description);
     // formData.append("date", date);
@@ -78,7 +78,9 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
         "Content-Type": "multipart/form-data", // Ensure proper headers
       },
     })
-    console.log(response)
+    const { data, status } = await response
+    dispatch({ type: UPDATE_TASK, payload: data });
+    return status
   } catch (error) {
     console.log(error.message)
   }

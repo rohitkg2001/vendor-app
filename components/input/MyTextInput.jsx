@@ -11,7 +11,7 @@ export default function MyTextInput({ title, onChangeText, height = 54, type, mu
         onChangeText={onChangeText}
         keyboardType={type}
         style={[styles.textInputField, spacing.mv1, spacing.pl3, {
-          width: SCREEN_WIDTH - 28, height: height, textAlignVertical: multiline ? 'top' : 'center',
+          width: SCREEN_WIDTH - 16, height: height, textAlignVertical: multiline ? 'top' : 'center',
         }]} // Align text based on multiline }]}
         cursorColor={PRIMARY_COLOR}
         title

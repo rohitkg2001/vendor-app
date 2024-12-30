@@ -1,21 +1,18 @@
 import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
 import { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
 import * as DocumentPicker from 'expo-document-picker'
 import Button from '../components/buttons/Button'
 import { H2, H4, P } from '../components/text'
 import { SCREEN_WIDTH, styles, spacing, layouts, typography } from '../styles'
-import { BASE_URL } from '../redux/constant'
 import ContainerComponent from '../components/ContainerComponent'
 import MyHeader from '../components/header/MyHeader'
 import { useTranslation } from 'react-i18next'
-import { Card } from 'react-native-paper'
 import CameraComponent from "../components/CameraComponent";
 import MyTextInput from '../components/input/MyTextInput'
 import { useDispatch } from 'react-redux'
-import DateTimePicker from '@react-native-community/datetimepicker'
-import moment from 'moment'
 import { updateTask } from '../redux/actions/taskActions'
+import ModalPopup from "../components/Modal";
+import { useNavigation } from '@react-navigation/native'
 
 export default function FileUploadScreen({ route }) {
   const { itemId } = route.params || 0;
@@ -24,11 +21,10 @@ export default function FileUploadScreen({ route }) {
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  // const [materials, setMaterials] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  // const { inventory } = useSelector((state) => state.inventory);
+  const [fileUploadProgress, setFileUploadProgress] = useState(0); // Progress state
   const dispatch = useDispatch();
+  const navigation = useNavigation()
 
   const cameraRef = useRef(null);
 
@@ -59,7 +55,20 @@ export default function FileUploadScreen({ route }) {
   };
 
   const handleUpload = async () => {
-    await dispatch(updateTask(itemId, { date, description, image: photos, file }));
+    try {
+      setFileUploadProgress(0); // Reset progress
+      const response = await dispatch(updateTask(itemId, { date, description, image: photos, file }));
+
+      if (response?.status === 200) {
+        setModalMessage("Task submitted successfully!");
+      } else {
+        setModalMessage("Error submitting task");
+      }
+    } catch (error) {
+      setModalMessage("Error submitting task");
+    } finally {
+      setShowModal(true);
+    }
   }
 
   return (
@@ -107,11 +116,34 @@ export default function FileUploadScreen({ route }) {
           ))}
         </View>
 
-        <TouchableOpacity onPress={pickDocument}>
-          <Text>Upload Document</Text>
-        </TouchableOpacity>
+        <View onPress={pickDocument} style={{ width: SCREEN_WIDTH - 20, height: SCREEN_WIDTH - 200, backgroundColor: 'lightblue', justifyContent: 'center', alignItems: 'center', borderRadius: 10, marginTop: 10, borderStyle: "dashed", borderWidth: 1, borderColor: "black" }}>
+          <TouchableOpacity onPress={pickDocument}>
+            <Text>Upload Document</Text>
+          </TouchableOpacity>
+          {file && (
+            <View style={[styles.filePreview, spacing.mt2]}>
+              <Text>{file.name}</Text>
+              <TouchableOpacity onPress={() => setFile(null)}>
+                <Text style={{ color: "red" }}>Remove</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {fileUploadProgress > 0 && fileUploadProgress < 100 && (
+            <View style={[styles.progressBar, spacing.mv2]}>
+              <View
+                style={{
+                  width: `${fileUploadProgress}%`,
+                  backgroundColor: PRIMARY_COLOR,
+                  height: 5,
+                }}
+              />
+            </View>
+          )}
+        </View>
+
+
         {/* Add designs to show a good file upload ui and preview and download progress */}
-        {/* </Card> */}
+
 
         <MyTextInput
           title={t("description")}
@@ -158,7 +190,15 @@ export default function FileUploadScreen({ route }) {
           </Button>
         </View>
       </ScrollView>
+      <ModalPopup
+        visible={showModal}
+        close={() => setShowModal(false)}
+        negativeButton={t("close")}
+        positiveButton={t("ok")}
+        action={() => { setShowModal(false), navigation.navigate("taskScreen") }}
+      >
+        <H4>Your task has been submitted successfully!</H4>
+      </ModalPopup>
     </ContainerComponent>
-
   )
 }
