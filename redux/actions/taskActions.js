@@ -1,5 +1,6 @@
 import { VIEW_TASK, UPDATE_TASK, BASE_URL, GET_ALL_TASKS } from "../constant";
 import { filterByStatus } from "./projectActions";
+import axios from "axios";
 
 export const INSTALLATION = filterByStatus([], 0);
 export const FIXING_SLIP = filterByStatus([], 1);
@@ -50,24 +51,39 @@ export const viewTask = (taskId) => async (dispatch, getState) => {
   }
 };
 
-export const updateTask = (taskId, updatedTaskData) => async (dispatch) => {
+export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/task/${taskId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedTaskData)
+    const { date, description, image, file } = dataToUpdate;
+    const formData = new FormData();
+    const { uri, name, mimeType } = file;
+    formData.append("image[]", {
+      uri, // Local file URI
+      name, // File name
+      type: mimeType, // File type
     });
-
-    const updatedTask = await response.json();
-    console.log(updatedTask);
-    // await dispatch({ type: UPDATE_TASK, payload: updatedTask });
-    // return true;
+    Array.isArray(image) && image.forEach(({ uri, name }) => {
+      formData.append("image[]", {
+        uri, // Local file URI
+        name, // File name
+        type: "image/jpg", // File type
+      });
+    });
+    formData.append("status", "In Progress");
+    formData.append("description", description);
+    // formData.append("date", date);
+    formData.append("_method", "PUT")
+    console.log(formData, taskId)
+    const response = await axios.post(`${BASE_URL}/api/task/${taskId}?_method=PUT`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Ensure proper headers
+      },
+    })
+    console.log(response)
   } catch (error) {
-    console.error(error);
+    console.log(error.message)
   }
 };
+
 
 // 0=INSTALLATION
 // 1 = FIXING SLIP

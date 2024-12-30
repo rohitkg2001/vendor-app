@@ -1,22 +1,26 @@
-import { useState, useRef, useEffect } from "react";
-import { View, Image, TouchableOpacity, ScrollView, Text } from "react-native";
-import { Card } from "react-native-paper";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+import axios from 'axios'
+import * as DocumentPicker from 'expo-document-picker'
+import Button from '../components/buttons/Button'
+import { H2, H4, P } from '../components/text'
+import { SCREEN_WIDTH, styles, spacing, layouts, typography } from '../styles'
+import { BASE_URL } from '../redux/constant'
+import ContainerComponent from '../components/ContainerComponent'
+import MyHeader from '../components/header/MyHeader'
+import { useTranslation } from 'react-i18next'
+import { Card } from 'react-native-paper'
 import CameraComponent from "../components/CameraComponent";
-import ContainerComponent from "../components/ContainerComponent";
-import { H2, H4, P } from "../components/text";
-import Button from "../components/buttons/Button";
-import MyTextInput from "../components/input/MyTextInput";
-import MyHeader from "../components/header/MyHeader";
-import ModalPopup from "../components/Modal";
-import { SCREEN_WIDTH, typography, spacing, styles, layouts } from "../styles";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import { updateTask } from "../redux/actions/taskActions";
+import MyTextInput from '../components/input/MyTextInput'
+import { useDispatch } from 'react-redux'
+import DateTimePicker from '@react-native-community/datetimepicker'
+import moment from 'moment'
+import { updateTask } from '../redux/actions/taskActions'
 
 export default function FileUploadScreen({ route }) {
   const { itemId } = route.params || 0;
+
+  const [file, setFile] = useState(null)
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
@@ -28,6 +32,15 @@ export default function FileUploadScreen({ route }) {
 
   const cameraRef = useRef(null);
 
+  const { t } = useTranslation()
+
+  const pickDocument = async () => {
+    const file = await DocumentPicker.getDocumentAsync({ type: 'application/pdf', copyToCacheDirectory: true })
+    if (!file.canceled) {
+      setFile(file.assets[0])
+    }
+  }
+
   const handleTakePicture = async () => {
     if (cameraRef.current && photos.length < 5) {
       const photo = await cameraRef.current.takePictureAsync();
@@ -35,13 +48,9 @@ export default function FileUploadScreen({ route }) {
     }
   };
 
-  const handleUpload = () => {
-    console.log(itemId, date, description, photos);
-    dispatch(updateTask(itemId, { date, description, photos, status: "In Progress" }));
-    if (photos.length > 0) {
 
-      setShowModal(true);
-    }
+  const removePhoto = (uri) => {
+    setPhotos(photos.filter((photoUri) => photoUri !== uri));
   };
 
   const handleCancel = () => {
@@ -49,90 +58,60 @@ export default function FileUploadScreen({ route }) {
     setDescription("");
   };
 
-  const removePhoto = (uri) => {
-    setPhotos(photos.filter((photoUri) => photoUri !== uri));
-  };
-
-  const handleDateChange = (event, selectedDate) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
-      setDate(selectedDate);
-    }
-  };
-
-  // useEffect(() => {
-  //   let myArr = [];
-  //   inventory.map((item) => {
-  //     const myObj = { enabled: true, label: item.product_name, value: item.id };
-  //     myArr.push(myObj);
-  //   });
-  //   setMaterials(myArr);
-  // }, [inventory]);
-
-  const { t } = useTranslation();
+  const handleUpload = async () => {
+    await dispatch(updateTask(itemId, { date, description, image: photos, file }));
+  }
 
   return (
     <ContainerComponent>
       <MyHeader title={t("submit_task")} isBack={true} hasIcon={true} />
-      <ScrollView style={[layouts.flex1]} showsVerticalScrollIndicator={false}>
-        <Card style={[spacing.mv2, spacing.p2]}>
-          <H4 style={[styles.titleText, spacing.m2, { marginVertical: 0 }]}>
-            {t("upload_photo")}
-          </H4>
-          <P style={[spacing.mh2]}>{t("photo_description")}</P>
-          <CameraComponent cameraRef={cameraRef} />
 
-          <Button
-            style={[styles.btn, styles.bgPrimary, layouts.center]}
-            onPress={handleTakePicture}
+      <ScrollView style={[layouts.flex1, spacing.mh1]} showsVerticalScrollIndicator={false}>
+        {/* <Card style={[spacing.mv2, spacing.p2]}> */}
+        <H4 style={[styles.titleText, spacing.m2, { marginVertical: 0 }]}>
+          {t("upload_photo")}
+        </H4>
+        <P style={[spacing.mh2]}>{t("photo_description")}</P>
+        <CameraComponent cameraRef={cameraRef} />
+
+        <Button
+          style={[styles.btn, styles.bgPrimary, layouts.center]}
+          onPress={handleTakePicture}
+        >
+          <H2
+            style={[styles.btnText, typography.font20, typography.textLight]}
           >
-            <H2
-              style={[styles.btnText, typography.font20, typography.textLight]}
+            {t("take_photo")}
+          </H2>
+        </Button>
+
+        <View style={[styles.row, { justifyContent: "flex-start" }]}>
+          {photos.map((photoUri, index) => (
+            <View
+              key={index}
+              style={[spacing.mr2, spacing.mt2, { position: "relative" }]}
             >
-              {t("take_photo")}
-            </H2>
-          </Button>
-
-          <View style={[styles.row, { justifyContent: "flex-start" }]}>
-            {photos.map((photoUri, index) => (
-              <View
-                key={index}
-                style={[spacing.mr2, spacing.mt2, { position: "relative" }]}
+              <Image
+                source={{ uri: photoUri }}
+                style={[styles.image, spacing.br1]}
+              />
+              <TouchableOpacity
+                style={[layouts.circle625, layouts.center, styles.bgDanger, styles.removeImageButton]}
+                onPress={() => removePhoto(photoUri)}
               >
-                <Image
-                  source={{ uri: photoUri }}
-                  style={[styles.image, spacing.br1]}
-                />
-                <TouchableOpacity
-                  style={[layouts.circle625, layouts.center, styles.bgDanger, styles.removeImageButton]}
-                  onPress={() => removePhoto(photoUri)}
-                >
-                  <P style={{ fontSize: 14, color: "white", marginLeft: 2 }}>
-                    X
-                  </P>
-                </TouchableOpacity>
-              </View>
-            ))}
-          </View>
-        </Card>
+                <P style={{ fontSize: 14, color: "white", marginLeft: 2 }}>
+                  X
+                </P>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
 
-        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-          <MyTextInput
-            title="Date"
-            value={date.toLocaleDateString()}
-            placeholder="Select Date"
-            editable={false}
-          />
+        <TouchableOpacity onPress={pickDocument}>
+          <Text>Upload Document</Text>
         </TouchableOpacity>
-        {showDatePicker && (
-          <DateTimePicker
-            value={date}
-            mode="date"
-            minimumDate={moment().toDate()}
-            display="default"
-            onChange={handleDateChange}
-          />
-        )}
+        {/* Add designs to show a good file upload ui and preview and download progress */}
+        {/* </Card> */}
 
         <MyTextInput
           title={t("description")}
@@ -179,19 +158,7 @@ export default function FileUploadScreen({ route }) {
           </Button>
         </View>
       </ScrollView>
-
-      <ModalPopup
-        visible={showModal}
-        close={() => setShowModal(false)}
-        negativeButton={t("close")}
-        positiveButton={t("ok")}
-        action={() => {
-          setPhotos([]);
-          setShowModal(false);
-        }}
-      >
-        <H4>Your task has been submitted successfully!</H4>
-      </ModalPopup>
     </ContainerComponent>
-  );
+
+  )
 }

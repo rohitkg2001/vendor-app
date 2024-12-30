@@ -28,7 +28,6 @@ export default function ClickableCard1({
                     marginHorizontal: 8,
                 },
             ]}
-            onPress={() => handleViewDetails(item)}
         >
             <Card.Title
                 title={<H5>{title}</H5>}
