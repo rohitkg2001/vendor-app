@@ -344,5 +344,23 @@ export const styles = StyleSheet.create({
     height: 24,
     width: 24,
     borderRadius: 12,
-  }
+  },
+  progressBar: {
+    width: '100%',
+    backgroundColor: '#e0e0e0', // Light grey background for the progress bar
+    height: 5,
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
+  filePreview: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#f9f9f9', // Light background for the file preview
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ddd', // Light grey border
+    marginTop: 10,
+  },
 });
