@@ -24,15 +24,17 @@ export default function SiteScreen({ navigation }) {
   const closeFilter = () => {
     setShowBottomSheet(!showBottomSheet);
   };
-  const applyFilterFromRedux = (...args) => {};
+  const applyFilterFromRedux = (...args) => { };
 
   const { t } = useTranslation();
   const [showBottomSheet, setShowBottomSheet] = useState(false);
 
   const { sites } = useSelector((state) => state.site);
-  console.log(sites);
 
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    console.log(sites);
+  }, []);
 
   return (
     <ContainerComponent>

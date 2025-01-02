@@ -15,6 +15,7 @@ export const UPDATE_TASK = "UPDATE_TASK,";
 export const GET_ALL_SITES = "GET_ALL_SITES";
 export const VIEW_SITE = "VIEW_SITE";
 export const SEARCH_SITE = "SEARCH_SITE";
+export const SET_SITES_COUNT = "SET_SITES_COUNT"
 
 export const GET_ALL_PROJECTS = "GET_ALL_PROJECTS";
 export const VIEW_PROJECT = "VIEW_PROJECT";

@@ -17,13 +17,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { greet } from "../redux/actions/vendorActions";
 import { statCards } from "../redux/actions/projectActions";
-import { getAllTasks, tasksCounts } from "../redux/actions/taskActions";
+import { getAllInstallationCount, getAllTasks, tasksCounts } from "../redux/actions/taskActions";
 import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
 import DashboardHeader from "../components/header/DashboardHeader";
 import DashboardFilter from "../components/filters/DashboardFilter";
 import CardsArray from "../components/card/CardsArray";
 import CardFullWidth from "../components/card/CardFullWidth";
+import { fetchSites } from "../redux/actions/siteActions";
 
 export default function DashboardScreen() {
   const [dueTasks, setDueTasks] = useState(4);
@@ -32,21 +33,33 @@ export default function DashboardScreen() {
 
   const navigation = useNavigation();
 
-  const { firstName, id } = useSelector((state) => state.vendor);
+  const { firstName, id, name } = useSelector((state) => state.vendor);
   const { tasks } = useSelector((state) => state.tasks);
+  const vendor = useSelector(state => state.vendor)
 
   const [installation, setInstallation] = useState(0);
-  const [doneInstallation, setDoneInstallation] = useState(0);
   const [rmsStatus, setRmsStatus] = useState(0);
+  const [doneInstallation, setDoneInstallation] = useState(0);
   const [donRMS, setDoneRMS] = useState(0);
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  const getCounts = async () => {
+    const installationCount = await getAllInstallationCount(id, "installation");
+    setInstallation(installationCount)
+    const RMSCount = await getAllInstallationCount(id, "rms");
+    setRmsStatus(RMSCount)
+
+  }
   useEffect(() => {
     setGreeting(greet());
     dispatch(getAllTasks(id));
+    dispatch(fetchSites(id));
+    console.log(name)
   }, []);
+
+  useEffect(() => { getCounts() }, [installation]);
 
   useEffect(() => {
     setDueTasks(Array.isArray(tasks) ? tasks.length : 0);
@@ -61,7 +74,7 @@ export default function DashboardScreen() {
       <DashboardHeader
         dueTasks={dueTasks}
         greeting={greeting}
-        firstName={firstName}
+        firstName={name}
         navigation={navigation}
         notificationCount={dueTasks}
       />
@@ -99,6 +112,68 @@ export default function DashboardScreen() {
             </H4>
           </View>
           <View style={[spacing.bbw05, spacing.mv1]} />
+
+          <View
+            style={[
+              styles.row,
+              { justifyContent: "space-between", paddingVertical: 10, borderBottomColor: PRIMARY_COLOR, borderBottomWidth: 1 },
+            ]}
+          >
+            <View style={{ alignItems: "center" }}>
+              <P style={typography.textBold}>{t("Progress")}</P>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <P style={typography.textBold}>{t("Installation")}</P>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <P style={typography.textBold}>{t("RMS")}</P>
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.row,
+              { justifyContent: "space-between", paddingVertical: 10, borderBottomColor: PRIMARY_COLOR, borderBottomWidth: 1 },
+            ]}
+          >
+            <View style={{ alignItems: "center" }}>
+              <P style={typography.textBold}>{t("Pending")}</P>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <H5 style={spacing.ml2}>
+                {doneInstallation}/
+                <H5 style={typography.textDanger}>{installation}</H5>
+              </H5>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <H5 style={spacing.ml2}>
+                {donRMS}/<H5 style={typography.textDanger}>{rmsStatus}</H5>
+              </H5>
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.row,
+              { justifyContent: "space-between", paddingVertical: 10, borderBottomColor: PRIMARY_COLOR, borderBottomWidth: 1 },
+            ]}
+          >
+            <View style={{ alignItems: "center" }}>
+              <P style={typography.textBold}>{t("In approval")}</P>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <H5>
+                {doneInstallation}/
+                <H5 style={typography.textDanger}>0</H5>
+              </H5>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <H5 style={spacing.ml2}>
+                {donRMS}/<H5 style={typography.textDanger}>{rmsStatus}</H5>
+              </H5>
+            </View>
+          </View>
+
           <View
             style={[
               styles.row,
@@ -106,21 +181,25 @@ export default function DashboardScreen() {
             ]}
           >
             <View style={{ alignItems: "center" }}>
-              <P style={typography.textBold}>{t("Installation")}</P>
+              <P style={typography.textBold}>{t("Approved")}</P>
+            </View>
+            <View style={{ alignItems: "center" }}>
               <H5 style={spacing.ml2}>
                 {doneInstallation}/
-                <H5 style={typography.textDanger}>{installation}</H5>
+                <H5 style={typography.textDanger}>0</H5>
               </H5>
             </View>
             <View style={{ alignItems: "center" }}>
-              <P style={typography.textBold}>{t("RMS")}</P>
               <H5 style={spacing.ml2}>
                 {donRMS}/<H5 style={typography.textDanger}>{rmsStatus}</H5>
               </H5>
             </View>
           </View>
+
+
+
         </CardFullWidth>
-        <CardsArray tasksCounts={tasksCounts} navigation={navigation} />
+        <CardsArray tasksCounts={tasksCounts} installationCount={installation} navigation={navigation} />
       </ScrollView>
       {showBottomSheet && (
         <Filter onClose={closeFilter} onApply={applyFilterFromRedux} />

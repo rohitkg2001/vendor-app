@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
 import { useEffect, useRef, useState } from 'react'
 import * as DocumentPicker from 'expo-document-picker'
 import Button from '../components/buttons/Button'
-import { H2, H4, P } from '../components/text'
+import { H2, H4, P, Span } from '../components/text'
 import { SCREEN_WIDTH, styles, spacing, layouts, typography } from '../styles'
 import ContainerComponent from '../components/ContainerComponent'
 import MyHeader from '../components/header/MyHeader'
@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux'
 import { updateTask } from '../redux/actions/taskActions'
 import ModalPopup from "../components/Modal";
 import { useNavigation } from '@react-navigation/native'
+import * as Location from 'expo-location'
 
 export default function FileUploadScreen({ route }) {
   const { itemId } = route.params || 0;
@@ -22,9 +23,12 @@ export default function FileUploadScreen({ route }) {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
+  const [latitude, setLatitude] = useState(null)
+  const [longitude, setLongitude] = useState(null)
   const [fileUploadProgress, setFileUploadProgress] = useState(0); // Progress state
   const dispatch = useDispatch();
   const navigation = useNavigation()
+
 
   const cameraRef = useRef(null);
 
@@ -70,6 +74,23 @@ export default function FileUploadScreen({ route }) {
       setShowModal(true);
     }
   }
+  const getAndSetCurrentLocation = async () => {
+    try {
+      const { granted } = await Location.requestForegroundPermissionsAsync();
+      if (granted) {
+        const location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
+        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        setLatitude(latitude)
+        setLongitude(longitude)
+      }
+    } catch (err) {
+      console.log(`No Location Permission Granted`);
+    }
+  }
+  useEffect(() => {
+    getAndSetCurrentLocation()
+  }, [])
 
   return (
     <ContainerComponent>
@@ -82,6 +103,9 @@ export default function FileUploadScreen({ route }) {
         </H4>
         <P style={[spacing.mh2]}>{t("photo_description")}</P>
         <CameraComponent cameraRef={cameraRef} />
+        <Span>Current Location</Span>
+        <Span>Lat: {latitude}</Span>
+        <Span>Long: {longitude}</Span>
 
         <Button
           style={[styles.btn, styles.bgPrimary, layouts.center]}

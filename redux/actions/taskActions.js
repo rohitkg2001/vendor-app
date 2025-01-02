@@ -26,17 +26,31 @@ export const tasksCounts = [
 
 export const getAllTasks = (my_id) => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/task`);
-    const data = await response.json();
+    const response = await axios.get(`${BASE_URL}/api/task`);
+    const { data } = await response
 
     const myTasks =
       Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
     // console.log(myTasks);
     dispatch({ type: GET_ALL_TASKS, payload: myTasks });
   } catch (error) {
-    console.error(error);
+    console.error(`Error fetching tasks by vendor id: ${error.message}`);
   }
 };
+
+export const getAllInstallationCount = async (my_id, category) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/task`);
+    const { data } = await response
+
+    const myTasks =
+      Array.isArray(data) && data.filter((task) => task.vendor_id === my_id && task.activity.toLowerCase() === category.toLowerCase());
+    return myTasks.length;
+  } catch (error) {
+    console.error(`Error fetching tasks by Status: ${error.message}`);
+  }
+};
+
 
 export const viewTask = (taskId) => async (dispatch, getState) => {
   const { tasks } = getState();

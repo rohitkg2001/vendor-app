@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 
-export default function CardsArray({ tasksCounts = [], navigation }) {
+export default function CardsArray({ tasksCounts = [], installationCount, navigation }) {
     const { t } = useTranslation();
     return (
 
@@ -16,7 +16,7 @@ export default function CardsArray({ tasksCounts = [], navigation }) {
                 {t("task_management")}
             </H3>
             <View style={styles.attendanceContainer}>
-                {tasksCounts.map((item) => (
+                {tasksCounts.map((item, index) => (
                     <TouchableOpacity
                         key={item.id}
                         style={[spacing.mv4, styles.gridItem, spacing.bw1, spacing.br2, spacing.p4]}
@@ -37,7 +37,7 @@ export default function CardsArray({ tasksCounts = [], navigation }) {
                             ]}
                         >
                             <P style={{ color: LIGHT, fontWeight: "bold" }}>
-                                {item.count}
+                                {index !== 1 ? installationCount : 0}
                             </P>
                         </View>
                     </TouchableOpacity>

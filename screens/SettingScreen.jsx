@@ -24,7 +24,7 @@ export default function SettingsScreen() {
   };
 
   useEffect(() => {
-    dispatch(getAllTasks());
+    // dispatch(getAllTasks());
     dispatch(getAllProjects());
     dispatch(getAllItems());
   }, []);

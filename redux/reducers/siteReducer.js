@@ -1,4 +1,4 @@
-import { VIEW_SITE, SEARCH_SITE, ADD_SITE, FETCH_SITES } from "../constant";
+import { VIEW_SITE, SEARCH_SITE, ADD_SITE, GET_ALL_SITES, SET_SITES_COUNT } from "../constant";
 
 const initialState = {
   sites: [],
@@ -10,17 +10,20 @@ const initialState = {
 
 export const siteReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_SITES:
+    case GET_ALL_SITES:
       return {
         ...state,
         sites: action.payload,
       };
-
+    case SET_SITES_COUNT:
+      return {
+        ...state,
+        sitesCount: action.payload,
+      };
     case ADD_SITE:
       return {
         ...state,
-        sites: [action.payload, ...state.sites],
-        filteredSites: [action.payload, ...state.filteredSites],
+        sites: action.payload,
       };
 
     case VIEW_SITE:
@@ -29,16 +32,9 @@ export const siteReducer = (state = initialState, action) => {
         currentSite: action.payload,
       };
     case SEARCH_SITE:
-      const searchText = action.payload.toLowerCase();
       return {
         ...state,
-        searchText: action.payload,
-        filteredSites: state.sites.filter(
-          (site) =>
-            site.city.toLowerCase().includes(searchText) ||
-            site.state.toLowerCase().includes(searchText) ||
-            site.projectCode.toLowerCase().includes(searchText)
-        ),
+        sites: action.payload
       };
     default:
       return state;
