@@ -60,9 +60,9 @@ export default function FileUploadScreen({ route }) {
 
   const handleUpload = async () => {
     try {
+      console.log(photos, file)
       setFileUploadProgress(0); // Reset progress
-      const response = await dispatch(updateTask(itemId, { date, description, image: photos, file }));
-
+      const response = await dispatch(updateTask(itemId, { date, description, image: photos, file, lat: latitude, long: longitude }));
       if (response?.status === 200) {
         setModalMessage("Task submitted successfully!");
       } else {
