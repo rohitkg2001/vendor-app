@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Avatar, List } from "react-native-paper";
+import { List } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ContainerComponent from "../components/ContainerComponent";
@@ -7,7 +6,7 @@ import MyHeader from "../components/header/MyHeader";
 import { notifications } from "../utils/faker";
 import { H2, H5, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
-import { spacing, styles, PRIMARY_COLOR, ICON_LARGE } from "../styles";
+import { spacing, styles } from "../styles";
 import { useTranslation } from "react-i18next";
 
 export default function NotificationScreen() {

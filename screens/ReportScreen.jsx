@@ -1,15 +1,14 @@
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import React from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
-import { useTranslation } from "react-i18next"; 
+import { useTranslation } from "react-i18next";
 
 export default function ReportScreen() {
   const { t } = useTranslation();
 
-
-  const data = []; 
+  const data = [];
 
   return (
     <ContainerComponent>
@@ -17,7 +16,6 @@ export default function ReportScreen() {
 
       <FlatList
         data={data}
-        renderItem={({ item }) => <View></View>}
         keyExtractor={(item, index) => index.toString()}
         ListEmptyComponent={() => <NoRecord msg={t("no_report")} />}
       />

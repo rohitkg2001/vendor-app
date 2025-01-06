@@ -1,7 +1,6 @@
 import {
   VIEW_INVENTORY,
   UPDATE_INVENTORY,
-  SEARCH_INVENTORY,
   COUNT_INVENTORY,
   BASE_URL,
   GET_ALL_INVENTORY,
@@ -23,11 +22,6 @@ export const getAllItems = () => async (dispatch) => {
 export const updateInventory = (item) => ({
   type: UPDATE_INVENTORY,
   payload: item,
-});
-
-export const searchInventory = (searchText) => ({
-  type: SEARCH_INVENTORY,
-  payload: searchText,
 });
 
 export const countInventory = () => ({

@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
 
   cardFullWidth: {
     width: SCREEN_WIDTH / 1.05,
-    height: SCREEN_WIDTH / 3,
+    // height: SCREEN_WIDTH / 3,
     elevation: 2,
   },
 
@@ -340,7 +340,7 @@ export const styles = StyleSheet.create({
   notificationBadgeContainer: {
     position: "absolute",
     top: 0,
-    right: 0,
+    right: 5,
     height: 24,
     width: 24,
     borderRadius: 12,

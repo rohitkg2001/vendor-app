@@ -50,7 +50,7 @@ export const Task = [
 ];
 
 export const menuItems = [
-  // { label: "my_projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
+  //{ label: "my_projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
   { label: "My Sites", icon: "home-outline", page: "siteScreen" },
   { label: "my_tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
   {
