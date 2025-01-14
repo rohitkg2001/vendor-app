@@ -35,7 +35,7 @@ const ProfileItem = ({ iconName, label }) => {
 
 const ProfileScreen = () => {
   const { t } = useTranslation();
-  const { vendor } = useSelector(state => state)
+  const { vendor } = useSelector((state) => state);
 
   return (
     <ContainerComponent>
@@ -77,6 +77,7 @@ const ProfileScreen = () => {
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_document")} />}
         keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent={false}
       />
     </ContainerComponent>
   );

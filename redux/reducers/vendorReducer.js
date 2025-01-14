@@ -1,5 +1,3 @@
-// A reducer file that will handle all data interaction specific to the vendor
-// login,logout, change_password, view_profile etc
 import {
   initialState,
   LOGIN_VENDOR,

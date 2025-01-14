@@ -340,7 +340,7 @@ export const styles = StyleSheet.create({
   notificationBadgeContainer: {
     position: "absolute",
     top: 0,
-    right: 0,
+    right: 5,
     height: 24,
     width: 24,
     borderRadius: 12,
