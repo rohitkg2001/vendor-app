@@ -69,34 +69,40 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
   try {
     const { date, description, image, file, lat, long } = dataToUpdate;
     const formData = new FormData();
-    const { uri, name, mimeType } = file;
-    formData.append("image[]", {
-      uri, // Local file URI
-      name, // File name
-      type: mimeType, // File type
-    });
-    Array.isArray(image) && image.map((item, index) => {
-      formData.append(`image[${index}]`, {
-        uri: item, // Local file URI
-        name: `photo_${index}.jpg`, // File name
-        type: "image/jpeg", // File type
+    if (file) {
+      const { uri, name, mimeType } = file;
+      formData.append("image[]", {
+        uri, // Local file URI
+        name, // File name
+        type: mimeType, // File type
       });
-    });
+    }
+    if (image) {
+      Array.isArray(image) && image.forEach((item, index) => {
+        formData.append(`image[${index}]`, {
+          uri: item.startsWith("file://") ? item : `file:/${item}`, // Local file URI
+          name: `photo_${index}.jpg`, // File name
+          type: "image/jpeg", // File type
+        });
+      });
+    }
     formData.append("status", "In Progress");
     formData.append("description", description);
     formData.append("lat", lat);
     formData.append('long', long);
     formData.append("_method", "PUT")
     // Debug FormData structure
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
     const response = await axios.post(`${BASE_URL}/api/task/${taskId}?_method=PUT`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data", // Ensure proper headers
+        "Content-Type": "application/json", // Ensure proper headers
       },
     })
     const { data, status } = await response
+    console.log(status)
+
     dispatch({ type: UPDATE_TASK, payload: data });
     return status
   } catch (error) {
