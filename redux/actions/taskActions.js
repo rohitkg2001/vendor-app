@@ -92,17 +92,12 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
     formData.append('long', long);
     formData.append("_method", "PUT")
     // Debug FormData structure
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
     const response = await axios.post(`${BASE_URL}/api/task/${taskId}?_method=PUT`, formData, {
       headers: {
-        "Content-Type": "application/json", // Ensure proper headers
+        "Content-Type": "multipart/form-data", // Ensure proper headers
       },
     })
     const { data, status } = await response
-    console.log(status)
-
     dispatch({ type: UPDATE_TASK, payload: data });
     return status
   } catch (error) {

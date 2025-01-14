@@ -46,7 +46,6 @@ export default function DashboardScreen() {
     setGreeting(greet());
     dispatch(getAllTasks(id));
     dispatch(fetchSites(id));
-    console.log(name);
   }, []);
 
   useEffect(() => {

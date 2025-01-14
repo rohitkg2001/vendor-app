@@ -14,15 +14,17 @@ import { getAllTasks } from "../redux/actions/taskActions";
 
 export default function TasksScreen({ navigation }) {
   const { t } = useTranslation();
-  const [tasks, setTasks] = useState([]);
-  const { vendor } = useSelector((state) => state);
-  const state = useSelector((state) => state);
+  const { vendor, tasks } = useSelector((state) => ({
+    vendor: state.vendor,
+    tasks: state.tasks.tasks, // Use Redux state directly
+  }));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllTasks(vendor.id));
-    setTasks(state.tasks.tasks);
-  }, [vendor, state]);
+    if (vendor?.id) {
+      dispatch(getAllTasks(vendor.id));
+    }
+  }, [vendor?.id, dispatch]);
 
   return (
     <ContainerComponent>

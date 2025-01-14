@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, ScrollView, Image } from "react-native";
+import { View, TouchableOpacity, ScrollView, Image, ActivityIndicator } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import Button from "../components/buttons/Button";
 import { H2, H4, P, Span } from "../components/text";
@@ -24,6 +24,8 @@ export default function SurveyScreen({ route }) {
   const [showModal, setShowModal] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [modalMsg, setModalMessage] = useState("")
+  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -49,27 +51,31 @@ export default function SurveyScreen({ route }) {
 
   const handleUpload = async () => {
     try {
-      console.log(photos, file);
-      setFileUploadProgress(0); // Reset progress
+      setLoading(true)
       const response = await dispatch(
         updateTask(itemId, {
           date,
           description,
           image: photos,
-          file,
           lat: latitude,
           long: longitude,
         })
       );
-      if (response?.status === 200) {
+      console.log(`response is ${response}`)
+      if (response === 200) {
+        setLoading(false)
+        setShowModal(true)
         setModalMessage("Task submitted successfully!");
       } else {
+        setLoading(false)
+        setShowModal(true)
         setModalMessage("Error submitting task");
       }
     } catch (error) {
+      setLoading(false)
       setModalMessage("Error submitting task");
     } finally {
-      setShowModal(true);
+      setShowModal(false);
     }
   };
   const getAndSetCurrentLocation = async () => {
@@ -170,11 +176,15 @@ export default function SurveyScreen({ route }) {
               { width: SCREEN_WIDTH / 2 - 20 },
             ]}
           >
-            <H2
-              style={[styles.btnText, typography.font20, typography.textLight]}
-            >
-              Submit
-            </H2>
+            {
+              loading ?
+                <ActivityIndicator size="small" style={[styles.btnText, typography.font20, typography.textLight]} animating color="#fff" /> :
+                <H2
+                  style={[styles.btnText, typography.font20, typography.textLight]}
+                >
+                  Submit
+                </H2>
+            }
           </Button>
         </View>
       </ScrollView>
@@ -184,10 +194,10 @@ export default function SurveyScreen({ route }) {
         negativeButton={t("close")}
         positiveButton={t("ok")}
         action={() => {
-          setShowModal(false), navigation.navigate("taskScreen");
+          setShowModal(false), navigation.goBack()
         }}
       >
-        <H4>Your task has been submitted successfully!</H4>
+        <H4>{modalMsg}</H4>
       </ModalPopup>
     </ContainerComponent>
   );
