@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { H5, P, H4 } from "../../components/text";
+import { H5, H6, P, H4 } from "../../components/text";
 import Icon from "react-native-vector-icons/Ionicons";
 import CardFullWidth from "../card/CardFullWidth";
 import { useTranslation } from "react-i18next";
@@ -11,6 +11,7 @@ import {
   styles,
   typography,
   ICON_LARGE,
+  ICON_SMALL,
 } from "../../styles";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -47,17 +48,17 @@ export default function ProgressReportCard({ title, progressData }) {
   return (
     <CardFullWidth backgroundColor={LIGHT}>
       <View style={[styles.row, { alignItems: "center" }]}>
-        <Icon name="filter" size={ICON_LARGE} color={PRIMARY_COLOR} />
-        <H4 style={[typography.textBold, { marginRight: 110 }]}>
+        <Icon name="filter" size={ICON_SMALL} color={PRIMARY_COLOR} />
+        <H5 style={[typography.font16, { marginRight: 160 }]}>
           {t("Progress Report")}
-        </H4>
+        </H5>
       </View>
       <View style={[spacing.bbw05, spacing.mv1]} />
 
       <View style={[styles.row, spacing.pv3, { borderBottomWidth: 1 }]}>
         {["Progress", "Installation", "RMS"].map((header) => (
           <View style={{ alignItems: "center" }} key={header}>
-            <H5 style={[typography.textBold]}>{t(header)}</H5>
+            <H6 style={[typography.font14]}>{t(header)}</H6>
           </View>
         ))}
       </View>
@@ -76,18 +77,18 @@ export default function ProgressReportCard({ title, progressData }) {
           ]}
         >
           <View style={{ alignItems: "center" }}>
-            <P style={typography.textBold}>{t(row.label)}</P>
+            <P style={typography.font14}>{t(row.label)}</P>
           </View>
           <View style={{ alignItems: "center" }}>
-            <H5 style={spacing.ml2}>
+            <H6 style={spacing.ml2}>
               {doneInstallation}/
-              <H5 style={typography.textDanger}>{row.installation}</H5>
-            </H5>
+              <H6 style={typography.textDanger}>{row.installation}</H6>
+            </H6>
           </View>
           <View style={{ alignItems: "center" }}>
-            <H5 style={spacing.ml2}>
-              {donRMS}/<H5 style={typography.textDanger}>{row.rms}</H5>
-            </H5>
+            <H6 style={spacing.ml2}>
+              {donRMS}/<H6 style={typography.textDanger}>{row.rms}</H6>
+            </H6>
           </View>
         </View>
       ))}
