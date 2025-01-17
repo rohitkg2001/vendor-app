@@ -38,7 +38,6 @@ export default function ProgressReportCard({ title, progressData }) {
   };
   useEffect(() => {
     dispatch(getAllTasks(id));
-    console.log(name);
   }, []);
 
   useEffect(() => {

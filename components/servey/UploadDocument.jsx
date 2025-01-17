@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { PRIMARY_COLOR, spacing, styles, SCREEN_WIDTH } from "../../styles";
+import { P } from "../text";
 
 function UploadDocument() {
   const [file, setFile] = useState(null);
@@ -27,13 +29,14 @@ function UploadDocument() {
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
-        marginTop: 10,
+        marginTop: 30,
         borderStyle: "dashed",
         borderWidth: 1,
         borderColor: "black",
       }}
     >
-      <TouchableOpacity onPress={pickDocument}>
+      <TouchableOpacity onPress={pickDocument} style={{ alignItems: "center" }}>
+        <Ionicons name="document-text-outline" size={40} color="black" />
         <Text>Upload Document</Text>
       </TouchableOpacity>
       {file && (
@@ -55,6 +58,16 @@ function UploadDocument() {
           />
         </View>
       )}
+      <P
+        style={{
+          position: "absolute",
+          bottom: 165,
+          left: 10,
+          fontWeight: "bold",
+        }}
+      >
+        Attachments
+      </P>
     </View>
   );
 }

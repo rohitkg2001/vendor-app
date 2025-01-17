@@ -30,7 +30,7 @@ export const getAllTasks = (my_id) => async (dispatch) => {
 
     const myTasks =
       Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
-    // console.log(myTasks);
+    //console.log(myTasks);
     dispatch({ type: GET_ALL_TASKS, payload: myTasks });
   } catch (error) {
     console.error(`Error fetching tasks by vendor id: ${error.message}`);
@@ -72,29 +72,30 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
   try {
     const { date, description, image, file, lat, long } = dataToUpdate;
     const formData = new FormData();
-    const { uri, name, mimeType } = file;
-    formData.append("image[]", {
-      uri, // Local file URI
-      name, // File name
-      type: mimeType, // File type
-    });
-    Array.isArray(image) &&
-      image.map((item, index) => {
-        formData.append(`image[${index}]`, {
-          uri: item, // Local file URI
-          name: `photo_${index}.jpg`, // File name
-          type: "image/jpeg", // File type
-        });
+    if (file) {
+      const { uri, name, mimeType } = file;
+      formData.append("image[]", {
+        uri, // Local file URI
+        name, // File name
+        type: mimeType, // File type
       });
+    }
+    if (image) {
+      Array.isArray(image) &&
+        image.forEach((item, index) => {
+          formData.append(`image[${index}]`, {
+            uri: item.startsWith("file://") ? item : `file:/${item}`, // Local file URI
+            name: `photo_${index}.jpg`, // File name
+            type: "image/jpeg", // File type
+          });
+        });
+    }
     formData.append("status", "In Progress");
     formData.append("description", description);
     formData.append("lat", lat);
     formData.append("long", long);
     formData.append("_method", "PUT");
     // Debug FormData structure
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
     const response = await axios.post(
       `${BASE_URL}/api/task/${taskId}?_method=PUT`,
       formData,

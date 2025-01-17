@@ -8,7 +8,7 @@ export default function Description() {
   return (
     <MyTextInput
       title={t("description")}
-      height={220}
+      height={190}
       onChangeText={(text) => setDescription(text)}
       type="text"
       placeholder={t("description_title")}

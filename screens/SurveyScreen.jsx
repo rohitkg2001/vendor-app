@@ -1,5 +1,12 @@
-import { View, TouchableOpacity, ScrollView, Image } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { useEffect, useRef, useState } from "react";
+import { Snackbar } from "react-native-paper";
 import Button from "../components/buttons/Button";
 import { H2, H4, P, Span } from "../components/text";
 import { SCREEN_WIDTH, styles, spacing, layouts, typography } from "../styles";
@@ -24,6 +31,10 @@ export default function SurveyScreen({ route }) {
   const [showModal, setShowModal] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [modalMsg, setModalMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [snackbarVisible, setSnackbarVisible] = useState(false); // Snackbar visibility
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -48,28 +59,37 @@ export default function SurveyScreen({ route }) {
   };
 
   const handleUpload = async () => {
+    if (!description && photos.length === 0) {
+      setSnackbarMessage("Please provide data before submitting.");
+      setSnackbarVisible(true);
+      return;
+    }
     try {
-      console.log(photos, file);
-      setFileUploadProgress(0); // Reset progress
+      setLoading(true);
       const response = await dispatch(
         updateTask(itemId, {
           date,
           description,
           image: photos,
-          file,
           lat: latitude,
           long: longitude,
         })
       );
-      if (response?.status === 200) {
+      console.log(`response is ${response}`);
+      if (response === 200) {
+        setLoading(false);
+        setShowModal(true);
         setModalMessage("Task submitted successfully!");
       } else {
+        setLoading(false);
+        setShowModal(true);
         setModalMessage("Error submitting task");
       }
     } catch (error) {
+      setLoading(false);
       setModalMessage("Error submitting task");
     } finally {
-      setShowModal(true);
+      setShowModal(false);
     }
   };
   const getAndSetCurrentLocation = async () => {
@@ -170,24 +190,57 @@ export default function SurveyScreen({ route }) {
               { width: SCREEN_WIDTH / 2 - 20 },
             ]}
           >
-            <H2
-              style={[styles.btnText, typography.font20, typography.textLight]}
-            >
-              Submit
-            </H2>
+            {loading ? (
+              <ActivityIndicator
+                size="small"
+                style={[
+                  styles.btnText,
+                  typography.font20,
+                  typography.textLight,
+                ]}
+                animating
+                color="#fff"
+              />
+            ) : (
+              <H2
+                style={[
+                  styles.btnText,
+                  typography.font20,
+                  typography.textLight,
+                ]}
+              >
+                Submit
+              </H2>
+            )}
           </Button>
         </View>
       </ScrollView>
+
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={3000}
+        style={{
+          backgroundColor: "#DC4C64",
+          borderRadius: 20,
+          bottom: 55,
+        }}
+      >
+        <P style={{ color: "#ffffff", fontWeight: "bold" }}>
+          {snackbarMessage}
+        </P>
+      </Snackbar>
+
       <ModalPopup
         visible={showModal}
         close={() => setShowModal(false)}
         negativeButton={t("close")}
         positiveButton={t("ok")}
         action={() => {
-          setShowModal(false), navigation.navigate("taskScreen");
+          setShowModal(false), navigation.goBack();
         }}
       >
-        <H4>Your task has been submitted successfully!</H4>
+        <H4>{modalMsg}</H4>
       </ModalPopup>
     </ContainerComponent>
   );
