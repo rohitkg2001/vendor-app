@@ -20,14 +20,13 @@ export const tasksCounts = [
     label: "RMS Status",
     icon: "cart-outline",
     count: RMS.length,
-  }
+  },
 ];
-
 
 export const getAllTasks = (my_id) => async (dispatch) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/task`);
-    const { data } = await response
+    const { data } = await response;
 
     const myTasks =
       Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
@@ -41,16 +40,20 @@ export const getAllTasks = (my_id) => async (dispatch) => {
 export const getAllInstallationCount = async (my_id, category) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/task`);
-    const { data } = await response
+    const { data } = await response;
 
     const myTasks =
-      Array.isArray(data) && data.filter((task) => task.vendor_id === my_id && task.activity.toLowerCase() === category.toLowerCase());
+      Array.isArray(data) &&
+      data.filter(
+        (task) =>
+          task.vendor_id === my_id &&
+          task.activity.toLowerCase() === category.toLowerCase()
+      );
     return myTasks.length;
   } catch (error) {
     console.error(`Error fetching tasks by Status: ${error.message}`);
   }
 };
-
 
 export const viewTask = (taskId) => async (dispatch, getState) => {
   const { tasks } = getState();
@@ -75,35 +78,39 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
       name, // File name
       type: mimeType, // File type
     });
-    Array.isArray(image) && image.map((item, index) => {
-      formData.append(`image[${index}]`, {
-        uri: item, // Local file URI
-        name: `photo_${index}.jpg`, // File name
-        type: "image/jpeg", // File type
+    Array.isArray(image) &&
+      image.map((item, index) => {
+        formData.append(`image[${index}]`, {
+          uri: item, // Local file URI
+          name: `photo_${index}.jpg`, // File name
+          type: "image/jpeg", // File type
+        });
       });
-    });
     formData.append("status", "In Progress");
     formData.append("description", description);
     formData.append("lat", lat);
-    formData.append('long', long);
-    formData.append("_method", "PUT")
+    formData.append("long", long);
+    formData.append("_method", "PUT");
     // Debug FormData structure
     for (let pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
-    const response = await axios.post(`${BASE_URL}/api/task/${taskId}?_method=PUT`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data", // Ensure proper headers
-      },
-    })
-    const { data, status } = await response
+    const response = await axios.post(
+      `${BASE_URL}/api/task/${taskId}?_method=PUT`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data", // Ensure proper headers
+        },
+      }
+    );
+    const { data, status } = await response;
     dispatch({ type: UPDATE_TASK, payload: data });
-    return status
+    return status;
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
 };
-
 
 // 0=INSTALLATION
 // 1 = FIXING SLIP
