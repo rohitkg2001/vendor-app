@@ -2,23 +2,31 @@ import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
 import { PRIMARY_COLOR, spacing, styles, SCREEN_WIDTH } from "../../styles";
 import { P } from "../text";
 
-function UploadDocument() {
-  const [file, setFile] = useState(null);
+function UploadDocument({ file, setFile }) {
   const [fileUploadProgress, setFileUploadProgress] = useState(0);
 
   const pickDocument = async () => {
-    const file = await DocumentPicker.getDocumentAsync({
+    const result = await DocumentPicker.getDocumentAsync({
       type: "application/pdf",
       copyToCacheDirectory: true,
     });
-    if (!file.canceled) {
-      setFile(file.assets[0]);
+
+    if (!result.canceled) {
+      setFile(result);
+      //  setFile(file.assets[0]);
+      console.log("Document picked:", result);
+    } else {
+      console.log("Document picker canceled");
     }
   };
+
+  const removeFile = () => {
+    setFile(null);
+  };
+
   return (
     <View
       onPress={pickDocument}
@@ -42,7 +50,7 @@ function UploadDocument() {
       {file && (
         <View style={[styles.filePreview, spacing.mt2]}>
           <Text>{file.name}</Text>
-          <TouchableOpacity onPress={() => setFile(null)}>
+          <TouchableOpacity onPress={removeFile}>
             <Text style={{ color: "red" }}>Remove</Text>
           </TouchableOpacity>
         </View>

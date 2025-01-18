@@ -27,13 +27,14 @@ export default function SurveyScreen({ route }) {
 
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
   const [date, setDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [modalMsg, setModalMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [snackbarVisible, setSnackbarVisible] = useState(false); // Snackbar visibility
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -56,42 +57,49 @@ export default function SurveyScreen({ route }) {
   const handleCancel = () => {
     setPhotos([]);
     setDescription("");
+    setFile(null);
   };
 
   const handleUpload = async () => {
-    if (!description && photos.length === 0) {
+    if (!description && photos.length === 0 && !file) {
       setSnackbarMessage("Please provide data before submitting.");
       setSnackbarVisible(true);
       return;
     }
+
     try {
       setLoading(true);
+
       const response = await dispatch(
         updateTask(itemId, {
           date,
           description,
           image: photos,
+          file,
           lat: latitude,
           long: longitude,
         })
       );
+
       console.log(`response is ${response}`);
       if (response === 200) {
-        setLoading(false);
-        setShowModal(true);
-        setModalMessage("Task submitted successfully!");
+        setPhotos([]);
+        setDescription("");
+        setFile(null);
+        navigation.navigate("successScreen");
       } else {
-        setLoading(false);
-        setShowModal(true);
-        setModalMessage("Error submitting task");
+        setSnackbarMessage("Error submitting task");
+        setSnackbarVisible(true);
       }
     } catch (error) {
-      setLoading(false);
+      console.error("Error submitting task:", error);
       setModalMessage("Error submitting task");
+      setShowModal(true);
     } finally {
-      setShowModal(false);
+      setLoading(false);
     }
   };
+
   const getAndSetCurrentLocation = async () => {
     try {
       const { granted } = await Location.requestForegroundPermissionsAsync();
@@ -106,6 +114,7 @@ export default function SurveyScreen({ route }) {
       console.log(`No Location Permission Granted`);
     }
   };
+
   useEffect(() => {
     getAndSetCurrentLocation();
   }, []);
@@ -161,7 +170,7 @@ export default function SurveyScreen({ route }) {
           ))}
         </View>
 
-        <UploadDocument />
+        <UploadDocument file={file} setFile={setFile} />
         <Description />
 
         <View style={[styles.row, { justifyContent: "space-between" }]}>
@@ -237,7 +246,8 @@ export default function SurveyScreen({ route }) {
         negativeButton={t("close")}
         positiveButton={t("ok")}
         action={() => {
-          setShowModal(false), navigation.goBack();
+          setShowModal(false);
+          navigation.goBack();
         }}
       >
         <H4>{modalMsg}</H4>
