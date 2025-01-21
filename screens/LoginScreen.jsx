@@ -28,10 +28,6 @@ export default function LoginScreen({ navigation }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
-  const changeLanguage = (value) => {
-    i18n.changeLanguage(value).then(() => setLanguage(value));
-  };
-
   const onSubmit = async () => {
     setError("");
     try {

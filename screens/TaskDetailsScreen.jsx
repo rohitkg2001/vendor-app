@@ -3,7 +3,7 @@ import { View, ScrollView } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { H5 } from "../components/text";
-import { spacing, typography, SCREEN_WIDTH } from "../styles";
+import { typography, SCREEN_WIDTH } from "../styles";
 import { useTranslation } from "react-i18next";
 
 const TaskDetailsScreen = ({ route, navigation }) => {
