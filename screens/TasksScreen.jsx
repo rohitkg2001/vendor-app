@@ -41,13 +41,13 @@ export default function TasksScreen({ navigation }) {
             subtitle={item.site?.location}
             isPositiveButtonVisible={true}
             positiveAction={() =>
-              navigation.navigate("surveyScreen", { itemId: item.id })
+              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: false })
             }
             positiveText="Submit"
             isNegativeButtonVisible={true}
             negativeText="Survey"
             negativeAction={() =>
-              navigation.navigate("surveyScreen", { itemId: item.id })
+              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: true })
             }
           >
             <View>

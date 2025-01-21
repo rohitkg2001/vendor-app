@@ -2,9 +2,9 @@ import { useState } from "react";
 import MyTextInput from "../input/MyTextInput";
 import { useTranslation } from "react-i18next";
 
-export default function Description() {
+export default function Description({ description, setDescription }) {
   const { t } = useTranslation();
-  const [description, setDescription] = useState("");
+
   return (
     <MyTextInput
       title={t("description")}

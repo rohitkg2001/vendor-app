@@ -14,7 +14,7 @@ import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { updateTask } from "../redux/actions/taskActions";
+import { surveyTask, updateTask } from "../redux/actions/taskActions";
 import ModalPopup from "../components/Modal";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
@@ -24,6 +24,7 @@ import Description from "../components/servey/Description";
 
 export default function SurveyScreen({ route }) {
   const { itemId } = route.params || 0;
+  const { isSurvey } = route.params || false
 
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
@@ -66,10 +67,36 @@ export default function SurveyScreen({ route }) {
       setSnackbarVisible(true);
       return;
     }
+    if (!isSurvey && photos.length < 2) {
+      setSnackbarMessage("Please Click at least two pictures")
+      setSnackbarVisible(true)
+      return
+    }
 
     try {
       setLoading(true);
-
+      if (isSurvey) {
+        const response = await dispatch(
+          surveyTask(itemId, {
+            date,
+            description,
+            image: photos,
+            file,
+            lat: latitude,
+            long: longitude,
+          })
+        );
+        if (response === 200) {
+          setPhotos([]);
+          setDescription("");
+          setFile(null);
+          navigation.navigate("successScreen");
+        } else {
+          setSnackbarMessage("Error submitting task");
+          setSnackbarVisible(true);
+        }
+        return
+      }
       const response = await dispatch(
         updateTask(itemId, {
           date,
@@ -80,8 +107,6 @@ export default function SurveyScreen({ route }) {
           long: longitude,
         })
       );
-
-      console.log(`response is ${response}`);
       if (response === 200) {
         setPhotos([]);
         setDescription("");
@@ -106,7 +131,6 @@ export default function SurveyScreen({ route }) {
       if (granted) {
         const location = await Location.getCurrentPositionAsync({});
         const { latitude, longitude } = location.coords;
-        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
         setLatitude(latitude);
         setLongitude(longitude);
       }
@@ -171,7 +195,7 @@ export default function SurveyScreen({ route }) {
         </View>
 
         <UploadDocument file={file} setFile={setFile} />
-        <Description />
+        <Description description={description} setDescription={setDescription} />
 
         <View style={[styles.row, { justifyContent: "space-between" }]}>
           <Button

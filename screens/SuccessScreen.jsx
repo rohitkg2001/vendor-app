@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons"; // Import Ionicons
-import { spacing, SCREEN_WIDTH } from "../styles";
+import { spacing, SCREEN_WIDTH, styles, typography } from "../styles";
+import Button from "../components/buttons/Button";
 
 const SuccessScreen = ({ navigation }) => {
-  useEffect(() => {
-    setTimeout(() => {
-      navigation.goBack();
-    }, 5000);
-  }, [navigation]);
 
   return (
     <View
@@ -37,6 +33,9 @@ const SuccessScreen = ({ navigation }) => {
       >
         Task update has been successfully saved.
       </Text>
+      <Button style={[styles.btn, styles.bgPrimary]} onPress={() => navigation.navigate('taskScreen')}>
+        <Text style={[styles.btnText, typography.textLight]}>Continue Working</Text>
+      </Button>
     </View>
   );
 };

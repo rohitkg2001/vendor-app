@@ -13,13 +13,8 @@ function UploadDocument({ file, setFile }) {
       type: "application/pdf",
       copyToCacheDirectory: true,
     });
-
     if (!result.canceled) {
-      setFile(result);
-      //  setFile(file.assets[0]);
-      console.log("Document picked:", result);
-    } else {
-      console.log("Document picker canceled");
+      setFile(result.assets[0]);
     }
   };
 
