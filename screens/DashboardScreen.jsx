@@ -71,11 +71,11 @@ export default function DashboardScreen() {
       >
         <DashboardFilter />
 
-        <MyFlatList
+        {/* <MyFlatList
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           contentContainerStyle={spacing.mv4}
-        />
+        /> */}
 
         <OverViewCard />
         <ProgressReportCard />
