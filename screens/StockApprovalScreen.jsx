@@ -8,7 +8,6 @@ import { typography, spacing, SCREEN_WIDTH, styles } from "../styles";
 import { useTranslation } from "react-i18next";
 
 const StockApprovalScreen = ({ route }) => {
-  const { item } = route.params;
   const { t } = useTranslation();
 
   return (

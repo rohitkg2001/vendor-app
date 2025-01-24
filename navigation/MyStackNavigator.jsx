@@ -8,23 +8,23 @@ import TotalEarningScreen from "../screens/TotalEarningScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import InternalSetting from "../screens/InternalSetting";
-import FileUploadScreen from "../screens/FileUploadScreen";
 import InventoryScreen from "../screens/InventoryScreen";
 import SiteScreen from "../screens/SiteScreen";
-import ProjectsScreen from "../screens/ProjectsScreen";
 import TasksScreen from "../screens/TasksScreen";
-import ViewDetailScreen from "../screens/ViewDetailScreen";
 import StockApprovalScreen from "../screens/StockApprovalScreen";
 import ReportScreen from "../screens/ReportScreen";
 import SiteDetailScreen from "../screens/SiteDetailScreen";
 import InventoryDetailsScreen from "../screens/InventoryDetailsScreen";
 import TaskDetailsScreen from "../screens/TaskDetailsScreen";
+import SurveyScreen from "../screens/SurveyScreen";
+import SuccessScreen from "../screens/SuccessScreen";
+import SiteLocationScreen from "../screens/SiteLocationScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="loginScreen"
+      initialRouteName="sitelocationscreen"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
@@ -35,13 +35,12 @@ export default function MyStackNavigator() {
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="internalSetting" component={InternalSetting} />
-      <Stack.Screen name="fileUploadScreen" component={FileUploadScreen} />
       <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
-      <Stack.Screen name="projectsScreen" component={ProjectsScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
-      <Stack.Screen name="viewDetailScreen" component={ViewDetailScreen} />
+      <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
+
       <Stack.Screen
         name="stockApprovalScreen"
         component={StockApprovalScreen}
@@ -53,6 +52,8 @@ export default function MyStackNavigator() {
         component={InventoryDetailsScreen}
       />
       <Stack.Screen name="taskDetailsScreen" component={TaskDetailsScreen} />
+      <Stack.Screen name="surveyScreen" component={SurveyScreen} />
+      <Stack.Screen name="successScreen" component={SuccessScreen} />
     </Stack.Navigator>
   );
 }

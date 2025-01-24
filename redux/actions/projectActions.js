@@ -1,6 +1,5 @@
 import {
   VIEW_PROJECT,
-  SEARCH_PROJECT,
   COUNT_PROJECTS,
   CHANGE_PROJECT_STATUS,
   BASE_URL,
@@ -11,12 +10,6 @@ export const filterByStatus = (arr, status) => {
   return arr.filter((item) => item.status === status);
 };
 
-export const ongoingProjects = filterByStatus([], 0);
-export const completedProjects = filterByStatus([], 1);
-export const holdProjects = filterByStatus([], 2);
-export const rejectedProjects = filterByStatus([], 3);
-export const cancelledProjects = filterByStatus([], 4);
-
 export const getAllProjects = () => async (dispatch) => {
   try {
     const response = await fetch(`${BASE_URL}/api/projects`);
@@ -24,29 +17,8 @@ export const getAllProjects = () => async (dispatch) => {
     dispatch({ type: GET_ALL_PROJECTS, payload: data });
   } catch (error) {}
 };
-export const projectCounts = [
-  {
-    title: "ongoing",
-    count: ongoingProjects.length,
-    data: ongoingProjects,
-    page: "projectsScreen",
-  },
-  {
-    title: "completed",
-    count: completedProjects.length,
-    data: completedProjects,
-    page: "projectsScreen",
-  },
-];
 
 export const statCards = [
-  // {
-  //   id: "1",
-  //   title: "total_projects",
-  //   count: 0,
-  //   page: "projectsScreen",
-  //   backgroundColor: "#A0D3E8",
-  // },
   {
     id: "2",
     title: "total_earning",
@@ -74,16 +46,6 @@ export const viewProject = (projectId) => async (dispatch) => {
   const response = await fetch(`${BASE_URL}/api/projects/${projectId}`);
   const data = await response.json();
   dispatch({ type: VIEW_PROJECT, payload: data });
-};
-
-export const searchProject = (searchQuery) => async (dispatch, getState) => {
-  const { projects } = getState();
-  const searchResults = projects.filter((project) =>
-    project.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  await dispatch({ type: SEARCH_PROJECT, payload: searchResults });
-  return searchResults;
 };
 
 export const updateProject = (projectId, updatedData) => async (dispatch) => {

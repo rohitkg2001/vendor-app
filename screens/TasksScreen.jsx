@@ -1,102 +1,82 @@
-import { useState } from "react";
-import { View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Card } from "react-native-paper";
-import moment from "moment";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
-import ClickableCard from "../components/card/Clickablecard";
 import MyHeader from "../components/header/MyHeader";
-import { H6, H4, H5, P } from "../components/text";
 import MyFlatList from "../components/utility/MyFlatList";
-import Button from "../components/buttons/Button";
 import NoRecord from "./NoRecord";
-import { Task } from "../utils/faker";
-import {
-  SCREEN_WIDTH,
-  spacing,
-  typography,
-  ICON_SMALL,
-  DARK,
-  styles,
-  LIGHT,
-} from "../styles";
 import { useTranslation } from "react-i18next";
+import DashboardFilter from "../components/filters/DashboardFilter";
+import ClickableCard1 from "../components/card/ClickableCard1";
+import { H5, P, Span } from "../components/text";
+import { spacing, styles, typography } from "../styles";
+import { getAllTasks } from "../redux/actions/taskActions";
 
-const TasksScreen = () => {
-  const navigation = useNavigation();
+export default function TasksScreen({ navigation }) {
   const { t } = useTranslation();
-  const [tasks, setTasks] = useState(Task);
-  const [today, setToday] = useState(moment().format("DD MMM YYYY"));
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { vendor, tasks } = useSelector((state) => ({
+    vendor: state.vendor,
+    tasks: state.tasks.tasks, // Use Redux state directly
+  }));
+  const dispatch = useDispatch();
 
-  const handleDateChange = (event, date) => {
-    if (event.type === "set") {
-      setShowDatePicker(false);
-      if (date) {
-        setSelectedDate(date);
-        setToday(moment(date).format("DD MMM YYYY"));
-      }
-    } else {
-      setShowDatePicker(false);
+  useEffect(() => {
+    if (vendor?.id) {
+      console.log(vendor.id);
+      dispatch(getAllTasks(vendor.id));
     }
-  };
-
-  const handleViewDetails = (itemId) => {
-    navigation.navigate("fileUploadScreen", { itemId: itemId });
-  };
+  }, [vendor?.id, dispatch]);
 
   return (
     <ContainerComponent>
       <MyHeader title={t("task_list")} isBack={true} hasIcon={true} />
-      <View
-        style={[
-          styles.row,
-          spacing.m2,
-          { alignItems: "center", width: SCREEN_WIDTH - 16 },
-        ]}
-      >
-        <H4>Today</H4>
-        <Button
-          style={[styles.btn, styles.bgPrimary, spacing.ph3]}
-          onPress={() => setShowDatePicker(true)}
-        >
-          <Icon name="calendar-outline" size={ICON_SMALL} color={LIGHT} />
-          <H5 style={[spacing.ml1, { color: "#fff", fontWeight: "600" }]}>
-            {today}
-          </H5>
-        </Button>
-      </View>
-
-      {showDatePicker && (
-        <DateTimePicker
-          value={selectedDate}
-          mode="date"
-          display="default"
-          onChange={handleDateChange}
-        />
-      )}
+      <DashboardFilter />
 
       <MyFlatList
         data={tasks}
         renderItem={({ item, index }) => (
-          <ClickableCard
+          <ClickableCard1
             key={index}
-            item={item}
-            isTask={true}
-            showView={true}
-            handleViewDetails={(item) => handleViewDetails(item.id)}
-          />
+            title={item.site?.site_name}
+            subtitle={item.site?.location}
+            isPositiveButtonVisible={true}
+            positiveAction={() =>
+              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: false })
+            }
+            positiveText="Submit"
+            isNegativeButtonVisible={true}
+            negativeText="Survey"
+            negativeAction={() =>
+              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: true })
+            }
+          >
+            <View>
+              <H5 style={[typography.font20]}>{item.activity}</H5>
+              <View style={[spacing.mt1, styles.row]}>
+                <View>
+                  <Span
+                    style={[typography.font12, { textTransform: "capitalize" }]}
+                  >
+                    start date
+                  </Span>
+                  <P style={[typography.font12]}>{item.start_date}</P>
+                </View>
+                <View>
+                  <Span
+                    style={[typography.font12, { textTransform: "capitalize" }]}
+                  >
+                    end date
+                  </Span>
+                  <P style={[typography.font12]}>{item.start_date}</P>
+                </View>
+              </View>
+            </View>
+          </ClickableCard1>
         )}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={[{ flexGrow: 1 }]}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
     </ContainerComponent>
   );
-};
-
-export default TasksScreen;
+}

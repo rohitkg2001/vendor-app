@@ -9,7 +9,6 @@ import Button from "../components/buttons/Button";
 import { menuItems } from "../utils/faker";
 import { useSelector, useDispatch } from "react-redux";
 import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
-import { getAllTasks } from "../redux/actions/taskActions";
 import { useEffect } from "react";
 import { getAllProjects } from "../redux/actions/projectActions";
 import { getAllItems } from "../redux/actions/inventoryActions";
@@ -24,7 +23,7 @@ export default function SettingsScreen() {
   };
 
   useEffect(() => {
-    dispatch(getAllTasks());
+    // dispatch(getAllTasks());
     dispatch(getAllProjects());
     dispatch(getAllItems());
   }, []);

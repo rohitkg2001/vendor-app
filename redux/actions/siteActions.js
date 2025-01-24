@@ -1,22 +1,25 @@
 import {
   VIEW_SITE,
   SEARCH_SITE,
-  FETCH_SITES,
+  GET_ALL_SITES,
   BASE_URL,
+  SET_SITES_COUNT,
 } from "../constant";
-import statesandcities from "../../utils/statesandcities.json";
+import axios from "axios";
 
-export const setStatesAndCities = () => {
-  return statesandcities;
-};
 
-export const fetchSites = () => async (dispatch) => {
+export const fetchSites = (id) => async (dispatch) => {
   try {
-    const response = await fetch(${BASE_URL}/api/sites);
-    const data = await response.json();
-
-    dispatch({ type: FETCH_SITES, payload: data });
-  } catch (error) {}
+    console.log(id);
+    const response = await axios.get(`${BASE_URL}/api/vendors/${id}/sites`);
+    const { data, status } = response
+    const { sites } = data;
+    console.log(sites);
+    dispatch({ type: GET_ALL_SITES, payload: sites });
+    dispatch({ type: SET_SITES_COUNT, payload: sites.length });
+  } catch (error) {
+    console.error(`Error fetching sites: ${error.message}`);
+  }
 };
 
 export const viewSite = (site) => ({
