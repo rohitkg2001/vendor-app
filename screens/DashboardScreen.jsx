@@ -4,10 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import ContainerComponent from "../components/ContainerComponent";
-import MyFlatList from "../components/utility/MyFlatList";
 import DashboardHeader from "../components/header/DashboardHeader";
 import DashboardFilter from "../components/filters/DashboardFilter";
-
 import CardsArray from "../components/dashboard/CardsArray";
 import ProgressReportCard from "../components/dashboard/ProgressReportCard";
 
@@ -70,12 +68,6 @@ export default function DashboardScreen() {
         contentContainerStyle={[spacing.mh1]}
       >
         <DashboardFilter />
-
-        {/* <MyFlatList
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
-          contentContainerStyle={spacing.mv4}
-        /> */}
 
         <OverViewCard />
         <ProgressReportCard />
