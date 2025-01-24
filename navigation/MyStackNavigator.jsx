@@ -21,6 +21,7 @@ import SuccessScreen from "../screens/SuccessScreen";
 import CardScreen from "../screens/CardScreen";
 import startInstallationScreen from "../screens/startInstallationScreen";
 import WelcomeScreen from "../screens/welcomeScreen";
+import SiteLocationScreen from "../screens/SiteLocationScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
@@ -41,6 +42,7 @@ export default function MyStackNavigator() {
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
+      <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
 
       <Stack.Screen
         name="stockApprovalScreen"

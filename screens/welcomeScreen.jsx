@@ -1,5 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import ContainerComponent from "../components/ContainerComponent";
@@ -14,6 +15,15 @@ import {
 import { P } from "../components/text";
 
 const WelcomeScreen = () => {
+  const navigation = useNavigation();
+
+  const handleStartLightClick = () => {
+    navigation.navigate("startInatallationScreen");
+  };
+
+  const handleSiteInfoClick = () => {
+    navigation.navigate("sitelocationscreen");
+  };
   return (
     <ContainerComponent>
       <MyHeader isBack title="Welcome" hasIcon />
@@ -41,6 +51,7 @@ const WelcomeScreen = () => {
         }}
       >
         <TouchableOpacity
+          onPress={handleStartLightClick}
           style={[
             spacing.br3,
             spacing.p4,
@@ -68,6 +79,7 @@ const WelcomeScreen = () => {
 
         <View style={[styles.row]}>
           <TouchableOpacity
+            onPress={handleSiteInfoClick}
             style={[
               spacing.p5,
               spacing.br2,

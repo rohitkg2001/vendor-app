@@ -13,6 +13,9 @@ const CardScreen = () => {
   const handleRooftopClick = () => {
     navigation.navigate("loginScreen");
   };
+  const handleStreetClick = () => {
+    navigation.navigate("welcomeScreen");
+  };
 
   return (
     <ContainerComponent>
@@ -57,7 +60,7 @@ const CardScreen = () => {
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity activeOpacity={0.7} onPress={handleStreetClick}>
           <Card
             style={[
               spacing.mt5,
