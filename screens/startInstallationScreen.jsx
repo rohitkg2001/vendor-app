@@ -23,9 +23,7 @@ export default function StartInstallation({ navigation }) {
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
 
-  const { siteInfo } = useSelector(state => state.site)
-
-
+  const { siteInfo } = useSelector((state) => state.site);
 
   return (
     <ContainerComponent>
@@ -34,55 +32,99 @@ export default function StartInstallation({ navigation }) {
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
       >
-        <P style={[typography.font16, typography.textBold, styles.bgPrimaryTransParent, spacing.p2, { width: SCREEN_WIDTH - 16 }]}>
+        <P
+          style={[
+            typography.font16,
+            typography.textBold,
+            styles.bgPrimaryTransParent,
+            spacing.p2,
+            { width: SCREEN_WIDTH - 16 },
+          ]}
+        >
           Location Info: {siteInfo}
         </P>
-
         <MyTextInput
-          style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+          // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
           placeholder="Enter Pole Number"
           value={poleNumber}
           onChangeText={setPoleNumber}
           keyboardType="numeric"
         />
-        <QRScanner title="Scan Luminary QR" onScan={(val) => setLuminarySerialNumber(val)} />
-        <MyTextInput
-          style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-          placeholder="Enter Luminary Serial Number"
-          value={luminarySerialNumber}
-          onChangeText={setLuminarySerialNumber}
-          keyboardType="numeric"
-        />
+        <View
+          style={[
+            spacing.mv2,
+            spacing.pv2,
+            {
+              backgroundColor: "#f0f0f0",
+            },
+          ]}
+        >
+          <QRScanner
+            title="Scan Luminary QR"
+            onScan={(val) => setLuminarySerialNumber(val)}
+          />
+          <MyTextInput
+            // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+            placeholder="Enter Luminary Serial Number"
+            value={luminarySerialNumber}
+            onChangeText={setLuminarySerialNumber}
+            keyboardType="numeric"
+          />
+          <MyTextInput
+            // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+            placeholder="Enter SIM Number"
+            value={simNumber}
+            onChangeText={setSimNumber}
+            keyboardType="numeric"
+          />
+        </View>
+
+        <View
+          style={[
+            spacing.mv2,
+            spacing.pv2,
+            {
+              backgroundColor: "#f0f0f0",
+            },
+          ]}
+        >
+          <QRScanner
+            title="Scan Battery QR"
+            onScan={(val) => setBatterySerialNumber(val)}
+          />
+          <MyTextInput
+            // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+            placeholder="Enter Battery Serial Number"
+            value={batterySerialNumber}
+            onChangeText={setBatterySerialNumber}
+            keyboardType="numeric"
+          />
+        </View>
+
+        <View
+          style={[
+            spacing.mv2,
+            spacing.pv2,
+            {
+              backgroundColor: "#f0f0f0",
+            },
+          ]}
+        >
+          <QRScanner
+            title="Scan Panel QR"
+            onScan={(val) => setPanelSerialNumber(val)}
+          />
+          <MyTextInput
+           // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+            placeholder="Enter Panel Serial Number"
+            value={panelSerialNumber}
+            onChangeText={setPanelSerialNumber}
+            keyboardType="numeric"
+          />
+        </View>
 
         <MyTextInput
-          style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-          placeholder="Enter SIM Number"
-          value={simNumber}
-          onChangeText={setSimNumber}
-          keyboardType="numeric"
-        />
-
-        <QRScanner title="Scan Battery QR" onScan={(val) => setBatterySerialNumber(val)} />
-        <MyTextInput
-          style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-          placeholder="Enter Battery Serial Number"
-          value={batterySerialNumber}
-          onChangeText={setBatterySerialNumber}
-          keyboardType="numeric"
-        />
-
-
-        <QRScanner title="Scan Panel QR" onScan={(val) => setPanelSerialNumber(val)} />
-        <MyTextInput
-          style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-          placeholder="Enter Panel Serial Number"
-          value={panelSerialNumber}
-          onChangeText={setPanelSerialNumber}
-          keyboardType="numeric"
-        />
-
-        <MyTextInput
-          style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+         // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
           placeholder="Enter Location Remarks"
           multiline={true}
           numberOfLines={4}
@@ -104,16 +146,16 @@ export default function StartInstallation({ navigation }) {
         onPress={() => setIsCameraVisible(true)}
       >
         <P
-          style={[
-            typography.font18,
-            typography.textBold,
-            typography.textLight
-          ]}
+          style={[typography.font18, typography.textBold, typography.textLight]}
         >
           Take Photo
         </P>
       </TouchableOpacity>
-      <CameraInput isCameraOpen={isCameraVisible} setIsCameraOpen={setIsCameraVisible} handleImageCapture={(val) => console.log(val)} />
+      <CameraInput
+        isCameraOpen={isCameraVisible}
+        setIsCameraOpen={setIsCameraVisible}
+        handleImageCapture={(val) => console.log(val)}
+      />
     </ContainerComponent>
   );
-};
+}
