@@ -18,12 +18,16 @@ import InventoryDetailsScreen from "../screens/InventoryDetailsScreen";
 import TaskDetailsScreen from "../screens/TaskDetailsScreen";
 import SurveyScreen from "../screens/SurveyScreen";
 import SuccessScreen from "../screens/SuccessScreen";
+import CardScreen from "../screens/CardScreen";
+import startInstallationScreen from "../screens/startInstallationScreen";
+import WelcomeScreen from "../screens/welcomeScreen";
+import SiteLocationScreen from "../screens/SiteLocationScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="loginScreen"
+      initialRouteName="cardScreen"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
@@ -38,20 +42,17 @@ export default function MyStackNavigator() {
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
-
-      <Stack.Screen
-        name="stockApprovalScreen"
-        component={StockApprovalScreen}
-      />
+      <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
+      <Stack.Screen name="stockApprovalScreen" component={StockApprovalScreen} />
       <Stack.Screen name="reportScreen" component={ReportScreen} />
       <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />
-      <Stack.Screen
-        name="inventoryDetailsScreen"
-        component={InventoryDetailsScreen}
-      />
+      <Stack.Screen name="inventoryDetailsScreen" component={InventoryDetailsScreen} />
       <Stack.Screen name="taskDetailsScreen" component={TaskDetailsScreen} />
       <Stack.Screen name="surveyScreen" component={SurveyScreen} />
       <Stack.Screen name="successScreen" component={SuccessScreen} />
+      <Stack.Screen name="cardScreen" component={CardScreen} />
+      <Stack.Screen name="startInatallationScreen" component={startInstallationScreen} />
+      <Stack.Screen name="welcomeScreen" component={WelcomeScreen} />
     </Stack.Navigator>
   );
 }

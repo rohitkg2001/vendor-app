@@ -4,10 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import ContainerComponent from "../components/ContainerComponent";
-import MyFlatList from "../components/utility/MyFlatList";
 import DashboardHeader from "../components/header/DashboardHeader";
 import DashboardFilter from "../components/filters/DashboardFilter";
-
 import CardsArray from "../components/dashboard/CardsArray";
 import ProgressReportCard from "../components/dashboard/ProgressReportCard";
 

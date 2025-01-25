@@ -4,6 +4,7 @@ import {
   GET_ALL_SITES,
   BASE_URL,
   SET_SITES_COUNT,
+  SET_SITE_INFO,
 } from "../constant";
 import axios from "axios";
 
@@ -31,4 +32,9 @@ export const searchSite = (searchText) => ({
   type: SEARCH_SITE,
   payload: searchText,
 });
+
+export const setSiteInfo = (val) => async (dispatch) => {
+  console.log(val)
+  dispatch({ type: SET_SITE_INFO, payload: val })
+}
 

@@ -9,29 +9,44 @@ export default function MyPickerInput({
   value,
   onChange,
   options = [],
-  style = {}, 
+  style = {},
 }) {
   const { t } = useTranslation();
 
   return (
     <View style={[styles.textInput, style]}>
       <H5>{title}</H5>
-      <Picker
-        selectedValue={value}
-        style={[styles.textInputField, style]} 
-        mode="dropdown"
-        onValueChange={(val) => onChange(val)} 
-        prompt={t("option_title")}
+
+      <View
+        style={{
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: "#ccc",
+          overflow: "hidden"
+        }}
       >
-        {options.map((option, index) => (
-          <Picker.Item
-            enabled={option.enabled}
-            label={option.label}
-            value={option.value}
-            key={index}
-          />
-        ))}
-      </Picker>
+        <Picker
+          selectedValue={value}
+          style={[
+            styles.textInputField,
+            {
+              height: 50,
+            },
+          ]}
+          mode="dropdown"
+          onValueChange={(val) => onChange(val)}
+          prompt={t("option_title")}
+        >
+          {options.map((option, index) => (
+            <Picker.Item
+              enabled={option.enabled}
+              label={option.label}
+              value={option.value}
+              key={index}
+            />
+          ))}
+        </Picker>
+      </View>
     </View>
   );
 }

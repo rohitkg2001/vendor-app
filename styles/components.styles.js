@@ -316,7 +316,7 @@ export const styles = StyleSheet.create({
     marginTop: 4,
   },
   textInput: {
-    width: 310,
+    width: SCREEN_WIDTH - 16,
     color: "#020409",
   },
   map: {

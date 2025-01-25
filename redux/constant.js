@@ -1,6 +1,6 @@
 // export const BASE_URL = "https://slldm.com";
 // export const BASE_URL = "http://192.168.1.5:8000"
-export const BASE_URL = "https://solarcrm.dashandots.tech/"
+export const BASE_URL = "https://solarcrm.dashandots.tech"
 export const initialState = {};
 
 export const LOGIN_VENDOR = "LOGIN_VENDOR";
@@ -37,5 +37,7 @@ export const SEARCH_PAYMENT = "SEARCH_PAYMENT";
 export const UPDATE_PAYMENT = "UPDATE_PAYMENT";
 export const DELETE_PAYMENT = "DELETE_PAYMENT";
 export const COUNT_PAYMENTS = "COUNT_PAYMENTS";
+
+export const SET_SITE_INFO = "SET_SITE_INFO";
 
 // Set all constants here including assets, texts,etc
