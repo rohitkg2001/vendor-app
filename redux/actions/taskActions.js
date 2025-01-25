@@ -42,10 +42,30 @@ export const getAllInstallationCount = async (my_id, category) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/task`);
     const { data } = await response
-
     const myTasks =
-      Array.isArray(data) && data.filter((task) => task.vendor_id === my_id && task.activity.toLowerCase() === category.toLowerCase());
-    return myTasks.length;
+      Array.isArray(data) && data.filter((task) => task.vendor_id === my_id &&
+        task.activity.toLowerCase() === category.toLowerCase());
+    // Ye line ne jis type ka task hai wo return kar diya. Ab next hum isme ye check karenge ki myTasks k 
+    // site object me kya kya hai
+    const pendingTasks = myTasks.filter((myTask, id) => myTask.image === null)
+    // Agar image null hai iska matlab usme kuch upload nahi kiya gaya hai to iska matlab wo tasks
+    // pending hai Ab vendor survey karega aur task submit karega khatm karke to upar wale function se tumko
+    // pending tasks ka array mil gaya
+    const inApprovalTasks = myTasks.filter((myTask) =>
+      myTask.site?.actual_latitude !== null &&
+      myTask.site?.actual_longitude !== null &&
+      myTask.status === "In Progress"
+    )
+    // Is bad humne check kiya ki image array empty nahi hai, task k site me survey and actual location hai?
+    // Aur status kya hai. Agar In Progress hai to humne use inApprovalTasks me dal diya
+    const approvedTasks = myTasks.filter((myTask) => myTask.status === 'Done')
+    // Lastly approvedTasks me status dekh liya
+    return {
+      totalTasks: myTasks.length,
+      pendingTasks: pendingTasks.length,
+      inApprovalTasks: pendingTasks.length,
+      approvedTasks: approvedTasks.length
+    }
   } catch (error) {
     console.error(`Error fetching tasks by Status: ${error.message}`);
   }
