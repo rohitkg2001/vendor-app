@@ -1,6 +1,6 @@
-// export const BASE_URL = "https://slldm.com";
+export const BASE_URL = "https://slldm.com";
 // export const BASE_URL = "http://192.168.1.5:8000"
-export const BASE_URL = "https://solarcrm.dashandots.tech"
+//export const BASE_URL = "https://solarcrm.dashandots.tech"
 export const initialState = {};
 
 export const LOGIN_VENDOR = "LOGIN_VENDOR";
@@ -17,7 +17,7 @@ export const UPDATE_TASK = "UPDATE_TASK,";
 export const GET_ALL_SITES = "GET_ALL_SITES";
 export const VIEW_SITE = "VIEW_SITE";
 export const SEARCH_SITE = "SEARCH_SITE";
-export const SET_SITES_COUNT = "SET_SITES_COUNT"
+export const SET_SITES_COUNT = "SET_SITES_COUNT";
 
 export const GET_ALL_PROJECTS = "GET_ALL_PROJECTS";
 export const VIEW_PROJECT = "VIEW_PROJECT";

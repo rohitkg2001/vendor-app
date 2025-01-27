@@ -24,7 +24,7 @@ import Description from "../components/servey/Description";
 
 export default function SurveyScreen({ route }) {
   const { itemId } = route.params || 0;
-  const { isSurvey } = route.params || false
+  const { isSurvey } = route.params || false;
 
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
@@ -68,9 +68,9 @@ export default function SurveyScreen({ route }) {
       return;
     }
     if (!isSurvey && photos.length < 2) {
-      setSnackbarMessage("Please Click at least two pictures")
-      setSnackbarVisible(true)
-      return
+      setSnackbarMessage("Please Click at least two pictures");
+      setSnackbarVisible(true);
+      return;
     }
 
     try {
@@ -90,12 +90,16 @@ export default function SurveyScreen({ route }) {
           setPhotos([]);
           setDescription("");
           setFile(null);
-          navigation.navigate("successScreen");
+          // navigation.navigate("successScreen");
+          navigation.navigate("successScreen", {
+            message: "Task update has been successfully saved.",
+            nextScreen: "taskScreen",
+          });
         } else {
           setSnackbarMessage("Error submitting task");
           setSnackbarVisible(true);
         }
-        return
+        return;
       }
       const response = await dispatch(
         updateTask(itemId, {
@@ -195,7 +199,10 @@ export default function SurveyScreen({ route }) {
         </View>
 
         <UploadDocument file={file} setFile={setFile} />
-        <Description description={description} setDescription={setDescription} />
+        <Description
+          description={description}
+          setDescription={setDescription}
+        />
 
         <View style={[styles.row, { justifyContent: "space-between" }]}>
           <Button
