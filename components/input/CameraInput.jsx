@@ -102,7 +102,7 @@ export default function CameraInput({
           <Icon name="close" size={35} color="white" />
         </TouchableOpacity>
 
-        {/* Controls */}
+        {/* Controlsl */}
         <View style={styles.controls}>
           <TouchableOpacity onPress={handleRetake} style={styles.retakeButton}>
             <Icon name="refresh" size={35} color="white" />
