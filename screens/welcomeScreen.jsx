@@ -2,31 +2,40 @@ import { View, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import {
-  ICON_LARGE,
-  SCREEN_WIDTH,
-  spacing,
-  styles,
-  typography,
-} from "../styles";
+import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
 import { P } from "../components/text";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function WelcomeScreen({ navigation }) {
-  const { siteInfo } = useSelector(state => state.site)
+  const { siteInfo } = useSelector((state) => state.site);
   useEffect(() => {
-    console.log(siteInfo)
-  }, [siteInfo])
+    console.log(siteInfo);
+  }, [siteInfo]);
 
   return (
     <ContainerComponent>
       <MyHeader isBack title="Welcome" hasIcon />
-      <P style={[typography.font16, typography.textBold, spacing.m4, styles.bgPrimaryTransParent, spacing.p2, { width: SCREEN_WIDTH }]}>
+      <P
+        style={[
+          typography.font16,
+          typography.textBold,
+          spacing.m4,
+          styles.bgPrimaryTransParent,
+          spacing.p2,
+          { width: SCREEN_WIDTH },
+        ]}
+      >
         Current Site: {siteInfo}
       </P>
 
-      <View style={[styles.row, spacing.mt5, { flexWrap: 'wrap', alignItems: 'center' }]}>
+      <View
+        style={[
+          styles.row,
+          spacing.mt5,
+          { flexWrap: "wrap", alignItems: "center" },
+        ]}
+      >
         <TouchableOpacity
           onPress={() => navigation.navigate("startInatallationScreen")}
           style={[
@@ -37,11 +46,12 @@ export default function WelcomeScreen({ navigation }) {
               width: SCREEN_WIDTH / 1.1,
               height: SCREEN_WIDTH / 2.5,
               alignItems: "center",
-              backgroundColor: "#FFD700",
+              backgroundColor: "#85c1e9",
             },
           ]}
         >
-          <Image source={require("../assets/solar.png")}
+          <Image
+            source={require("../assets/solar.png")}
             style={[
               spacing.mt3,
               {
@@ -49,7 +59,8 @@ export default function WelcomeScreen({ navigation }) {
                 height: 80,
                 alignSelf: "center",
               },
-            ]} />
+            ]}
+          />
           <P
             style={[
               typography.font16,
@@ -64,41 +75,52 @@ export default function WelcomeScreen({ navigation }) {
           </P>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("sitelocationscreen")}
-          style={[
-            spacing.p5,
-            spacing.br2,
-            spacing.m4,
-            styles.bgSuccess,
-            {
-              width: SCREEN_WIDTH / 2.4,
-              height: SCREEN_WIDTH / 2.5,
-              alignItems: "center",
-            },
-          ]}
-        >
-          <Icon name="location-sharp" size={80} />
-          <P style={[typography.font16, spacing.mt3]}>Change Site Info</P>
-        </TouchableOpacity>
+        <View style={[styles.row]}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("sitelocationscreen")}
+            style={[
+              spacing.p5,
+              spacing.br2,
+              spacing.m4,
+              styles.bgSuccess,
+              {
+                // width: SCREEN_WIDTH / 2.4,
+                // height: SCREEN_WIDTH / 2.5,
+                // alignItems: "center",
+                flex: 1,
+                height: SCREEN_WIDTH / 2.3,
+                alignItems: "center",
+                backgroundColor: "#f0b27a",
+              },
+            ]}
+          >
+            <Icon name="location-sharp" size={80} />
+            <P style={[typography.font16, spacing.mt3]}>Change Site Info</P>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            spacing.p5,
-            spacing.br2,
-            spacing.m4,
-            styles.bgDanger,
-            {
-              width: SCREEN_WIDTH / 2.4,
-              height: SCREEN_WIDTH / 2.5,
-              alignItems: "center",
-            },
-          ]}
-        >
-          <Icon name="reader-sharp" size={80} />
-          <P style={[typography.font16, spacing.mt3]}>Pending Records</P>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              spacing.p5,
+              spacing.br2,
+              spacing.m4,
+              // styles.bgDanger,
+              {
+                // width: SCREEN_WIDTH / 2.4,
+                // height: SCREEN_WIDTH / 2.5,
+                // alignItems: "center",
+                // backgroundColor: "#00ffbf",
+                flex: 1,
+                height: SCREEN_WIDTH / 2.3,
+                alignItems: "center",
+                backgroundColor: "#1abc9c",
+              },
+            ]}
+          >
+            <Icon name="reader-sharp" size={80} />
+            <P style={[typography.font16, spacing.mt3]}>Pending Records</P>
+          </TouchableOpacity>
+        </View>
       </View>
     </ContainerComponent>
   );
-};
+}
