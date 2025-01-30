@@ -55,14 +55,39 @@ export default function WelcomeScreen({ navigation }) {
           style={[
             typography.font16,
             typography.textBold,
-            spacing.m4,
+            spacing.m3,
             styles.bgPrimaryTransParent,
             spacing.p2,
-            { width: SCREEN_WIDTH },
+            // { width: SCREEN_WIDTH  },
           ]}
         >
           Current Site: {siteInfo}
         </P>
+
+        <CardFullWidth backgroundColor={LIGHT} style={[spacing.mb4]}>
+          <H5 style={[typography.font16, typography.textBold, spacing.mb2]}>
+            Progress Overview
+          </H5>
+          <P>Daily task track and monitor progress efficiently.</P>
+          <View
+            style={{
+              height: 10,
+              width: "100%",
+              backgroundColor: "#ddd",
+              borderRadius: 5,
+              overflow: "hidden",
+            }}
+          >
+            <View
+              style={{
+                height: "100%",
+                width: "58%",
+                backgroundColor: PRIMARY_COLOR,
+              }}
+            />
+          </View>
+          <P style={[typography.font12, spacing.mt2]}>58% Completed</P>
+        </CardFullWidth>
 
         <View
           style={[
@@ -110,15 +135,18 @@ export default function WelcomeScreen({ navigation }) {
             </P>
           </TouchableOpacity>
 
-          <View style={[styles.row, { justifyContent: "space-between" }]}>
+          <View
+            style={[styles.row, { justifyContent: "space-between", gap: 10 }]}
+          >
             <TouchableOpacity
               onPress={() => navigation.navigate("sitelocationscreen")}
               style={[
                 spacing.br2,
                 spacing.pv4,
+                spacing.mh2,
                 styles.bgSuccess,
                 {
-                  width: "45%",
+                  width: SCREEN_WIDTH / 2.4,
                   alignItems: "center",
                   backgroundColor: "#f0b27a",
                 },
@@ -132,8 +160,9 @@ export default function WelcomeScreen({ navigation }) {
               style={[
                 spacing.br2,
                 spacing.pv4,
+                spacing.mh2,
                 {
-                  width: "45%",
+                  width: SCREEN_WIDTH / 2.4,
                   alignItems: "center",
                   backgroundColor: "#1abc9c",
                 },

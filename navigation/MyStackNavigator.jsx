@@ -36,22 +36,29 @@ export default function MyStackNavigator() {
       <Stack.Screen name="notificationScreen" component={NotificationScreen} />
       <Stack.Screen name="privacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="profileScreen" component={ProfileScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="settings" component={SettingsScreen} />
       <Stack.Screen name="internalSetting" component={InternalSetting} />
       <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
       <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
       <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
-      <Stack.Screen name="stockApprovalScreen" component={StockApprovalScreen} />
+      <Stack.Screen
+        name="stockApprovalScreen"component={StockApprovalScreen} />
       <Stack.Screen name="reportScreen" component={ReportScreen} />
       <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />
-      <Stack.Screen name="inventoryDetailsScreen" component={InventoryDetailsScreen} />
+      <Stack.Screen
+        name="inventoryDetailsScreen"
+        component={InventoryDetailsScreen}
+      />
       <Stack.Screen name="taskDetailsScreen" component={TaskDetailsScreen} />
       <Stack.Screen name="surveyScreen" component={SurveyScreen} />
       <Stack.Screen name="successScreen" component={SuccessScreen} />
       <Stack.Screen name="cardScreen" component={CardScreen} />
-      <Stack.Screen name="startInatallationScreen" component={startInstallationScreen} />
+      <Stack.Screen
+        name="startInatallationScreen"
+        component={startInstallationScreen}
+      />
       <Stack.Screen name="welcomeScreen" component={WelcomeScreen} />
     </Stack.Navigator>
   );
