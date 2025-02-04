@@ -22,6 +22,7 @@ import CardScreen from "../screens/CardScreen";
 import startInstallationScreen from "../screens/startInstallationScreen";
 import WelcomeScreen from "../screens/welcomeScreen";
 import SiteLocationScreen from "../screens/SiteLocationScreen";
+import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
@@ -44,7 +45,9 @@ export default function MyStackNavigator() {
       <Stack.Screen name="taskScreen" component={TasksScreen} />
       <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
       <Stack.Screen
-        name="stockApprovalScreen"component={StockApprovalScreen} />
+        name="stockApprovalScreen"
+        component={StockApprovalScreen}
+      />
       <Stack.Screen name="reportScreen" component={ReportScreen} />
       <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />
       <Stack.Screen
@@ -60,6 +63,10 @@ export default function MyStackNavigator() {
         component={startInstallationScreen}
       />
       <Stack.Screen name="welcomeScreen" component={WelcomeScreen} />
+      <Stack.Screen
+        name="streetLightPendingTask"
+        component={StreetLightPendingTask}
+      />
     </Stack.Navigator>
   );
 }

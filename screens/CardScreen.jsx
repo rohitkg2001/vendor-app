@@ -45,7 +45,7 @@ export default function ({ navigation }) {
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("sitelocationscreen")}>
+        <TouchableOpacity onPress={() => handlePress("welcomeScreen")}>
           <Card
             style={[
               spacing.mt5,

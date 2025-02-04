@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
 import { startInstallation } from "../redux/actions/siteActions";
+import { Checkbox } from "react-native-paper";
 
 export default function StartInstallation({ navigation }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
@@ -21,6 +22,7 @@ export default function StartInstallation({ navigation }) {
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
+  const [networkAvailable, setNetworkAvailable] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -35,6 +37,7 @@ export default function StartInstallation({ navigation }) {
       panelSerialNumber,
       locationRemarks,
       beneficiaryName,
+      networkAvailable,
     };
 
     dispatch(startInstallation(installationData));
@@ -144,15 +147,24 @@ export default function StartInstallation({ navigation }) {
           onChangeText={setBeneficiaryName}
         />
 
-        <MyTextInput
-          // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-          placeholder="Enter Location Remarks"
-          multiline={true}
-          numberOfLines={4}
-          value={locationRemarks}
-          onChangeText={setLocationRemarks}
-        />
+        <View
+          style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
+        >
+          <Checkbox
+            status={networkAvailable ? "checked" : "unchecked"}
+            onPress={() => setNetworkAvailable((prev) => !prev)}
+            color="#76885B"
+          />
+          <TouchableOpacity
+            onPress={() => setNetworkAvailable((prev) => !prev)}
+          >
+            <P style={[typography.font18, typography.textBold]}>
+              Network Availability
+            </P>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
+
       <TouchableOpacity
         style={[
           spacing.p4,

@@ -26,6 +26,8 @@ export default function WelcomeScreen({ navigation }) {
   const [installation, setInstallation] = useState(0);
   const [doneInstallation, setDoneInstallation] = useState(0);
 
+  const [taskCount, setTaskCount] = useState(5);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,7 +60,6 @@ export default function WelcomeScreen({ navigation }) {
             spacing.m3,
             styles.bgPrimaryTransParent,
             spacing.p2,
-            // { width: SCREEN_WIDTH  },
           ]}
         >
           Current Site: {siteInfo}
@@ -96,7 +97,7 @@ export default function WelcomeScreen({ navigation }) {
             { flexWrap: "wrap", alignItems: "center" },
           ]}
         >
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate("startInatallationScreen")}
             style={[
               spacing.br2,
@@ -133,7 +134,92 @@ export default function WelcomeScreen({ navigation }) {
             >
               Start Light Installation
             </P>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+          <View
+            style={[
+              spacing.br2,
+              spacing.p4,
+              spacing.m4,
+              {
+                width: SCREEN_WIDTH / 1.1,
+                height: SCREEN_WIDTH / 2.5,
+                alignItems: "flex-start",
+                backgroundColor: "#85c1e9",
+                position: "relative",
+              },
+            ]}
+          >
+            <TouchableOpacity
+              onPress={() =>
+                taskCount > 0
+                  ? navigation.navigate("sitelocationscreen")
+                  : navigation.navigate("streetLightPendingTask")
+              }
+              style={[
+                typography.font16,
+                typography.textBold,
+                spacing.ph2,
+                spacing.pv2,
+                spacing.br2,
+                {
+                  position: "absolute",
+                  top: 50,
+                  right: 40,
+                  backgroundColor: PRIMARY_COLOR,
+                  color: LIGHT,
+                },
+              ]}
+            >
+              <P style={[spacing.mv1, spacing.mh2, { color: LIGHT }]}>
+                {taskCount}
+              </P>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("startInatallationScreen")}
+            >
+              <Image
+                source={require("../assets/solar.png")}
+                style={{
+                  width: 80,
+                  height: 80,
+                  alignSelf: "flex-start",
+                }}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("startInatallationScreen")}
+              style={[
+                typography.font16,
+                spacing.mt1,
+                typography.textBold,
+                {
+                  textAlign: "left",
+                  alignSelf: "flex-start",
+                },
+              ]}
+            >
+              <P style={[typography.font16, typography.textBold]}>
+                Start Light Installation
+              </P>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("streetLightPendingTask")}
+              style={[
+                typography.font16,
+                typography.textBold,
+                {
+                  position: "absolute",
+                  bottom: 23,
+                  right: 40,
+                },
+              ]}
+            >
+              <P style={[typography.font16, typography.textBold]}>Task</P>
+            </TouchableOpacity>
+          </View>
 
           <View
             style={[styles.row, { justifyContent: "space-between", gap: 10 }]}
@@ -153,7 +239,9 @@ export default function WelcomeScreen({ navigation }) {
               ]}
             >
               <Icon name="location-sharp" size={80} />
-              <P style={[typography.font16, spacing.mt3]}>Change Site Info</P>
+              <P style={[typography.font14, spacing.mt3]}>
+                Pending Installation
+              </P>
             </TouchableOpacity>
 
             <TouchableOpacity
