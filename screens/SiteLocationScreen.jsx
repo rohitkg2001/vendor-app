@@ -5,68 +5,58 @@ import MyHeader from "../components/header/MyHeader";
 import { H1 } from "../components/text";
 import MyPickerInput from "../components/input/MyPickerInput";
 import MyButton from "../components/buttons/MyButton";
-import { blocks, panchayats, wards } from "../utils/faker";
+import { panchayats, wards } from "../utils/faker";
 import { SCREEN_WIDTH, spacing } from "../styles";
 import { useDispatch } from "react-redux";
 import { setSiteInfo } from "../redux/actions/siteActions";
 
 export default function SetSiteLocationScreen({ navigation }) {
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedBlock, setSelectedBlock] = useState("");
+  // Commented out District and Block
+  // const [selectedDistrict, setSelectedDistrict] = useState("");
+  // const [selectedBlock, setSelectedBlock] = useState("");
   const [selectedPanchayat, setSelectedPanchayat] = useState("");
   const [selectedWard, setSelectedWard] = useState("");
 
-  const dispatch = useDispatch()
-
-  const getBlockOptions = () => {
-    return selectedDistrict ? blocks[selectedDistrict] : [];
-  };
+  const dispatch = useDispatch();
 
   const getPanchayatOptions = () => {
-    return selectedBlock ? panchayats[selectedDistrict] : [];
+    return panchayats["Patna"] || [];
   };
 
   const getWardOptions = () => {
-    return selectedPanchayat ? wards[selectedDistrict] : [];
-  };
-
-  const handleDistrictChange = (value) => {
-    setSelectedDistrict(value);
-    setSelectedBlock("");
-    setSelectedPanchayat("");
-    setSelectedWard("");
+    return selectedPanchayat ? wards["Patna"] || [] : [];
   };
 
   const getSiteInfo = () => {
-    console.log(`${selectedDistrict},${selectedBlock}, ${selectedPanchayat}, ${selectedWard}`)
-    const siteInfo = "BIR/PAT/FAT/WAR"
-    dispatch(setSiteInfo(siteInfo))
-    navigation.navigate('welcomeScreen')
-  }
-
+    console.log(`${selectedPanchayat}, ${selectedWard}`);
+    const siteInfo = "FAT/WAR";
+    dispatch(setSiteInfo(siteInfo));
+    navigation.navigate("startInatallationScreen");
+  };
 
   return (
     <ContainerComponent>
       <MyHeader isBack title={"Set Site Location "} hasIcon />
       <H1>{"Bihar"}</H1>
       <View style={{ flex: 1, width: SCREEN_WIDTH - 16 }}>
-        <MyPickerInput
+        {/* Commented out District and Block selection */}
+        {/* <MyPickerInput
           title="District"
           value={selectedDistrict}
-          onChange={handleDistrictChange}
+          onChange={(value) => setSelectedDistrict(value)}
           options={[
             { label: "Patna", value: "Patna" },
             { label: "Gaya", value: "district2" },
           ]}
         />
-
         <MyPickerInput
           title="Block"
           value={selectedBlock}
           onChange={(value) => setSelectedBlock(value)}
           options={getBlockOptions()}
           style={spacing.mv2}
-        />
+        /> */}
+
         <MyPickerInput
           title="Panchayat"
           value={selectedPanchayat}
@@ -82,8 +72,7 @@ export default function SetSiteLocationScreen({ navigation }) {
           style={spacing.mv2}
         />
       </View>
-
       <MyButton title="Next" onPress={getSiteInfo} />
-    </ContainerComponent >
+    </ContainerComponent>
   );
-};
+}

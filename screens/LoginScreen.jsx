@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 import { ICON_LARGE } from "../styles/constant";
 import { alertMessage } from "../utils/faker";
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation, route }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -28,12 +28,15 @@ export default function LoginScreen({ navigation }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
+  const nextScreen = route.params?.nextScreen || "homeScreen";
+
   const onSubmit = async () => {
     setError("");
     try {
       const result = await dispatch(login(username, password));
       if (result) {
-        navigation.navigate("homeScreen");
+        // navigation.navigate("homeScreen");
+        navigation.navigate(nextScreen);
       } else {
         setError(t("credentialError"));
       }

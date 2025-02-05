@@ -4,8 +4,8 @@ import Ionicons from "react-native-vector-icons/Ionicons"; // Import Ionicons
 import { spacing, SCREEN_WIDTH, styles, typography } from "../styles";
 import Button from "../components/buttons/Button";
 
-const SuccessScreen = ({ navigation }) => {
-
+const SuccessScreen = ({ navigation, route }) => {
+  const { message, nextScreen = "defaultScreen" } = route.params;
   return (
     <View
       style={{
@@ -23,7 +23,7 @@ const SuccessScreen = ({ navigation }) => {
         color="green"
         style={{ marginBottom: 20 }}
       />
-      <Text
+      {/* <Text
         style={{
           fontSize: 16,
           textAlign: "center",
@@ -32,9 +32,26 @@ const SuccessScreen = ({ navigation }) => {
         }}
       >
         Task update has been successfully saved.
+      </Text> */}
+      {/* <Text style={styles.text}>{message}</Text> */}
+      <Text
+        style={{
+          fontSize: 16,
+          textAlign: "center",
+          fontWeight: "bold",
+          color: "#333",
+        }}
+      >
+        {message}
       </Text>
-      <Button style={[styles.btn, styles.bgPrimary]} onPress={() => navigation.navigate('taskScreen')}>
-        <Text style={[styles.btnText, typography.textLight]}>Continue Working</Text>
+      <Button
+        style={[styles.btn, styles.bgPrimary]}
+        //onPress={() => navigation.navigate("taskScreen")}
+        onPress={() => navigation.navigate(nextScreen)}
+      >
+        <Text style={[styles.btnText, typography.textLight]}>
+          Continue Working
+        </Text>
       </Button>
     </View>
   );

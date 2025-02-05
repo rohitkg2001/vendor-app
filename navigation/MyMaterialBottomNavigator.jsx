@@ -47,7 +47,7 @@ export default function MyMaterialBottomNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Settings"
+        name="settings"
         component={SettingsScreen}
         options={{
           tabBarLabel: "Me",

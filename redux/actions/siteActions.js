@@ -5,15 +5,15 @@ import {
   BASE_URL,
   SET_SITES_COUNT,
   SET_SITE_INFO,
+  START_INSTALLATION,
 } from "../constant";
 import axios from "axios";
-
 
 export const fetchSites = (id) => async (dispatch) => {
   try {
     console.log(id);
     const response = await axios.get(`${BASE_URL}/api/vendors/${id}/sites`);
-    const { data, status } = response
+    const { data, status } = response;
     const { sites } = data;
     console.log(sites);
     dispatch({ type: GET_ALL_SITES, payload: sites });
@@ -34,7 +34,11 @@ export const searchSite = (searchText) => ({
 });
 
 export const setSiteInfo = (val) => async (dispatch) => {
-  console.log(val)
-  dispatch({ type: SET_SITE_INFO, payload: val })
-}
+  console.log(val);
+  dispatch({ type: SET_SITE_INFO, payload: val });
+};
 
+export const startInstallation = (val) => async (dispatch) => {
+  console.log(val);
+  dispatch({ type: START_INSTALLATION, payload: val });
+};
