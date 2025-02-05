@@ -45,7 +45,7 @@ export default function StartInstallation({ navigation }) {
         </P>
         <MyTextInput
           // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-          placeholder="Enter Pole Number"
+          placeholder="Pole Number"
           value={poleNumber}
           onChangeText={setPoleNumber}
           keyboardType="numeric"
@@ -115,7 +115,7 @@ export default function StartInstallation({ navigation }) {
             onScan={(val) => setPanelSerialNumber(val)}
           />
           <MyTextInput
-           // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+            // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
             placeholder="Enter Panel Serial Number"
             value={panelSerialNumber}
             onChangeText={setPanelSerialNumber}
@@ -124,7 +124,7 @@ export default function StartInstallation({ navigation }) {
         </View>
 
         <MyTextInput
-         // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
+          // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
           placeholder="Enter Location Remarks"
           multiline={true}
           numberOfLines={4}
