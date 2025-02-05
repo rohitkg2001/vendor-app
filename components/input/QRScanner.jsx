@@ -1,14 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ClickableCard1 from "../card/ClickableCard1";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ICON_LARGE } from "../../styles";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
+import * as Location from "expo-location";
 
 export default function QRScanner({ title, onScan }) {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [status, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
+
+  const [location, setLocation] = useState(null);
+  const [timestamp, setTimestamp] = useState("");
+  const cameraRef = useRef(null);
+  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
     if (status === null) {
@@ -25,7 +31,42 @@ export default function QRScanner({ title, onScan }) {
     if (!scanned) {
       setScanned(true);
       onScan(data);
-      setTimeout(() => setIsCameraOpen(false), 1000); // Delay to close modal after scanning
+      setTimeout(() => setIsCameraOpen(false), 1000);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        let loc = await Location.getCurrentPositionAsync({});
+        console.log(loc);
+        setLocation(loc.coords);
+      }
+    })();
+
+    const interval = setInterval(() => {
+      setTimestamp(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleCapture = async () => {
+    if (cameraRef.current && location) {
+      const photo = await cameraRef.current.takePictureAsync({
+        base64: false,
+      });
+
+      const photoData = {
+        uri: photo.uri,
+        lat: location.latitude,
+        long: location.longitude,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+
+      setPhotos((prev) => [photoData, ...prev].slice(0, 5));
+      setTimestamp(photoData.timestamp);
     }
   };
 
@@ -46,7 +87,7 @@ export default function QRScanner({ title, onScan }) {
             style={styles.camera}
             onBarcodeScanned={scanned ? () => {} : handleBarCodeScanned}
           />
-
+          <View style={styles.scannerFrame} />
           {/* Buttons Overlay */}
           <TouchableOpacity
             onPress={() => setIsCameraOpen(false)}
@@ -68,11 +109,21 @@ export default function QRScanner({ title, onScan }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => console.log("Capture Button Pressed")}
+              // onPress={() => console.log("Capture Button Pressed")}
+              onPress={handleCapture}
               style={styles.shutterButton}
             >
               <View style={styles.innerShutter} />
             </TouchableOpacity>
+          </View>
+          <View style={styles.watermark}>
+            <Text style={styles.watermarkText}>
+              Powered by Dashandots Technology
+            </Text>
+            <Text style={styles.watermarkText}>
+              📍 {location?.latitude}, {location?.longitude}
+            </Text>
+            <Text style={styles.watermarkText}>⏰ {timestamp}</Text>
           </View>
         </View>
       </Modal>
@@ -128,5 +179,25 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "red",
     borderRadius: 25,
+  },
+
+  watermark: {
+    position: "absolute",
+    bottom: 180,
+    right: 20,
+  },
+  watermarkText: {
+    color: "white",
+    fontSize: 12,
+  },
+  scannerFrame: {
+    position: "absolute",
+    top: "30%",
+    left: "15%",
+    width: "70%",
+    height: "30%",
+    borderWidth: 3,
+    borderColor: "green",
+    borderRadius: 10,
   },
 });

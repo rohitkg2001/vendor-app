@@ -19,7 +19,7 @@ export default function CameraInput({
   setIsCameraOpen,
   //  handleImageCapture,
 }) {
-  const [photos, setPhotos] = useState([]); // Store last 5 photos
+  const [photos, setPhotos] = useState([]); 
   const [location, setLocation] = useState(null); // Store GPS location
   const [timestamp, setTimestamp] = useState(""); // Store real-time timestamp
   const cameraRef = useRef(null); // Camera reference
