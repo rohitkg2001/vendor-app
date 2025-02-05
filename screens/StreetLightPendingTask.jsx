@@ -8,13 +8,12 @@ import { View } from "react-native";
 import { spacing, styles, typography } from "../styles";
 import { P, Span, H5 } from "../components/text";
 
-
 import { useTranslation } from "react-i18next";
 import { fakeStreetLights } from "../utils/faker";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
-  const [streetLightSites, setStreetLightSites] = useState(fakeStreetLights)
+  const [streetLightSites, setStreetLightSites] = useState(fakeStreetLights);
 
   return (
     <ContainerComponent>
@@ -28,13 +27,21 @@ const StreetLightPendingTask = ({ navigation }) => {
             subtitle={`${item.district} - ${item.state}`}
             isPositiveButtonVisible={true}
             positiveAction={() =>
-              navigation.navigate("startInatallationScreen", { itemId: item.id, isSurvey: false })
+              navigation.navigate("startInatallationScreen", {
+                itemId: item.id,
+                isSurvey: false,
+                panchayat: item.panchayat,
+              })
             }
             positiveText="Submit"
             isNegativeButtonVisible={true}
             negativeText="Survey"
             negativeAction={() =>
-              navigation.navigate("startInatallationScreen", { itemId: item.id, isSurvey: true })
+              navigation.navigate("startInatallationScreen", {
+                itemId: item.id,
+                isSurvey: true,
+                panchayat: item.panchayat,
+              })
             }
           >
             <View>

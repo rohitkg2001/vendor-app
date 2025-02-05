@@ -10,6 +10,8 @@ import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
 import { startInstallation } from "../redux/actions/siteActions";
 import { Checkbox } from "react-native-paper";
+import MyPickerInput from "../components/input/MyPickerInput";
+import { fakeStreetLights } from "../utils/faker";
 
 export default function StartInstallation({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
@@ -23,7 +25,9 @@ export default function StartInstallation({ navigation, route }) {
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
   const [networkAvailable, setNetworkAvailable] = useState(false);
-  const { isSurvey } = route.params
+  const { isSurvey, panchayat } = route.params;
+
+  const [selectedWard, setSelectedWard] = useState("");
 
   const dispatch = useDispatch();
 
@@ -44,6 +48,21 @@ export default function StartInstallation({ navigation, route }) {
     dispatch(startInstallation(installationData));
   };
 
+  // const wardOptions = [
+  //   ...new Set(fakeStreetLights.flatMap((item) => item.wards)),
+  // ].map((ward) => ({
+  //   label: `Ward ${ward}`,
+  //   value: ward.toString(),
+  // }));
+
+  const wardOptions = fakeStreetLights
+    .filter((item) => item.panchayat === panchayat)
+    .flatMap((item) => item.wards)
+    .map((ward) => ({
+      label: `Ward ${ward}`,
+      value: ward.toString(),
+    }));
+
   return (
     <ContainerComponent>
       <MyHeader isBack title="Start Installation" hasIcon />
@@ -62,108 +81,99 @@ export default function StartInstallation({ navigation, route }) {
         >
           Location Info: {siteInfo}
         </P>
+        {isSurvey && (
+          <MyPickerInput
+            title="Ward"
+            value={selectedWard}
+            onChange={(value) => setSelectedWard(value)}
+            options={wardOptions}
+            style={spacing.mv2}
+          />
+        )}
         <MyTextInput
-          // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
           placeholder="Pole Number"
           value={poleNumber}
           onChangeText={setPoleNumber}
           keyboardType="numeric"
         />
-        {
-          !isSurvey && (
-            <View
-              style={[
-                spacing.mv2,
-                spacing.pv2,
-                {
-                  backgroundColor: "#f0f0f0",
-                },
-              ]}
-            >
-              <>
-                <QRScanner
-                  title="Scan Luminary QR"
-                  onScan={(val) => setLuminarySerialNumber(val)}
-                />
-                <MyTextInput
 
-                  placeholder="Enter Luminary Serial Number"
-                  value={luminarySerialNumber}
-                  onChangeText={setLuminarySerialNumber}
-                  keyboardType="numeric"
-                />
-                <MyTextInput
-                  // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-                  placeholder="Enter SIM Number"
-                  value={simNumber}
-                  onChangeText={setSimNumber}
-                  keyboardType="numeric"
-                />
-              </>
-
-
-            </View>
-          )
-        }
-        {
-          !isSurvey && (
-            <View
-              style={[
-                spacing.mv2,
-                spacing.pv2,
-                {
-                  backgroundColor: "#f0f0f0",
-                },
-              ]}
-            >
-
-              <>
-                <QRScanner
-                  title="Scan Battery QR"
-                  onScan={(val) => setBatterySerialNumber(val)}
-                />
-                <MyTextInput
-                  // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-                  placeholder="Enter Battery Serial Number"
-                  value={batterySerialNumber}
-                  onChangeText={setBatterySerialNumber}
-                  keyboardType="numeric"
-                />
-              </>
-
-            </View>
-          )
-        }
-
-        {
-          !isSurvey && (
-
-            <View
-              style={[
-                spacing.mv2,
-                spacing.pv2,
-                {
-                  backgroundColor: "#f0f0f0",
-                },
-              ]}
-            >
-
+        {!isSurvey && (
+          <View
+            style={[
+              spacing.mv2,
+              spacing.pv2,
+              {
+                backgroundColor: "#f0f0f0",
+              },
+            ]}
+          >
+            <>
               <QRScanner
-                title="Scan Panel QR"
-                onScan={(val) => setPanelSerialNumber(val)}
+                title="Scan Luminary QR"
+                onScan={(val) => setLuminarySerialNumber(val)}
               />
               <MyTextInput
-                // style={[spacing.br1, spacing.p3, spacing.mv1, spacing.bw1]}
-                placeholder="Enter Panel Serial Number"
-                value={panelSerialNumber}
-                onChangeText={setPanelSerialNumber}
+                placeholder="Enter Luminary Serial Number"
+                value={luminarySerialNumber}
+                onChangeText={setLuminarySerialNumber}
                 keyboardType="numeric"
               />
+              <MyTextInput
+                placeholder="Enter SIM Number"
+                value={simNumber}
+                onChangeText={setSimNumber}
+                keyboardType="numeric"
+              />
+            </>
+          </View>
+        )}
+        {!isSurvey && (
+          <View
+            style={[
+              spacing.mv2,
+              spacing.pv2,
+              {
+                backgroundColor: "#f0f0f0",
+              },
+            ]}
+          >
+            <>
+              <QRScanner
+                title="Scan Battery QR"
+                onScan={(val) => setBatterySerialNumber(val)}
+              />
+              <MyTextInput
+                placeholder="Enter Battery Serial Number"
+                value={batterySerialNumber}
+                onChangeText={setBatterySerialNumber}
+                keyboardType="numeric"
+              />
+            </>
+          </View>
+        )}
 
-
-            </View>
-          )
-        }
+        {!isSurvey && (
+          <View
+            style={[
+              spacing.mv2,
+              spacing.pv2,
+              {
+                backgroundColor: "#f0f0f0",
+              },
+            ]}
+          >
+            <QRScanner
+              title="Scan Panel QR"
+              onScan={(val) => setPanelSerialNumber(val)}
+            />
+            <MyTextInput
+              placeholder="Enter Panel Serial Number"
+              value={panelSerialNumber}
+              onChangeText={setPanelSerialNumber}
+              keyboardType="numeric"
+            />
+          </View>
+        )}
 
         <MyTextInput
           multiline={false}
