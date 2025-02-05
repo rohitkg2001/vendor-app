@@ -231,3 +231,26 @@ const wards = {
     { label: "Ward 5", value: "ward5" },
   ],
 };
+
+export const fakeStreetLights = [
+  {
+    id: 1,
+    state: "Bihar",
+    district: "Patna",
+    block: "Patna sadar",
+    panchayat: "Fathepur",
+    wards: [1, 2, 3, 4],
+    start_date: "20-02-2025",
+    end_date: "30-03-2025"
+  },
+  {
+    id: 1,
+    state: "Bihar",
+    district: "Patna",
+    block: "Danapur",
+    panchayat: "Patna Sachivalaya",
+    wards: [8, 9, 4],
+    start_date: "20-02-2025",
+    end_date: "30-03-2025"
+  }
+]

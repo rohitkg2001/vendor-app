@@ -27,8 +27,7 @@ export default function WelcomeScreen({ navigation }) {
   const { id, name } = useSelector((state) => state.vendor);
   const [installation, setInstallation] = useState(0);
   const [doneInstallation, setDoneInstallation] = useState(0);
-
-  const [taskCount, setTaskCount] = useState(5);
+  const [taskCount, setTaskCount] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -160,7 +159,7 @@ export default function WelcomeScreen({ navigation }) {
                 height: 80,
               }}
             />
-            <View style={[layouts.circle12, spacing.bw2, { borderColor: DANGER_COLOR, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 80, left: SCREEN_WIDTH/2 }]}>
+            <View style={[layouts.circle12, spacing.bw2, { borderColor: DANGER_COLOR, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 80, left: SCREEN_WIDTH / 2 }]}>
               <H1 style={typography.textDanger}>
                 {taskCount}
               </H1>

@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
+import MyFlatList from "../components/utility/MyFlatList";
+import ClickableCard1 from "../components/card/ClickableCard1";
+import { View } from "react-native";
+import { spacing, styles, typography } from "../styles";
+import { P, Span, H5 } from "../components/text";
 
 
 import { useTranslation } from "react-i18next";
+import { fakeStreetLights } from "../utils/faker";
 
-const StreetLightPendingTask = ({ route }) => {
+const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
-  const [streetLightSites, setStreetLightSites] = useState([])
+  const [streetLightSites, setStreetLightSites] = useState(fakeStreetLights)
 
   return (
     <ContainerComponent>
@@ -18,21 +24,20 @@ const StreetLightPendingTask = ({ route }) => {
         renderItem={({ item, index }) => (
           <ClickableCard1
             key={index}
-            title={item.site?.site_name}
-            subtitle={item.site?.location}
+            title={`${item.panchayat} ${item.block}`}
+            subtitle={`${item.district} - ${item.state}`}
             isPositiveButtonVisible={true}
             positiveAction={() =>
-              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: false })
+              navigation.navigate("startInatallationScreen", { itemId: item.id, isSurvey: false })
             }
             positiveText="Submit"
             isNegativeButtonVisible={true}
             negativeText="Survey"
             negativeAction={() =>
-              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: true })
+              navigation.navigate("startInatallationScreen", { itemId: item.id, isSurvey: true })
             }
           >
             <View>
-              <H5 style={[typography.font20]}>{item.activity}</H5>
               <View style={[spacing.mt1, styles.row]}>
                 <View>
                   <Span
