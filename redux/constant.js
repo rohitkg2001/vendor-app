@@ -1,6 +1,6 @@
 export const BASE_URL = "https://slldm.com";
 // export const BASE_URL = "http://192.168.1.5:8000"
-//export const BASE_URL = "https://solarcrm.dashandots.tech"
+//export const BASE_URL = "https://solarcrm.dashandots.tech";
 export const initialState = {};
 
 export const LOGIN_VENDOR = "LOGIN_VENDOR";

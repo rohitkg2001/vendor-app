@@ -20,7 +20,7 @@ import { spacing } from "../styles";
 import OverViewCard from "../components/dashboard/OverviewCard";
 
 export default function DashboardScreen() {
-  const [dueTasks, setDueTasks] = useState(4);
+  const [dueTasks, setDueTasks] = useState(0);
   const [greeting, setGreeting] = useState("Good morning");
 
   const navigation = useNavigation();
@@ -69,14 +69,15 @@ export default function DashboardScreen() {
       >
         <DashboardFilter />
 
-        <OverViewCard />
+        <OverViewCard totalSites={dueTasks} />
+
         <ProgressReportCard />
 
-        <CardsArray
+        {/* <CardsArray
           tasksCounts={tasksCounts}
           installationCount={installation}
           navigation={navigation}
-        />
+        /> */}
       </ScrollView>
     </ContainerComponent>
   );

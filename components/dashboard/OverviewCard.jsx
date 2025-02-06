@@ -13,7 +13,7 @@ import {
 import { H5, H6, P } from "../../components/text";
 import { useNavigation } from "@react-navigation/native";
 
-export default function OverViewCard() {
+export default function OverViewCard({ totalSites }) {
   const navigation = useNavigation();
 
   return (
@@ -31,7 +31,8 @@ export default function OverViewCard() {
           style={{ alignItems: "center", textAlign: "center" }}
         >
           <H6 style={[typography.font14]}>Total Sites</H6>
-          <H6 style={[typography.font16, spacing.m2]}>0</H6>
+          <H6 style={[typography.font16, spacing.m2]}>{totalSites}</H6>
+          {/* <H6 style={[typography.font16, spacing.m2]}>0</H6> */}
         </TouchableOpacity>
 
         <TouchableOpacity

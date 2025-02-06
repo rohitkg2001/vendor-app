@@ -40,24 +40,29 @@ export const getAllTasks = (my_id) => async (dispatch) => {
 export const getAllInstallationCount = async (my_id, category) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/task`);
-    const { data } = response
+    const { data } = response;
     const myTasks =
-      Array.isArray(data) && data.filter((task) => task.vendor_id === my_id &&
-        task.activity.toLowerCase() === category.toLowerCase());
-    // Ye line ne jis type ka task hai wo return kar diya. Ab next hum isme ye check karenge ki myTasks k 
+      Array.isArray(data) &&
+      data.filter(
+        (task) =>
+          task.vendor_id === my_id &&
+          task.activity.toLowerCase() === category.toLowerCase()
+      );
+    // Ye line ne jis type ka task hai wo return kar diya. Ab next hum isme ye check karenge ki myTasks k
     // site object me kya kya hai
-    const pendingTasks = myTasks.filter((myTask, id) => myTask.image === null)
+    const pendingTasks = myTasks.filter((myTask, id) => myTask.image === null);
     // Agar image null hai iska matlab usme kuch upload nahi kiya gaya hai to iska matlab wo tasks
     // pending hai Ab vendor survey karega aur task submit karega khatm karke to upar wale function se tumko
     // pending tasks ka array mil gaya
-    const inApprovalTasks = myTasks.filter((myTask) =>
-      myTask.site?.actual_latitude !== null &&
-      myTask.site?.actual_longitude !== null &&
-      myTask.status === "In Progress"
-    )
+    const inApprovalTasks = myTasks.filter(
+      (myTask) =>
+        myTask.site?.actual_latitude !== null &&
+        myTask.site?.actual_longitude !== null &&
+        myTask.status === "In Progress"
+    );
     // Is bad humne check kiya ki image array empty nahi hai, task k site me survey and actual location hai?
     // Aur status kya hai. Agar In Progress hai to humne use inApprovalTasks me dal diya
-    const approvedTasks = myTasks.filter((myTask) => myTask.status === 'Done')
+    const approvedTasks = myTasks.filter((myTask) => myTask.status === "Done");
     // Lastly approvedTasks me status dekh liya
     // return {
     //   totalTasks: myTasks.length,
@@ -65,7 +70,7 @@ export const getAllInstallationCount = async (my_id, category) => {
     //   inApprovalTasks: pendingTasks.length,
     //   approvedTasks: approvedTasks.length
     // }
-    return myTasks.length
+    return myTasks.length;
   } catch (error) {
     console.error(`Error fetching tasks by Status: ${error.message}`);
   }
@@ -214,6 +219,22 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+// export const getStreetLightTask = (my_id) => async (dispatch) => {
+//   try {
+//     const response = await axios.get(
+//       `${BASE_URL}/api/streetlight/tasks/engineers`
+//     );
+//     const { data } = await response;
+
+//     const myTasks =
+//       Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
+
+//     dispatch({ type: GET_ALL_TASKS, payload: myTasks });
+//   } catch (error) {
+//     console.error(`Error fetching streetlight id: ${error.message}`);
+//   }
+// };
 
 // 0=INSTALLATION
 // 1 = FIXING SLIP

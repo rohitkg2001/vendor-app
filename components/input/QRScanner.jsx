@@ -1,10 +1,19 @@
 import { useEffect, useState, useRef } from "react";
 import ClickableCard1 from "../card/ClickableCard1";
 import Icon from "react-native-vector-icons/Ionicons";
-import { ICON_LARGE } from "../../styles";
+import {
+  ICON_LARGE,
+  LIGHT,
+  SCREEN_HEIGHT,
+  SCREEN_WIDTH,
+  spacing,
+  styles,
+  typography,
+} from "../../styles";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Modal } from "react-native";
 import * as Location from "expo-location";
+import { P, Span } from "../text";
 
 export default function QRScanner({ title, onScan }) {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -73,7 +82,11 @@ export default function QRScanner({ title, onScan }) {
   return (
     <>
       <ClickableCard1 title={title} onPress={handleQr}>
-        <Icon name="qr-code-outline" size={ICON_LARGE} style={styles.icon} />
+        <Icon
+          name="qr-code-outline"
+          size={ICON_LARGE}
+          style={{ position: "absolute", top: -60, right: 10 }}
+        />
       </ClickableCard1>
 
       <Modal
@@ -81,24 +94,60 @@ export default function QRScanner({ title, onScan }) {
         animationType="slide"
         onRequestClose={() => setIsCameraOpen(false)}
       >
-        <View style={styles.cameraContainer}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            backgroundColor: "black",
+          }}
+        >
           <CameraView
             facing="back"
-            style={styles.camera}
+            style={{ flex: 1 }}
             onBarcodeScanned={scanned ? () => {} : handleBarCodeScanned}
           />
-          <View style={styles.scannerFrame} />
-          {/* Buttons Overlay */}
+          <View
+            style={[
+              spacing.br2,
+              spacing.bw2,
+              {
+                position: "absolute",
+                top: "180",
+                left: "55",
+                borderColor: "green",
+                width: SCREEN_WIDTH * 0.7,
+                height: SCREEN_HEIGHT * 0.3,
+              },
+            ]}
+          />
+
           <TouchableOpacity
             onPress={() => setIsCameraOpen(false)}
-            style={styles.closeButton}
+            style={{ position: "absolute", top: 20, left: 20 }}
           >
             <Icon name="close" size={35} color="white" />
           </TouchableOpacity>
-          <View style={styles.controls}>
+
+          <View
+            style={[
+              styles.row,
+              spacing.ph4,
+              {
+                bottom: 50,
+                justifyContent: "space-around",
+                alignItems: "center",
+              },
+            ]}
+          >
             <TouchableOpacity
               onPress={() => setScanned(false)}
-              style={styles.retakeButton}
+              style={[
+                spacing.p2,
+                spacing.br5,
+                {
+                  backgroundColor: "rgba(0,0,0,0.6)",
+                },
+              ]}
             >
               <Icon
                 name="refresh"
@@ -109,95 +158,45 @@ export default function QRScanner({ title, onScan }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              // onPress={() => console.log("Capture Button Pressed")}
               onPress={handleCapture}
-              style={styles.shutterButton}
+              style={[
+                spacing.br6,
+                spacing.bw1,
+                {
+                  width: 70,
+                  height: 70,
+                  backgroundColor: LIGHT,
+                  justifyContent: "center",
+                  alignItems: "center",
+                },
+              ]}
             >
-              <View style={styles.innerShutter} />
+              <View
+                style={[
+                  spacing.br5,
+                  {
+                    width: 50,
+                    height: 50,
+                    backgroundColor: "red",
+                  },
+                ]}
+              />
             </TouchableOpacity>
           </View>
-          <View style={styles.watermark}>
-            <Text style={styles.watermarkText}>
+
+          <View style={{ position: "absolute", bottom: 180, right: 20 }}>
+            <P style={[typography.font12, { color: LIGHT }]}>
               Powered by Dashandots Technology
-            </Text>
-            <Text style={styles.watermarkText}>
+            </P>
+            <Span style={[typography.font12, { color: LIGHT }]}>
               📍 {location?.latitude}, {location?.longitude}
-            </Text>
-            <Text style={styles.watermarkText}>⏰ {timestamp}</Text>
+            </Span>
+            <Span style={[typography.font12, { color: LIGHT }]}>
+              ⏰ {timestamp}
+            </Span>
           </View>
         </View>
       </Modal>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    position: "absolute",
-    top: -60,
-    right: 10,
-  },
-  cameraContainer: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "black",
-  },
-  camera: {
-    flex: 1,
-  },
-  controls: {
-    position: "absolute",
-    width: "100%",
-    bottom: 50,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    paddingHorizontal: 30,
-  },
-  closeButton: {
-    position: "absolute",
-    top: 20,
-    left: 20,
-  },
-  retakeButton: {
-    backgroundColor: "rgba(0,0,0,0.6)",
-    padding: 10,
-    borderRadius: 50,
-  },
-  shutterButton: {
-    width: 70,
-    height: 70,
-    backgroundColor: "white",
-    borderRadius: 35,
-    borderWidth: 3,
-    borderColor: "gray",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  innerShutter: {
-    width: 50,
-    height: 50,
-    backgroundColor: "red",
-    borderRadius: 25,
-  },
-
-  watermark: {
-    position: "absolute",
-    bottom: 180,
-    right: 20,
-  },
-  watermarkText: {
-    color: "white",
-    fontSize: 12,
-  },
-  scannerFrame: {
-    position: "absolute",
-    top: "30%",
-    left: "15%",
-    width: "70%",
-    height: "30%",
-    borderWidth: 3,
-    borderColor: "green",
-    borderRadius: 10,
-  },
-});
