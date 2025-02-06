@@ -59,7 +59,7 @@ export default function CameraInput({
         timestamp: new Date().toLocaleTimeString(),
       };
 
-      setPhotos((prev) => [photoData, ...prev].slice(0, 5)); // Keep only last 5 photos
+      setPhotos((prev) => [photoData, ...prev].slice(0, 5));
     }
   };
 
