@@ -339,10 +339,11 @@ export const styles = StyleSheet.create({
   },
   notificationBadgeContainer: {
     position: "absolute",
-    top: 0,
-    right: 5,
-    height: 24,
-    width: 24,
+    // top: 0,
+    bottom:20,
+    right: 0,
+    height: 30,
+    width: 38,
     borderRadius: 12,
   },
   progressBar: {

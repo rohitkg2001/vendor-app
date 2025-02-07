@@ -22,7 +22,7 @@ import CameraComponent from "../components/servey/CameraComponent";
 import UploadDocument from "../components/servey/UploadDocument";
 import Description from "../components/servey/Description";
 
-export default function SurveyScreen({ route }) {
+export default function SurveyScreen({ route, message = "" }) {
   const { itemId } = route.params || 0;
   const { isSurvey } = route.params || false;
 

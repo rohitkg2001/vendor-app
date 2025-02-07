@@ -27,7 +27,7 @@ export default function DashboardHeader({ dueTasks, greeting, firstName, navigat
             layouts.center,
             spacing.bw05,
             spacing.br5,
-            { position: "relative" },
+            { position: "relative",top:8, },
           ]}
           onPress={() => navigation.navigate("notificationScreen")}
         >

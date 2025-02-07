@@ -5,7 +5,9 @@ import { spacing, SCREEN_WIDTH, styles, typography } from "../styles";
 import Button from "../components/buttons/Button";
 
 const SuccessScreen = ({ navigation, route }) => {
-  const { message, nextScreen = "defaultScreen" } = route.params;
+  const params = route.params || {};
+  const message = params.message || "Task update has been successfully saved.";
+  const nextScreen = params.nextScreen || "taskScreen";
   return (
     <View
       style={{

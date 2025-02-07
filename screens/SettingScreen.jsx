@@ -19,7 +19,7 @@ export default function SettingsScreen() {
   const { vendor } = useSelector((state) => state);
 
   const handleLogoutPress = () => {
-    navigation.navigate("loginScreen");
+    navigation.navigate("cardScreen");
   };
 
   useEffect(() => {
