@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
@@ -11,7 +11,6 @@ import CameraInput from "../components/input/CameraInput";
 import { startInstallation } from "../redux/actions/siteActions";
 import { Checkbox } from "react-native-paper";
 import MyPickerInput from "../components/input/MyPickerInput";
-import { fakeStreetLights } from "../utils/faker";
 
 export default function StartInstallation({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
@@ -25,13 +24,13 @@ export default function StartInstallation({ navigation, route }) {
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
   const [networkAvailable, setNetworkAvailable] = useState(false);
-  const { isSurvey, panchayat } = route.params;
+  const { isSurvey, itemId } = route.params;
+  const [wardOptions, setWardOptions] = useState([])
 
   const [selectedWard, setSelectedWard] = useState("");
 
   const dispatch = useDispatch();
-
-  const { siteInfo } = useSelector((state) => state.site);
+  const { pendingStreetLights } = useSelector(state => state.tasks)
 
   const handleStartInstallation = () => {
     const installationData = {
@@ -48,20 +47,19 @@ export default function StartInstallation({ navigation, route }) {
     dispatch(startInstallation(installationData));
   };
 
-  // const wardOptions = [
-  //   ...new Set(fakeStreetLights.flatMap((item) => item.wards)),
-  // ].map((ward) => ({
-  //   label: `Ward ${ward}`,
-  //   value: ward.toString(),
-  // }));
+  const handleLuminaryQR = (val) => {
+    const values = val.split(';')
+    setLuminarySerialNumber(values[0].toString())
+    setSimNumber(values[1].toString())
+  }
 
-  const wardOptions = fakeStreetLights
-    .filter((item) => item.panchayat === panchayat)
-    .flatMap((item) => item.wards)
-    .map((ward) => ({
-      label: `Ward ${ward}`,
-      value: ward.toString(),
-    }));
+  useEffect(() => {
+    if (Array.isArray(pendingStreetLights)) {
+      const currentSite = pendingStreetLights.find(task => task.id === itemId)
+      const wards = currentSite.site?.ward
+      setWardOptions(wards.split(',').map(num => ({ label: `Ward ${num}`, value: `${num}` })))
+    }
+  }, [pendingStreetLights])
 
   return (
     <ContainerComponent>
@@ -70,7 +68,7 @@ export default function StartInstallation({ navigation, route }) {
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
       >
-        <P
+        {/* <P
           style={[
             typography.font16,
             typography.textBold,
@@ -79,8 +77,8 @@ export default function StartInstallation({ navigation, route }) {
             { width: SCREEN_WIDTH - 16 },
           ]}
         >
-          Location Info: {siteInfo}
-        </P>
+          Location Info:
+        </P> */}
         {isSurvey && (
           <MyPickerInput
             title="Ward"
@@ -90,12 +88,17 @@ export default function StartInstallation({ navigation, route }) {
             style={spacing.mv2}
           />
         )}
-        <MyTextInput
-          placeholder="Pole Number"
-          value={poleNumber}
-          onChangeText={setPoleNumber}
-          keyboardType="numeric"
-        />
+        {
+          isSurvey && (
+            <MyTextInput
+              placeholder="Pole Number"
+              value={poleNumber}
+              onChangeText={setPoleNumber}
+              keyboardType="numeric"
+            />
+          )
+        }
+
 
         {!isSurvey && (
           <View
@@ -110,7 +113,7 @@ export default function StartInstallation({ navigation, route }) {
             <>
               <QRScanner
                 title="Scan Luminary QR"
-                onScan={(val) => setLuminarySerialNumber(val)}
+                onScan={(val) => handleLuminaryQR(val)}
               />
               <MyTextInput
                 placeholder="Enter Luminary Serial Number"
@@ -191,22 +194,26 @@ export default function StartInstallation({ navigation, route }) {
           placeholder="Enter Location Remarks"
         />
 
-        <View
-          style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
-        >
-          <Checkbox
-            status={networkAvailable ? "checked" : "unchecked"}
-            onPress={() => setNetworkAvailable((prev) => !prev)}
-            color="#76885B"
-          />
-          <TouchableOpacity
-            onPress={() => setNetworkAvailable((prev) => !prev)}
-          >
-            <P style={[typography.font18, typography.textBold]}>
-              Network Availability
-            </P>
-          </TouchableOpacity>
-        </View>
+        {
+          isSurvey && (
+            <View
+              style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
+            >
+              <Checkbox
+                status={networkAvailable ? "checked" : "unchecked"}
+                onPress={() => setNetworkAvailable((prev) => !prev)}
+                color="#76885B"
+              />
+              <TouchableOpacity
+                onPress={() => setNetworkAvailable((prev) => !prev)}
+              >
+                <P style={[typography.font18, typography.textBold]}>
+                  Network Availability
+                </P>
+              </TouchableOpacity>
+            </View>
+          )
+        }
       </ScrollView>
 
       <TouchableOpacity

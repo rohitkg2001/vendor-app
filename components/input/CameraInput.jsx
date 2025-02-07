@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function CameraInput({
   isCameraOpen,
   setIsCameraOpen,
+  isSurvey
   //  handleImageCapture,
 }) {
   const [photos, setPhotos] = useState([]);
@@ -113,7 +114,7 @@ export default function CameraInput({
           >
             <View style={styles.innerShutter} />
           </TouchableOpacity>
-          {photos.length >= 2 ? (
+          {!isSurvey && photos.length >= 2 ? (
             <TouchableOpacity
               onPress={() => handleImageCapture(photos)}
               style={styles.retakeButton}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
@@ -9,11 +9,17 @@ import { spacing, styles, typography } from "../styles";
 import { P, Span, H5 } from "../components/text";
 
 import { useTranslation } from "react-i18next";
-import { fakeStreetLights } from "../utils/faker";
+import { useSelector } from "react-redux";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
-  const [streetLightSites, setStreetLightSites] = useState(fakeStreetLights);
+  const [streetLightSites, setStreetLightSites] = useState([]);
+  const { pendingStreetLights } = useSelector(state => state.tasks)
+
+  useEffect(() => {
+    Array.isArray(pendingStreetLights) && setStreetLightSites(pendingStreetLights)
+  }, [pendingStreetLights])
+
 
   return (
     <ContainerComponent>
@@ -23,14 +29,13 @@ const StreetLightPendingTask = ({ navigation }) => {
         renderItem={({ item, index }) => (
           <ClickableCard1
             key={index}
-            title={`${item.panchayat} ${item.block}`}
-            subtitle={`${item.district} - ${item.state}`}
+            title={`${item.site?.panchayat} ${item.site?.block}`}
+            subtitle={`${item.site?.district} - ${item.site?.state}`}
             isPositiveButtonVisible={true}
             positiveAction={() =>
               navigation.navigate("startInatallationScreen", {
                 itemId: item.id,
                 isSurvey: false,
-                panchayat: item.panchayat,
               })
             }
             positiveText="Submit"
@@ -40,7 +45,6 @@ const StreetLightPendingTask = ({ navigation }) => {
               navigation.navigate("startInatallationScreen", {
                 itemId: item.id,
                 isSurvey: true,
-                panchayat: item.panchayat,
               })
             }
           >
