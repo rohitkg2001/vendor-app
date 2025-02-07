@@ -26,26 +26,12 @@ export default function StartInstallation({ navigation, route }) {
   const [networkAvailable, setNetworkAvailable] = useState(false);
   const { isSurvey, itemId } = route.params;
   const [wardOptions, setWardOptions] = useState([])
+  const [poleOptions, setPoleOptions] = useState([])
 
   const [selectedWard, setSelectedWard] = useState("");
 
   const dispatch = useDispatch();
   const { pendingStreetLights } = useSelector(state => state.tasks)
-
-  const handleStartInstallation = () => {
-    const installationData = {
-      poleNumber,
-      luminarySerialNumber,
-      simNumber,
-      batterySerialNumber,
-      panelSerialNumber,
-      locationRemarks,
-      beneficiaryName,
-      networkAvailable,
-    };
-
-    dispatch(startInstallation(installationData));
-  };
 
   const handleLuminaryQR = (val) => {
     const values = val.split(';')
@@ -58,8 +44,23 @@ export default function StartInstallation({ navigation, route }) {
       const currentSite = pendingStreetLights.find(task => task.id === itemId)
       const wards = currentSite.site?.ward
       setWardOptions(wards.split(',').map(num => ({ label: `Ward ${num}`, value: `${num}` })))
+      setPoleOptions([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(num => ({ label: `${num}`, value: `${num}` })))
     }
   }, [pendingStreetLights])
+
+  const handleSubmission = async (images) => {
+    if (isSurvey) {
+      const data = { selectedWard, poleNumber, beneficiaryName, locationRemarks, networkAvailable, images: images }
+      console.log(data, itemId)
+    } else {
+      const data = { luminarySerialNumber, simNumber, batterySerialNumber, panelSerialNumber }
+      console.log(data)
+    }
+    // navigation.navigate("successScreen", {
+    //   message: "Your task uploaded successfully",
+    //   nextScreen: "welcomeScreen",
+    // });
+  }
 
   return (
     <ContainerComponent>
@@ -90,11 +91,12 @@ export default function StartInstallation({ navigation, route }) {
         )}
         {
           isSurvey && (
-            <MyTextInput
-              placeholder="Pole Number"
+            <MyPickerInput
+              title="Pole Number"
               value={poleNumber}
-              onChangeText={setPoleNumber}
-              keyboardType="numeric"
+              onChange={(value) => setPoleNumber(value)}
+              options={poleOptions}
+              style={spacing.mv2}
             />
           )
         }
@@ -181,8 +183,8 @@ export default function StartInstallation({ navigation, route }) {
         <MyTextInput
           multiline={false}
           numberOfLines={1}
-          // value={bene}
-          // onChangeText={setLocationRemarks}
+          value={beneficiaryName}
+          onChangeText={setBeneficiaryName}
           placeholder="Beneficiary Name"
         />
 
@@ -227,9 +229,7 @@ export default function StartInstallation({ navigation, route }) {
             alignItems: "center",
           },
         ]}
-        // onPress={() => setIsCameraVisible(true)}
         onPress={() => {
-          handleStartInstallation();
           setIsCameraVisible(true);
         }}
       >
@@ -243,6 +243,7 @@ export default function StartInstallation({ navigation, route }) {
         isCameraOpen={isCameraVisible}
         setIsCameraOpen={setIsCameraVisible}
         handleImageCapture={(val) => console.log(val)}
+        handleSubmission={handleSubmission}
       />
     </ContainerComponent>
   );
