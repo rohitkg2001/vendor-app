@@ -17,7 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 export default function CameraInput({
   isCameraOpen,
   setIsCameraOpen,
-  //  handleImageCapture,
+  isSurvey,
+  handleSubmission
 }) {
   const [photos, setPhotos] = useState([]);
   const [location, setLocation] = useState(null); // Store GPS location
@@ -44,7 +45,7 @@ export default function CameraInput({
 
   useEffect(() => {
     if (photos.length === 5) {
-      handleImageCapture(photos);
+      handleSubmission(photos);
     }
   }, [photos]);
 
@@ -65,15 +66,6 @@ export default function CameraInput({
 
   const handleRetake = () => {
     setPhotos([]);
-  };
-
-  const handleImageCapture = (capturedPhotos) => {
-    console.log("Captured Photos: ", capturedPhotos);
-    // Navigate to the success screen
-    navigation.navigate("successScreen", {
-      message: "Your task uploaded successfully",
-      nextScreen: "welcomeScreen",
-    });
   };
 
   return (
@@ -113,9 +105,9 @@ export default function CameraInput({
           >
             <View style={styles.innerShutter} />
           </TouchableOpacity>
-          {photos.length >= 2 ? (
+          {!isSurvey && photos.length >= 2 ? (
             <TouchableOpacity
-              onPress={() => handleImageCapture(photos)}
+              onPress={() => handleSubmission(photos)}
               style={styles.retakeButton}
             >
               <Icon name="arrow-forward" size={ICON_LARGE} color={"white"} />

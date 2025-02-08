@@ -1,4 +1,4 @@
-import { VIEW_TASK, UPDATE_TASK, BASE_URL, GET_ALL_TASKS } from "../constant";
+import { VIEW_TASK, UPDATE_TASK, BASE_URL, GET_ALL_TASKS, TOTAL_PENDING_STREETLIGHT, GET_PENDING_STREETLIGHTS, GET_SURVEYED_STREETLIGHTS, TOTAL_SURVEYED_STREETLIGHTS, GET_INSTALLED_STREETLIGHTS, TOTAL_INSTALLED_STREETLIGHTS } from "../constant";
 import { filterByStatus } from "./projectActions";
 import axios from "axios";
 
@@ -225,3 +225,28 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
 // 2=RMS
 // 3 = INSPECTION
 // 4=Report Sent
+
+
+
+export const getStreetLightTasks = (my_id) => async (dispatch) => {
+  const response = await axios.get(`${BASE_URL}/api/streetlight/tasks/vendors`, {
+    params: { id: my_id },
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const { data } = response
+  const pendingSites = data.filter((task) => task.status === "Pending")
+  const pendingSitesCount = pendingSites.length
+  const surveyedSites = data.filter((task) => task.site?.isSurveyDone)
+  const surveyedSitesCount = surveyedSites.length
+  const installedSites = data.filter((task) => task.site?.isInstallationDone)
+  const installedSitesCount = installedSites.length
+  dispatch({ type: TOTAL_PENDING_STREETLIGHT, payload: pendingSitesCount })
+  dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites })
+  dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyedSites })
+  dispatch({ type: TOTAL_SURVEYED_STREETLIGHTS, payload: surveyedSitesCount })
+  dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installedSites })
+  dispatch({ type: TOTAL_INSTALLED_STREETLIGHTS, payload: installedSitesCount })
+}

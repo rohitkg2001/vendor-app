@@ -20,32 +20,29 @@ import CardFullWidth from "../components/card/CardFullWidth";
 import {
   getAllInstallationCount,
   getAllTasks,
+  getStreetLightTasks,
 } from "../redux/actions/taskActions";
 
 export default function WelcomeScreen({ navigation }) {
   const { siteInfo } = useSelector((state) => state.site);
   const { id, name } = useSelector((state) => state.vendor);
-  const [installation, setInstallation] = useState(0);
+  const { pendingStreetLightCounts, surveyedStreetLightCounts, installedStreetLightCounts } = useSelector(state => state.tasks)
   const [doneInstallation, setDoneInstallation] = useState(0);
   const [taskCount, setTaskCount] = useState(0);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(siteInfo);
-  }, [siteInfo]);
-
-  const getCounts = async () => {
-    const installationCount = await getAllInstallationCount(id, "installation");
-    setInstallation(installationCount);
-  };
-  useEffect(() => {
-    dispatch(getAllTasks(id));
-  }, []);
 
   useEffect(() => {
-    getCounts();
-  }, [installation]);
+    dispatch(getStreetLightTasks(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    setTaskCount(pendingStreetLightCounts)
+  }, [pendingStreetLightCounts, installedStreetLightCounts, surveyedStreetLightCounts])
+
+
+
 
   return (
     <ContainerComponent>
@@ -228,9 +225,9 @@ export default function WelcomeScreen({ navigation }) {
           </View>
 
           {[
-            { label: "Pending", installation: 0 },
-            { label: "In approval", installation: 0 },
-            { label: "Approved", installation: 0 },
+            { label: "Pending", installation: pendingStreetLightCounts },
+            { label: "In approval", installation: surveyedStreetLightCounts },
+            { label: "Approved", installation: installedStreetLightCounts },
           ].map((row, index) => (
             <View
               key={index}
