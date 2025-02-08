@@ -220,22 +220,6 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
   }
 };
 
-// export const getStreetLightTask = (my_id) => async (dispatch) => {
-//   try {
-//     const response = await axios.get(
-//       `${BASE_URL}/api/streetlight/tasks/engineers`
-//     );
-//     const { data } = await response;
-
-//     const myTasks =
-//       Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
-
-//     dispatch({ type: GET_ALL_TASKS, payload: myTasks });
-//   } catch (error) {
-//     console.error(`Error fetching streetlight id: ${error.message}`);
-//   }
-// };
-
 // 0=INSTALLATION
 // 1 = FIXING SLIP
 // 2=RMS
