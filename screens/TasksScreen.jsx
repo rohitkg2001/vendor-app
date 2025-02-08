@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -9,8 +10,19 @@ import { useTranslation } from "react-i18next";
 import DashboardFilter from "../components/filters/DashboardFilter";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import { H5, P, Span } from "../components/text";
-import { spacing, styles, typography } from "../styles";
+import {
+  ICON_MEDIUM,
+  SCREEN_WIDTH,
+  spacing,
+  styles,
+  typography,
+  LIGHT,
+} from "../styles";
 import { getAllTasks } from "../redux/actions/taskActions";
+import Tabs from "../components/Tabs";
+import SearchBar from "../components/input/SearchBar";
+import Button from "../components/buttons/Button";
+import Filter from "../components/Filter";
 
 export default function TasksScreen({ navigation }) {
   const { t } = useTranslation();
@@ -27,6 +39,13 @@ export default function TasksScreen({ navigation }) {
     }
   }, [vendor?.id, dispatch]);
 
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const applyFilterFromRedux = () => {};
+
+  const handleTabChange = (selectedTab) => {
+    console.log("Selected Tab:", selectedTab);
+  };
+
   return (
     <ContainerComponent>
       <MyHeader title={t("task_list")} isBack={true} hasIcon={true} />
@@ -41,13 +60,19 @@ export default function TasksScreen({ navigation }) {
             subtitle={item.site?.location}
             isPositiveButtonVisible={true}
             positiveAction={() =>
-              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: false })
+              navigation.navigate("surveyScreen", {
+                itemId: item.id,
+                isSurvey: false,
+              })
             }
             positiveText="Submit"
             isNegativeButtonVisible={true}
             negativeText="Survey"
             negativeAction={() =>
-              navigation.navigate("surveyScreen", { itemId: item.id, isSurvey: true })
+              navigation.navigate("surveyScreen", {
+                itemId: item.id,
+                isSurvey: true,
+              })
             }
           >
             <View>
@@ -75,8 +100,48 @@ export default function TasksScreen({ navigation }) {
         )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={[{ flexGrow: 1 }]}
+        ListHeaderComponent={() => (
+          <View>
+            <View
+              style={[
+                spacing.mv4,
+                styles.row,
+                spacing.mh1,
+                { alignItems: "center" },
+              ]}
+            >
+              <SearchBar
+                placeholder="Search"
+                style={{ width: SCREEN_WIDTH - 80 }}
+              />
+              <Button
+                style={[
+                  styles.btn,
+                  styles.bgPrimary,
+                  spacing.mh1,
+                  { width: 50 },
+                ]}
+                onPress={() => setShowBottomSheet(true)}
+              >
+                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
+              </Button>
+            </View>
+
+            <Tabs
+              tabs={["All", "Pending", "In approval", "Completed", "Rejected"]}
+              onTabPress={handleTabChange}
+              initialActiveTab="All"
+            />
+          </View>
+        )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
+      {showBottomSheet && (
+        <Filter
+          onClose={() => setShowBottomSheet(false)}
+          onApply={applyFilterFromRedux}
+        />
+      )}
     </ContainerComponent>
   );
 }

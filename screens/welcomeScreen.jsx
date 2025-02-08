@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, TouchableOpacity, Image, ScrollView } from "react-native";
+import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -26,23 +26,27 @@ import {
 export default function WelcomeScreen({ navigation }) {
   const { siteInfo } = useSelector((state) => state.site);
   const { id, name } = useSelector((state) => state.vendor);
-  const { pendingStreetLightCounts, surveyedStreetLightCounts, installedStreetLightCounts } = useSelector(state => state.tasks)
+  const {
+    pendingStreetLightCounts,
+    surveyedStreetLightCounts,
+    installedStreetLightCounts,
+  } = useSelector((state) => state.tasks);
   const [doneInstallation, setDoneInstallation] = useState(0);
   const [taskCount, setTaskCount] = useState(0);
 
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(getStreetLightTasks(id));
   }, [dispatch, id]);
 
   useEffect(() => {
-    setTaskCount(pendingStreetLightCounts)
-  }, [pendingStreetLightCounts, installedStreetLightCounts, surveyedStreetLightCounts])
-
-
-
+    setTaskCount(pendingStreetLightCounts);
+  }, [
+    pendingStreetLightCounts,
+    installedStreetLightCounts,
+    surveyedStreetLightCounts,
+  ]);
 
   return (
     <ContainerComponent>
@@ -95,45 +99,6 @@ export default function WelcomeScreen({ navigation }) {
             { flexWrap: "wrap", alignItems: "center" },
           ]}
         >
-          {/* <TouchableOpacity
-            onPress={() => navigation.navigate("startInatallationScreen")}
-            style={[
-              spacing.br2,
-              spacing.p4,
-              spacing.m4,
-              {
-                width: SCREEN_WIDTH / 1.1,
-                height: SCREEN_WIDTH / 2.5,
-                alignItems: "center",
-                backgroundColor: "#85c1e9",
-              },
-            ]}
-          >
-            <Image
-              source={require("../assets/solar.png")}
-              style={[
-                spacing.mt3,
-                {
-                  width: "80%",
-                  height: 80,
-                  alignSelf: "center",
-                },
-              ]}
-            />
-            <P
-              style={[
-                typography.font16,
-                spacing.mt1,
-                typography.textBold,
-                {
-                  textAlign: "center",
-                },
-              ]}
-            >
-              Start Light Installation
-            </P>
-          </TouchableOpacity> */}
-
           <TouchableOpacity
             style={[
               spacing.br2,
@@ -143,8 +108,8 @@ export default function WelcomeScreen({ navigation }) {
                 width: SCREEN_WIDTH / 1.12,
                 height: SCREEN_WIDTH / 2.5,
                 backgroundColor: "#85c1e9",
-                justifyContent: 'center',
-                alignItems: 'center'
+                justifyContent: "center",
+                alignItems: "center",
               },
             ]}
             onPress={() => navigation.navigate("streetLightPendingTask")}
@@ -156,10 +121,21 @@ export default function WelcomeScreen({ navigation }) {
                 height: 80,
               }}
             />
-            <View style={[layouts.circle12, spacing.bw2, { borderColor: DANGER_COLOR, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 80, left: SCREEN_WIDTH / 2 }]}>
-              <H1 style={typography.textDanger}>
-                {taskCount}
-              </H1>
+            <View
+              style={[
+                layouts.circle12,
+                spacing.bw2,
+                {
+                  borderColor: DANGER_COLOR,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "absolute",
+                  bottom: 80,
+                  left: SCREEN_WIDTH / 2,
+                },
+              ]}
+            >
+              <H1 style={typography.textDanger}>{taskCount}</H1>
             </View>
             <P style={[typography.font16, typography.textBold]}>
               Start Light Installation
@@ -167,10 +143,51 @@ export default function WelcomeScreen({ navigation }) {
           </TouchableOpacity>
 
           <View
+            style={[
+              styles.row,
+              spacing.mb4,
+              { justifyContent: "space-between", gap: 10 },
+            ]}
+          >
+            <TouchableOpacity
+              style={[
+                spacing.br2,
+                spacing.pv4,
+                spacing.mh2,
+                {
+                  width: SCREEN_WIDTH / 2.4,
+
+                  alignItems: "center",
+                  backgroundColor: "#27ae60",
+                },
+              ]}
+            >
+              <Icon name="checkmark-circle-sharp" size={80} />
+              <P style={[typography.font14, spacing.mt3]}>Completed</P>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                spacing.br2,
+                spacing.pv4,
+                spacing.mh2,
+                {
+                  width: SCREEN_WIDTH / 2.4,
+                  alignItems: "center",
+                  backgroundColor: "#e74c3c",
+                },
+              ]}
+            >
+              <Icon name="close-circle-sharp" size={80} />
+              <P style={[typography.font16, spacing.mt3]}>Rejected</P>
+            </TouchableOpacity>
+          </View>
+
+          <View
             style={[styles.row, { justifyContent: "space-between", gap: 10 }]}
           >
             <TouchableOpacity
-              onPress={() => navigation.navigate("sitelocationscreen")}
+              // onPress={() => navigation.navigate("sitelocationscreen")}
               style={[
                 spacing.br2,
                 spacing.pv4,
@@ -183,10 +200,10 @@ export default function WelcomeScreen({ navigation }) {
                 },
               ]}
             >
-              <Icon name="location-sharp" size={80} />
-              <P style={[typography.font14, spacing.mt3]}>
-                Pending Installation
-              </P>
+              {/* <Icon name="location-sharp" size={80} />
+              <P style={[typography.font14, spacing.mt3]}>Total Earning</P> */}
+              <Text style={{ fontSize: 60, fontWeight: "bold" }}>₹</Text>
+              <P style={[typography.font14, spacing.mt3]}>Total Earning</P>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -202,7 +219,7 @@ export default function WelcomeScreen({ navigation }) {
               ]}
             >
               <Icon name="reader-sharp" size={80} />
-              <P style={[typography.font16, spacing.mt3]}>Pending Records</P>
+              <P style={[typography.font16, spacing.mt3]}>Inventory</P>
             </TouchableOpacity>
           </View>
         </View>

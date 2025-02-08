@@ -31,7 +31,7 @@ export default function SetSiteLocationScreen({ navigation }) {
     console.log(`${selectedPanchayat}, ${selectedWard}`);
     const siteInfo = "FAT/WAR";
     dispatch(setSiteInfo(siteInfo));
-    navigation.navigate("startInatallationScreen");
+    navigation.navigate("startInstallation");
   };
 
   return (

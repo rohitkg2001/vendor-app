@@ -14,12 +14,12 @@ import { useSelector } from "react-redux";
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
-  const { pendingStreetLights } = useSelector(state => state.tasks)
+  const { pendingStreetLights } = useSelector((state) => state.tasks);
 
   useEffect(() => {
-    Array.isArray(pendingStreetLights) && setStreetLightSites(pendingStreetLights)
-  }, [pendingStreetLights])
-
+    Array.isArray(pendingStreetLights) &&
+      setStreetLightSites(pendingStreetLights);
+  }, [pendingStreetLights]);
 
   return (
     <ContainerComponent>
@@ -33,7 +33,7 @@ const StreetLightPendingTask = ({ navigation }) => {
             subtitle={`${item.site?.district} - ${item.site?.state}`}
             isPositiveButtonVisible={true}
             positiveAction={() =>
-              navigation.navigate("startInatallationScreen", {
+              navigation.navigate("startInstallation", {
                 itemId: item.id,
                 isSurvey: false,
               })
@@ -42,7 +42,7 @@ const StreetLightPendingTask = ({ navigation }) => {
             isNegativeButtonVisible={true}
             negativeText="Survey"
             negativeAction={() =>
-              navigation.navigate("startInatallationScreen", {
+              navigation.navigate("startInstallation", {
                 itemId: item.id,
                 isSurvey: true,
               })
