@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     height: 54,
     fontSize: 18,
     borderColor: PRIMARY_COLOR,
-    borderWidth: 1,
+    borderWidth: 0.5,
   },
   primaryButton: {
     marginVertical: 8,
@@ -340,7 +340,7 @@ export const styles = StyleSheet.create({
   notificationBadgeContainer: {
     position: "absolute",
     // top: 0,
-    bottom:20,
+    bottom: 20,
     right: 0,
     height: 30,
     width: 38,
