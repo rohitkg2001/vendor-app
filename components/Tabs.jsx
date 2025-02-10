@@ -38,6 +38,7 @@ const Tabs = ({ tabs, onTabPress, initialActiveTab }) => {
           <Text
             style={[
               typography.font12,
+              typography.fontLato,
               {
                 color: activeTab === tab ? "#fff" : "#333",
                 fontWeight: activeTab === tab ? "bold" : "normal",

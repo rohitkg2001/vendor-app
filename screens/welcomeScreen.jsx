@@ -68,7 +68,14 @@ export default function WelcomeScreen({ navigation }) {
         </P>
 
         <CardFullWidth backgroundColor={LIGHT} style={[spacing.mb4]}>
-          <H5 style={[typography.font16, typography.textBold, spacing.mb2]}>
+          <H5
+            style={[
+              typography.font16,
+              typography.textBold,
+              spacing.mb2,
+              typography.fontLato,
+            ]}
+          >
             Progress Overview
           </H5>
           <P>Track daily task and monitor progress efficiently.</P>
@@ -89,7 +96,9 @@ export default function WelcomeScreen({ navigation }) {
               }}
             />
           </View>
-          <P style={[typography.font12, spacing.mt2]}>0% Completed</P>
+          <P style={[typography.font12, spacing.mt2, typography.fontLato]}>
+            0% Completed
+          </P>
         </CardFullWidth>
 
         <View
@@ -137,7 +146,13 @@ export default function WelcomeScreen({ navigation }) {
             >
               <H1 style={typography.textDanger}>{taskCount}</H1>
             </View>
-            <P style={[typography.font16, typography.textBold]}>
+            <P
+              style={[
+                typography.font16,
+                typography.textBold,
+                typography.fontLato,
+              ]}
+            >
               Start Light Installation
             </P>
           </TouchableOpacity>
@@ -203,7 +218,9 @@ export default function WelcomeScreen({ navigation }) {
               {/* <Icon name="location-sharp" size={80} />
               <P style={[typography.font14, spacing.mt3]}>Total Earning</P> */}
               <Text style={{ fontSize: 60, fontWeight: "bold" }}>₹</Text>
-              <P style={[typography.font14, spacing.mt3]}>Total Earning</P>
+              <P style={[typography.font14, typography.fontLato, spacing.mt3]}>
+                Total Earning
+              </P>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -219,7 +236,9 @@ export default function WelcomeScreen({ navigation }) {
               ]}
             >
               <Icon name="reader-sharp" size={80} />
-              <P style={[typography.font16, spacing.mt3]}>Inventory</P>
+              <P style={[typography.font16, typography.fontLato, spacing.mt3]}>
+                Inventory
+              </P>
             </TouchableOpacity>
           </View>
         </View>
@@ -227,16 +246,24 @@ export default function WelcomeScreen({ navigation }) {
         <CardFullWidth backgroundColor={LIGHT}>
           <View style={[styles.row, { alignItems: "center" }]}>
             <Icon name="filter" size={ICON_SMALL} color={PRIMARY_COLOR} />
-            <H5 style={[typography.font16, { marginRight: 160 }]}>
+            <H6
+              style={[
+                typography.fontLato,
+                typography.textBold,
+                { marginRight: 170 },
+              ]}
+            >
               {"Progress Report"}
-            </H5>
+            </H6>
           </View>
           <View style={[spacing.bbw05, spacing.mv1]} />
 
           <View style={[styles.row, spacing.pv3, { borderBottomWidth: 1 }]}>
             {["Progress", "Installation"].map((header) => (
               <View style={{ alignItems: "center" }} key={header}>
-                <H6 style={[typography.font14]}>{header}</H6>
+                <H6 style={[typography.font14, typography.fontLato]}>
+                  {header}
+                </H6>
               </View>
             ))}
           </View>
@@ -255,7 +282,9 @@ export default function WelcomeScreen({ navigation }) {
               ]}
             >
               <View style={{ alignItems: "center" }}>
-                <P style={typography.font14}>{row.label}</P>
+                <P style={[typography.font14, typography.fontLato]}>
+                  {row.label}
+                </P>
               </View>
               <View style={{ alignItems: "center" }}>
                 <H6 style={spacing.ml2}>

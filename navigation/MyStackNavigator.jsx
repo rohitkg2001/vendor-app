@@ -22,7 +22,7 @@ import CardScreen from "../screens/CardScreen";
 import WelcomeScreen from "../screens/welcomeScreen";
 import SiteLocationScreen from "../screens/SiteLocationScreen";
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
-import StartInstallation from "../screens/startInstallationScreen";
+import StartInstallation from "../screens/StartInstallationScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {

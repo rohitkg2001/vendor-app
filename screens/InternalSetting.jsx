@@ -25,7 +25,7 @@ export default function SettingsScreen({ navigation }) {
   useEffect(() => {
     const fetchLanguage = async () => {
       const storedLanguage = await AsyncStorage.getItem("appLanguage");
-      setLanguage(storedLanguage || "en"); 
+      setLanguage(storedLanguage || "en");
     };
 
     fetchLanguage();
@@ -34,7 +34,7 @@ export default function SettingsScreen({ navigation }) {
   const selectLanguage = async (lang) => {
     await AsyncStorage.setItem("appLanguage", lang);
     i18n.changeLanguage(lang);
-    setLanguage(lang); 
+    setLanguage(lang);
   };
 
   const getButtonStyle = (lang) => {
@@ -72,7 +72,14 @@ export default function SettingsScreen({ navigation }) {
             { paddingBottom: 20 },
           ]}
         >
-          <Span style={[typography.font16, spacing.mt5, spacing.mh2]}>
+          <Span
+            style={[
+              typography.font16,
+              spacing.mt5,
+              spacing.mh2,
+              typography.fontLato,
+            ]}
+          >
             Select Preferred Language
           </Span>
 
@@ -84,7 +91,8 @@ export default function SettingsScreen({ navigation }) {
             <H2
               style={[
                 styles.btnText,
-                typography.font20,
+                typography.font16,
+                typography.fontLato,
                 typography.textLight,
                 language === "en"
                   ? typography.textLight
@@ -103,7 +111,8 @@ export default function SettingsScreen({ navigation }) {
             <H2
               style={[
                 styles.btnText,
-                typography.font20,
+                typography.font16,
+                typography.fontLato,
                 typography.textPrimary,
                 language === "hi"
                   ? typography.textLight
