@@ -1,3 +1,4 @@
+// import All components
 import MenuItem from "../components/MenuItem";
 import { internal } from "../utils/faker";
 import ContainerComponent from "../components/ContainerComponent";
