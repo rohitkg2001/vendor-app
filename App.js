@@ -22,7 +22,6 @@ export default function App() {
   };
 
   const selectLanguage = async (lang) => {
-
     await AsyncStorage.setItem("appLanguage", lang);
     i18n.changeLanguage(lang);
     setLanguage(lang);
