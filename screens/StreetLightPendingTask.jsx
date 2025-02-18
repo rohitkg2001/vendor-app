@@ -52,19 +52,31 @@ const StreetLightPendingTask = ({ navigation }) => {
               <View style={[spacing.mt1, styles.row]}>
                 <View>
                   <Span
-                    style={[typography.font12, { textTransform: "capitalize" }]}
+                    style={[
+                      typography.font12,
+                      typography.fontLato,
+                      { textTransform: "capitalize" },
+                    ]}
                   >
                     start date
                   </Span>
-                  <P style={[typography.font12]}>{item.start_date}</P>
+                  <P style={[typography.font12, typography.fontLato]}>
+                    {item.start_date}
+                  </P>
                 </View>
                 <View>
                   <Span
-                    style={[typography.font12, { textTransform: "capitalize" }]}
+                    style={[
+                      typography.font12,
+                      typography.fontLato,
+                      { textTransform: "capitalize" },
+                    ]}
                   >
                     end date
                   </Span>
-                  <P style={[typography.font12]}>{item.start_date}</P>
+                  <P style={[typography.font12, typography.fontLato]}>
+                    {item.start_date}
+                  </P>
                 </View>
               </View>
             </View>

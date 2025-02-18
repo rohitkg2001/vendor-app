@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons"; // Import Ionicons
 import { spacing, SCREEN_WIDTH, styles, typography } from "../styles";

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import ContainerComponent from "../components/ContainerComponent";
 import DashboardHeader from "../components/header/DashboardHeader";
 import DashboardFilter from "../components/filters/DashboardFilter";
-import CardsArray from "../components/dashboard/CardsArray";
+//import CardsArray from "../components/dashboard/CardsArray";
 import ProgressReportCard from "../components/dashboard/ProgressReportCard";
 
 import { fetchSites } from "../redux/actions/siteActions";

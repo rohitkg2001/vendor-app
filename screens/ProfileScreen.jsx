@@ -43,23 +43,44 @@ const ProfileScreen = () => {
 
       <CardFullWidth backgroundColor={PRIMARY_COLOR}>
         <View style={[styles.row, { alignItems: "center", marginTop: -10 }]}>
-          <Avatar
-            avatar={vendor.image}
-            name={`${vendor.firstName} ${vendor.lastName}`}
-            online={false}
-          />
+          <View
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              borderWidth: 1,
+              borderColor: "black",
+              alignItems: "center",
+              justifyContent: "center",
+              top: 8,
+            }}
+          >
+            <Avatar
+              avatar={vendor.image}
+              name={`${vendor.firstName} ${vendor.lastName}`}
+              online={false}
+            />
+          </View>
 
           <View style={spacing.mh2}>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font14, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.firstName} {vendor.lastName}
             </H6>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font12, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.email}
             </H6>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font14, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.contactNo}
             </H6>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font14, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.address}
             </H6>
           </View>

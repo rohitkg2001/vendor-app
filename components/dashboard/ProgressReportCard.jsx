@@ -12,6 +12,7 @@ import {
   typography,
   ICON_LARGE,
   ICON_SMALL,
+  PRIMARY_COLOR_TRANSPARENT,
 } from "../../styles";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -48,16 +49,30 @@ export default function ProgressReportCard({ title, progressData }) {
     <CardFullWidth backgroundColor={LIGHT}>
       <View style={[styles.row, { alignItems: "center" }]}>
         <Icon name="filter" size={ICON_SMALL} color={PRIMARY_COLOR} />
-        <H5 style={[typography.font16, { marginRight: 160 }]}>
+        <H6
+          style={[
+            typography.fontLato,
+            typography.textBold,
+            { marginRight: 170 },
+          ]}
+        >
           {t("Progress Report")}
-        </H5>
+        </H6>
       </View>
       <View style={[spacing.bbw05, spacing.mv1]} />
 
-      <View style={[styles.row, spacing.pv3, { borderBottomWidth: 1 }]}>
+      <View
+        style={[
+          styles.row,
+          spacing.pv3,
+          { borderBottomWidth: 1, backgroundColor: PRIMARY_COLOR_TRANSPARENT },
+        ]}
+      >
         {["Progress", "Installation", "RMS"].map((header) => (
           <View style={{ alignItems: "center" }} key={header}>
-            <H6 style={[typography.font14]}>{t(header)}</H6>
+            <H6 style={[typography.font14, typography.fontLato]}>
+              {t(header)}
+            </H6>
           </View>
         ))}
       </View>
@@ -76,7 +91,9 @@ export default function ProgressReportCard({ title, progressData }) {
           ]}
         >
           <View style={{ alignItems: "center" }}>
-            <P style={typography.font14}>{t(row.label)}</P>
+            <P style={[typography.font14, typography.fontLato]}>
+              {t(row.label)}
+            </P>
           </View>
           <View style={{ alignItems: "center" }}>
             <H6 style={spacing.ml2}>

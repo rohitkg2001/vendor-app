@@ -1,14 +1,25 @@
+// import react native
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+
+// import components
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import MyFlatList from "../components/utility/MyFlatList";
 import NoRecord from "./NoRecord";
-import { useTranslation } from "react-i18next";
 import DashboardFilter from "../components/filters/DashboardFilter";
 import ClickableCard1 from "../components/card/ClickableCard1";
+import Tabs from "../components/Tabs";
+import SearchBar from "../components/input/SearchBar";
+import Button from "../components/buttons/Button";
+import Filter from "../components/Filter";
+// import Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTasks } from "../redux/actions/taskActions";
+
+// import styles
 import { H5, P, Span } from "../components/text";
 import {
   ICON_MEDIUM,
@@ -18,11 +29,6 @@ import {
   typography,
   LIGHT,
 } from "../styles";
-import { getAllTasks } from "../redux/actions/taskActions";
-import Tabs from "../components/Tabs";
-import SearchBar from "../components/input/SearchBar";
-import Button from "../components/buttons/Button";
-import Filter from "../components/Filter";
 
 export default function TasksScreen({ navigation }) {
   const { t } = useTranslation();
@@ -76,23 +82,37 @@ export default function TasksScreen({ navigation }) {
             }
           >
             <View>
-              <H5 style={[typography.font20]}>{item.activity}</H5>
+              <H5 style={[typography.font16, typography.fontLato]}>
+                {item.activity}
+              </H5>
               <View style={[spacing.mt1, styles.row]}>
                 <View>
                   <Span
-                    style={[typography.font12, { textTransform: "capitalize" }]}
+                    style={[
+                      typography.font12,
+                      typography.fontLato,
+                      { textTransform: "capitalize" },
+                    ]}
                   >
                     start date
                   </Span>
-                  <P style={[typography.font12]}>{item.start_date}</P>
+                  <P style={[typography.font12, typography.fontLato]}>
+                    {item.start_date}
+                  </P>
                 </View>
                 <View>
                   <Span
-                    style={[typography.font12, { textTransform: "capitalize" }]}
+                    style={[
+                      typography.font12,
+                      typography.fontLato,
+                      { textTransform: "capitalize" },
+                    ]}
                   >
                     end date
                   </Span>
-                  <P style={[typography.font12]}>{item.start_date}</P>
+                  <P style={[typography.font12, typography.fontLato]}>
+                    {item.start_date}
+                  </P>
                 </View>
               </View>
             </View>

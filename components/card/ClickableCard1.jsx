@@ -43,7 +43,13 @@ export default function ClickableCard1({
         <Card.Title
           title={<H5>{title}</H5>}
           subtitle={
-            <Span style={[typography.font12, { textTransform: "capitalize" }]}>
+            <Span
+              style={[
+                typography.font12,
+                typography.fontLato,
+                { textTransform: "capitalize" },
+              ]}
+            >
               {subtitle}
             </Span>
           }

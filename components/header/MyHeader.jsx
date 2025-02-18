@@ -5,6 +5,7 @@ import { Badge } from "react-native-paper";
 import { styles } from "../../styles/components.styles";
 import { useNavigation } from "@react-navigation/native";
 import { ICON_MEDIUM, ICON_SMALL } from "../../styles/constant";
+import { typography } from "../../styles";
 
 export default function MyHeader({
   isBack,
@@ -26,7 +27,9 @@ export default function MyHeader({
           <Icon name="arrow-back" size={ICON_SMALL} color="#000" />
         </TouchableOpacity>
       )}
-      <H4 style={styles.titleText}>{title}</H4>
+      <H4 style={[typography.font18, typography.fontLato, typography.textBold]}>
+        {title}
+      </H4>
       {hasIcon && (
         <TouchableOpacity
           onPress={onIconPress}
