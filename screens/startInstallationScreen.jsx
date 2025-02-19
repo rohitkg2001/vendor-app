@@ -12,7 +12,7 @@ import { startInstallation } from "../redux/actions/siteActions";
 import { Checkbox } from "react-native-paper";
 import MyPickerInput from "../components/input/MyPickerInput";
 
-export default function StartInstallation({ navigation, route }) {
+export default function StartInstallationScreen({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
   const [photoUri, setPhotoUri] = useState(null);
   const cameraRef = useRef(null);
