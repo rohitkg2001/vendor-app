@@ -25,42 +25,64 @@ export default function StartInstallation({ navigation, route }) {
   const [beneficiaryName, setBeneficiaryName] = useState("");
   const [networkAvailable, setNetworkAvailable] = useState(false);
   const { isSurvey, itemId } = route.params;
-  const [wardOptions, setWardOptions] = useState([])
-  const [poleOptions, setPoleOptions] = useState([])
+  const [wardOptions, setWardOptions] = useState([]);
+  const [poleOptions, setPoleOptions] = useState([]);
 
   const [selectedWard, setSelectedWard] = useState("");
 
   const dispatch = useDispatch();
-  const { pendingStreetLights } = useSelector(state => state.tasks)
+  const { pendingStreetLights } = useSelector((state) => state.tasks);
 
   const handleLuminaryQR = (val) => {
-    const values = val.split(';')
-    setLuminarySerialNumber(values[0].toString())
-    setSimNumber(values[1].toString())
-  }
+    const values = val.split(";");
+    setLuminarySerialNumber(values[0].toString());
+    setSimNumber(values[1].toString());
+  };
 
   useEffect(() => {
     if (Array.isArray(pendingStreetLights)) {
-      const currentSite = pendingStreetLights.find(task => task.id === itemId)
-      const wards = currentSite.site?.ward
-      setWardOptions(wards.split(',').map(num => ({ label: `Ward ${num}`, value: `${num}` })))
-      setPoleOptions([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(num => ({ label: `${num}`, value: `${num}` })))
+      const currentSite = pendingStreetLights.find(
+        (task) => task.id === itemId
+      );
+      const wards = currentSite.site?.ward;
+      setWardOptions(
+        wards
+          .split(",")
+          .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
+      );
+      setPoleOptions(
+        [
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        ].map((num) => ({ label: `${num}`, value: `${num}` }))
+      );
     }
-  }, [pendingStreetLights])
+  }, [pendingStreetLights]);
 
   const handleSubmission = async (images) => {
     if (isSurvey) {
-      const data = { selectedWard, poleNumber, beneficiaryName, locationRemarks, networkAvailable, images: images }
-      console.log(data, itemId)
+      const data = {
+        selectedWard,
+        poleNumber,
+        beneficiaryName,
+        locationRemarks,
+        networkAvailable,
+        images: images,
+      };
+      console.log(data, itemId);
     } else {
-      const data = { luminarySerialNumber, simNumber, batterySerialNumber, panelSerialNumber }
-      console.log(data)
+      const data = {
+        luminarySerialNumber,
+        simNumber,
+        batterySerialNumber,
+        panelSerialNumber,
+      };
+      console.log(data);
     }
-    // navigation.navigate("successScreen", {
-    //   message: "Your task uploaded successfully",
-    //   nextScreen: "welcomeScreen",
-    // });
-  }
+    navigation.navigate("successScreen", {
+      message: "Your task uploaded successfully",
+      nextScreen: "welcomeScreen",
+    });
+  };
 
   return (
     <ContainerComponent>
@@ -89,18 +111,15 @@ export default function StartInstallation({ navigation, route }) {
             style={spacing.mv2}
           />
         )}
-        {
-          isSurvey && (
-            <MyPickerInput
-              title="Pole Number"
-              value={poleNumber}
-              onChange={(value) => setPoleNumber(value)}
-              options={poleOptions}
-              style={spacing.mv2}
-            />
-          )
-        }
-
+        {isSurvey && (
+          <MyPickerInput
+            title="Pole Number"
+            value={poleNumber}
+            onChange={(value) => setPoleNumber(value)}
+            options={poleOptions}
+            style={spacing.mv2}
+          />
+        )}
 
         {!isSurvey && (
           <View
@@ -196,26 +215,27 @@ export default function StartInstallation({ navigation, route }) {
           placeholder="Enter Location Remarks"
         />
 
-        {
-          isSurvey && (
-            <View
-              style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
+        {isSurvey && (
+          <View
+            style={[
+              spacing.mv3,
+              { flexDirection: "row", alignItems: "center" },
+            ]}
+          >
+            <Checkbox
+              status={networkAvailable ? "checked" : "unchecked"}
+              onPress={() => setNetworkAvailable((prev) => !prev)}
+              color="#76885B"
+            />
+            <TouchableOpacity
+              onPress={() => setNetworkAvailable((prev) => !prev)}
             >
-              <Checkbox
-                status={networkAvailable ? "checked" : "unchecked"}
-                onPress={() => setNetworkAvailable((prev) => !prev)}
-                color="#76885B"
-              />
-              <TouchableOpacity
-                onPress={() => setNetworkAvailable((prev) => !prev)}
-              >
-                <P style={[typography.font18, typography.textBold]}>
-                  Network Availability
-                </P>
-              </TouchableOpacity>
-            </View>
-          )
-        }
+              <P style={[typography.font18, typography.textBold]}>
+                Network Availability
+              </P>
+            </TouchableOpacity>
+          </View>
+        )}
       </ScrollView>
 
       <TouchableOpacity
