@@ -23,7 +23,6 @@ import welcomeScreen from "../screens/welcomeScreen";
 import SiteLocationScreen from "../screens/SiteLocationScreen";
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 import StartInstallationScreen from "../screens/StartInstallationScreen";
-//import StartInstallationScreen from "../screens/StartInstallationScreen";
 
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
@@ -59,10 +58,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="surveyScreen" component={SurveyScreen} />
       <Stack.Screen name="successScreen" component={SuccessScreen} />
       <Stack.Screen name="cardScreen" component={CardScreen} />
-      {/* <Stack.Screen
-        name="startInstallation"
-        component={StartInstallationScreen}
-      /> */}
       <Stack.Screen
         name="startInstallation"
         component={StartInstallationScreen}
