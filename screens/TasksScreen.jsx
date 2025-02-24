@@ -416,6 +416,7 @@ export default function TasksScreen({ navigation }) {
               onTabPress={handleTabChange}
               initialActiveTab={`All (${tabCounts.All})`}
             /> */}
+
             <Tabs
               tabs={[
                 `All (${tabCounts.All})`,
@@ -425,8 +426,19 @@ export default function TasksScreen({ navigation }) {
                 `Rejected (${tabCounts.Rejected})`,
               ]}
               onTabPress={handleTabChange}
-              activeTab={activeTab} // Controlled by parent
+              activeTab={`${activeTab} (${tabCounts[activeTab]})`}
             />
+            {/* <Tabs
+              tabs={[
+                `All ${tabCounts.All}`,
+                `Pending ${tabCounts.Pending}`,
+                `In approval ${tabCounts["In approval"]}`,
+                `Completed ${tabCounts.Completed}`,
+                `Rejected ${tabCounts.Rejected}`,
+              ]}
+              onTabPress={handleTabChange}
+              activeTab={`${activeTab} ${tabCounts[activeTab]}`}
+            /> */}
           </View>
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
