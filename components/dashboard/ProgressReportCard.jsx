@@ -91,6 +91,7 @@ export default function ProgressReportCard() {
           </View>
         ))}
       </View>
+
       {["Pending", "In approval", "Approved"].map((status, index) => (
         <View
           key={status}
@@ -105,14 +106,14 @@ export default function ProgressReportCard() {
           </View>
           <View style={{ alignItems: "center" }}>
             <H6 style={spacing.ml2}>
-              <H6>{installation}</H6>/
-              <H6 style={typography.textDanger}>{taskCounts[status]}</H6>
+              <H6 style={typography.textDanger}>{taskCounts[status]}</H6>/
+              <H6>{installation}</H6>
             </H6>
           </View>
           <View style={{ alignItems: "center" }}>
             <H6 style={spacing.ml2}>
-              <H6>{rmsStatus}</H6>/
-              <H6 style={typography.textDanger}>{rmsStatus}</H6>
+              <H6 style={typography.textDanger}>{rmsStatus}</H6>/
+              <H6>{rmsStatus}</H6>
             </H6>
           </View>
         </View>
