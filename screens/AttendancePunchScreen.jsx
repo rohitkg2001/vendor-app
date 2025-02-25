@@ -1,3 +1,4 @@
+// import react native
 import { useState, useRef } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
 import { CameraView } from "expo-camera";
