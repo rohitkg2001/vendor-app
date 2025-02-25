@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
 import { CameraView } from "expo-camera";
+// import components
 import ContainerComponent from "../components/ContainerComponent";
 import { styles, spacing, typography, SCREEN_WIDTH, layouts } from "../styles";
 import MyHeader from "../components/header/MyHeader";
