@@ -7,13 +7,16 @@ import ContainerComponent from "../components/ContainerComponent";
 import { styles, spacing, typography, SCREEN_WIDTH, layouts } from "../styles";
 import MyHeader from "../components/header/MyHeader";
 import Button from "../components/buttons/Button";
+import { useSelector } from "react-redux";
 import { H2 } from "../components/text";
 import usePermissions from "../hooks/usePermissions";
+import { updatePicture } from "../redux/actions/vendorActions";
 
 export default function AttendancePunchScreen({ navigation }) {
   const [photoUri, setPhotoUri] = useState(null);
   const cameraRef = useRef(null);
   const { permissions, requestPermission } = usePermissions();
+  const { id } = useSelector((state) => state.vendor);
 
   if (!permissions.camera || !permissions.location) {
     return (
@@ -26,14 +29,34 @@ export default function AttendancePunchScreen({ navigation }) {
     );
   }
 
+  // const takePictureAndNavigate = async () => {
+  //   if (cameraRef.current) {
+  //     const photo = await cameraRef.current.takePictureAsync();
+
+  //     if (photo) {
+  //       console.log(id, photo);
+  //       await updatePicture(id, photo);
+  //     }
+  //   }
+  // };
+
   const takePictureAndNavigate = async () => {
     if (cameraRef.current) {
-      const photo = await cameraRef.current.takePictureAsync();
-      if (!location || !photo.uri) {
-        return;
+      try {
+        const photo = await cameraRef.current.takePictureAsync({
+          quality: 0.7, // Optional: reduce size
+          base64: false, // No need for base64 when uploading
+        });
+
+        if (photo) {
+          console.log("Captured Photo:", photo);
+          await updatePicture(id, photo); // Upload the image
+        }
+      } catch (err) {
+        console.error("Camera Error:", err);
       }
-      setPhotoUri(photo.uri);
-      navigation.navigate("homeScreen");
+    } else {
+      console.error("Camera not initialized.");
     }
   };
 
