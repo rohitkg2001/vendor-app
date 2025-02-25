@@ -22,7 +22,6 @@ import CardScreen from "../screens/CardScreen";
 import welcomeScreen from "../screens/welcomeScreen";
 import SiteLocationScreen from "../screens/SiteLocationScreen";
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
-//import StartInstallationScreen from "../screens/StartInstallationScreen";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
 import ProfileChangeScreen from "../screens/ProfileChangeScreen";
 import AttendancePunchScreen from "../screens/AttendancePunchScreen";
@@ -65,10 +64,7 @@ export default function MyStackNavigator() {
         name="startInstallation"
         component={StartInstallationScreen}
       /> */}
-      {/* <Stack.Screen
-        name="startInstallation"
-        component={StartInstallationScreen}
-      /> */}
+
       <Stack.Screen
         name="startInstallation"
         component={StartInstallationScreen}
