@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import {
@@ -33,7 +33,7 @@ const ProfileItem = ({ iconName, label }) => {
   );
 };
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { vendor } = useSelector((state) => state);
 
@@ -43,24 +43,39 @@ const ProfileScreen = () => {
 
       <CardFullWidth backgroundColor={PRIMARY_COLOR}>
         <View style={[styles.row, { alignItems: "center", marginTop: -10 }]}>
-          <View
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
-              borderWidth: 1,
-              borderColor: "black",
-              alignItems: "center",
-              justifyContent: "center",
-              top: 8,
-            }}
+          {/* <View>
+            <Avatar
+              avatar={vendor.image}
+              name={`${vendor.firstName} ${vendor.lastName}`}
+              online={false}
+            />
+          </View> */}
+          {/* <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("profileChange")}
+            >
+              <Avatar
+                avatar={vendor.image}
+                name={`${vendor.firstName} ${vendor.lastName}`}
+                online={false}
+              />
+            </TouchableOpacity>
+          </View> */}
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("profileChange", {
+                vendorImage: vendor.image,
+                vendorName: `${vendor.firstName} ${vendor.lastName}`,
+                contactNo: vendor.contactNo,
+              })
+            }
           >
             <Avatar
               avatar={vendor.image}
               name={`${vendor.firstName} ${vendor.lastName}`}
               online={false}
             />
-          </View>
+          </TouchableOpacity>
 
           <View style={spacing.mh2}>
             <H6

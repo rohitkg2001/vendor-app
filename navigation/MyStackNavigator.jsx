@@ -24,6 +24,8 @@ import SiteLocationScreen from "../screens/SiteLocationScreen";
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 import StartInstallationScreen from "../screens/StartInstallationScreen";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
+import ProfileChangeScreen from "../screens/ProfileChangeScreen";
+import AttendancePunchScreen from "../screens/AttendancePunchScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -73,6 +75,8 @@ export default function MyStackNavigator() {
         component={StreetLightPendingTask}
       />
       <Stack.Screen name="taskDetail" component={TaskDetailScreen} />
+      <Stack.Screen name="profileChange" component={ProfileChangeScreen} />
+      <Stack.Screen name="attendancePunch" component={AttendancePunchScreen} />
     </Stack.Navigator>
   );
 }
