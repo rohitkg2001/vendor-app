@@ -25,7 +25,7 @@ import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
 import ProfileChangeScreen from "../screens/ProfileChangeScreen";
 import AttendancePunchScreen from "../screens/AttendancePunchScreen";
-import StartInstallationScreen from "../screens/StartInstallationScreen";
+import StartInstallationScreen from "../screens/startInstallationScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
