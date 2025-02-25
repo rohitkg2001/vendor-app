@@ -1,6 +1,7 @@
+// Updated ProgressReportCard.js
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { H5, H6, P, H4 } from "../../components/text";
+import { H6, P } from "../../components/text";
 import Icon from "react-native-vector-icons/Ionicons";
 import CardFullWidth from "../card/CardFullWidth";
 import { useTranslation } from "react-i18next";
@@ -10,7 +11,6 @@ import {
   spacing,
   styles,
   typography,
-  ICON_LARGE,
   ICON_SMALL,
   PRIMARY_COLOR_TRANSPARENT,
 } from "../../styles";
@@ -20,14 +20,18 @@ import {
   getAllTasks,
 } from "../../redux/actions/taskActions";
 
-export default function ProgressReportCard({ title, progressData }) {
+export default function ProgressReportCard() {
   const { t } = useTranslation();
 
-  const { id, name } = useSelector((state) => state.vendor);
+  const { id } = useSelector((state) => state.vendor);
+  const { tasks } = useSelector((state) => state.tasks);
   const [installation, setInstallation] = useState(0);
   const [rmsStatus, setRmsStatus] = useState(0);
-  const [doneInstallation, setDoneInstallation] = useState(0);
-  const [donRMS, setDoneRMS] = useState(0);
+  const [taskCounts, setTaskCounts] = useState({
+    Pending: 0,
+    "In approval": 0,
+    Approved: 0,
+  });
 
   const dispatch = useDispatch();
 
@@ -37,13 +41,24 @@ export default function ProgressReportCard({ title, progressData }) {
     const RMSCount = await getAllInstallationCount(id, "rms");
     setRmsStatus(RMSCount);
   };
+
   useEffect(() => {
     dispatch(getAllTasks(id));
-  }, []);
+  }, [dispatch, id]);
 
   useEffect(() => {
     getCounts();
-  }, [installation]);
+  }, []);
+
+  useEffect(() => {
+    const counts = {
+      Pending: tasks.filter((task) => task.status === "Pending").length,
+      "In approval": tasks.filter((task) => task.status === "In approval")
+        .length,
+      Approved: tasks.filter((task) => task.status === "Completed").length,
+    };
+    setTaskCounts(counts);
+  }, [tasks]);
 
   return (
     <CardFullWidth backgroundColor={LIGHT}>
@@ -77,13 +92,9 @@ export default function ProgressReportCard({ title, progressData }) {
         ))}
       </View>
 
-      {[
-        { label: "Pending", installation: installation, rms: rmsStatus },
-        { label: "In approval", installation: 0, rms: rmsStatus },
-        { label: "Approved", installation: 0, rms: rmsStatus },
-      ].map((row, index) => (
+      {["Pending", "In approval", "Approved"].map((status, index) => (
         <View
-          key={index}
+          key={status}
           style={[
             styles.row,
             spacing.pv3,
@@ -91,19 +102,18 @@ export default function ProgressReportCard({ title, progressData }) {
           ]}
         >
           <View style={{ alignItems: "center" }}>
-            <P style={[typography.font14, typography.fontLato]}>
-              {t(row.label)}
-            </P>
+            <P style={[typography.font14, typography.fontLato]}>{t(status)}</P>
           </View>
           <View style={{ alignItems: "center" }}>
             <H6 style={spacing.ml2}>
-              {doneInstallation}/
-              <H6 style={typography.textDanger}>{row.installation}</H6>
+              <H6 style={typography.textDanger}>{taskCounts[status]}</H6>/
+              <H6>{installation}</H6>
             </H6>
           </View>
           <View style={{ alignItems: "center" }}>
             <H6 style={spacing.ml2}>
-              {donRMS}/<H6 style={typography.textDanger}>{row.rms}</H6>
+              <H6 style={typography.textDanger}>{rmsStatus}</H6>/
+              <H6>{rmsStatus}</H6>
             </H6>
           </View>
         </View>

@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 // import styles
-import { H5, P, Span } from "../text";
+import { H5, P, Span, H6 } from "../text";
 import {
   ICON_MEDIUM,
   DARK,
@@ -30,9 +30,12 @@ export default function DashboardHeader({
       ]}
     >
       <View>
-        <H5 style={[typography.fontLato, typography.textBold]}>
-          {greeting},{firstName}
-        </H5>
+        <H6
+          style={[typography.fontLato, typography.textBold, { maxWidth: 300 }]}
+        >
+          {greeting}, {firstName}
+        </H6>
+
         <P style={[spacing.ml1, typography.fontLato]}>
           You have {dueTasks} due tasks Today
         </P>

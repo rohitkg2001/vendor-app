@@ -1,4 +1,3 @@
-// import react native
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -34,23 +33,56 @@ export default function TasksScreen({ navigation }) {
   const { t } = useTranslation();
   const { vendor, tasks } = useSelector((state) => ({
     vendor: state.vendor,
-    tasks: state.tasks.tasks, // Use Redux state directly
+    tasks: state.tasks.tasks,
   }));
   const dispatch = useDispatch();
 
+  const [tabCounts, setTabCounts] = useState({
+    All: 0,
+    Pending: 0,
+    "In approval": 0,
+    Completed: 0,
+    Rejected: 0,
+  });
+
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [activeTab, setActiveTab] = useState("All");
+
   useEffect(() => {
     if (vendor?.id) {
-      console.log(vendor.id);
       dispatch(getAllTasks(vendor.id));
     }
   }, [vendor?.id, dispatch]);
 
-  const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const applyFilterFromRedux = () => {};
+  useEffect(() => {
+    const counts = {
+      All: tasks.length,
+      Pending: tasks.filter((task) => task.status === "Pending").length,
+      "In approval": tasks.filter((task) => task.status === "In approval")
+        .length,
+      Completed: tasks.filter((task) => task.status === "Completed").length,
+      Rejected: tasks.filter((task) => task.status === "Rejected").length,
+    };
+    setTabCounts(counts);
+    filterTasks(activeTab);
+  }, [tasks]);
+
+  const filterTasks = (tab) => {
+    if (tab === "All") {
+      setFilteredTasks(tasks);
+    } else {
+      setFilteredTasks(tasks.filter((task) => task.status === tab));
+    }
+  };
 
   const handleTabChange = (selectedTab) => {
-    console.log("Selected Tab:", selectedTab);
+    const tabName = selectedTab.split(" (")[0];
+    setActiveTab(tabName);
+    filterTasks(tabName);
   };
+
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const applyFilterFromRedux = () => {};
 
   return (
     <ContainerComponent>
@@ -58,13 +90,13 @@ export default function TasksScreen({ navigation }) {
       <DashboardFilter />
 
       <MyFlatList
-        data={tasks}
+        data={filteredTasks}
         renderItem={({ item, index }) => (
           <ClickableCard1
             key={index}
             title={item.site?.site_name}
             subtitle={item.site?.location}
-            isPositiveButtonVisible={true}
+            isPositiveButtonVisible={item.status !== "Completed"}
             positiveAction={() =>
               navigation.navigate("surveyScreen", {
                 itemId: item.id,
@@ -72,7 +104,7 @@ export default function TasksScreen({ navigation }) {
               })
             }
             positiveText="Submit"
-            isNegativeButtonVisible={true}
+            isNegativeButtonVisible={item.status !== "Completed"}
             negativeText="Survey"
             negativeAction={() =>
               navigation.navigate("surveyScreen", {
@@ -80,8 +112,28 @@ export default function TasksScreen({ navigation }) {
                 isSurvey: true,
               })
             }
+            isViewButtonVisible={item.status === "Completed"} // Show View button when completed
+            viewAction={() =>
+              navigation.navigate("taskDetail", {
+                task: item,
+                isSurvey: false,
+              })
+            }
+            viewText="View"
           >
             <View>
+              <Span
+                style={[
+                  typography.font10,
+                  typography.fontLato,
+                  { textTransform: "uppercase", color: "gray" },
+                ]}
+              >
+                breda sl no
+              </Span>
+              <H5 style={[typography.font16, typography.fontLato]}>
+                {item.site?.breda_sl_no}
+              </H5>
               <H5 style={[typography.font16, typography.fontLato]}>
                 {item.activity}
               </H5>
@@ -111,7 +163,7 @@ export default function TasksScreen({ navigation }) {
                     end date
                   </Span>
                   <P style={[typography.font12, typography.fontLato]}>
-                    {item.start_date}
+                    {item.end_date}
                   </P>
                 </View>
               </View>
@@ -148,9 +200,15 @@ export default function TasksScreen({ navigation }) {
             </View>
 
             <Tabs
-              tabs={["All", "Pending", "In approval", "Completed", "Rejected"]}
+              tabs={[
+                `All (${tabCounts.All})`,
+                `Pending (${tabCounts.Pending})`,
+                `In approval (${tabCounts["In approval"]})`,
+                `Completed (${tabCounts.Completed})`,
+                `Rejected (${tabCounts.Rejected})`,
+              ]}
               onTabPress={handleTabChange}
-              initialActiveTab="All"
+              activeTab={`${activeTab} (${tabCounts[activeTab]})`}
             />
           </View>
         )}

@@ -15,15 +15,17 @@ import StockApprovalScreen from "../screens/StockApprovalScreen";
 import ReportScreen from "../screens/ReportScreen";
 import SiteDetailScreen from "../screens/SiteDetailScreen";
 import InventoryDetailsScreen from "../screens/InventoryDetailsScreen";
-import TaskDetailsScreen from "../screens/TaskDetailsScreen";
+
 import SurveyScreen from "../screens/SurveyScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import CardScreen from "../screens/CardScreen";
-import WelcomeScreen from "../screens/WelcomeScreen";
+import welcomeScreen from "../screens/welcomeScreen";
 import SiteLocationScreen from "../screens/SiteLocationScreen";
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
-import StartInstallation from "../screens/StartInstallationScreen";
-
+import TaskDetailScreen from "../screens/TaskDetailScreen";
+import ProfileChangeScreen from "../screens/ProfileChangeScreen";
+import AttendancePunchScreen from "../screens/AttendancePunchScreen";
+import StartInstallationScreen from "../screens/startInstallationScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -54,16 +56,28 @@ export default function MyStackNavigator() {
         name="inventoryDetailsScreen"
         component={InventoryDetailsScreen}
       />
-      <Stack.Screen name="taskDetailsScreen" component={TaskDetailsScreen} />
+
       <Stack.Screen name="surveyScreen" component={SurveyScreen} />
       <Stack.Screen name="successScreen" component={SuccessScreen} />
       <Stack.Screen name="cardScreen" component={CardScreen} />
-      <Stack.Screen name="startInstallation" component={StartInstallation} />
-      <Stack.Screen name="welcomeScreen" component={WelcomeScreen} />
+      {/* <Stack.Screen
+        name="startInstallation"
+        component={StartInstallationScreen}
+      /> */}
+
+      <Stack.Screen
+        name="startInstallation"
+        component={StartInstallationScreen}
+      />
+
+      <Stack.Screen name="welcomeScreen" component={welcomeScreen} />
       <Stack.Screen
         name="streetLightPendingTask"
         component={StreetLightPendingTask}
       />
+      <Stack.Screen name="taskDetail" component={TaskDetailScreen} />
+      <Stack.Screen name="profileChange" component={ProfileChangeScreen} />
+      <Stack.Screen name="attendancePunch" component={AttendancePunchScreen} />
     </Stack.Navigator>
   );
 }

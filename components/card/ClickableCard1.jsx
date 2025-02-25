@@ -26,6 +26,9 @@ export default function ClickableCard1({
   positiveAction,
   onPress,
   onLongPressAction,
+  isViewButtonVisible = false,
+  viewText,
+  viewAction,
   selected = false,
 }) {
   return (
@@ -89,6 +92,24 @@ export default function ClickableCard1({
                 style={{ fontSize: 16, color: "white", textAlign: "center" }}
               >
                 {positiveText}
+              </Span>
+            </Button>
+          )}
+
+          {isViewButtonVisible && (
+            <Button
+              style={{
+                width: 80,
+                padding: 8,
+                borderRadius: 8,
+                backgroundColor: PRIMARY_COLOR,
+              }}
+              onPress={viewAction}
+            >
+              <Span
+                style={{ fontSize: 16, color: "white", textAlign: "center" }}
+              >
+                {viewText}
               </Span>
             </Button>
           )}

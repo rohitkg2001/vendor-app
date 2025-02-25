@@ -18,7 +18,7 @@ export default function CameraInput({
   isCameraOpen,
   setIsCameraOpen,
   isSurvey,
-  handleSubmission
+  handleSubmission,
 }) {
   const [photos, setPhotos] = useState([]);
   const [location, setLocation] = useState(null); // Store GPS location
@@ -75,7 +75,7 @@ export default function CameraInput({
       onRequestClose={() => setIsCameraOpen(false)}
     >
       <View style={styles.cameraContainer}>
-        <CameraView ref={cameraRef} facing="back" style={styles.camera} />
+        <CameraView ref={cameraRef} facing="front" style={styles.camera} />
 
         {/* Watermark Overlay */}
         <View style={styles.watermark}>

@@ -1,15 +1,11 @@
-import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { styles, spacing, typography } from "../styles";
 
-const Tabs = ({ tabs, onTabPress, initialActiveTab }) => {
-  const [activeTab, setActiveTab] = useState(initialActiveTab || tabs[0]);
-
+const Tabs = ({ tabs, onTabPress, activeTab }) => {
   const handleTabPress = (tab) => {
-    setActiveTab(tab);
     if (onTabPress) {
       onTabPress(tab);
-    }
+    } 
   };
 
   return (
@@ -27,7 +23,7 @@ const Tabs = ({ tabs, onTabPress, initialActiveTab }) => {
           key={index}
           style={[
             spacing.pv2,
-            spacing.ph3,
+            spacing.ph2,
             spacing.br3,
             {
               backgroundColor: activeTab === tab ? "#76885B" : "#C8E6C9",
@@ -37,7 +33,7 @@ const Tabs = ({ tabs, onTabPress, initialActiveTab }) => {
         >
           <Text
             style={[
-              typography.font12,
+              typography.font10,
               typography.fontLato,
               {
                 color: activeTab === tab ? "#fff" : "#333",
