@@ -56,10 +56,10 @@ export default function StartInstallation({ navigation, route }) {
       const data = { luminarySerialNumber, simNumber, batterySerialNumber, panelSerialNumber }
       console.log(data)
     }
-    // navigation.navigate("successScreen", {
-    //   message: "Your task uploaded successfully",
-    //   nextScreen: "welcomeScreen",
-    // });
+    navigation.navigate("successScreen", {
+      message: "Your task uploaded successfully",
+      nextScreen: "welcomeScreen",
+    });
   }
 
   return (
