@@ -61,61 +61,119 @@ export default function SurveyScreen({ route, message = "" }) {
     setFile(null);
   };
 
+  // const handleUpload = async () => {
+  //   if (!description && photos.length === 0 && !file) {
+  //     setSnackbarMessage("Please provide data before submitting.");
+  //     setSnackbarVisible(true);
+  //     return;
+  //   }
+  //   if (!isSurvey && photos.length < 2) {
+  //     setSnackbarMessage("Please Click at least two pictures");
+  //     setSnackbarVisible(true);
+  //     return;
+  //   }
+
+  //   try {
+  //     setLoading(true);
+  //     if (isSurvey) {
+  //       const response = await dispatch(
+  //         surveyTask(itemId, {
+  //           date,
+  //           description,
+  //           image: photos,
+  //           file,
+  //           lat: latitude,
+  //           long: longitude,
+  //         })
+  //       );
+  //       if (response === 200) {
+  //         setPhotos([]);
+  //         setDescription("");
+  //         setFile(null);
+  //         // navigation.navigate("successScreen");
+  //         navigation.navigate("successScreen", {
+  //           message: "Task update has been successfully saved.",
+  //           nextScreen: "taskScreen",
+  //         });
+  //       } else {
+  //         setSnackbarMessage("Error submitting task");
+  //         setSnackbarVisible(true);
+  //       }
+  //       return;
+  //     }
+  //     const response = await dispatch(
+  //       updateTask(itemId, {
+  //         date,
+  //         description,
+  //         image: photos,
+  //         file,
+  //         lat: latitude,
+  //         long: longitude,
+  //       })
+  //     );
+  //     if (response === 200) {
+  //       setPhotos([]);
+  //       setDescription("");
+  //       setFile(null);
+  //       navigation.navigate("successScreen");
+  //     } else {
+  //       setSnackbarMessage("Error submitting task");
+  //       setSnackbarVisible(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error submitting task:", error);
+  //     setModalMessage("Error submitting task");
+  //     setShowModal(true);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleUpload = async () => {
     if (!description && photos.length === 0 && !file) {
       setSnackbarMessage("Please provide data before submitting.");
       setSnackbarVisible(true);
       return;
     }
-    if (!isSurvey && photos.length < 2) {
-      setSnackbarMessage("Please Click at least two pictures");
+
+    // Only check for minimum photos when it's NOT a survey and file is not uploaded
+    if (!isSurvey && photos.length < 2 && !file) {
+      setSnackbarMessage(
+        "Please click at least two pictures or upload a document."
+      );
       setSnackbarVisible(true);
       return;
     }
 
     try {
       setLoading(true);
-      if (isSurvey) {
-        const response = await dispatch(
-          surveyTask(itemId, {
-            date,
-            description,
-            image: photos,
-            file,
-            lat: latitude,
-            long: longitude,
-          })
-        );
-        if (response === 200) {
-          setPhotos([]);
-          setDescription("");
-          setFile(null);
-          // navigation.navigate("successScreen");
-          navigation.navigate("successScreen", {
-            message: "Task update has been successfully saved.",
-            nextScreen: "taskScreen",
-          });
-        } else {
-          setSnackbarMessage("Error submitting task");
-          setSnackbarVisible(true);
-        }
-        return;
+      const payload = {
+        date,
+        description,
+        image: photos,
+        file,
+        lat: latitude,
+        long: longitude,
+      };
+
+      // Log Image URIs and File Name
+      console.log("Uploaded Images:", photos);
+      if (file) {
+        console.log("Uploaded File Name:", file.name || "Unknown file");
       }
-      const response = await dispatch(
-        updateTask(itemId, {
-          date,
-          description,
-          image: photos,
-          file,
-          lat: latitude,
-          long: longitude,
-        })
-      );
+
+      const response = isSurvey
+        ? await dispatch(surveyTask(itemId, payload))
+        : await dispatch(updateTask(itemId, payload));
+
       if (response === 200) {
         setPhotos([]);
         setDescription("");
         setFile(null);
-        navigation.navigate("successScreen");
+        navigation.navigate("successScreen", {
+          message: "Task update has been successfully saved.",
+          nextScreen: "taskScreen",
+        });
       } else {
         setSnackbarMessage("Error submitting task");
         setSnackbarVisible(true);

@@ -4,9 +4,14 @@ import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
 import { H5, P } from "../components/text";
 import moment from "moment";
+import { useEffect } from "react";
 
 export default function TaskDetailScreen({ route }) {
   const { task = {} } = route.params || {};
+
+  useEffect(() => {
+    console.log(task.image);
+  }, []);
 
   return (
     <ContainerComponent>
@@ -245,15 +250,38 @@ export default function TaskDetailScreen({ route }) {
             Site Image
           </H5>
           <Image
-            source={{ uri: task.site.image_url }}
+            //source={{ uri: task.site.image_url }}
             // source={{ uri }}
             style={{
               width: SCREEN_WIDTH - 16,
-              height: 200,
+              height: 10,
               resizeMode: "cover",
               marginTop: spacing.pv1,
             }}
           />
+        </View>
+
+        <View style={{ marginTop: spacing.pv2 }}>
+          <H5
+            style={[
+              typography.font14,
+              typography.textBold,
+              typography.fontLato,
+              { textAlign: "left" },
+            ]}
+          >
+            PDF
+          </H5>
+          <P
+            style={[
+              typography.font14,
+              typography.fontLato,
+              spacing.pv1,
+              { textAlign: "right" },
+            ]}
+          >
+            {task.site.uploadedPDF}
+          </P>
         </View>
       </View>
     </ContainerComponent>
