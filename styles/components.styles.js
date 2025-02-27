@@ -6,6 +6,7 @@ import {
   LIGHT,
   PRIMARY_COLOR,
   PRIMARY_COLOR_TRANSPARENT,
+  SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
@@ -362,5 +363,15 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd", // Light grey border
     marginTop: 10,
+  },
+  addButton: {
+    position: "absolute",
+    top: SCREEN_HEIGHT - 180,
+    right: 20,
+    backgroundColor: "#76885B",
+    borderRadius: 50,
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

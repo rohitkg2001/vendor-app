@@ -1,222 +1,221 @@
-import { View, Image, TouchableOpacity, Button, Linking } from "react-native";
-import MyHeader from "../components/header/MyHeader";
-import ContainerComponent from "../components/ContainerComponent";
-import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
-import { H5, P } from "../components/text";
+// import react native
+import { View } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
-import { useEffect } from "react";
+//import components
+import MyHeader from "../components/header/MyHeader";
+import Button from "../components/buttons/Button";
+import ContainerComponent from "../components/ContainerComponent";
+import ImageDisplay from "../components/ImageDisplay";
 
-export default function TaskDetailScreen({ route }) {
-  const { task = {} } = route.params || {};
-  const filteredImages = task?.site?.filteredImages || [];
+// import redux
+import { useSelector } from "react-redux";
 
-  useEffect(() => {
-    console.log(task.image);
-  }, []);
+// import styles
+import {
+  SCREEN_WIDTH,
+  spacing,
+  styles,
+  typography,
+  ICON_LARGE,
+} from "../styles";
+import { H5, H6, P, Span } from "../components/text";
+
+export default function TaskDetailScreen({ navigation }) {
+  const { task } = useSelector((state) => state.tasks?.currentTask);
 
   return (
     <ContainerComponent>
-      <MyHeader title={"Task details"} isBack={true} hasIcon={true} />
+      {/* <MyHeader title={"Task details"} isBack={true} hasIcon={true} /> */}
+      <MyHeader
+        title={`${task.site.breda_sl_no}, ${task.site.site_name}`}
+        isBack={true}
+        hasIcon={true}
+      />
+
       <View style={{ width: SCREEN_WIDTH - 16 }}>
-        <View style={[styles.row]}>
+        <View
+          style={[
+            styles.row,
+            {
+              flexWrap: "wrap",
+              paddingVertical: spacing.pv1,
+            },
+          ]}
+        >
           <H5
             style={[
               typography.font14,
-              typography.textBold,
               typography.fontLato,
-              { textAlign: "left" },
+              { textAlign: "left", flexShrink: 1 },
             ]}
           >
-            Site Name
+            {task.site.breda_sl_no},
           </H5>
+
           <P
             style={[
               typography.font14,
               typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
+              {
+                flex: 2,
+                marginLeft: 8,
+                flexShrink: 1,
+              },
             ]}
+            numberOfLines={task.site.site_name.length > 20 ? 2 : 1}
           >
             {task.site.site_name}
           </P>
-        </View>
-        <View style={[styles.row]}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Location
-          </H5>
+
           <P
             style={[
-              typography.font14,
+              typography.font12,
               typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
+              {
+                textAlign: "right",
+                flex: 1,
+                color: "#555",
+                marginTop: task.site.site_name.length > 20 ? 4 : 0,
+              },
             ]}
           >
             {task.site.location}
           </P>
         </View>
-        <View style={[styles.row]}>
+
+        <View style={[spacing.mt1, styles.row, spacing.mv2]}>
+          <View>
+            <Span
+              style={[
+                typography.font10,
+                typography.fontLato,
+                { textTransform: "uppercase", color: "gray" },
+              ]}
+            >
+              Start date
+            </Span>
+            <P style={[typography.font12, typography.fontLato]}>
+              {moment(task.start_date).format("DD-MM-YYYY")}
+            </P>
+          </View>
+          <View>
+            <Span
+              style={[
+                typography.font10,
+                typography.fontLato,
+                { textTransform: "uppercase", color: "gray" },
+              ]}
+            >
+              End date
+            </Span>
+            <P style={[typography.font12, typography.fontLato]}>
+              {moment(task.end_date).format("DD-MM-YYYY")}
+            </P>
+          </View>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginVertical: spacing.pv2,
+            width: "100%",
+          }}
+        >
           <H5
             style={[
               typography.font14,
               typography.textBold,
               typography.fontLato,
-              { textAlign: "left" },
+              {
+                textTransform: "uppercase",
+                paddingBottom: 4,
+              },
             ]}
           >
-            Breda Sl No
+            Proof of Work
           </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {task.site.breda_sl_no}
-          </P>
+
+          {task.status && (
+            <H6
+              style={[
+                typography.font14,
+                typography.fontLato,
+                {
+                  color: task.status === "Completed" ? "green" : "red", // Green for completed, yellow otherwise
+
+                  textAlign: "left",
+                },
+              ]}
+            >
+              ({task.status})
+            </H6>
+          )}
         </View>
-        <View style={[styles.row]}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Activity
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {task.activity}
-          </P>
+
+        <View style={[spacing.mt1, styles.row, spacing.mv2]}>
+          <View>
+            <Span
+              style={[
+                typography.font10,
+                typography.fontLato,
+                { color: "gray" },
+              ]}
+            >
+              Survey lat
+            </Span>
+            <P style={[typography.font12, typography.fontLato]}>
+              {task.site.survey_latitude}
+            </P>
+          </View>
+          <View>
+            <Span
+              style={[
+                typography.font10,
+                typography.fontLato,
+                { color: "gray" },
+              ]}
+            >
+              Survey lon
+            </Span>
+            <P style={[typography.font12, typography.fontLato]}>
+              {task.site.survey_longitude}
+            </P>
+          </View>
         </View>
-        <View style={[styles.row]}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Start Date
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {moment(task.start_date).format("DD-MM-YYYY")}
-          </P>
+        <View style={[spacing.mt1, styles.row, spacing.mv2]}>
+          <View>
+            <Span
+              style={[
+                typography.font10,
+                typography.fontLato,
+                { color: "gray" },
+              ]}
+            >
+              Actual lat
+            </Span>
+            <P style={[typography.font12, typography.fontLato]}>
+              {task.site.actual_latitude}
+            </P>
+          </View>
+          <View>
+            <Span
+              style={[
+                typography.font10,
+                typography.fontLato,
+                { color: "gray" },
+              ]}
+            >
+              Actual lon
+            </Span>
+            <P style={[typography.font12, typography.fontLato]}>
+              {task.site.actual_longitude}
+            </P>
+          </View>
         </View>
-        <View style={[styles.row]}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            End Date
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {/* {task.end_date} */}
-            {moment(task.end_date).format("DD-MM-YYYY")}
-          </P>
-        </View>
-        <View style={[styles.row]}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Status
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {task.status}
-          </P>
-        </View>
-        <View style={[styles.row]}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Latitude
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {task.site.survey_latitude}
-          </P>
-        </View>
-        <View style={[styles.row]}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Longitude
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {task.site.survey_longitude}
-          </P>
-        </View>
+
         <View style={[styles.row]}>
           <H5
             style={[
@@ -240,135 +239,14 @@ export default function TaskDetailScreen({ route }) {
           </P>
         </View>
 
-        {/* <View style={{ marginTop: spacing.pv2 }}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Site Image
-          </H5>
-          <Image
-            //source={{ uri: task.site.image_url }}
-            // source={{ uri }}
-            style={{
-              width: SCREEN_WIDTH - 16,
-              height: 10,
-              resizeMode: "cover",
-              marginTop: spacing.pv1,
-            }}
-          />
-        </View>
-
-        <View style={{ marginTop: spacing.pv2 }}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            PDF
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {task.site.uploadedPDF}
-          </P>
-        </View> */}
-
-        <View style={{ marginTop: spacing.pv2 }}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Site Image
-          </H5>
-          {task.site.image_url && (
-            <Image
-              source={{ uri: task.site.image_url }}
-              style={{
-                width: SCREEN_WIDTH - 16,
-                height: 200,
-                resizeMode: "cover",
-                marginTop: spacing.pv1,
-              }}
-            />
-          )}
-        </View>
-
-        {Array.isArray(filteredImages) &&
-          filteredImages.map((uri, index) => {
-            const extension = uri?.split(".").pop().toLowerCase();
-
-            if (extension === "pdf") {
-              return (
-                <View
-                  key={index}
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginBottom: 20,
-                    width: "30%",
-                  }}
-                >
-                  <Button
-                    style={[
-                      styles.btn,
-                      styles.bgPrimary,
-                      { justifyContent: "center", width: "100%" },
-                    ]}
-                    onPress={() => Linking.openURL(uri)}
-                  >
-                    <P
-                      style={[
-                        styles.btnText,
-                        typography.font16,
-                        typography.textLight,
-                      ]}
-                    >
-                      View PDF
-                    </P>
-                  </Button>
-                </View>
-              );
-            } else {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => handleImagePress(index)}
-                  style={{
-                    marginBottom: 16,
-                    width: "22%",
-                  }}
-                >
-                  <Image
-                    source={{ uri }}
-                    style={{
-                      width: "100%",
-                      height: 80,
-                      resizeMode: "cover",
-                      borderRadius: 5,
-                    }}
-                  />
-                </TouchableOpacity>
-              );
-            }
-          })}
+        {/* Image Display */}
+        {Array.isArray(task.image) && task.image.length > 0 && (
+          <ImageDisplay source={task.image} />
+        )}
       </View>
+      <Button style={styles.addButton}>
+        <Icon name="download-outline" size={ICON_LARGE} color="white" />
+      </Button>
     </ContainerComponent>
   );
 }

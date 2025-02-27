@@ -53,7 +53,7 @@ export default function ProgressReportCard() {
   useEffect(() => {
     const counts = {
       Pending: tasks.filter((task) => task.status === "Pending").length,
-      "In approval": tasks.filter((task) => task.status === "In approval")
+      "In approval": tasks.filter((task) => task.status === "In Progress")
         .length,
       Approved: tasks.filter((task) => task.status === "Completed").length,
     };

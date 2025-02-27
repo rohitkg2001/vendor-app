@@ -173,11 +173,11 @@ export default function WelcomeScreen({ navigation }) {
                   width: SCREEN_WIDTH / 2.4,
 
                   alignItems: "center",
-                  backgroundColor: "#27ae60",
+                  backgroundColor: "#68c690",
                 },
               ]}
             >
-              <Icon name="checkmark-circle-sharp" size={80} />
+              <Icon name="checkmark-circle-sharp" size={40} />
               <P style={[typography.font14, spacing.mt3]}>Completed</P>
             </TouchableOpacity>
 
@@ -189,11 +189,11 @@ export default function WelcomeScreen({ navigation }) {
                 {
                   width: SCREEN_WIDTH / 2.4,
                   alignItems: "center",
-                  backgroundColor: "#e74c3c",
+                  backgroundColor: "#ec7063",
                 },
               ]}
             >
-              <Icon name="close-circle-sharp" size={80} />
+              <Icon name="close-circle-sharp" size={40} />
               <P style={[typography.font16, spacing.mt3]}>Rejected</P>
             </TouchableOpacity>
           </View>
@@ -211,14 +211,14 @@ export default function WelcomeScreen({ navigation }) {
                 {
                   width: SCREEN_WIDTH / 2.4,
                   alignItems: "center",
-                  backgroundColor: "#f0b27a",
+                  backgroundColor: "#f5c9a2",
                 },
               ]}
             >
               {/* <Icon name="location-sharp" size={80} />
               <P style={[typography.font14, spacing.mt3]}>Total Earning</P> */}
-              <Text style={{ fontSize: 60, fontWeight: "bold" }}>₹</Text>
-              <P style={[typography.font14, typography.fontLato, spacing.mt3]}>
+              <Text style={{ fontSize: 40, fontWeight: "bold" }}>₹</Text>
+              <P style={[typography.font14, typography.fontLato]}>
                 Total Earning
               </P>
             </TouchableOpacity>
@@ -231,11 +231,11 @@ export default function WelcomeScreen({ navigation }) {
                 {
                   width: SCREEN_WIDTH / 2.4,
                   alignItems: "center",
-                  backgroundColor: "#1abc9c",
+                  backgroundColor: "#5fd0ba",
                 },
               ]}
             >
-              <Icon name="reader-sharp" size={80} />
+              <Icon name="reader-sharp" size={40} />
               <P style={[typography.font16, typography.fontLato, spacing.mt3]}>
                 Inventory
               </P>

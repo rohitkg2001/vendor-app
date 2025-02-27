@@ -16,7 +16,7 @@ import Button from "../components/buttons/Button";
 import Filter from "../components/Filter";
 // import Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks } from "../redux/actions/taskActions";
+import { getAllTasks, getTaskById } from "../redux/actions/taskActions";
 
 // import styles
 import { H5, P, Span } from "../components/text";
@@ -40,7 +40,7 @@ export default function TasksScreen({ navigation }) {
   const [tabCounts, setTabCounts] = useState({
     All: 0,
     Pending: 0,
-    "In approval": 0,
+    "In Progress": 0,
     Completed: 0,
     Rejected: 0,
   });
@@ -58,7 +58,7 @@ export default function TasksScreen({ navigation }) {
     const counts = {
       All: tasks.length,
       Pending: tasks.filter((task) => task.status === "Pending").length,
-      "In approval": tasks.filter((task) => task.status === "In approval")
+      "In Progress": tasks.filter((task) => task.status === "In Progress")
         .length,
       Completed: tasks.filter((task) => task.status === "Completed").length,
       Rejected: tasks.filter((task) => task.status === "Rejected").length,
@@ -82,6 +82,10 @@ export default function TasksScreen({ navigation }) {
   };
 
   const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const setIDAndDispatch = async (id) => {
+    await dispatch(getTaskById(id));
+    navigation.navigate("taskDetail");
+  };
   const applyFilterFromRedux = () => {};
 
   return (
@@ -96,7 +100,10 @@ export default function TasksScreen({ navigation }) {
             key={index}
             title={item.site?.site_name}
             subtitle={item.site?.location}
-            isPositiveButtonVisible={item.status !== "Completed"}
+            // Hide Survey and Submit buttons for "In Progress" tasks, show only View button
+            isPositiveButtonVisible={
+              item.status !== "Completed" && item.status !== "In Progress"
+            }
             positiveAction={() =>
               navigation.navigate("surveyScreen", {
                 itemId: item.id,
@@ -104,7 +111,9 @@ export default function TasksScreen({ navigation }) {
               })
             }
             positiveText="Submit"
-            isNegativeButtonVisible={item.status !== "Completed"}
+            isNegativeButtonVisible={
+              item.status !== "Completed" && item.status !== "In Progress"
+            }
             negativeText="Survey"
             negativeAction={() =>
               navigation.navigate("surveyScreen", {
@@ -112,13 +121,10 @@ export default function TasksScreen({ navigation }) {
                 isSurvey: true,
               })
             }
-            isViewButtonVisible={item.status === "Completed"} // Show View button when completed
-            viewAction={() =>
-              navigation.navigate("taskDetail", {
-                task: item,
-                isSurvey: false,
-              })
-            }
+            isViewButtonVisible={
+              item.status === "Completed" || item.status === "In Progress"
+            } // Show View button for Completed and In Progress tasks
+            viewAction={() => setIDAndDispatch(item.id)}
             viewText="View"
           >
             <View>
@@ -203,7 +209,7 @@ export default function TasksScreen({ navigation }) {
               tabs={[
                 `All (${tabCounts.All})`,
                 `Pending (${tabCounts.Pending})`,
-                `In approval (${tabCounts["In approval"]})`,
+                `In Progress (${tabCounts["In Progress"]})`,
                 `Completed (${tabCounts.Completed})`,
                 `Rejected (${tabCounts.Rejected})`,
               ]}
@@ -214,12 +220,12 @@ export default function TasksScreen({ navigation }) {
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
-      {showBottomSheet && (
+      {/* {showBottomSheet && (
         <Filter
           onClose={() => setShowBottomSheet(false)}
           onApply={applyFilterFromRedux}
         />
-      )}
+      )} */}
     </ContainerComponent>
   );
 }

@@ -82,8 +82,7 @@ export default function StartInstallationScreen({ navigation, route }) {
       message: "Your task uploaded successfully",
       nextScreen: "welcomeScreen",
     });
-  };
-
+  }
   return (
     <ContainerComponent>
       <MyHeader isBack title="Start Installation" hasIcon />
@@ -266,5 +265,5 @@ export default function StartInstallationScreen({ navigation, route }) {
         handleSubmission={handleSubmission}
       />
     </ContainerComponent>
-  );
+  )
 }
