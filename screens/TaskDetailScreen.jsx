@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity, Button, Linking } from "react-native";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 export default function TaskDetailScreen({ route }) {
   const { task = {} } = route.params || {};
+  const filteredImages = task?.site?.filteredImages || [];
 
   useEffect(() => {
     console.log(task.image);
@@ -238,7 +239,8 @@ export default function TaskDetailScreen({ route }) {
             {moment(task.site.updated_at).format("DD-MMM-YYYY HH:mm A")}
           </P>
         </View>
-        <View style={{ marginTop: spacing.pv2 }}>
+
+        {/* <View style={{ marginTop: spacing.pv2 }}>
           <H5
             style={[
               typography.font14,
@@ -282,7 +284,90 @@ export default function TaskDetailScreen({ route }) {
           >
             {task.site.uploadedPDF}
           </P>
+        </View> */}
+
+        <View style={{ marginTop: spacing.pv2 }}>
+          <H5
+            style={[
+              typography.font14,
+              typography.textBold,
+              typography.fontLato,
+              { textAlign: "left" },
+            ]}
+          >
+            Site Image
+          </H5>
+          {task.site.image_url && (
+            <Image
+              source={{ uri: task.site.image_url }}
+              style={{
+                width: SCREEN_WIDTH - 16,
+                height: 200,
+                resizeMode: "cover",
+                marginTop: spacing.pv1,
+              }}
+            />
+          )}
         </View>
+
+        {Array.isArray(filteredImages) &&
+          filteredImages.map((uri, index) => {
+            const extension = uri?.split(".").pop().toLowerCase();
+
+            if (extension === "pdf") {
+              return (
+                <View
+                  key={index}
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: 20,
+                    width: "30%",
+                  }}
+                >
+                  <Button
+                    style={[
+                      styles.btn,
+                      styles.bgPrimary,
+                      { justifyContent: "center", width: "100%" },
+                    ]}
+                    onPress={() => Linking.openURL(uri)}
+                  >
+                    <P
+                      style={[
+                        styles.btnText,
+                        typography.font16,
+                        typography.textLight,
+                      ]}
+                    >
+                      View PDF
+                    </P>
+                  </Button>
+                </View>
+              );
+            } else {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleImagePress(index)}
+                  style={{
+                    marginBottom: 16,
+                    width: "22%",
+                  }}
+                >
+                  <Image
+                    source={{ uri }}
+                    style={{
+                      width: "100%",
+                      height: 80,
+                      resizeMode: "cover",
+                      borderRadius: 5,
+                    }}
+                  />
+                </TouchableOpacity>
+              );
+            }
+          })}
       </View>
     </ContainerComponent>
   );
