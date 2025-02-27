@@ -16,6 +16,7 @@ import OverViewCard from "../components/dashboard/OverviewCard";
 
 export default function DashboardScreen() {
   const [dueTasks, setDueTasks] = useState(0);
+  const [totalTasks, setTotalTasks] = useState(0);
   const [greeting, setGreeting] = useState("Good morning");
 
   const navigation = useNavigation();
@@ -32,7 +33,16 @@ export default function DashboardScreen() {
   }, [dispatch, id]);
 
   useEffect(() => {
-    setDueTasks(Array.isArray(tasks) ? tasks.length : 0);
+    if (Array.isArray(tasks)) {
+      setTotalTasks(tasks.length);
+      const pendingTasks = tasks.filter(
+        (task) => task.status === "Pending"
+      ).length;
+      setDueTasks(pendingTasks);
+    } else {
+      setTotalTasks(0);
+      setDueTasks(0);
+    }
   }, [tasks]);
 
   return (
@@ -42,7 +52,7 @@ export default function DashboardScreen() {
         greeting={greeting}
         firstName={name}
         navigation={navigation}
-        notificationCount={dueTasks}
+        notificationCount={totalTasks}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}

@@ -1,4 +1,6 @@
+// import react native
 import { View, Image, TouchableOpacity } from "react-native";
+// import components
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import {

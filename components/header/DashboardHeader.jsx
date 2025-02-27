@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 // import styles
-import { H5, P, Span, H6 } from "../text";
+import { P, Span, H6 } from "../text";
 import {
   ICON_MEDIUM,
   DARK,
@@ -46,7 +46,7 @@ export default function DashboardHeader({
           layouts.center,
           spacing.bw05,
           spacing.br5,
-          { position: "relative", top: 8 },
+          { position: "relative" },
         ]}
         onPress={() => navigation.navigate("notificationScreen")}
       >
@@ -62,7 +62,7 @@ export default function DashboardHeader({
             <Span
               style={[
                 typography.textLight,
-                typography.font16,
+                typography.font12,
                 { textAlign: "center" },
               ]}
             >
