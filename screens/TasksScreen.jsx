@@ -16,7 +16,7 @@ import Button from "../components/buttons/Button";
 import Filter from "../components/Filter";
 // import Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks } from "../redux/actions/taskActions";
+import { getAllTasks, getTaskById } from "../redux/actions/taskActions";
 
 // import styles
 import { H5, P, Span } from "../components/text";
@@ -40,7 +40,7 @@ export default function TasksScreen({ navigation }) {
   const [tabCounts, setTabCounts] = useState({
     All: 0,
     Pending: 0,
-    "In approval": 0,
+    "In Progress": 0,
     Completed: 0,
     Rejected: 0,
   });
@@ -58,7 +58,7 @@ export default function TasksScreen({ navigation }) {
     const counts = {
       All: tasks.length,
       Pending: tasks.filter((task) => task.status === "Pending").length,
-      "In approval": tasks.filter((task) => task.status === "In approval")
+      "In Progress": tasks.filter((task) => task.status === "In Progress")
         .length,
       Completed: tasks.filter((task) => task.status === "Completed").length,
       Rejected: tasks.filter((task) => task.status === "Rejected").length,
@@ -82,7 +82,11 @@ export default function TasksScreen({ navigation }) {
   };
 
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const applyFilterFromRedux = () => {};
+  const setIDAndDispatch = async (id) => {
+    await dispatch(getTaskById(id))
+    navigation.navigate('taskDetail')
+  }
+  const applyFilterFromRedux = () => { };
 
   return (
     <ContainerComponent>
@@ -113,12 +117,7 @@ export default function TasksScreen({ navigation }) {
               })
             }
             isViewButtonVisible={item.status === "Completed"} // Show View button when completed
-            viewAction={() =>
-              navigation.navigate("taskDetail", {
-                task: item,
-                isSurvey: false,
-              })
-            }
+            viewAction={() => setIDAndDispatch(item.id)}
             viewText="View"
           >
             <View>
@@ -203,7 +202,7 @@ export default function TasksScreen({ navigation }) {
               tabs={[
                 `All (${tabCounts.All})`,
                 `Pending (${tabCounts.Pending})`,
-                `In approval (${tabCounts["In approval"]})`,
+                `In Progress (${tabCounts["In Progress"]})`,
                 `Completed (${tabCounts.Completed})`,
                 `Rejected (${tabCounts.Rejected})`,
               ]}
@@ -214,12 +213,12 @@ export default function TasksScreen({ navigation }) {
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
-      {showBottomSheet && (
+      {/* {showBottomSheet && (
         <Filter
           onClose={() => setShowBottomSheet(false)}
           onApply={applyFilterFromRedux}
         />
-      )}
+      )} */}
     </ContainerComponent>
   );
 }

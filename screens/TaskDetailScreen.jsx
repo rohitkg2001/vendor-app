@@ -5,13 +5,11 @@ import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
 import { H5, P } from "../components/text";
 import moment from "moment";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import ImageDisplay from "../components/ImageDisplay";
 
-export default function TaskDetailScreen({ route }) {
-  const { task = {} } = route.params || {};
-
-  useEffect(() => {
-    console.log(task.image);
-  }, []);
+export default function TaskDetailScreen({ navigation }) {
+  const { task } = useSelector(state => state.tasks?.currentTask)
 
   return (
     <ContainerComponent>
@@ -238,51 +236,10 @@ export default function TaskDetailScreen({ route }) {
             {moment(task.site.updated_at).format("DD-MMM-YYYY HH:mm A")}
           </P>
         </View>
-        <View style={{ marginTop: spacing.pv2 }}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            Site Image
-          </H5>
-          <Image
-            //source={{ uri: task.site.image_url }}
-            // source={{ uri }}
-            style={{
-              width: SCREEN_WIDTH - 16,
-              height: 10,
-              resizeMode: "cover",
-              marginTop: spacing.pv1,
-            }}
-          />
-        </View>
-
-        <View style={{ marginTop: spacing.pv2 }}>
-          <H5
-            style={[
-              typography.font14,
-              typography.textBold,
-              typography.fontLato,
-              { textAlign: "left" },
-            ]}
-          >
-            PDF
-          </H5>
-          <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.pv1,
-              { textAlign: "right" },
-            ]}
-          >
-            {task.site.uploadedPDF}
-          </P>
-        </View>
+        {
+          Array.isArray(task.image) && task.image.length > 0 &&
+          <ImageDisplay source={task.image} />
+        }
       </View>
     </ContainerComponent>
   );

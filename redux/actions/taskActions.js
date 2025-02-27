@@ -89,6 +89,17 @@ export const viewTask = (taskId) => async (dispatch, getState) => {
   }
 };
 
+export const getTaskById = (task_id) => async (dispatch) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/task/${task_id}`);
+    const data = await response.json();
+    dispatch({ type: VIEW_TASK, payload: data })
+  } catch (err) {
+    console.error(err)
+  }
+};
+
+
 export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
   try {
     const { date, description, image, file, lat, long } = dataToUpdate;
