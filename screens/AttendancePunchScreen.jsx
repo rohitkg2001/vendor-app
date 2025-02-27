@@ -32,6 +32,7 @@ export default function AttendancePunchScreen({ navigation }) {
         return;
       }
       setPhotoUri(photo.uri);
+      console.log(photo.uri)
       navigation.navigate("homeScreen");
     }
   };
