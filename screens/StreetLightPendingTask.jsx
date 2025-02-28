@@ -6,20 +6,40 @@ import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import { View } from "react-native";
 import { spacing, styles, typography } from "../styles";
-import { P, Span, H5 } from "../components/text";
+import { P, Span } from "../components/text";
 
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_POLE_NUMBER } from "../redux/constant";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
   const { pendingStreetLights } = useSelector((state) => state.tasks);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     Array.isArray(pendingStreetLights) &&
       setStreetLightSites(pendingStreetLights);
   }, [pendingStreetLights]);
+
+  function formatString(input) {
+    return input
+      .split(" ") // Split by space
+      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercase
+      .join("/"); // Join by '/'
+  }
+
+  const handleSurveyData = (data, isSurvey) => {
+    const { district, block, panchayat, state } = data?.site;
+    const pole_number = formatString(
+      [state, district, block, panchayat].join(" ")
+    );
+    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
+    navigation.navigate("startInstallation", {
+      itemId: data.id,
+      isSurvey,
+    });
+  };
 
   return (
     <ContainerComponent>
@@ -32,21 +52,11 @@ const StreetLightPendingTask = ({ navigation }) => {
             title={`${item.site?.panchayat} ${item.site?.block}`}
             subtitle={`${item.site?.district} - ${item.site?.state}`}
             isPositiveButtonVisible={true}
-            positiveAction={() =>
-              navigation.navigate("startInstallation", {
-                itemId: item.id,
-                isSurvey: false,
-              })
-            }
+            positiveAction={() => handleSurveyData(item, false)}
             positiveText="Submit"
             isNegativeButtonVisible={true}
             negativeText="Survey"
-            negativeAction={() =>
-              navigation.navigate("startInstallation", {
-                itemId: item.id,
-                isSurvey: true,
-              })
-            }
+            negativeAction={() => handleSurveyData(item, true)}
           >
             <View>
               <View style={[spacing.mt1, styles.row]}>

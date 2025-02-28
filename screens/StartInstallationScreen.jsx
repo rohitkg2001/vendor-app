@@ -8,9 +8,9 @@ import { P } from "../components/text";
 import { useDispatch, useSelector } from "react-redux";
 import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
-import { startInstallation } from "../redux/actions/siteActions";
 import { Checkbox } from "react-native-paper";
 import MyPickerInput from "../components/input/MyPickerInput";
+import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 export default function StartInstallationScreen({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
@@ -31,7 +31,9 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [selectedWard, setSelectedWard] = useState("");
 
   const dispatch = useDispatch();
-  const { pendingStreetLights } = useSelector((state) => state.tasks);
+  const { pendingStreetLights, pole_number } = useSelector(
+    (state) => state.tasks
+  );
 
   const handleLuminaryQR = (val) => {
     const values = val.split(";");
@@ -40,6 +42,7 @@ export default function StartInstallationScreen({ navigation, route }) {
   };
 
   useEffect(() => {
+    console.log(pole_number);
     if (Array.isArray(pendingStreetLights)) {
       const currentSite = pendingStreetLights.find(
         (task) => task.id === itemId
@@ -61,28 +64,38 @@ export default function StartInstallationScreen({ navigation, route }) {
   const handleSubmission = async (images) => {
     if (isSurvey) {
       const data = {
-        selectedWard,
-        poleNumber,
-        beneficiaryName,
-        locationRemarks,
-        networkAvailable,
-        images: images,
+        task_id: itemId,
+        complete_pole_number: [pole_number, selectedWard, poleNumber].join("/"),
+        beneficiary: beneficiaryName,
+        remarks: locationRemarks,
+        isNetworkAvailable: networkAvailable,
+        lat: images[0].lat,
+        lng: images[0].long,
+        isSurveyDone: true,
+        // survey_image: images.map((item) => item.uri),
       };
-      console.log(data, itemId);
+      await dispatch(submitStreetlightTasks(data));
     } else {
+      console.log("submitting");
       const data = {
-        luminarySerialNumber,
-        simNumber,
-        batterySerialNumber,
-        panelSerialNumber,
+        task_id: itemId,
+        complete_pole_number: [pole_number, selectedWard, poleNumber].join("/"),
+        luminary_qr: luminarySerialNumber,
+        sim_number: simNumber,
+        battery_qr: batterySerialNumber,
+        panel_qr: panelSerialNumber,
+        isInstallationDone: true,
+        // survey_image: images.map((item) => item.uri),
       };
-      console.log(data);
+      console.log("working fine");
+      await dispatch(submitStreetlightTasks(data));
     }
-    navigation.navigate("successScreen", {
-      message: "Your task uploaded successfully",
-      nextScreen: "welcomeScreen",
-    });
-  }
+    // navigation.navigate("successScreen", {
+    //   message: "Your task uploaded successfully",
+    //   nextScreen: "welcomeScreen",
+    // });
+  };
+
   return (
     <ContainerComponent>
       <MyHeader isBack title="Start Installation" hasIcon />
@@ -265,5 +278,5 @@ export default function StartInstallationScreen({ navigation, route }) {
         handleSubmission={handleSubmission}
       />
     </ContainerComponent>
-  )
+  );
 }
