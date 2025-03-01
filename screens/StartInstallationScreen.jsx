@@ -30,6 +30,10 @@ export default function StartInstallationScreen({ navigation, route }) {
 
   const [selectedWard, setSelectedWard] = useState("");
 
+  // Redux se beneficiaryName aur locationRemarks le rahe hain
+  // const beneficiaryName = useSelector((state) => state.beneficiaryName);
+  // const locationRemarks = useSelector((state) => state.locationRemarks);
+
   const dispatch = useDispatch();
   const { pendingStreetLights, pole_number } = useSelector(
     (state) => state.tasks
@@ -86,6 +90,8 @@ export default function StartInstallationScreen({ navigation, route }) {
         panel_qr: panelSerialNumber,
         isInstallationDone: true,
         // survey_image: images.map((item) => item.uri),
+        beneficiary: beneficiaryName,
+        remarks: locationRemarks,
       };
       console.log("working fine");
       await dispatch(submitStreetlightTasks(data));

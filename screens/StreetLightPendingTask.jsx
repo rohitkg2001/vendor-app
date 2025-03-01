@@ -10,12 +10,17 @@ import { P, Span } from "../components/text";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_POLE_NUMBER } from "../redux/constant";
+import {
+  SET_POLE_NUMBER,
+  SET_BENEFICIARY_NAME,
+  SET_LOCATION_REMARKS,
+} from "../redux/constant";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
   const { pendingStreetLights } = useSelector((state) => state.tasks);
+
   const dispatch = useDispatch();
   useEffect(() => {
     Array.isArray(pendingStreetLights) &&
@@ -29,12 +34,19 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
-  const handleSurveyData = (data, isSurvey) => {
+  const handleSurveyData = (
+    data,
+    isSurvey,
+    beneficiaryName,
+    locationRemarks
+  ) => {
     const { district, block, panchayat, state } = data?.site;
     const pole_number = formatString(
       [state, district, block, panchayat].join(" ")
     );
     dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
+    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
+    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
