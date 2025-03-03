@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Image,
   FlatList,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as Location from "expo-location";
@@ -105,9 +106,37 @@ export default function CameraInput({
           >
             <View style={styles.innerShutter} />
           </TouchableOpacity>
-          {!isSurvey && photos.length >= 2 ? (
+          {/* {!isSurvey && photos.length >= 2 ? (
             <TouchableOpacity
               onPress={() => handleSubmission(photos)}
+              style={styles.retakeButton}
+            >
+              <Icon name="arrow-forward" size={ICON_LARGE} color={"white"} />
+            </TouchableOpacity>
+          ) : (
+            <View />
+          )} */}
+          {!isSurvey && photos.length >= 2 ? (
+            <TouchableOpacity
+              onPress={() => {
+                Alert.alert(
+                  "Confirm Submission",
+                  "Are you sure you want to submit the task?",
+                  [
+                    {
+                      text: "Cancel",
+                      style: "cancel",
+                    },
+                    {
+                      text: "Submit",
+                      onPress: () => {
+                        handleSubmission(photos);
+                        navigation.goBack();
+                      },
+                    },
+                  ]
+                );
+              }}
               style={styles.retakeButton}
             >
               <Icon name="arrow-forward" size={ICON_LARGE} color={"white"} />
