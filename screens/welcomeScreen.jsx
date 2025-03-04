@@ -20,6 +20,7 @@ import CardFullWidth from "../components/card/CardFullWidth";
 import {
   getAllInstallationCount,
   getAllTasks,
+  getInstalledPoles,
   getStreetLightTasks,
 } from "../redux/actions/taskActions";
 
@@ -47,6 +48,16 @@ export default function WelcomeScreen({ navigation }) {
     installedStreetLightCounts,
     surveyedStreetLightCounts,
   ]);
+
+  const openPendingTasks = async () =>
+  {
+    try {
+         await dispatch(getInstalledPoles(id));
+         navigation.navigate("streetLightPendingTask"); 
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   return (
     <ContainerComponent>
@@ -121,7 +132,7 @@ export default function WelcomeScreen({ navigation }) {
                 alignItems: "center",
               },
             ]}
-            onPress={() => navigation.navigate("streetLightPendingTask")}
+            onPress={openPendingTasks}
           >
             <Image
               source={require("../assets/solar.png")}
