@@ -131,100 +131,22 @@ const StreetLightPendingTask = ({ navigation }) => {
   return (
     <ContainerComponent>
       <MyHeader title={t("Total Installation")} isBack={true} hasIcon={true} />
+
       <MyFlatList
         data={filteredData}
-        renderItem={({ item, index }) => (
-          <ClickableCard1
-            key={index}
-            title={`${item.site?.panchayat} ${item.site?.block}`}
-            subtitle={`${item.site?.district} - ${item.site?.state}`}
-            isPositiveButtonVisible={true}
-            positiveAction={() => handleSurveyData(item, false)}
-            positiveText="Submit"
-            isNegativeButtonVisible={true}
-            negativeText="Survey"
-            negativeAction={() => handleSurveyData(item, true)}
-          >
-            <View>
-              <View style={[spacing.mt1, styles.row]}>
-                <View>
-                  <Span style={[typography.font12, typography.fontLato]}>
-                    Start Date
-                  </Span>
-                  <P style={[typography.font12, typography.fontLato]}>
-                    {item.start_date}
-                  </P>
-                </View>
-                <View>
-                  <Span style={[typography.font12, typography.fontLato]}>
-                    End Date
-                  </Span>
-                  <P style={[typography.font12, typography.fontLato]}>
-                    {item.end_date}
-                  </P>
-                </View>
-              </View>
-            </View>
-          </ClickableCard1>
-        )}
-        keyExtractor={(item) => item.pole_id.toString()}
-        contentContainerStyle={{ flexGrow: 1 }}
-        ListHeaderComponent={() => (
-          <View>
-            <View
-              style={[
-                spacing.mv4,
-                styles.row,
-                spacing.mh1,
-                { alignItems: "center" },
-              ]}
-            >
-              <SearchBar
-                placeholder="Search"
-                style={{ width: SCREEN_WIDTH - 80 }}
-              />
-              <Button
-                style={[
-                  styles.btn,
-                  styles.bgPrimary,
-                  spacing.mh1,
-                  { width: 50 },
-                ]}
-                onPress={() => setShowBottomSheet(true)}
-              >
-                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
-              </Button>
-            </View>
-
-            <Tabs
-              tabs={[
-                `All ${tabCounts.All}`,
-                `Survey ${tabCounts.Survey}`,
-                `Installed ${tabCounts.Installed}`,
-                `Approved ${tabCounts.Approved}`,
-                `InApproved ${tabCounts.InApproved}`,
-                `Rejected ${tabCounts.Rejected}`,
-              ]}
-              onTabPress={(tabLabel) => setActiveTab(tabLabel.split(" ")[0])}
-              activeTab={activeTab}
-            />
-          </View>
-        )}
-        ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
-      />
-      {/* <MyFlatList
-        data={filteredData}
         renderItem={({ item, index }) => {
-          // Determine which component to render based on activeTab
           if (["Survey", "Installed"].includes(activeTab)) {
             return (
               <ClickableCard2
                 key={index}
-                title={`${item.site?.panchayat} ${item.site?.block}`}
-                subtitle={`${item.site?.district} - ${item.site?.state}`}
+                title={`${item.panchayat} ${item.block}`}
+                subtitle={`${item.district} - ${item.state}`}
                 startDate={item.start_date}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
+                onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
+                isSurvey={activeTab === "Survey"} // Show submit button only in Survey tab
+                item={item} // Pass the full item
               />
             );
           } else {
@@ -308,7 +230,7 @@ const StreetLightPendingTask = ({ navigation }) => {
           </View>
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
-      /> */}
+      />
     </ContainerComponent>
   );
 };
