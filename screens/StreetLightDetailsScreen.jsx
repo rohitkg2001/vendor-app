@@ -159,7 +159,7 @@ const StreetLightDetailsScreen = ({ route }) => {
           </View>
         </View>
 
-        <View style={[styles.row]}>
+        <View style={[styles.row, spacing.bbw05]}>
           <View>
             <P
               style={[
@@ -179,6 +179,7 @@ const StreetLightDetailsScreen = ({ route }) => {
               style={[
                 typography.font12,
                 typography.fontLato,
+
                 {
                   textTransform: "uppercase",
                 },

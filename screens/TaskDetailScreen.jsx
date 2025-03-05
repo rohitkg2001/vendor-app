@@ -18,6 +18,7 @@ import {
   styles,
   typography,
   ICON_LARGE,
+  LIGHT,
 } from "../styles";
 import { H5, H6, P, Span } from "../components/text";
 
@@ -27,27 +28,28 @@ export default function TaskDetailScreen({ navigation }) {
   return (
     <ContainerComponent>
       {/* <MyHeader title={"Task details"} isBack={true} hasIcon={true} /> */}
-      <MyHeader
-        title={`${task.site.breda_sl_no}, ${task.site.site_name}`}
-        isBack={true}
-        hasIcon={true}
-      />
+      <MyHeader title={`${task.site.site_name}`} isBack={true} hasIcon={true} />
 
       <View style={{ width: SCREEN_WIDTH - 16 }}>
         <View
           style={[
             styles.row,
+            spacing.br2,
+            spacing.p2,
+            spacing.p2,
+
             {
               flexWrap: "wrap",
-              paddingVertical: spacing.pv1,
+              backgroundColor: "#5D92F4",
+              top: 4,
             },
           ]}
         >
           <H5
             style={[
-              typography.font14,
-              typography.fontLato,
-              { textAlign: "left", flexShrink: 1 },
+              typography.font16,
+              typography.fontLatoBold,
+              { flexShrink: 1, color: "#fff" },
             ]}
           >
             {task.site.breda_sl_no},
@@ -57,10 +59,11 @@ export default function TaskDetailScreen({ navigation }) {
             style={[
               typography.font14,
               typography.fontLato,
+              spacing.ml2,
               {
                 flex: 2,
-                marginLeft: 8,
                 flexShrink: 1,
+                color: LIGHT,
               },
             ]}
             numberOfLines={task.site.site_name.length > 20 ? 2 : 1}
@@ -68,6 +71,7 @@ export default function TaskDetailScreen({ navigation }) {
             {task.site.site_name}
           </P>
 
+          {/* Location */}
           <P
             style={[
               typography.font12,
@@ -75,7 +79,7 @@ export default function TaskDetailScreen({ navigation }) {
               {
                 textAlign: "right",
                 flex: 1,
-                color: "#555",
+                color: LIGHT,
                 marginTop: task.site.site_name.length > 20 ? 4 : 0,
               },
             ]}
@@ -84,32 +88,62 @@ export default function TaskDetailScreen({ navigation }) {
           </P>
         </View>
 
-        <View style={[spacing.mt1, styles.row, spacing.mv2]}>
-          <View>
+        <View style={[spacing.mt2, styles.row, spacing.mv2, spacing.p2]}>
+          <View style={{ alignItems: "center", flex: 1 }}>
             <Span
               style={[
                 typography.font10,
                 typography.fontLato,
-                { textTransform: "uppercase", color: "gray" },
+                {
+                  textTransform: "uppercase",
+                },
               ]}
             >
-              Start date
+              Start Date
             </Span>
-            <P style={[typography.font12, typography.fontLato]}>
+            <P
+              style={[
+                typography.font14,
+                typography.fontLato,
+                { color: "#1E40AF" },
+              ]}
+            >
               {moment(task.start_date).format("DD-MM-YYYY")}
             </P>
           </View>
-          <View>
+
+          {/* Divider Line */}
+          <View
+            style={[
+              spacing.mh5,
+              {
+                height: "100%",
+                width: 1.5,
+                backgroundColor: "#D1D5DB",
+              },
+            ]}
+          />
+
+          <View style={{ alignItems: "center", flex: 1 }}>
             <Span
               style={[
                 typography.font10,
                 typography.fontLato,
-                { textTransform: "uppercase", color: "gray" },
+                {
+                  textTransform: "uppercase",
+                  color: "#6B7280",
+                },
               ]}
             >
-              End date
+              End Date
             </Span>
-            <P style={[typography.font12, typography.fontLato]}>
+            <P
+              style={[
+                typography.font14,
+                typography.fontLato,
+                { color: "#DC2626" },
+              ]}
+            >
               {moment(task.end_date).format("DD-MM-YYYY")}
             </P>
           </View>
@@ -216,13 +250,23 @@ export default function TaskDetailScreen({ navigation }) {
           </View>
         </View>
 
-        <View style={[styles.row]}>
+        <View
+          style={[
+            styles.row,
+            spacing.pv2,
+            spacing.mb2,
+            {
+              borderBottomWidth: 1,
+              borderBottomColor: "#D1D5DB",
+            },
+          ]}
+        >
           <H5
             style={[
               typography.font14,
               typography.textBold,
               typography.fontLato,
-              { textAlign: "left" },
+              { textAlign: "left", flex: 1 },
             ]}
           >
             Submission
@@ -232,7 +276,7 @@ export default function TaskDetailScreen({ navigation }) {
               typography.font14,
               typography.fontLato,
               spacing.pv1,
-              { textAlign: "right" },
+              { textAlign: "right", flex: 1 },
             ]}
           >
             {moment(task.site.updated_at).format("DD-MMM-YYYY HH:mm A")}

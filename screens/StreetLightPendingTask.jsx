@@ -226,6 +226,12 @@ const StreetLightPendingTask = ({ navigation }) => {
               ]}
               onTabPress={(tabLabel) => setActiveTab(tabLabel.split(" ")[0])}
               activeTab={activeTab}
+              // tabStyles={{
+              //   activeBackgroundColor: "#76885B",
+              //   inactiveBackgroundColor: "#C8E6C9",
+              //   activeTextColor: "#FFF",
+              //   inactiveTextColor: "#333",
+              // }}
             />
           </View>
         )}
