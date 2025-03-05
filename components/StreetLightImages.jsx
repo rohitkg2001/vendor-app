@@ -107,6 +107,8 @@
 //   );
 // }
 
+///////////////////////
+
 import { View, Image, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import ImageViewing from "react-native-image-viewing";
@@ -184,7 +186,6 @@ export default function StreetLightImages({ source }) {
             </ScrollView>
           </View>
 
-          {/* Image Viewer */}
           <ImageViewing
             images={images}
             imageIndex={selectedImageIndex}
