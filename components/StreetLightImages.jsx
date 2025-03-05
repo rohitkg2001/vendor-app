@@ -7,32 +7,9 @@ import { P } from "./text";
 import { typography, spacing } from "../styles";
 
 export default function StreetLightImages({ source }) {
-  const [images, setImages] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-
-  useEffect(() => {
-    console.log("Received source:", source);
-    if (Array.isArray(source)) {
-      const newImages = source
-        .map((item) => {
-          if (typeof item === "string") {
-            return { uri: item };
-          } else if (item?.uri) {
-            return item;
-          }
-          return null;
-        })
-        .filter(Boolean);
-
-      console.log("Formatted Images:", newImages);
-      setImages(newImages);
-    }
-  }, [source]);
-
   return (
     <View style={[spacing.mt4]}>
-      {images.length > 0 && (
+      {source.length > 0 && (
         <View>
           <P
             style={[
@@ -80,7 +57,7 @@ export default function StreetLightImages({ source }) {
           </View>
 
           <ImageViewing
-            images={images}
+            images={source}
             imageIndex={selectedImageIndex}
             visible={isVisible}
             onRequestClose={() => setIsVisible(false)}
