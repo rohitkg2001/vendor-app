@@ -9,6 +9,7 @@ import {
   TOTAL_SURVEYED_STREETLIGHTS,
   GET_INSTALLED_STREETLIGHTS,
   TOTAL_INSTALLED_STREETLIGHTS,
+  GET_VIEW_STREETLIGHTS,
 } from "../constant";
 import { filterByStatus } from "./projectActions";
 import axios from "axios";
@@ -261,19 +262,8 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   const { data } = response;
   const pendingSites = data.filter((task) => task.status === "Pending");
   const pendingSitesCount = pendingSites.length;
-  const surveyedSites = data.filter((task) => task.site?.isSurveyDone);
-  const surveyedSitesCount = surveyedSites.length;
-  const installedSites = data.filter((task) => task.site?.isInstallationDone);
-  const installedSitesCount = installedSites.length;
   dispatch({ type: TOTAL_PENDING_STREETLIGHT, payload: pendingSitesCount });
   dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites });
-  dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyedSites });
-  dispatch({ type: TOTAL_SURVEYED_STREETLIGHTS, payload: surveyedSitesCount });
-  dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installedSites });
-  dispatch({
-    type: TOTAL_INSTALLED_STREETLIGHTS,
-    payload: installedSitesCount,
-  });
 };
 
 export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
@@ -286,6 +276,36 @@ export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
     );
     const { data } = response;
     console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getInstalledPoles = (vendor_id) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/api/installed-poles/vendor/${vendor_id}`
+    );
+    const { data } = response;
+    ``;
+    const { installed_poles, surveyed_poles } = data;
+    dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyed_poles });
+    dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getViewPoles = (vendor_id) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/api/pole-details/vendor/${vendor_id}`
+    );
+    const { data } = response;
+    ``;
+    const { installed_poles, surveyed_poles } = data;
+    dispatch({ type: GET_VIEW_STREETLIGHTS, payload: surveyed_poles });
+    // dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
   } catch (error) {
     console.error(error);
   }
