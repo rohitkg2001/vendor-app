@@ -10,6 +10,7 @@ export default function MyPickerInput({
   onChange,
   options = [],
   style = {},
+  placeholder = "Select an option", // Default placeholder
 }) {
   const { t } = useTranslation();
 
@@ -22,7 +23,7 @@ export default function MyPickerInput({
           borderRadius: 10,
           borderWidth: 1,
           borderColor: "#ccc",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         <Picker
@@ -37,6 +38,8 @@ export default function MyPickerInput({
           onValueChange={(val) => onChange(val)}
           prompt={t("option_title")}
         >
+          {/* Placeholder item */}
+          <Picker.Item label={placeholder} value="" enabled={false} />
           {options.map((option, index) => (
             <Picker.Item
               enabled={option.enabled}

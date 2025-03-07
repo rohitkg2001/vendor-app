@@ -4,10 +4,14 @@ import MyHeader from "../components/header/MyHeader";
 import StreetLightImages from "../components/StreetLightImages";
 import { spacing, styles, typography } from "../styles";
 import { P, H5 } from "../components/text";
+import { useEffect } from "react";
 
 const StreetLightDetailsScreen = ({ route }) => {
   const { item } = route.params;
 
+  useEffect(() => {
+    console.log(item);
+  }, []);
   return (
     <ContainerComponent>
       <MyHeader

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
+import { Snackbar } from "react-native-paper";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -29,6 +30,9 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [poleOptions, setPoleOptions] = useState([]);
 
   const [selectedWard, setSelectedWard] = useState("");
+
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   // Redux se beneficiaryName aur locationRemarks le rahe hain
   // const beneficiaryName = useSelector((state) => state.beneficiaryName);
@@ -66,6 +70,10 @@ export default function StartInstallationScreen({ navigation, route }) {
   }, [pendingStreetLights]);
 
   const handleSubmission = async (images) => {
+    if (!selectedWard || !poleNumber) {
+      setSnackbarVisible(true); // Show Snackbar if validation fails
+      return;
+    }
     if (isSurvey) {
       const data = {
         task_id: itemId,
@@ -128,6 +136,7 @@ export default function StartInstallationScreen({ navigation, route }) {
             onChange={(value) => setSelectedWard(value)}
             options={wardOptions}
             style={spacing.mv2}
+            placeholder="Select Ward" // Placeholder added
           />
         )}
         {isSurvey && (
@@ -137,6 +146,7 @@ export default function StartInstallationScreen({ navigation, route }) {
             onChange={(value) => setPoleNumber(value)}
             options={poleOptions}
             style={spacing.mv2}
+            placeholder="Select Pole Number" // Placeholder added
           />
         )}
 
@@ -269,7 +279,11 @@ export default function StartInstallationScreen({ navigation, route }) {
           },
         ]}
         onPress={() => {
-          setIsCameraVisible(true);
+          if (!selectedWard || !poleNumber) {
+            setSnackbarVisible(true);
+          } else {
+            setIsCameraVisible(true);
+          }
         }}
       >
         <P
@@ -284,6 +298,14 @@ export default function StartInstallationScreen({ navigation, route }) {
         handleImageCapture={(val) => console.log(val)}
         handleSubmission={handleSubmission}
       />
+      {/* Snackbar for validation error */}
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={3000}
+      >
+        Please select both Ward and Pole Number before taking a photo.
+      </Snackbar>
     </ContainerComponent>
   );
 }

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { P, Span } from "../text";
-import { spacing, styles, typography } from "../../styles";
+import {
+  PRIMARY_COLOR,
+  spacing,
+  styles,
+  typography,
+  SCREEN_WIDTH,
+} from "../../styles";
 
 const ClickableCard2 = ({
   // navigation,
@@ -11,12 +17,14 @@ const ClickableCard2 = ({
   subtitle,
   submissionDate,
   endDate,
-  onView,
   onSubmit,
   isSurvey,
   item,
 }) => {
   const navigation = useNavigation();
+  useEffect(() => {
+    console.log(item);
+  }, []);
   return (
     <View style={[styles.card, spacing.mv2, spacing.p2]}>
       <Span style={[typography.font14, typography.bold]}>{title}</Span>
@@ -40,7 +48,13 @@ const ClickableCard2 = ({
       <View style={[spacing.mt2, styles.row, { justifyContent: "flex-end" }]}>
         {isSurvey && (
           <TouchableOpacity
-            style={[styles.btn, styles.bgPrimary, spacing.mr2]}
+            style={{
+              width: 80,
+              padding: 8,
+              borderRadius: 8,
+              backgroundColor: PRIMARY_COLOR,
+              marginRight: 10,
+            }}
             onPress={onSubmit}
           >
             <Span style={{ fontSize: 16, color: "white", textAlign: "center" }}>
@@ -50,7 +64,12 @@ const ClickableCard2 = ({
         )}
 
         <TouchableOpacity
-          style={[styles.btn, styles.bgPrimary]}
+          style={{
+            width: 80,
+            padding: 8,
+            borderRadius: 8,
+            backgroundColor: PRIMARY_COLOR,
+          }}
           onPress={() => navigation.navigate("streetlightDetails", { item })}
         >
           <Span style={{ fontSize: 16, color: "white", textAlign: "center" }}>

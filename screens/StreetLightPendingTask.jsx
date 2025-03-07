@@ -54,6 +54,10 @@ const StreetLightPendingTask = ({ navigation }) => {
     beneficiaryName,
     locationRemarks
   ) => {
+    if (!data?.site) {
+      console.error("Error: site data is missing", data);
+      return;
+    }
     const { district, block, panchayat, state } = data?.site;
     const pole_number = formatString(
       [state, district, block, panchayat].join(" ")
@@ -144,7 +148,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 submissionDate={item.updated_at}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
-                onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
+               // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
                 isSurvey={activeTab === "Survey"} // Show submit button only in Survey tab
                 item={item} // Pass the full item
               />
