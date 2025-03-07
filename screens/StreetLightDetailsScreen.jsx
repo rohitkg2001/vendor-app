@@ -43,7 +43,7 @@ const StreetLightDetailsScreen = ({ route }) => {
             {item.complete_pole_number}
           </H5>
 
-          <P
+          {/* <P
             style={[
               typography.font14,
               typography.fontLato,
@@ -52,7 +52,7 @@ const StreetLightDetailsScreen = ({ route }) => {
             ]}
           >
             {item.panchayat}, {item.block}, {item.ward} - {item.state}
-          </P>
+          </P> */}
         </View>
 
         <View style={[styles.row, spacing.pv2]}>
@@ -66,11 +66,11 @@ const StreetLightDetailsScreen = ({ route }) => {
                 },
               ]}
             >
-              Start Date
+              Submission Date
             </P>
-            <P style={[typography.font12]}>{item.start_date}</P>
+            <P style={[typography.font12]}>{item.updated_at}</P>
           </View>
-          <View>
+          {/* <View>
             <P
               style={[
                 typography.font12,
@@ -83,7 +83,7 @@ const StreetLightDetailsScreen = ({ route }) => {
               End Date
             </P>
             <P style={[typography.font12]}>{item.end_date}</P>
-          </View>
+          </View> */}
         </View>
 
         <View

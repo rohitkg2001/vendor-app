@@ -76,7 +76,8 @@ export default function StartInstallationScreen({ navigation, route }) {
         lat: images[0].lat,
         lng: images[0].long,
         isSurveyDone: true,
-        // survey_image: images.map((item) => item.uri),
+        //survey_image: images.map((item) => item.uri),
+        survey_image: images,
       };
       await dispatch(submitStreetlightTasks(data));
     } else {

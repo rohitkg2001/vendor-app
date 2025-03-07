@@ -141,7 +141,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 key={index}
                 title={`${item.panchayat} ${item.block}`}
                 subtitle={`${item.district} - ${item.state}`}
-                startDate={item.start_date}
+                submissionDate={item.updated_at}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
                 onSubmit={() => handleSurveyData(item, false)} // Only used for Survey

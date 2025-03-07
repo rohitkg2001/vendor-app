@@ -266,20 +266,158 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites });
 };
 
-export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
-  try {
-    console.log("Surveying");
-    console.log(dataToUpdate);
-    const response = await axios.put(
-      `${BASE_URL}/api/streetlight/tasks/update`,
-      dataToUpdate
-    );
-    const { data } = response;
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-};
+// export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
+//   try {
+//     console.log("Surveying");
+//     console.log(dataToUpdate);
+//     const response = await axios.put(
+//       `${BASE_URL}/api/streetlight/tasks/update`,
+//       dataToUpdate
+//     );
+//     const { data } = response;
+//     console.log(data);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// export const submitStreetlightTasks =
+//   (dataToUpdate, file) => async (dispatch) => {
+//     try {
+//       console.log("Surveying...");
+
+//       const formData = new FormData();
+//       let imageIndex = 0;
+
+//       // ✅ Ensure task_id and complete_pole_number are included
+//       if (!dataToUpdate.task_id || !dataToUpdate.complete_pole_number) {
+//         console.error("Missing task_id or complete_pole_number");
+//         return;
+//       }
+
+//       // ✅ Append all other fields
+//       Object.entries(dataToUpdate).forEach(([key, value]) => {
+//         if (value !== undefined && value !== null) {
+//           formData.append(key, value);
+//         }
+//       });
+
+//       // ✅ Append single file (if provided)
+//       if (file) {
+//         formData.append(`survey_image[${imageIndex}]`, {
+//           uri: file.uri,
+//           name: file.name || `photo_${imageIndex}.jpg`,
+//           type: file.mimeType || "image/jpeg",
+//         });
+//         imageIndex++;
+//       }
+
+//       // ✅ Append multiple images
+//       if (dataToUpdate.survey_image) {
+//         dataToUpdate.survey_image.forEach((item) => {
+//           formData.append(`survey_image[${imageIndex}]`, {
+//             uri: item.uri.startsWith("file://")
+//               ? item.uri
+//               : `file:/${item.uri}`,
+//             name: `photo_${imageIndex}.jpg`,
+//             type: "image/jpeg",
+//           });
+//           imageIndex++;
+//         });
+//       }
+
+//       // ✅ Debug: Print formData contents
+//       for (let pair of formData.entries()) {
+//         console.log(pair[0], pair[1]);
+//       }
+
+//       // ✅ Send POST request (instead of PUT)
+//       const response = await axios.post(
+//         `${BASE_URL}/api/streetlight/tasks/update`, // Ensure correct endpoint
+//         formData,
+//         { headers: { "Content-Type": "multipart/form-data" } }
+//       );
+
+//       console.log("Response Data:", response.data);
+//     } catch (error) {
+//       console.error("Error submitting data:", error.response?.data || error);
+//     }
+//   };
+
+export const submitStreetlightTasks =
+  (dataToUpdate, file) => async (dispatch) => {
+    try {
+      console.log("Surveying...");
+      console.log("Data being sent:", dataToUpdate);
+
+      const formData = new FormData();
+      let imageIndex = 0;
+
+      // ✅ Validate required fields
+      if (!dataToUpdate?.task_id || !dataToUpdate?.complete_pole_number) {
+        console.error("Missing task_id or complete_pole_number");
+        return;
+      }
+
+      // ✅ Append required fields
+      formData.append("task_id", String(dataToUpdate.task_id));
+      formData.append(
+        "complete_pole_number",
+        String(dataToUpdate.complete_pole_number)
+      );
+      formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
+      formData.append("remarks", String(dataToUpdate.remarks || ""));
+      formData.append("lat", String(dataToUpdate.lat));
+      formData.append("lng", String(dataToUpdate.lng));
+
+      // ✅ Send Boolean values correctly
+      formData.append(
+        "isNetworkAvailable",
+        dataToUpdate.isNetworkAvailable ? true : false
+      );
+      formData.append("isSurveyDone", dataToUpdate.isSurveyDone ? true : false);
+
+      // ✅ Append single file (React Native format)
+      if (file && file.uri) {
+        formData.append(`survey_image[${imageIndex}]`, {
+          uri: file.uri,
+          name: file.name || `photo_${imageIndex}.jpg`,
+          type: file.type || "image/jpeg",
+        });
+        imageIndex++;
+      }
+
+      // ✅ Append multiple images
+      if (Array.isArray(dataToUpdate.survey_image)) {
+        dataToUpdate.survey_image.forEach((item) => {
+          if (item?.uri) {
+            formData.append(`survey_image[${imageIndex}]`, {
+              uri: item.uri,
+              name: `photo_${imageIndex}.jpg`,
+              type: "image/jpeg",
+            });
+            imageIndex++;
+          }
+        });
+      }
+
+      // ✅ Debug: Print formData contents
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
+      // ✅ Send POST request (REMOVE "Content-Type" HEADER)
+      const response = await axios.post(
+        `${BASE_URL}/api/streetlight/tasks/update`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } } // Let axios set the correct Content-Type
+      );
+
+      console.log("Response Data:", response.data);
+    } catch (error) {
+      console.error("Error submitting data:", error.response?.data || error);
+    }
+  };
 
 export const getInstalledPoles = (vendor_id) => async (dispatch) => {
   try {

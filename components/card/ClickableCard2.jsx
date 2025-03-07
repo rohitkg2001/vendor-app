@@ -9,7 +9,7 @@ const ClickableCard2 = ({
   // navigation,
   title,
   subtitle,
-  startDate,
+  submissionDate,
   endDate,
   onView,
   onSubmit,
@@ -27,7 +27,9 @@ const ClickableCard2 = ({
           <Span style={[typography.font12, typography.fontLato]}>
             Start Date
           </Span>
-          <P style={[typography.font12, typography.fontLato]}>{startDate}</P>
+          <P style={[typography.font12, typography.fontLato]}>
+            {submissionDate}
+          </P>
         </View>
         <View>
           <Span style={[typography.font12, typography.fontLato]}>End Date</Span>
