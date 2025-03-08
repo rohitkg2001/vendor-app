@@ -1,88 +1,122 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import ContainerComponent from "../components/ContainerComponent";
-import MyHeader from "../components/header/MyHeader";
+import { View, Image, TouchableOpacity } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { P, H6, H4 } from "../components/text";
+import { spacing, typography, LIGHT } from "../styles";
 
 const ProfileChangeScreen = ({ route, navigation }) => {
-  const { vendorImage, vendorName, contactNo } = route.params;
+  const { vendorImage, vendorName, contactNo, email, address } = route.params;
 
   const [profileImage, setProfileImage] = useState(
     vendorImage || "https://via.placeholder.com/150"
   );
 
   return (
-    <ContainerComponent style={{ flex: 1, padding: 0, margin: 0 }}>
-      <MyHeader title={"Profile"} isBack={true} hasIcon={true} />
-
-      <View style={{ alignItems: "center", marginBottom: 20, width: "100%" }}>
+    <View style={{ flex: 1 }}>
+      <View style={[spacing.p5, { backgroundColor: "#000", paddingTop: 50 }]}>
+        <H4
+          style={[
+            typography.font18,
+            typography.fontLato,
+            typography.textBold,
+            { color: LIGHT },
+          ]}
+        >
+          Profile
+        </H4>
+      </View>
+      <View
+        style={[
+          spacing.p5,
+          spacing.br3,
+          spacing.mh3,
+          {
+            alignItems: "center",
+            backgroundColor: "#2C3E50",
+            marginTop: -20,
+          },
+        ]}
+      >
         <Image
           source={{ uri: profileImage }}
-          style={{ width: 120, height: 120, borderRadius: 60 }}
-        />
-        {/* <TouchableOpacity
           style={{
-            position: "absolute",
-            bottom: 0,
-            right: 110,
-            backgroundColor: "#76885B",
-            borderRadius: 20,
-            padding: 5,
+            width: 110,
+            height: 110,
+            borderRadius: 55,
+            borderWidth: 2,
+            borderColor: "#27AE60",
           }}
+        />
+        <H6
+          style={[
+            typography.font18,
+            typography.fontLato,
+            typography.textBold,
+            spacing.mt2,
+            { color: "#ECF0F1" },
+          ]}
         >
-          <Icon name="photo-camera" size={20} color="#fff" />
-        </TouchableOpacity> */}
+          {vendorName}
+        </H6>
+        <P style={[typography.font14, { color: "#BDC3C7" }]}>{email}</P>
+
         <TouchableOpacity
           onPress={() => navigation.navigate("attendancePunch")}
-          style={{
-            position: "absolute",
-            bottom: 0,
-            right: 110,
-            backgroundColor: "#76885B",
-            borderRadius: 20,
-            padding: 5,
-          }}
+          style={[
+            spacing.p2,
+            spacing.br5,
+            {
+              position: "absolute",
+              bottom: 10,
+              right: 20,
+              backgroundColor: "#76885B",
+            },
+          ]}
         >
-          <Icon name="photo-camera" size={20} color="#fff" />
+          <Ionicons name="camera-outline" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginTop: 20, paddingHorizontal: 0, width: "100%" }}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 20,
-            marginLeft: 20,
-          }}
-        >
-          <Icon name="person" size={24} color="#555" />
-          <View style={{ marginLeft: 20 }}>
-            <Text style={{ fontSize: 14, color: "#888" }}>Name</Text>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {vendorName}
-            </Text>
-          </View>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 20,
-            marginLeft: 20,
-          }}
-        >
-          <Icon name="phone" size={24} color="#555" />
-          <View style={{ marginLeft: 15 }}>
-            <Text style={{ fontSize: 14, color: "#888" }}>Contact</Text>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {contactNo}
-            </Text>
-          </View>
-        </View>
+      <View
+        style={[
+          spacing.mt4,
+          spacing.br2,
+          spacing.mh3,
+          spacing.pv2,
+          {
+            backgroundColor: LIGHT,
+            // elevation: 3,
+          },
+        ]}
+      >
+        {[
+          { name: "person-outline", label: vendorName },
+          { name: "call-outline", label: contactNo },
+          { name: "home-outline", label: address },
+        ].map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[
+              spacing.pv3,
+              spacing.ph5,
+              {
+                flexDirection: "row",
+                alignItems: "center",
+                borderBottomWidth: index !== 4 ? 1 : 0,
+                borderBottomColor: "#ddd",
+              },
+            ]}
+          >
+            <Ionicons name={item.name} size={24} color="#555" />
+            <H6
+              style={[typography.font16, spacing.ml3, typography.fontLato, {}]}
+            >
+              {item.label}
+            </H6>
+          </TouchableOpacity>
+        ))}
       </View>
-    </ContainerComponent>
+    </View>
   );
 };
 

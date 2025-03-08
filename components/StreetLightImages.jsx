@@ -1,61 +1,221 @@
-import { View, Image, ScrollView, TouchableOpacity, Text } from "react-native";
 import React, { useEffect, useState } from "react";
+import {
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import ImageViewing from "react-native-image-viewing";
+import { typography, spacing, styles } from "../styles";
 import { P } from "./text";
 
-// import styles
-import { typography, spacing } from "../styles";
+export default function StreetLightFiles({ source }) {
+  const [images, setImages] = useState([]);
+  const [pdfs, setPdfs] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState("Images"); // Track active tab
 
-export default function StreetLightImages({ source }) {
+  useEffect(() => {
+    if (Array.isArray(source)) {
+      const newImages = [];
+      const newPdfs = [];
+
+      source.forEach((item) => {
+        if (typeof item === "string") {
+          if (item.endsWith(".pdf")) {
+            newPdfs.push(item);
+          } else {
+            newImages.push({ uri: item });
+          }
+        }
+      });
+
+      setImages(newImages);
+      setPdfs(newPdfs);
+    }
+  }, [source]);
+
   return (
     <View style={[spacing.mt4]}>
-      {source.length > 0 && (
+      {/* Heading */}
+      <P
+        style={[
+          typography.font16,
+          typography.fontLato,
+          typography.textBold,
+
+          {
+            textAlign: "center",
+            bottom: 18,
+          },
+        ]}
+      >
+        Survey Files
+      </P>
+      {(images.length > 0 || pdfs.length > 0) && (
         <View>
-          <P
+          <View
             style={[
-              typography.font16,
-              typography.fontLato,
-              typography.textBold,
+              styles.row,
+              spacing.pv1,
+              spacing.br2,
+              spacing.mb2,
+              {
+                backgroundColor: "#f0f0f0",
+              },
             ]}
           >
-            Survey Images
-          </P>
+            <TouchableOpacity
+              onPress={() => setActiveTab("Images")}
+              style={[
+                spacing.pv2,
+                spacing.mh1,
+                spacing.br2,
+                {
+                  flex: 1,
+                  alignItems: "center",
+                  backgroundColor: activeTab === "Images" ? "#90afc4" : "white",
+                },
+              ]}
+            >
+              <P
+                style={[
+                  typography.font14,
+                  typography.fontLato,
+                  typography.textBold,
+                  {
+                    color: activeTab === "Images" ? "white" : "black",
+                  },
+                ]}
+              >
+                Images
+              </P>
+            </TouchableOpacity>
 
-          <View style={[spacing.m1, spacing.p1, spacing.br2]}>
+            <TouchableOpacity
+              onPress={() => setActiveTab("Documents")}
+              style={[
+                spacing.pv2,
+                spacing.br2,
+                spacing.mh1,
+                {
+                  flex: 1,
+                  alignItems: "center",
+                  backgroundColor:
+                    activeTab === "Documents" ? "#ff6347" : "white",
+                },
+              ]}
+            >
+              <P
+                style={[
+                  typography.font14,
+                  typography.fontLato,
+                  typography.textBold,
+                  {
+                    color: activeTab === "Documents" ? "white" : "black",
+                  },
+                ]}
+              >
+                Documents
+              </P>
+            </TouchableOpacity>
+          </View>
+
+          {activeTab === "Images" && images.length > 0 && (
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: 5,
-                }}
+                style={[
+                  styles.row,
+                  {
+                    gap: 4,
+                  },
+                ]}
               >
-                {source.map((image, index) => (
+                {images.map((image, index) => (
                   <TouchableOpacity
-                    key={index}
+                    key={`image-${index}`}
                     onPress={() => {
                       setSelectedImageIndex(index);
                       setIsVisible(true);
                     }}
                   >
                     <Image
-                      source={image}
-                      style={{
-                        height: 140,
-                        width: 140,
-                        borderRadius: 8,
-                        resizeMode: "cover",
-                        borderWidth: 2,
-                        borderColor: "#90afc4",
-                      }}
+                      source={{ uri: image.uri }}
+                      style={[
+                        spacing.p2,
+                        spacing.bw05,
+                        spacing.br1,
+                        {
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: 140,
+                          height: 140,
+                        },
+                      ]}
                     />
                   </TouchableOpacity>
                 ))}
               </View>
             </ScrollView>
-          </View>
+          )}
 
+          {/* Document Section */}
+          {activeTab === "Documents" && pdfs.length > 0 && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View
+                style={[
+                  styles.row,
+                  {
+                    gap: 4,
+                  },
+                ]}
+              >
+                {pdfs.map((pdf, index) => (
+                  <TouchableOpacity
+                    key={`pdf-${index}`}
+                    onPress={() => {
+                      Linking.openURL(pdf);
+                    }}
+                    style={[
+                      spacing.p2,
+                      spacing.bw05,
+                      spacing.br2,
+                      {
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderColor: "#ff6347",
+                        width: 140,
+                        height: 140,
+                      },
+                    ]}
+                  >
+                    <Image
+                      source={{
+                        uri: "https://img.icons8.com/ios-filled/50/ff6347/pdf.png",
+                      }}
+                      style={{ width: 50, height: 50 }}
+                    />
+                    <P
+                      style={[
+                        typography.font14,
+                        typography.fontLato,
+                        {
+                          textAlign: "center",
+                          color: "#ff6347",
+                        },
+                      ]}
+                    >
+                      Download PDF
+                    </P>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          )}
+
+          {/* Image Viewer */}
           <ImageViewing
             images={source}
             imageIndex={selectedImageIndex}

@@ -215,6 +215,12 @@ export default function TasksScreen({ navigation }) {
               ]}
               onTabPress={handleTabChange}
               activeTab={`${activeTab} (${tabCounts[activeTab]})`}
+              tabStyles={{
+                activeBackgroundColor: "#76885B",
+                inactiveBackgroundColor: "#C8E6C9",
+                activeTextColor: "#FFF",
+                inactiveTextColor: "#333",
+              }}
             />
           </View>
         )}

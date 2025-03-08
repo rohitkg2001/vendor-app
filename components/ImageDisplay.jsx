@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-native-paper";
 import ImageViewing from "react-native-image-viewing";
-import { Ionicons } from "@expo/vector-icons";
 // import styles
 import { styles, typography, spacing } from "../styles";
 import { P } from "./text";
@@ -20,10 +18,6 @@ export default function ImageDisplay({ source }) {
   const [activeTab, setActiveTab] = useState("Images");
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-
-  const handleTabSelection = (tab) => {
-    setActiveTab(tab);
-  };
 
   const setAndFilterImages = (source) => {
     const newImages = [];
@@ -47,159 +41,192 @@ export default function ImageDisplay({ source }) {
     setAndFilterImages(source);
   }, [source]);
 
-  const handleNextImage = () => {
-    if (selectedImageIndex < images.length - 1) {
-      setSelectedImageIndex(selectedImageIndex + 1);
-    }
-  };
-
-  const handlePrevImage = () => {
-    if (selectedImageIndex > 0) {
-      setSelectedImageIndex(selectedImageIndex - 1);
-    }
-  };
-
   return (
-    <View style={[spacing.mt4, {}]}>
-      <View
+    <View style={[spacing.mt4]}>
+      <P
         style={[
-          styles.row,
-          spacing.bbw05,
-          spacing.pb3,
-          spacing.mb3,
-          { justifyContent: "flex-start", alignItems: "center" },
+          typography.font16,
+          typography.fontLato,
+          typography.textBold,
+
+          {
+            textAlign: "center",
+            bottom: 18,
+          },
         ]}
       >
-        {["Images", "Documents"].map((tab, index) => (
-          <TouchableOpacity
-            key={tab}
-            onPress={() => handleTabSelection(tab)}
-            style={[
-              spacing.p1,
-              index !== 0 && { marginLeft: 16 },
-              {
-                borderBottomWidth: activeTab === tab ? 2 : 0,
-                borderBottomColor:
-                  activeTab === tab ? "#76885B" : "transparent",
-              },
-            ]}
-          >
-            <P
-              style={[
-                typography.font16,
-                {
-                  color: activeTab === tab ? "#76885B" : "#333",
-                  fontWeight: activeTab === tab ? "bold" : "normal",
-                },
-              ]}
-            >
-              {tab}
-            </P>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {activeTab === "Images" && images.length > 0 && (
-        <View style={[spacing.m1, spacing.p1, spacing.br2]}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 10,
-                padding: 5,
-              }}
-            >
-              {images.map((image, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    setSelectedImageIndex(index);
-                    setIsVisible(true);
-                  }}
-                >
-                  <Image
-                    source={image}
-                    style={{
-                      height: 140,
-                      width: 140,
-                      borderRadius: 8,
-                      resizeMode: "cover",
-                    }}
-                  />
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
-        </View>
-      )}
-
-      {activeTab === "Documents" && documents.length > 0 && (
-        <View style={{ marginTop: 15 }}>
-          {documents.map((pdf, index) => (
-            <Button
-              key={index}
-              style={[styles.btn, styles.bgPrimary, { width: "40%" }]}
-              onPress={() => Linking.openURL(pdf)}
-            >
-              <P
-                style={[
-                  styles.btnText,
-                  typography.font16,
-                  typography.textLight,
-                ]}
-              >
-                View PDF
-              </P>
-            </Button>
-          ))}
-        </View>
-      )}
-
-      <ImageViewing
-        images={images}
-        imageIndex={selectedImageIndex}
-        visible={isVisible}
-        onRequestClose={() => setIsVisible(false)}
-        HeaderComponent={() => (
-          <View style={{ position: "absolute", top: 20, left: 20 }}>
-            <TouchableOpacity onPress={() => setIsVisible(false)}>
-              <Ionicons name="arrow-back-outline" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
-        )}
-        FooterComponent={() => (
+        Survey Files
+      </P>
+      {(images.length > 0 || documents.length > 0) && (
+        <View>
           <View
             style={[
               styles.row,
+              spacing.pv1,
+              spacing.br2,
+              spacing.mb2,
               {
-                bottom: 360,
+                backgroundColor: "#f0f0f0",
               },
             ]}
           >
             <TouchableOpacity
-              onPress={handlePrevImage}
-              disabled={selectedImageIndex === 0}
-              style={{
-                opacity: selectedImageIndex === 0 ? 0.5 : 1,
-              }}
+              onPress={() => setActiveTab("Images")}
+              style={[
+                spacing.pv2,
+                spacing.mh1,
+                spacing.br2,
+                {
+                  flex: 1,
+                  alignItems: "center",
+                  backgroundColor: activeTab === "Images" ? "#90afc4" : "white",
+                },
+              ]}
             >
-              <Ionicons name="chevron-back-circle" size={40} color="white" />
+              <P
+                style={[
+                  typography.font14,
+                  typography.fontLato,
+                  typography.textBold,
+                  {
+                    color: activeTab === "Images" ? "white" : "black",
+                  },
+                ]}
+              >
+                Images
+              </P>
             </TouchableOpacity>
 
-            {/* Right Arrow */}
             <TouchableOpacity
-              onPress={handleNextImage}
-              disabled={selectedImageIndex === images.length - 1}
-              style={{
-                opacity: selectedImageIndex === images.length - 1 ? 0.5 : 1,
-              }}
+              onPress={() => setActiveTab("Documents")}
+              style={[
+                spacing.pv2,
+                spacing.br2,
+                spacing.mh1,
+                {
+                  flex: 1,
+                  alignItems: "center",
+                  backgroundColor:
+                    activeTab === "Documents" ? "#ff6347" : "white",
+                },
+              ]}
             >
-              <Ionicons name="chevron-forward-circle" size={40} color="white" />
+              <P
+                style={[
+                  typography.font14,
+                  typography.fontLato,
+                  typography.textBold,
+                  {
+                    color: activeTab === "Documents" ? "white" : "black",
+                  },
+                ]}
+              >
+                Documents
+              </P>
             </TouchableOpacity>
           </View>
-        )}
-      />
+
+          {activeTab === "Images" && images.length > 0 && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View
+                style={[
+                  styles.row,
+                  {
+                    gap: 4,
+                  },
+                ]}
+              >
+                {images.map((image, index) => (
+                  <TouchableOpacity
+                    key={`image-${index}`}
+                    onPress={() => {
+                      setSelectedImageIndex(index);
+                      setIsVisible(true);
+                    }}
+                  >
+                    <Image
+                      source={{ uri: image.uri }}
+                      style={[
+                        spacing.p2,
+                        spacing.bw05,
+                        spacing.br1,
+                        {
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: 140,
+                          height: 140,
+                        },
+                      ]}
+                    />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          )}
+
+          {/* Document Section */}
+          {activeTab === "Documents" && documents.length > 0 && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View
+                style={[
+                  styles.row,
+                  {
+                    gap: 4,
+                  },
+                ]}
+              >
+                {documents.map((pdf, index) => (
+                  <TouchableOpacity
+                    key={`pdf-${index}`}
+                    onPress={() => {
+                      Linking.openURL(pdf);
+                    }}
+                    style={[
+                      spacing.p2,
+                      spacing.bw05,
+                      spacing.br2,
+                      {
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderColor: "#ff6347",
+                        width: 140,
+                        height: 140,
+                      },
+                    ]}
+                  >
+                    <Image
+                      source={{
+                        uri: "https://img.icons8.com/ios-filled/50/ff6347/pdf.png",
+                      }}
+                      style={{ width: 50, height: 50 }}
+                    />
+                    <P
+                      style={[
+                        typography.font14,
+                        typography.fontLato,
+                        {
+                          textAlign: "center",
+                          color: "#ff6347",
+                        },
+                      ]}
+                    >
+                      Download PDF
+                    </P>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          )}
+
+          {/* Image Viewer */}
+          <ImageViewing
+            images={images}
+            imageIndex={selectedImageIndex}
+            visible={isVisible}
+            onRequestClose={() => setIsVisible(false)}
+          />
+        </View>
+      )}
     </View>
   );
 }

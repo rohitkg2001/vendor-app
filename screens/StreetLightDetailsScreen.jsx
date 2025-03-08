@@ -4,10 +4,14 @@ import MyHeader from "../components/header/MyHeader";
 import StreetLightImages from "../components/StreetLightImages";
 import { spacing, styles, typography } from "../styles";
 import { P, H5 } from "../components/text";
+import { useEffect } from "react";
 
 const StreetLightDetailsScreen = ({ route }) => {
   const { item } = route.params;
 
+  useEffect(() => {
+    console.log(item);
+  }, []);
   return (
     <ContainerComponent>
       <MyHeader
@@ -43,7 +47,7 @@ const StreetLightDetailsScreen = ({ route }) => {
             {item.complete_pole_number}
           </H5>
 
-          <P
+          {/* <P
             style={[
               typography.font14,
               typography.fontLato,
@@ -52,7 +56,7 @@ const StreetLightDetailsScreen = ({ route }) => {
             ]}
           >
             {item.panchayat}, {item.block}, {item.ward} - {item.state}
-          </P>
+          </P> */}
         </View>
 
         <View style={[styles.row, spacing.pv2]}>
@@ -66,11 +70,11 @@ const StreetLightDetailsScreen = ({ route }) => {
                 },
               ]}
             >
-              Start Date
+              Submission Date
             </P>
-            <P style={[typography.font12]}>{item.start_date}</P>
+            <P style={[typography.font12]}>{item.updated_at}</P>
           </View>
-          <View>
+          {/* <View>
             <P
               style={[
                 typography.font12,
@@ -83,7 +87,7 @@ const StreetLightDetailsScreen = ({ route }) => {
               End Date
             </P>
             <P style={[typography.font12]}>{item.end_date}</P>
-          </View>
+          </View> */}
         </View>
 
         <View
@@ -159,7 +163,7 @@ const StreetLightDetailsScreen = ({ route }) => {
           </View>
         </View>
 
-        <View style={[styles.row]}>
+        <View style={[styles.row, spacing.bbw05]}>
           <View>
             <P
               style={[
@@ -179,6 +183,7 @@ const StreetLightDetailsScreen = ({ route }) => {
               style={[
                 typography.font12,
                 typography.fontLato,
+
                 {
                   textTransform: "uppercase",
                 },
