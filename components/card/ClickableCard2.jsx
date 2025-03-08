@@ -3,13 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { P, Span } from "../text";
-import {
-  PRIMARY_COLOR,
-  spacing,
-  styles,
-  typography,
-  SCREEN_WIDTH,
-} from "../../styles";
+import { PRIMARY_COLOR, spacing, styles, typography } from "../../styles";
 
 const ClickableCard2 = ({
   // navigation,
