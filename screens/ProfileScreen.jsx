@@ -69,6 +69,8 @@ const ProfileScreen = ({ navigation }) => {
                 vendorImage: vendor.image,
                 vendorName: `${vendor.firstName} ${vendor.lastName}`,
                 contactNo: vendor.contactNo,
+                email: vendor.email,
+                address: vendor.address,
               })
             }
           >
