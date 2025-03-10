@@ -13,80 +13,6 @@ const ProfileChangeScreen = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* <View style={[spacing.p5, { backgroundColor: "#000", paddingTop: 50 }]}>
-        <H4
-          style={[
-            typography.font18,
-            typography.fontLato,
-            typography.textBold,
-            { color: LIGHT },
-          ]}
-        >
-          Profile
-        </H4>
-      </View> */}
-      {/* <ImageBackground
-        source={require("../assets/renable.jpeg")}
-        style={{
-          width: "100%",
-          height: 170,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        resizeMode="cover"
-      ></ImageBackground>
-      <View
-        style={[
-          spacing.p5,
-          spacing.br3,
-          spacing.mh3,
-          {
-            alignItems: "center",
-            backgroundColor: "#2C3E50",
-            marginTop: -20,
-          },
-        ]}
-      >
-        <Image
-          source={{ uri: profileImage }}
-          style={{
-            width: 110,
-            height: 110,
-            borderRadius: 55,
-            borderWidth: 2,
-            borderColor: "#27AE60",
-          }}
-        />
-        <H6
-          style={[
-            typography.font18,
-            typography.fontLato,
-            typography.textBold,
-            spacing.mt2,
-            { color: "#ECF0F1" },
-          ]}
-        >
-          {vendorName}
-        </H6>
-        <P style={[typography.font14, { color: "#BDC3C7" }]}>{email}</P>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate("attendancePunch")}
-          style={[
-            spacing.p2,
-            spacing.br5,
-            {
-              position: "absolute",
-              bottom: 10,
-              right: 20,
-              backgroundColor: "#76885B",
-            },
-          ]}
-        >
-          <Ionicons name="camera-outline" size={24} color="#fff" />
-        </TouchableOpacity>
-      </View> */}
-
       <ImageBackground
         source={require("../assets/renable.jpeg")}
         style={{
@@ -103,7 +29,7 @@ const ProfileChangeScreen = ({ route, navigation }) => {
             position: "absolute",
             width: "100%",
             height: "100%",
-           // backgroundColor: "rgba(0, 0, 0, 0.3)",
+            // backgroundColor: "rgba(0, 0, 0, 0.3)",
           }}
         />
       </ImageBackground>
@@ -154,10 +80,6 @@ const ProfileChangeScreen = ({ route, navigation }) => {
             backgroundColor: "#1ABC9C",
             padding: 10,
             borderRadius: 25,
-            // shadowColor: "#000",
-            // shadowOffset: { width: 0, height: 3 },
-            // shadowOpacity: 0.3,
-            // shadowRadius: 5,
           }}
         >
           <Ionicons name="camera-outline" size={24} color="#fff" />
