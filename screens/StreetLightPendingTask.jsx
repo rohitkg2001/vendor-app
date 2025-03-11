@@ -109,28 +109,28 @@ const StreetLightPendingTask = ({ navigation }) => {
     });
   };
 
-  const filterData = (tab) => {
-    if (tab === "Survey") {
-      setFilteredData(surveyedStreetLights || []);
-    } else if (tab === "Installed") {
-      setFilteredData(installedStreetLights || []);
-    } else if (tab === "Approved") {
-      setFilteredData(
-        pendingStreetLights?.filter((task) => task.status === "Approved") || []
-      );
-    } else if (tab === "InApproved") {
-      setFilteredData(
-        pendingStreetLights?.filter((task) => task.status === "InApproved") ||
-          []
-      );
-    } else if (tab === "Rejected") {
-      setFilteredData(
-        pendingStreetLights?.filter((task) => task.status === "Rejected") || []
-      );
-    } else {
-      setFilteredData(pendingStreetLights || []);
-    }
-  };
+const filterData = (tab) => {
+  if (tab === "Survey") {
+    // Both "Survey" and "Surveyed poles" should show surveyed data
+    setFilteredData(surveyedStreetLights || []);
+  } else if (tab === "Installed") {
+    setFilteredData(installedStreetLights || []);
+  } else if (tab === "Approved") {
+    setFilteredData(
+      pendingStreetLights?.filter((task) => task.status === "Approved") || []
+    );
+  } else if (tab === "InApproved") {
+    setFilteredData(
+      pendingStreetLights?.filter((task) => task.status === "InApproved") || []
+    );
+  } else if (tab === "Rejected") {
+    setFilteredData(
+      pendingStreetLights?.filter((task) => task.status === "Rejected") || []
+    );
+  } else {
+    setFilteredData(pendingStreetLights || []);
+  }
+};
 
   return (
     <ContainerComponent>
@@ -222,13 +222,20 @@ const StreetLightPendingTask = ({ navigation }) => {
             <Tabs
               tabs={[
                 `All ${tabCounts.All}`,
-                `Survey ${tabCounts.Survey}`,
+                `Surveyed poles ${tabCounts.Survey}`,
                 `Installed ${tabCounts.Installed}`,
                 `Approved ${tabCounts.Approved}`,
                 `InApproved ${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
-              onTabPress={(tabLabel) => setActiveTab(tabLabel.split(" ")[0])}
+              onTabPress={(tabLabel) => {
+                // Map "Surveyed poles" to "Survey" for internal state
+                if (tabLabel.startsWith("Surveyed")) {
+                  setActiveTab("Survey"); // Set activeTab to "Survey" for filtering
+                } else {
+                  setActiveTab(tabLabel.split(" ")[0]); // Set activeTab to the actual tab name
+                }
+              }}
               activeTab={activeTab}
               // tabStyles={{
               //   activeBackgroundColor: "#76885B",
