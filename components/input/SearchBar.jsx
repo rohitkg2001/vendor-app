@@ -35,6 +35,8 @@ export default function SearchBar({ value, onChangeText, style }) {
         placeholder={t("placeholder")}
         value={value}
         onChangeText={onChangeText}
+        // blurOnSubmit={false}
+        autoFocus={true} // Ensure input stays focuseds
         style={[
           { marginHorizontal: 4, height: 48, paddingLeft: 12, fontSize: 18 },
           style,
