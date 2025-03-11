@@ -6,6 +6,7 @@ import {
   LIGHT,
   PRIMARY_COLOR,
   PRIMARY_COLOR_TRANSPARENT,
+  SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
@@ -30,7 +31,7 @@ export const styles = StyleSheet.create({
     height: 54,
     fontSize: 18,
     borderColor: PRIMARY_COLOR,
-    borderWidth: 1,
+    borderWidth: 0.5,
   },
   primaryButton: {
     marginVertical: 8,
@@ -316,7 +317,7 @@ export const styles = StyleSheet.create({
     marginTop: 4,
   },
   textInput: {
-    width: 310,
+    width: SCREEN_WIDTH - 16,
     color: "#020409",
   },
   map: {
@@ -340,27 +341,37 @@ export const styles = StyleSheet.create({
   notificationBadgeContainer: {
     position: "absolute",
     top: 0,
-    right: 5,
+    right: 0,
     height: 24,
     width: 24,
     borderRadius: 12,
   },
   progressBar: {
-    width: '100%',
-    backgroundColor: '#e0e0e0', // Light grey background for the progress bar
+    width: "100%",
+    backgroundColor: "#e0e0e0", // Light grey background for the progress bar
     height: 5,
     borderRadius: 5,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   filePreview: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#f9f9f9', // Light background for the file preview
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#f9f9f9", // Light background for the file preview
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#ddd', // Light grey border
+    borderColor: "#ddd", // Light grey border
     marginTop: 10,
+  },
+  addButton: {
+    position: "absolute",
+    top: SCREEN_HEIGHT - 180,
+    right: 20,
+    backgroundColor: "#76885B",
+    borderRadius: 50,
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

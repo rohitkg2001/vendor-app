@@ -18,6 +18,10 @@ import {
   styles,
   typography,
   ICON_LARGE,
+<<<<<<< HEAD
+=======
+  LIGHT,
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
 } from "../styles";
 import { H5, H6, P, Span } from "../components/text";
 
@@ -27,27 +31,48 @@ export default function TaskDetailScreen({ navigation }) {
   return (
     <ContainerComponent>
       {/* <MyHeader title={"Task details"} isBack={true} hasIcon={true} /> */}
+<<<<<<< HEAD
       <MyHeader
         title={`${task.site.breda_sl_no}, ${task.site.site_name}`}
         isBack={true}
         hasIcon={true}
       />
+=======
+      <MyHeader title={`${task.site.site_name}`} isBack={true} hasIcon={true} />
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
 
       <View style={{ width: SCREEN_WIDTH - 16 }}>
         <View
           style={[
             styles.row,
+<<<<<<< HEAD
             {
               flexWrap: "wrap",
               paddingVertical: spacing.pv1,
+=======
+            spacing.br2,
+            spacing.p2,
+            spacing.p2,
+
+            {
+              flexWrap: "wrap",
+              backgroundColor: "#5D92F4",
+              top: 4,
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
             },
           ]}
         >
           <H5
             style={[
+<<<<<<< HEAD
               typography.font14,
               typography.fontLato,
               { textAlign: "left", flexShrink: 1 },
+=======
+              typography.font16,
+              typography.fontLatoBold,
+              { flexShrink: 1, color: "#fff" },
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
             ]}
           >
             {task.site.breda_sl_no},
@@ -57,10 +82,18 @@ export default function TaskDetailScreen({ navigation }) {
             style={[
               typography.font14,
               typography.fontLato,
+<<<<<<< HEAD
               {
                 flex: 2,
                 marginLeft: 8,
                 flexShrink: 1,
+=======
+              spacing.ml2,
+              {
+                flex: 2,
+                flexShrink: 1,
+                color: LIGHT,
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
               },
             ]}
             numberOfLines={task.site.site_name.length > 20 ? 2 : 1}
@@ -68,6 +101,10 @@ export default function TaskDetailScreen({ navigation }) {
             {task.site.site_name}
           </P>
 
+<<<<<<< HEAD
+=======
+          {/* Location */}
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
           <P
             style={[
               typography.font12,
@@ -75,7 +112,11 @@ export default function TaskDetailScreen({ navigation }) {
               {
                 textAlign: "right",
                 flex: 1,
+<<<<<<< HEAD
                 color: "#555",
+=======
+                color: LIGHT,
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
                 marginTop: task.site.site_name.length > 20 ? 4 : 0,
               },
             ]}
@@ -84,12 +125,18 @@ export default function TaskDetailScreen({ navigation }) {
           </P>
         </View>
 
+<<<<<<< HEAD
         <View style={[spacing.mt1, styles.row, spacing.mv2]}>
           <View>
+=======
+        <View style={[spacing.mt2, styles.row, spacing.mv2, spacing.p2]}>
+          <View style={{ alignItems: "center", flex: 1 }}>
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
             <Span
               style={[
                 typography.font10,
                 typography.fontLato,
+<<<<<<< HEAD
                 { textTransform: "uppercase", color: "gray" },
               ]}
             >
@@ -100,16 +147,67 @@ export default function TaskDetailScreen({ navigation }) {
             </P>
           </View>
           <View>
+=======
+                {
+                  textTransform: "uppercase",
+                },
+              ]}
+            >
+              Start Date
+            </Span>
+            <P
+              style={[
+                typography.font14,
+                typography.fontLato,
+                { color: "#1E40AF" },
+              ]}
+            >
+              {moment(task.start_date).format("DD-MM-YYYY")}
+            </P>
+          </View>
+
+          {/* Divider Line */}
+          <View
+            style={[
+              spacing.mh5,
+              {
+                height: "100%",
+                width: 1.5,
+                backgroundColor: "#D1D5DB",
+              },
+            ]}
+          />
+
+          <View style={{ alignItems: "center", flex: 1 }}>
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
             <Span
               style={[
                 typography.font10,
                 typography.fontLato,
+<<<<<<< HEAD
                 { textTransform: "uppercase", color: "gray" },
               ]}
             >
               End date
             </Span>
             <P style={[typography.font12, typography.fontLato]}>
+=======
+                {
+                  textTransform: "uppercase",
+                  color: "#6B7280",
+                },
+              ]}
+            >
+              End Date
+            </Span>
+            <P
+              style={[
+                typography.font14,
+                typography.fontLato,
+                { color: "#DC2626" },
+              ]}
+            >
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
               {moment(task.end_date).format("DD-MM-YYYY")}
             </P>
           </View>
@@ -216,13 +314,31 @@ export default function TaskDetailScreen({ navigation }) {
           </View>
         </View>
 
+<<<<<<< HEAD
         <View style={[styles.row]}>
+=======
+        <View
+          style={[
+            styles.row,
+            spacing.pv2,
+            spacing.mb2,
+            {
+              borderBottomWidth: 1,
+              borderBottomColor: "#D1D5DB",
+            },
+          ]}
+        >
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
           <H5
             style={[
               typography.font14,
               typography.textBold,
               typography.fontLato,
+<<<<<<< HEAD
               { textAlign: "left" },
+=======
+              { textAlign: "left", flex: 1 },
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
             ]}
           >
             Submission
@@ -232,7 +348,11 @@ export default function TaskDetailScreen({ navigation }) {
               typography.font14,
               typography.fontLato,
               spacing.pv1,
+<<<<<<< HEAD
               { textAlign: "right" },
+=======
+              { textAlign: "right", flex: 1 },
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
             ]}
           >
             {moment(task.site.updated_at).format("DD-MMM-YYYY HH:mm A")}

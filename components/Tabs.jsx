@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { styles, spacing, typography } from "../styles";
 
-const Tabs = ({ tabs, onTabPress, activeTab }) => {
+const Tabs = ({ tabs, onTabPress, activeTab, tabStyles = {} }) => {
   const handleTabPress = (tab) => {
     if (onTabPress) {
       onTabPress(tab);
-    } 
+    }
   };
 
   return (
@@ -18,33 +18,42 @@ const Tabs = ({ tabs, onTabPress, activeTab }) => {
         },
       ]}
     >
-      {tabs.map((tab, index) => (
-        <TouchableOpacity
-          key={index}
-          style={[
-            spacing.pv2,
-            spacing.ph2,
-            spacing.br3,
-            {
-              backgroundColor: activeTab === tab ? "#76885B" : "#C8E6C9",
-            },
-          ]}
-          onPress={() => handleTabPress(tab)}
-        >
-          <Text
+      {tabs.map((tab, index) => {
+        const tabLabel = tab.split(" ")[0];
+        const isActive = activeTab.split(" ")[0] === tabLabel;
+
+        return (
+          <TouchableOpacity
+            key={index}
             style={[
-              typography.font10,
-              typography.fontLato,
+              spacing.pv2,
+              spacing.ph1,
+              spacing.br3,
               {
-                color: activeTab === tab ? "#fff" : "#333",
-                fontWeight: activeTab === tab ? "bold" : "normal",
+                backgroundColor: isActive
+                  ? tabStyles.activeBackgroundColor || "#76885B"
+                  : tabStyles.inactiveBackgroundColor || "#C8E6C9",
               },
             ]}
+            onPress={() => handleTabPress(tabLabel)}
           >
-            {tab}
-          </Text>
-        </TouchableOpacity>
-      ))}
+            <Text
+              style={[
+                typography.font10,
+                typography.fontLato,
+                {
+                  color: isActive
+                    ? tabStyles.activeTextColor || "#fff"
+                    : tabStyles.inactiveTextColor || "#333",
+                  fontWeight: isActive ? "bold" : "normal",
+                },
+              ]}
+            >
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };

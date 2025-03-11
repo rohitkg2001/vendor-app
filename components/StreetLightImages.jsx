@@ -1,48 +1,45 @@
-// import all react native
+import React, { useEffect, useState } from "react";
 import {
   View,
   Image,
   ScrollView,
-  Linking,
   TouchableOpacity,
+  Linking,
 } from "react-native";
-import React, { useEffect, useState } from "react";
 import ImageViewing from "react-native-image-viewing";
-// import styles
-import { styles, typography, spacing } from "../styles";
+import { typography, spacing, styles } from "../styles";
 import { P } from "./text";
 
-export default function ImageDisplay({ source }) {
+export default function StreetLightFiles({ source }) {
   const [images, setImages] = useState([]);
-  const [documents, setDocuments] = useState([]);
-  const [activeTab, setActiveTab] = useState("Images");
+  const [pdfs, setPdfs] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState("Images"); // Track active tab
 
-  const setAndFilterImages = (source) => {
-    const newImages = [];
-    const newDocuments = [];
+  useEffect(() => {
+    if (Array.isArray(source)) {
+      const newImages = [];
+      const newPdfs = [];
 
-    Array.isArray(source) &&
       source.forEach((item) => {
-        const extension = item.split(".").pop().toLowerCase();
-        if (extension === "pdf") {
-          newDocuments.push(item);
-        } else {
-          newImages.push({ uri: item });
+        if (typeof item === "string") {
+          if (item.endsWith(".pdf")) {
+            newPdfs.push(item);
+          } else {
+            newImages.push({ uri: item });
+          }
         }
       });
 
-    setImages(newImages);
-    setDocuments(newDocuments);
-  };
-
-  useEffect(() => {
-    setAndFilterImages(source);
+      setImages(newImages);
+      setPdfs(newPdfs);
+    }
   }, [source]);
 
   return (
     <View style={[spacing.mt4]}>
+      {/* Heading */}
       <P
         style={[
           typography.font16,
@@ -57,7 +54,7 @@ export default function ImageDisplay({ source }) {
       >
         Survey Files
       </P>
-      {(images.length > 0 || documents.length > 0) && (
+      {(images.length > 0 || pdfs.length > 0) && (
         <View>
           <View
             style={[
@@ -165,7 +162,7 @@ export default function ImageDisplay({ source }) {
           )}
 
           {/* Document Section */}
-          {activeTab === "Documents" && documents.length > 0 && (
+          {activeTab === "Documents" && pdfs.length > 0 && (
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View
                 style={[
@@ -175,7 +172,7 @@ export default function ImageDisplay({ source }) {
                   },
                 ]}
               >
-                {documents.map((pdf, index) => (
+                {pdfs.map((pdf, index) => (
                   <TouchableOpacity
                     key={`pdf-${index}`}
                     onPress={() => {

@@ -20,6 +20,10 @@ import CardFullWidth from "../components/card/CardFullWidth";
 import {
   getAllInstallationCount,
   getAllTasks,
+<<<<<<< HEAD
+=======
+  getInstalledPoles,
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
   getStreetLightTasks,
 } from "../redux/actions/taskActions";
 
@@ -48,6 +52,19 @@ export default function WelcomeScreen({ navigation }) {
     surveyedStreetLightCounts,
   ]);
 
+<<<<<<< HEAD
+=======
+  const openPendingTasks = async () =>
+  {
+    try {
+         await dispatch(getInstalledPoles(id));
+         navigation.navigate("streetLightPendingTask"); 
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
   return (
     <ContainerComponent>
       <MyHeader isBack title="Welcome" hasIcon />
@@ -121,7 +138,11 @@ export default function WelcomeScreen({ navigation }) {
                 alignItems: "center",
               },
             ]}
+<<<<<<< HEAD
             onPress={() => navigation.navigate("streetLightPendingTask")}
+=======
+            onPress={openPendingTasks}
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
           >
             <Image
               source={require("../assets/solar.png")}

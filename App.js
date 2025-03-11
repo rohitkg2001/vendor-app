@@ -7,34 +7,41 @@ import store from "./store";
 import i18n from "./i18n";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LanguageSelector from './components/LanguageSelector'
-import { View, ActivityIndicator } from 'react-native'
+import useFonts from "./hooks/useFonts";
+import * as Fonts from 'expo-font'
+import { ActivityIndicator } from "react-native";
 
 export default function App() {
   const [language, setLanguage] = useState(null);
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
+  const [loaded, setLoaded] = useState(true)
 
-  const selectLanguage = async ( lang ) =>
-  {
- 
+  const loadFonts = async () => {
+    await useFonts();
+    setLoaded(false)
+  };
+
+  const selectLanguage = async (lang) => {
     await AsyncStorage.setItem("appLanguage", lang);
     i18n.changeLanguage(lang);
     setLanguage(lang);
     setIsLanguageSelected(true);
   };
 
-  useEffect(() => {
-    const fetchLanguage = async () => {
-      const storedLanguage = await AsyncStorage.getItem("appLanguage");
-      if (storedLanguage) {
-        i18n.changeLanguage(storedLanguage); 
-        setLanguage(storedLanguage);
-        setIsLanguageSelected(true);
-      } else {
-        setIsLanguageSelected(false); 
-      }
-    };
+  const fetchLanguage = async () => {
+    const storedLanguage = await AsyncStorage.getItem("appLanguage");
+    if (storedLanguage) {
+      i18n.changeLanguage(storedLanguage);
+      setLanguage(storedLanguage);
+      setIsLanguageSelected(true);
+    } else {
+      setIsLanguageSelected(false);
+    }
+  };
 
+  useEffect(() => {
     fetchLanguage();
+    loadFonts()
   }, []);
 
   // if (!language) {
@@ -57,6 +64,7 @@ export default function App() {
   if (!isLanguageSelected) {
     return <LanguageSelector onSelectLanguage={selectLanguage} />;
   }
+  if (loaded) return <ActivityIndicator size="large" animating />
 
   return (
     <Provider store={store}>

@@ -8,7 +8,13 @@ import { H5 } from "../components/text";
 import Button from "../components/buttons/Button";
 import { menuItems } from "../utils/faker";
 import { useSelector, useDispatch } from "react-redux";
-import { layouts, spacing, ICON_SMALL, DANGER_COLOR } from "../styles";
+import {
+  layouts,
+  spacing,
+  ICON_SMALL,
+  DANGER_COLOR,
+  typography,
+} from "../styles";
 import { useEffect } from "react";
 import { getAllProjects } from "../redux/actions/projectActions";
 import { getAllItems } from "../redux/actions/inventoryActions";
@@ -19,7 +25,7 @@ export default function SettingsScreen() {
   const { vendor } = useSelector((state) => state);
 
   const handleLogoutPress = () => {
-    navigation.navigate("loginScreen");
+    navigation.navigate("cardScreen");
   };
 
   useEffect(() => {
@@ -45,8 +51,8 @@ export default function SettingsScreen() {
             onPress={() => {
               item.id === 0
                 ? navigation.navigate(item.page, {
-                  title: item.label,
-                })
+                    title: item.label,
+                  })
                 : navigation.navigate(item.page);
             }}
           />
@@ -55,7 +61,7 @@ export default function SettingsScreen() {
 
       <Button style={[spacing.mb2, layouts.center]} onPress={handleLogoutPress}>
         <Icon name="power-outline" size={ICON_SMALL} color={DANGER_COLOR} />
-        <H5 style={{ color: DANGER_COLOR }}>Logout</H5>
+        <H5 style={[typography.fontLato, { color: DANGER_COLOR }]}>Logout</H5>
       </Button>
     </ContainerComponent>
   );

@@ -1,4 +1,4 @@
-import { View, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import React from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";

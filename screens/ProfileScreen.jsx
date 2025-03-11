@@ -1,4 +1,6 @@
-import { View, Image } from "react-native";
+// import react native
+import { View, Image, TouchableOpacity } from "react-native";
+// import components
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import {
@@ -33,7 +35,7 @@ const ProfileItem = ({ iconName, label }) => {
   );
 };
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { vendor } = useSelector((state) => state);
 
@@ -43,23 +45,61 @@ const ProfileScreen = () => {
 
       <CardFullWidth backgroundColor={PRIMARY_COLOR}>
         <View style={[styles.row, { alignItems: "center", marginTop: -10 }]}>
-          <Avatar
-            avatar={vendor.image}
-            name={`${vendor.firstName} ${vendor.lastName}`}
-            online={false}
-          />
+          {/* <View>
+            <Avatar
+              avatar={vendor.image}
+              name={`${vendor.firstName} ${vendor.lastName}`}
+              online={false}
+            />
+          </View> */}
+          {/* <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("profileChange")}
+            >
+              <Avatar
+                avatar={vendor.image}
+                name={`${vendor.firstName} ${vendor.lastName}`}
+                online={false}
+              />
+            </TouchableOpacity>
+          </View> */}
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("profileChange", {
+                vendorImage: vendor.image,
+                vendorName: `${vendor.firstName} ${vendor.lastName}`,
+                contactNo: vendor.contactNo,
+                email: vendor.email,
+                address: vendor.address,
+              })
+            }
+          >
+            <Avatar
+              avatar={vendor.image}
+              name={`${vendor.firstName} ${vendor.lastName}`}
+              online={false}
+            />
+          </TouchableOpacity>
 
           <View style={spacing.mh2}>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font14, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.firstName} {vendor.lastName}
             </H6>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font12, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.email}
             </H6>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font14, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.contactNo}
             </H6>
-            <H6 style={[typography.font14, { color: LIGHT }]}>
+            <H6
+              style={[typography.font14, typography.fontLato, { color: LIGHT }]}
+            >
               {vendor.address}
             </H6>
           </View>

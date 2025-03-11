@@ -29,6 +29,20 @@ export default function AttendancePunchScreen({ navigation }) {
     );
   }
 
+<<<<<<< HEAD
+=======
+  // const takePictureAndNavigate = async () => {
+  //   if (cameraRef.current) {
+  //     const photo = await cameraRef.current.takePictureAsync();
+
+  //     if (photo) {
+  //       console.log(id, photo);
+  //       await updatePicture(id, photo);
+  //     }
+  //   }
+  // };
+
+>>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
   const takePictureAndNavigate = async () => {
     if (cameraRef.current) {
       try {

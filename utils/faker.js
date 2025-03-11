@@ -175,3 +175,82 @@ export const PageData = [
     text: "Keep a Sharp Eye on Your Stock Levels with Ease!",
   },
 ];
+
+// faker.js
+
+export { blocks, panchayats, wards };
+const blocks = {
+  Patna: [
+    { label: "Patna Sadar", value: "Patna Sadar" },
+    { label: "Danapur", value: "Danapur" },
+    { label: "Phulwari Sharif", value: "Phulwari Sharif" },
+    { label: "Paliganj", value: "Paliganj" },
+    { label: "Masaurhi", value: "Masaurhi" },
+  ],
+  district2: [
+    { label: "Gaya Sadar", value: "block1" },
+    { label: "Bodh Gaya", value: "block2" },
+    { label: "Belaganj", value: "block3" },
+    { label: "Khizersarai", value: "block4" },
+    { label: "Sherghati", value: "block5" },
+  ],
+};
+
+const panchayats = {
+  Patna: [
+    { label: "Fatehpur", value: "Fathehpur" },
+    { label: "Mahauli", value: "panchayat2" },
+    { label: "Marchi", value: "panchayat3" },
+    { label: "Punadih", value: "panchayat4" }
+  ],
+  district2: [
+    { label: "Gaya Sadar", value: "panchayat1" },
+    { label: "Bodh Gaya", value: "panchayat2" },
+    { label: "Sherghati", value: "panchayat3" },
+    { label: "Tekari", value: "panchayat4" },
+    { label: "Manpur", value: "panchayat5" },
+    { label: "Rafiganj", value: "panchayat6" },
+    { label: "Dumaria", value: "panchayat7" },
+    { label: "Belaganj", value: "panchayat8" },
+  ],
+};
+
+const wards = {
+  Patna: [
+    { label: "Ward 1", value: "Ward 1" },
+    { label: "Ward 2", value: "ward2" },
+    { label: "Ward 3", value: "ward3" },
+    { label: "Ward 4", value: "ward4" },
+    { label: "Ward 5", value: "ward5" },
+  ],
+  district2: [
+    { label: "Ward 1", value: "ward1" },
+    { label: "Ward 2", value: "ward2" },
+    { label: "Ward 3", value: "ward3" },
+    { label: "Ward 4", value: "ward4" },
+    { label: "Ward 5", value: "ward5" },
+  ],
+};
+
+export const fakeStreetLights = [
+  {
+    id: 1,
+    state: "Bihar",
+    district: "Patna",
+    block: "Patna sadar",
+    panchayat: "Fathepur",
+    wards: [1, 2, 3, 4],
+    start_date: "20-02-2025",
+    end_date: "30-03-2025"
+  },
+  {
+    id: 1,
+    state: "Bihar",
+    district: "Patna",
+    block: "Danapur",
+    panchayat: "Patna Sachivalaya",
+    wards: [8, 9, 4],
+    start_date: "20-02-2025",
+    end_date: "30-03-2025"
+  }
+]

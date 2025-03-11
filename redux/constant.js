@@ -1,5 +1,6 @@
 export const BASE_URL = "https://slldm.com";
-// export const BASE_URL = "http://192.168.1.5:8000"
+//export const BASE_URL = "http://192.168.1.5:8000"
+//export const BASE_URL = "https://solarcrm.dashandots.tech";
 export const initialState = {};
 
 export const LOGIN_VENDOR = "LOGIN_VENDOR";
@@ -16,7 +17,7 @@ export const UPDATE_TASK = "UPDATE_TASK,";
 export const GET_ALL_SITES = "GET_ALL_SITES";
 export const VIEW_SITE = "VIEW_SITE";
 export const SEARCH_SITE = "SEARCH_SITE";
-export const SET_SITES_COUNT = "SET_SITES_COUNT"
+export const SET_SITES_COUNT = "SET_SITES_COUNT";
 
 export const GET_ALL_PROJECTS = "GET_ALL_PROJECTS";
 export const VIEW_PROJECT = "VIEW_PROJECT";
@@ -37,4 +38,16 @@ export const UPDATE_PAYMENT = "UPDATE_PAYMENT";
 export const DELETE_PAYMENT = "DELETE_PAYMENT";
 export const COUNT_PAYMENTS = "COUNT_PAYMENTS";
 
+export const SET_SITE_INFO = "SET_SITE_INFO";
+
 // Set all constants here including assets, texts,etc
+export const GET_PENDING_STREETLIGHTS = "GET_PENDING_STREETLIGHTS";
+export const TOTAL_PENDING_STREETLIGHT = "SET_TOTAL_PENDING_STREETLIGHT";
+export const GET_SURVEYED_STREETLIGHTS = "GET_SURVEYED_STREETLIGHTS";
+export const TOTAL_SURVEYED_STREETLIGHTS = "TOTAL_SURVEYED_STREETLIGHTS";
+export const GET_INSTALLED_STREETLIGHTS = "GET_INSTALLED_STREETLIGHTS";
+export const TOTAL_INSTALLED_STREETLIGHTS = "TOTAL_INSTALLED_STREETLIGHTS";
+export const GET_VIEW_STREETLIGHTS = "GET_VIEW_STREETLIGHTS";
+export const SET_POLE_NUMBER = "SET_POLE_NUMBER";
+export const SET_BENEFICIARY_NAME = "SET_BENEFICIARY_NAME";
+export const SET_LOCATION_REMARKS = "SET_LOCATION_REMARKS";

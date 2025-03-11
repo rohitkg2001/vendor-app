@@ -26,7 +26,11 @@ export default function ClickableCard1({
   positiveAction,
   onPress,
   onLongPressAction,
+  isViewButtonVisible = false,
+  viewText,
+  viewAction,
   selected = false,
+  borderColor = "transparent",
 }) {
   return (
     <TouchableOpacity
@@ -38,12 +42,20 @@ export default function ClickableCard1({
         style={{
           backgroundColor: selected ? PRIMARY_COLOR_TRANSPARENT : LIGHT,
           borderRadius: 8,
+          borderWidth: 1, // Ensure the border width is applied
+          borderColor: borderColor, // Use the passed border color prop
         }}
       >
         <Card.Title
           title={<H5>{title}</H5>}
           subtitle={
-            <Span style={[typography.font12, { textTransform: "capitalize" }]}>
+            <Span
+              style={[
+                typography.font12,
+                typography.fontLato,
+                { textTransform: "capitalize" },
+              ]}
+            >
               {subtitle}
             </Span>
           }
@@ -83,6 +95,24 @@ export default function ClickableCard1({
                 style={{ fontSize: 16, color: "white", textAlign: "center" }}
               >
                 {positiveText}
+              </Span>
+            </Button>
+          )}
+
+          {isViewButtonVisible && (
+            <Button
+              style={{
+                width: 80,
+                padding: 8,
+                borderRadius: 8,
+                backgroundColor: PRIMARY_COLOR,
+              }}
+              onPress={viewAction}
+            >
+              <Span
+                style={{ fontSize: 16, color: "white", textAlign: "center" }}
+              >
+                {viewText}
               </Span>
             </Button>
           )}

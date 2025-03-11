@@ -1,5 +1,5 @@
 import { View, TextInput } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { SCREEN_WIDTH, ICON_SMALL, styles } from "../../styles";
 import { useTranslation } from "react-i18next";
 

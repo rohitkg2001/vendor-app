@@ -1,7 +1,6 @@
 import { View, TouchableOpacity } from "react-native";
-import { H3, H5, P } from "../text";
+import { H5, P } from "../text";
 import {
-  ICON_LARGE,
   PRIMARY_COLOR_TRANSPARENT,
   DARK,
   spacing,
