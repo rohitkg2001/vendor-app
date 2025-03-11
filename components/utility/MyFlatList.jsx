@@ -30,6 +30,7 @@ export default function MyFlatList({
         <>
           <FlatList
             data={data}
+            keyboardShouldPersistTaps="handled" // Add this line
             renderItem={renderItem}
             keyExtractor={keyExtractor}
             initialNumToRender={50}

@@ -38,6 +38,193 @@ export default function StreetLightFiles({ source }) {
   }, [source]);
 
   return (
+    // <View style={[spacing.mt4]}>
+
+    //   <P
+    //     style={[
+    //       typography.font16,
+    //       typography.fontLato,
+    //       typography.textBold,
+
+    //       {
+    //         textAlign: "center",
+    //         bottom: 18,
+    //       },
+    //     ]}
+    //   >
+    //     Survey Files
+    //   </P>
+
+    //   {(images.length > 0 || pdfs.length > 0) && (
+    //     <View>
+    //       <View
+    //         style={[
+    //           styles.row,
+    //           spacing.pv1,
+    //           spacing.br2,
+    //           spacing.mb2,
+    //           {
+    //             backgroundColor: "#f0f0f0",
+    //           },
+    //         ]}
+    //       >
+    //         <TouchableOpacity
+    //           onPress={() => setActiveTab("Images")}
+    //           style={[
+    //             spacing.pv2,
+    //             spacing.mh1,
+    //             spacing.br2,
+    //             {
+    //               flex: 1,
+    //               alignItems: "center",
+    //               backgroundColor: activeTab === "Images" ? "#90afc4" : "white",
+    //             },
+    //           ]}
+    //         >
+    //           <P
+    //             style={[
+    //               typography.font14,
+    //               typography.fontLato,
+    //               typography.textBold,
+    //               {
+    //                 color: activeTab === "Images" ? "white" : "black",
+    //               },
+    //             ]}
+    //           >
+    //             Images
+    //           </P>
+    //         </TouchableOpacity>
+
+    //         <TouchableOpacity
+    //           onPress={() => setActiveTab("Documents")}
+    //           style={[
+    //             spacing.pv2,
+    //             spacing.br2,
+    //             spacing.mh1,
+    //             {
+    //               flex: 1,
+    //               alignItems: "center",
+    //               backgroundColor:
+    //                 activeTab === "Documents" ? "#ff6347" : "white",
+    //             },
+    //           ]}
+    //         >
+    //           <P
+    //             style={[
+    //               typography.font14,
+    //               typography.fontLato,
+    //               typography.textBold,
+    //               {
+    //                 color: activeTab === "Documents" ? "white" : "black",
+    //               },
+    //             ]}
+    //           >
+    //             Documents
+    //           </P>
+    //         </TouchableOpacity>
+    //       </View>
+
+    //       {activeTab === "Images" && images.length > 0 && (
+    //         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    //           <View
+    //             style={[
+    //               styles.row,
+    //               {
+    //                 gap: 4,
+    //               },
+    //             ]}
+    //           >
+    //             {images.map((image, index) => (
+    //               <TouchableOpacity
+    //                 key={`image-${index}`}
+    //                 onPress={() => {
+    //                   setSelectedImageIndex(index);
+    //                   setIsVisible(true);
+    //                 }}
+    //               >
+    //                 <Image
+    //                   source={{ uri: image.uri }}
+    //                   style={[
+    //                     spacing.p2,
+    //                     spacing.bw05,
+    //                     spacing.br1,
+    //                     {
+    //                       alignItems: "center",
+    //                       justifyContent: "center",
+    //                       width: 140,
+    //                       height: 140,
+    //                     },
+    //                   ]}
+    //                 />
+    //               </TouchableOpacity>
+    //             ))}
+    //           </View>
+    //         </ScrollView>
+    //       )}
+
+    //       {activeTab === "Documents" && pdfs.length > 0 && (
+    //         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    //           <View
+    //             style={[
+    //               styles.row,
+    //               {
+    //                 gap: 4,
+    //               },
+    //             ]}
+    //           >
+    //             {pdfs.map((pdf, index) => (
+    //               <TouchableOpacity
+    //                 key={`pdf-${index}`}
+    //                 onPress={() => {
+    //                   Linking.openURL(pdf);
+    //                 }}
+    //                 style={[
+    //                   spacing.p2,
+    //                   spacing.bw05,
+    //                   spacing.br2,
+    //                   {
+    //                     alignItems: "center",
+    //                     justifyContent: "center",
+    //                     borderColor: "#ff6347",
+    //                     width: 140,
+    //                     height: 140,
+    //                   },
+    //                 ]}
+    //               >
+    //                 <Image
+    //                   source={{
+    //                     uri: "https://img.icons8.com/ios-filled/50/ff6347/pdf.png",
+    //                   }}
+    //                   style={{ width: 50, height: 50 }}
+    //                 />
+    //                 <P
+    //                   style={[
+    //                     typography.font14,
+    //                     typography.fontLato,
+    //                     {
+    //                       textAlign: "center",
+    //                       color: "#ff6347",
+    //                     },
+    //                   ]}
+    //                 >
+    //                   Download PDF
+    //                 </P>
+    //               </TouchableOpacity>
+    //             ))}
+    //           </View>
+    //         </ScrollView>
+    //       )}
+
+    //       <ImageViewing
+    //         images={images}
+    //         imageIndex={selectedImageIndex}
+    //         visible={isVisible}
+    //         onRequestClose={() => setIsVisible(false)}
+    //       />
+    //     </View>
+    //   )}
+    // </View>
+
     <View style={[spacing.mt4]}>
       {/* Heading */}
       <P
@@ -45,95 +232,81 @@ export default function StreetLightFiles({ source }) {
           typography.font16,
           typography.fontLato,
           typography.textBold,
-
-          {
-            textAlign: "center",
-            bottom: 18,
-          },
+          { textAlign: "center", bottom: 18 },
         ]}
       >
         Survey Files
       </P>
-      {(images.length > 0 || pdfs.length > 0) && (
-        <View>
-          <View
+
+      {/* Tabs Always Visible */}
+      <View>
+        <View
+          style={[
+            styles.row,
+            spacing.pv1,
+            spacing.br2,
+            spacing.mb2,
+            { backgroundColor: "#f0f0f0" },
+          ]}
+        >
+          <TouchableOpacity
+            onPress={() => setActiveTab("Images")}
             style={[
-              styles.row,
-              spacing.pv1,
+              spacing.pv2,
+              spacing.mh1,
               spacing.br2,
-              spacing.mb2,
               {
-                backgroundColor: "#f0f0f0",
+                flex: 1,
+                alignItems: "center",
+                backgroundColor: activeTab === "Images" ? "#90afc4" : "white",
               },
             ]}
           >
-            <TouchableOpacity
-              onPress={() => setActiveTab("Images")}
+            <P
               style={[
-                spacing.pv2,
-                spacing.mh1,
-                spacing.br2,
-                {
-                  flex: 1,
-                  alignItems: "center",
-                  backgroundColor: activeTab === "Images" ? "#90afc4" : "white",
-                },
+                typography.font14,
+                typography.fontLato,
+                typography.textBold,
+                { color: activeTab === "Images" ? "white" : "black" },
               ]}
             >
-              <P
-                style={[
-                  typography.font14,
-                  typography.fontLato,
-                  typography.textBold,
-                  {
-                    color: activeTab === "Images" ? "white" : "black",
-                  },
-                ]}
-              >
-                Images
-              </P>
-            </TouchableOpacity>
+              Images
+            </P>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => setActiveTab("Documents")}
+          <TouchableOpacity
+            onPress={() => setActiveTab("Documents")}
+            style={[
+              spacing.pv2,
+              spacing.br2,
+              spacing.mh1,
+              {
+                flex: 1,
+                alignItems: "center",
+                backgroundColor:
+                  activeTab === "Documents" ? "#ff6347" : "white",
+              },
+            ]}
+          >
+            <P
               style={[
-                spacing.pv2,
-                spacing.br2,
-                spacing.mh1,
-                {
-                  flex: 1,
-                  alignItems: "center",
-                  backgroundColor:
-                    activeTab === "Documents" ? "#ff6347" : "white",
-                },
+                typography.font14,
+                typography.fontLato,
+                typography.textBold,
+                { color: activeTab === "Documents" ? "white" : "black" },
               ]}
             >
-              <P
-                style={[
-                  typography.font14,
-                  typography.fontLato,
-                  typography.textBold,
-                  {
-                    color: activeTab === "Documents" ? "white" : "black",
-                  },
-                ]}
-              >
-                Documents
-              </P>
-            </TouchableOpacity>
-          </View>
+              Documents
+            </P>
+          </TouchableOpacity>
+        </View>
 
-          {activeTab === "Images" && images.length > 0 && (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View
-                style={[
-                  styles.row,
-                  {
-                    gap: 4,
-                  },
-                ]}
-              >
-                {images.map((image, index) => (
+        {/* Images Section */}
+        {activeTab === "Images" && (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={[styles.row, { gap: 4 }]}>
+              {images.length > 0 ? (
+                images.map((image, index) => (
                   <TouchableOpacity
                     key={`image-${index}`}
                     onPress={() => {
@@ -156,23 +329,28 @@ export default function StreetLightFiles({ source }) {
                       ]}
                     />
                   </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          )}
+                ))
+              ) : (
+                <P
+                  style={[
+                    typography.font14,
+                    typography.fontLato,
+                    { textAlign: "center", color: "#888", padding: 10 },
+                  ]}
+                >
+                  No images available
+                </P>
+              )}
+            </View>
+          </ScrollView>
+        )}
 
-          {/* Document Section */}
-          {activeTab === "Documents" && pdfs.length > 0 && (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View
-                style={[
-                  styles.row,
-                  {
-                    gap: 4,
-                  },
-                ]}
-              >
-                {pdfs.map((pdf, index) => (
+        {/* Document Section */}
+        {activeTab === "Documents" && (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={[styles.row, { gap: 4 }]}>
+              {pdfs.length > 0 ? (
+                pdfs.map((pdf, index) => (
                   <TouchableOpacity
                     key={`pdf-${index}`}
                     onPress={() => {
@@ -201,29 +379,41 @@ export default function StreetLightFiles({ source }) {
                       style={[
                         typography.font14,
                         typography.fontLato,
-                        {
-                          textAlign: "center",
-                          color: "#ff6347",
-                        },
+                        { textAlign: "center", color: "#ff6347" },
                       ]}
                     >
                       Download PDF
                     </P>
                   </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          )}
+                ))
+              ) : (
+                <P
+                  style={[
+                    typography.font14,
+                    typography.fontLato,
+                    spacing.p4,
+                    {
+                      textAlign: "center",
+                      color: "#888",
+                      left: 90,
+                    },
+                  ]}
+                >
+                  No documents available
+                </P>
+              )}
+            </View>
+          </ScrollView>
+        )}
 
-          {/* Image Viewer */}
-          <ImageViewing
-            images={images}
-            imageIndex={selectedImageIndex}
-            visible={isVisible}
-            onRequestClose={() => setIsVisible(false)}
-          />
-        </View>
-      )}
+        {/* Image Viewer */}
+        <ImageViewing
+          images={images}
+          imageIndex={selectedImageIndex}
+          visible={isVisible}
+          onRequestClose={() => setIsVisible(false)}
+        />
+      </View>
     </View>
   );
 }

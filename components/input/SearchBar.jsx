@@ -1,9 +1,9 @@
 import { View, TextInput } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { SCREEN_WIDTH, ICON_SMALL, styles } from "../../styles";
 import { useTranslation } from "react-i18next";
 
-export default function SearchBar({ placeholder, value, onChangeText, style }) {
+export default function SearchBar({ value, onChangeText, style }) {
   const { t } = useTranslation();
   return (
     <View

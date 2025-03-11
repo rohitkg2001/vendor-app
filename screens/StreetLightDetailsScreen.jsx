@@ -46,17 +46,6 @@ const StreetLightDetailsScreen = ({ route }) => {
           >
             {item.complete_pole_number}
           </H5>
-
-          {/* <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.mb2,
-              { color: "#FFFFFF" },
-            ]}
-          >
-            {item.panchayat}, {item.block}, {item.ward} - {item.state}
-          </P> */}
         </View>
 
         <View style={[styles.row, spacing.pv2]}>
@@ -74,20 +63,6 @@ const StreetLightDetailsScreen = ({ route }) => {
             </P>
             <P style={[typography.font12]}>{item.updated_at}</P>
           </View>
-          {/* <View>
-            <P
-              style={[
-                typography.font12,
-                typography.fontLato,
-                {
-                  textTransform: "uppercase",
-                },
-              ]}
-            >
-              End Date
-            </P>
-            <P style={[typography.font12]}>{item.end_date}</P>
-          </View> */}
         </View>
 
         <View

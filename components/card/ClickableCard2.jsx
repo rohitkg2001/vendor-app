@@ -24,7 +24,7 @@ const ClickableCard2 = ({
       <Span style={[typography.font14, typography.bold]}>{title}</Span>
       <P style={[typography.font12, typography.fontLato]}>{subtitle}</P>
 
-      <View style={[spacing.mt1, styles.row]}>
+      {/* <View style={[spacing.mt1, styles.row]}>
         <View style={[spacing.mr4]}>
           <Span style={[typography.font12, typography.fontLato]}>
             Start Date
@@ -37,7 +37,23 @@ const ClickableCard2 = ({
           <Span style={[typography.font12, typography.fontLato]}>End Date</Span>
           <P style={[typography.font12, typography.fontLato]}>{endDate}</P>
         </View>
-      </View>
+      </View> */}
+
+      {/* Display Complete Pole Number */}
+      <P
+        style={[
+          typography.font12,
+          typography.fontLato,
+          spacing.mt1,
+          spacing.p1,
+          spacing.br1,
+          {
+            backgroundColor: "#ebf4fb",
+          },
+        ]}
+      >
+        Pole Number: {item.complete_pole_number}
+      </P>
 
       <View style={[spacing.mt2, styles.row, { justifyContent: "flex-end" }]}>
         {isSurvey && (

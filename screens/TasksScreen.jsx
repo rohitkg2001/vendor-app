@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import {
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import moment from "moment"; // Import moment.js for date comparison
@@ -48,8 +54,7 @@ export default function TasksScreen({ navigation }) {
 
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [activeTab, setActiveTab] = useState("All");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
 
   useEffect(() => {
     if (vendor?.id) {
@@ -67,15 +72,44 @@ export default function TasksScreen({ navigation }) {
       Rejected: tasks.filter((task) => task.status === "Rejected").length,
     };
     setTabCounts(counts);
-    filterTasks(activeTab);
-  }, [tasks]);
+    filterTasks(activeTab, searchQuery);
+  }, [tasks, searchQuery]);
 
-  const filterTasks = (tab) => {
-    if (tab === "All") {
-      setFilteredTasks(tasks);
-    } else {
-      setFilteredTasks(tasks.filter((task) => task.status === tab));
+  // const filterTasks = (tab) => {
+  //   if (tab === "All") {
+  //     setFilteredTasks(tasks);
+  //   } else {
+  //     setFilteredTasks(tasks.filter((task) => task.status === tab));
+  //   }
+  // };
+
+  const filterTasks = (tab, query) => {
+    let filtered =
+      tab === "All" ? tasks : tasks.filter((task) => task.status === tab);
+
+    if (query) {
+      filtered = filtered.filter(
+        (task) =>
+          task.site?.site_name.toLowerCase().includes(query.toLowerCase()) ||
+          task.activity.toLowerCase().includes(query.toLowerCase()) ||
+          task.site?.location.toLowerCase().includes(query.toLowerCase())
+      );
     }
+
+    filtered.sort((a, b) => {
+      const priority = {
+        Pending: 1,
+        "In Progress": 2,
+        Completed: 3,
+        Rejected: 4,
+      };
+      return priority[a.status] - priority[b.status];
+    });
+
+    setFilteredTasks(filtered);
+  };
+  const handleSearch = (query) => {
+    setSearchQuery(query);
   };
 
   const handleTabChange = (selectedTab) => {
@@ -98,6 +132,8 @@ export default function TasksScreen({ navigation }) {
 
       <MyFlatList
         data={filteredTasks}
+        keyboardShouldPersistTaps="always" // Ensures taps don't close search
+        keyboardDismissMode="none"
         renderItem={({ item, index }) => {
           // const isPastDue = moment(item.end_date).isBefore(moment());
           // const borderColor = isPastDue ? "red" : "green"; // Red if past due, green otherwise
@@ -232,6 +268,8 @@ export default function TasksScreen({ navigation }) {
               <SearchBar
                 placeholder="Search"
                 style={{ width: SCREEN_WIDTH - 80 }}
+                value={searchQuery}
+                onChangeText={handleSearch}
               />
               <Button
                 style={[
