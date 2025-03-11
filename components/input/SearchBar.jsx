@@ -19,7 +19,6 @@ export default function SearchBar({ placeholder, value, onChangeText, style }) {
           justifyContent: "flex-start",
           height: 48,
           width: SCREEN_WIDTH - 8,
-          // marginHorizontal: -4,
           borderRadius: 12,
         },
         style,

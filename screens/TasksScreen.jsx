@@ -14,7 +14,6 @@ import ClickableCard1 from "../components/card/ClickableCard1";
 import Tabs from "../components/Tabs";
 import SearchBar from "../components/input/SearchBar";
 import Button from "../components/buttons/Button";
-import Filter from "../components/Filter";
 // import Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks, getTaskById } from "../redux/actions/taskActions";
@@ -46,10 +45,15 @@ export default function TasksScreen({ navigation }) {
     Rejected: 0,
   });
 
-  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]); // State to store filtered tasks
   const [activeTab, setActiveTab] = useState("All");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [searchText, setSearchText] = useState(""); // State for search input
+
+  const [dateFilter, setDateFilter] = useState({
+    type: "All",
+    startDate: null,
+    endDate: null,
+  });
 
   useEffect(() => {
     if (vendor?.id) {
@@ -67,51 +71,72 @@ export default function TasksScreen({ navigation }) {
       Rejected: tasks.filter((task) => task.status === "Rejected").length,
     };
     setTabCounts(counts);
-    filterTasks(activeTab);
-  }, [tasks]);
+    filterTasks(activeTab, searchText, dateFilter); // Re-filter tasks when tasks or search text or date filter changes
+  }, [tasks, activeTab, searchText, dateFilter]); // Added dateFilter as a dependency
 
-  const filterTasks = (tab) => {
-    if (tab === "All") {
-      setFilteredTasks(tasks);
-    } else {
-      setFilteredTasks(tasks.filter((task) => task.status === tab));
+  const filterTasks = (tab, query = "", dateFilter) => {
+    let filtered = tasks.filter((task) => task.status === tab || tab === "All");
+
+    // Apply date filter
+    if (dateFilter.type !== "All") {
+      const startDate = dateFilter.startDate
+        ? moment(dateFilter.startDate)
+        : null;
+      const endDate = dateFilter.endDate ? moment(dateFilter.endDate) : null;
+
+      filtered = filtered.filter((task) => {
+        const taskStartDate = moment(task.start_date);
+        const taskEndDate = moment(task.end_date);
+
+        if (dateFilter.type === "Today") {
+          return taskStartDate.isSame(moment(), "day");
+        } else if (dateFilter.type === "This Month") {
+          return (
+            taskStartDate.isSameOrAfter(moment().startOf("month")) &&
+            taskStartDate.isBefore(moment().endOf("month"))
+          );
+        } else if (dateFilter.type === "Custom" && startDate && endDate) {
+          return taskStartDate.isBetween(startDate, endDate, null, "[]");
+        }
+        return true;
+      });
     }
+
+    // Apply search filter based on the query
+    if (query) {
+      filtered = filtered.filter(
+        (task) =>
+          task.site?.site_name.toLowerCase().includes(query.toLowerCase()) ||
+          task.site?.breda_sl_no.includes(query) // Search by name or code
+      );
+    }
+
+    setFilteredTasks(filtered);
   };
 
   const handleTabChange = (selectedTab) => {
     const tabName = selectedTab.split(" (")[0];
     setActiveTab(tabName);
-    filterTasks(tabName);
+    filterTasks(tabName, searchText, dateFilter); // Re-filter when the tab changes
   };
 
-  const [showBottomSheet, setShowBottomSheet] = useState(false);
   const setIDAndDispatch = async (id) => {
     await dispatch(getTaskById(id));
     navigation.navigate("taskDetail");
   };
-  const applyFilterFromRedux = () => {};
 
   return (
     <ContainerComponent>
       <MyHeader title={t("task_list")} isBack={true} hasIcon={true} />
-      <DashboardFilter />
+      <DashboardFilter updateDateFilter={setDateFilter} />
 
       <MyFlatList
         data={filteredTasks}
         renderItem={({ item, index }) => {
-          // const isPastDue = moment(item.end_date).isBefore(moment());
-          // const borderColor = isPastDue ? "red" : "green"; // Red if past due, green otherwise
-
           const isCompleted = item.status === "Completed"; // Assuming "status" is the field that indicates completion
-
-          // Ensure end_date is parsed correctly and compare dates only (ignore the time part)
           const endDate = moment(item.end_date).startOf("day"); // Ignore time part
-
-          // If the task is not completed, check if it's past due
           const isPastDue =
             !isCompleted && endDate.isBefore(moment().startOf("day"), "day");
-
-          // Set border color
           let borderColor = "transparent"; // Default to transparent if completed
           if (!isCompleted) {
             borderColor = isPastDue ? "red" : "green"; // Red if past due, green if ongoing
@@ -221,31 +246,12 @@ export default function TasksScreen({ navigation }) {
         contentContainerStyle={[{ flexGrow: 1 }]}
         ListHeaderComponent={() => (
           <View>
-            <View
-              style={[
-                spacing.mv4,
-                styles.row,
-                spacing.mh1,
-                { alignItems: "center" },
-              ]}
-            >
-              <SearchBar
-                placeholder="Search"
-                style={{ width: SCREEN_WIDTH - 80 }}
-              />
-              <Button
-                style={[
-                  styles.btn,
-                  styles.bgPrimary,
-                  spacing.mh1,
-                  { width: 50 },
-                ]}
-                onPress={() => setShowBottomSheet(true)}
-              >
-                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
-              </Button>
-            </View>
-
+            <SearchBar
+              placeholder="Search"
+              value={searchText}
+              onChangeText={(text) => setSearchText(text)}
+              style={{ width: SCREEN_WIDTH - 80 }}
+            />
             <Tabs
               tabs={[
                 `All (${tabCounts.All})`,
@@ -267,12 +273,6 @@ export default function TasksScreen({ navigation }) {
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
-      {/* {showBottomSheet && (
-        <Filter
-          onClose={() => setShowBottomSheet(false)}
-          onApply={applyFilterFromRedux}
-        />
-      )} */}
     </ContainerComponent>
   );
 }
