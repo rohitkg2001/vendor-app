@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { View } from "react-native";
 
 import { useTranslation } from "react-i18next";
@@ -127,6 +127,10 @@ export default function TasksScreen({ navigation }) {
     navigation.navigate("taskDetail");
   };
 
+  const handleSearchChange = useCallback((text) => {
+    setSearchText(text);
+  }, []);
+
   return (
     <ContainerComponent>
       <MyHeader title={t("task_list")} isBack={true} hasIcon={true} />
@@ -253,8 +257,8 @@ export default function TasksScreen({ navigation }) {
             <SearchBar
               placeholder="Search"
               value={searchText}
-              onChangeText={(text) => setSearchText(text)}
-              style={{ width: SCREEN_WIDTH - 80 }}
+              onChangeText={handleSearchChange}
+              style={{ width: SCREEN_WIDTH - 20 }}
             />
             <Tabs
               tabs={[

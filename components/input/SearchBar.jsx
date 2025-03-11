@@ -1,3 +1,4 @@
+import React, { memo } from "react";
 import { View, TextInput } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { SCREEN_WIDTH, ICON_SMALL, styles } from "../../styles";
