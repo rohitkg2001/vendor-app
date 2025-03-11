@@ -18,10 +18,7 @@ import {
   styles,
   typography,
   ICON_LARGE,
-<<<<<<< HEAD
-=======
   LIGHT,
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
 } from "../styles";
 import { H5, H6, P, Span } from "../components/text";
 
@@ -34,15 +31,7 @@ export default function TaskDetailScreen({ navigation }) {
 <<<<<<< HEAD
       <MyHeader
         title={`${task.site.breda_sl_no}, ${task.site.site_name}`}
-        isBack={true}
-        hasIcon={true}
-      />
-=======
-      <MyHeader title={`${task.site.site_name}`} isBack={true} hasIcon={true} />
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
-
       <View style={{ width: SCREEN_WIDTH - 16 }}>
-        <View
           style={[
             styles.row,
 <<<<<<< HEAD

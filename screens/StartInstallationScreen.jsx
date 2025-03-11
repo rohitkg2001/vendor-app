@@ -1,9 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-<<<<<<< HEAD
-=======
 import { Snackbar } from "react-native-paper";
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -12,16 +9,9 @@ import { P } from "../components/text";
 import { useDispatch, useSelector } from "react-redux";
 import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
-<<<<<<< HEAD
-import { startInstallation } from "../redux/actions/siteActions";
-import { Checkbox } from "react-native-paper";
-import MyPickerInput from "../components/input/MyPickerInput";
-import { surveyStreetlights } from "../redux/actions/taskActions";
-=======
 import { Checkbox } from "react-native-paper";
 import MyPickerInput from "../components/input/MyPickerInput";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
 
 export default function StartInstallationScreen({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
@@ -41,10 +31,6 @@ export default function StartInstallationScreen({ navigation, route }) {
 
   const [selectedWard, setSelectedWard] = useState("");
 
-<<<<<<< HEAD
-  const dispatch = useDispatch();
-  const { pendingStreetLights } = useSelector((state) => state.tasks);
-=======
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
@@ -56,7 +42,6 @@ export default function StartInstallationScreen({ navigation, route }) {
   const { pendingStreetLights, pole_number } = useSelector(
     (state) => state.tasks
   );
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
 
   const handleLuminaryQR = (val) => {
     const values = val.split(";");
@@ -65,10 +50,7 @@ export default function StartInstallationScreen({ navigation, route }) {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
-=======
     console.log(pole_number);
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
     if (Array.isArray(pendingStreetLights)) {
       const currentSite = pendingStreetLights.find(
         (task) => task.id === itemId
@@ -88,26 +70,6 @@ export default function StartInstallationScreen({ navigation, route }) {
   }, [pendingStreetLights]);
 
   const handleSubmission = async (images) => {
-<<<<<<< HEAD
-    if (isSurvey) {
-      const data = {
-        selectedWard,
-        poleNumber,
-        beneficiaryName,
-        locationRemarks,
-        networkAvailable,
-        images: images,
-      };
-      await dispatch(surveyStreetlights(itemId, data, isSurvey));
-    } else {
-      const data = {
-        luminarySerialNumber,
-        simNumber,
-        batterySerialNumber,
-        panelSerialNumber,
-      };
-      await dispatch(surveyStreetlights(itemId, data, isSurvey));
-=======
     if (!selectedWard || !poleNumber) {
       setSnackbarVisible(true); // Show Snackbar if validation fails
       return;
@@ -142,18 +104,13 @@ export default function StartInstallationScreen({ navigation, route }) {
       };
       console.log("working fine");
       await dispatch(submitStreetlightTasks(data));
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
     }
     // navigation.navigate("successScreen", {
     //   message: "Your task uploaded successfully",
     //   nextScreen: "welcomeScreen",
     // });
-<<<<<<< HEAD
-  }
-=======
   };
 
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
   return (
     <ContainerComponent>
       <MyHeader isBack title="Start Installation" hasIcon />
@@ -179,10 +136,7 @@ export default function StartInstallationScreen({ navigation, route }) {
             onChange={(value) => setSelectedWard(value)}
             options={wardOptions}
             style={spacing.mv2}
-<<<<<<< HEAD
-=======
             placeholder="Select Ward" // Placeholder added
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
           />
         )}
         {isSurvey && (
@@ -192,10 +146,7 @@ export default function StartInstallationScreen({ navigation, route }) {
             onChange={(value) => setPoleNumber(value)}
             options={poleOptions}
             style={spacing.mv2}
-<<<<<<< HEAD
-=======
             placeholder="Select Pole Number" // Placeholder added
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
           />
         )}
 
@@ -328,15 +279,11 @@ export default function StartInstallationScreen({ navigation, route }) {
           },
         ]}
         onPress={() => {
-<<<<<<< HEAD
-          setIsCameraVisible(true);
-=======
           if (!selectedWard || !poleNumber) {
             setSnackbarVisible(true);
           } else {
             setIsCameraVisible(true);
           }
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
         }}
       >
         <P
@@ -351,10 +298,6 @@ export default function StartInstallationScreen({ navigation, route }) {
         handleImageCapture={(val) => console.log(val)}
         handleSubmission={handleSubmission}
       />
-<<<<<<< HEAD
-    </ContainerComponent>
-  )
-=======
       {/* Snackbar for validation error */}
       <Snackbar
         visible={snackbarVisible}
@@ -365,5 +308,4 @@ export default function StartInstallationScreen({ navigation, route }) {
       </Snackbar>
     </ContainerComponent>
   );
->>>>>>> 143ff8f3e310b5ec255e192e24dcc38e99bfe3e5
 }
