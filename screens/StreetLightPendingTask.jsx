@@ -148,7 +148,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 submissionDate={item.updated_at}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
-               // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
+                // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
                 isSurvey={activeTab === "Survey"} // Show submit button only in Survey tab
                 item={item} // Pass the full item
               />

@@ -30,6 +30,7 @@ export default function ClickableCard1({
   viewText,
   viewAction,
   selected = false,
+  borderColor = "transparent",
 }) {
   return (
     <TouchableOpacity
@@ -41,6 +42,8 @@ export default function ClickableCard1({
         style={{
           backgroundColor: selected ? PRIMARY_COLOR_TRANSPARENT : LIGHT,
           borderRadius: 8,
+          borderWidth: 1, // Ensure the border width is applied
+          borderColor: borderColor, // Use the passed border color prop
         }}
       >
         <Card.Title

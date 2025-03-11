@@ -40,7 +40,9 @@ export default function OverViewCard({ totalSites }) {
           onPress={() => navigation.navigate("siteScreen")}
           style={{ alignItems: "center", textAlign: "center" }}
         >
-          <H6 style={[typography.font14, typography.fontLato]}>Total Sites</H6>
+          <H6 style={[typography.font14, typography.fontLato]}>
+            Total Project Sites
+          </H6>
           <H6 style={[typography.font14, spacing.m2, typography.fontLato]}>
             {totalSites}
           </H6>

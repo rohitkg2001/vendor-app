@@ -60,7 +60,7 @@ export default function DashboardScreen() {
       >
         <DashboardFilter />
 
-        <OverViewCard totalSites={dueTasks} />
+        <OverViewCard totalSites={totalTasks} />
 
         <ProgressReportCard />
       </ScrollView>
