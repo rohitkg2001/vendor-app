@@ -13,7 +13,7 @@ import DashboardFilter from "../components/filters/DashboardFilter";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import Tabs from "../components/Tabs";
 import SearchBar from "../components/input/SearchBar";
-import Button from "../components/buttons/Button";
+
 // import Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks, getTaskById } from "../redux/actions/taskActions";
@@ -115,6 +115,9 @@ export default function TasksScreen({ navigation }) {
 
     setFilteredTasks(filtered);
   };
+  const handleSearchChange = useCallback((text) => {
+    setSearchText(text);
+  }, []);
 
   const handleTabChange = (selectedTab) => {
     const tabName = selectedTab.split(" (")[0];
@@ -127,14 +130,16 @@ export default function TasksScreen({ navigation }) {
     navigation.navigate("taskDetail");
   };
 
-  const handleSearchChange = useCallback((text) => {
-    setSearchText(text);
-  }, []);
-
   return (
     <ContainerComponent>
       <MyHeader title={t("task_list")} isBack={true} hasIcon={true} />
       <DashboardFilter updateDateFilter={setDateFilter} />
+
+      <SearchBar
+        value={searchText}
+        onChangeText={handleSearchChange}
+        style={{ marginHorizontal: 10 }}
+      />
 
       <MyFlatList
         data={filteredTasks}
@@ -254,12 +259,12 @@ export default function TasksScreen({ navigation }) {
         contentContainerStyle={[{ flexGrow: 1 }]}
         ListHeaderComponent={() => (
           <View>
-            <SearchBar
+            {/* <SearchBar
               placeholder="Search"
               value={searchText}
               onChangeText={handleSearchChange}
               style={{ width: SCREEN_WIDTH - 20 }}
-            />
+            /> */}
             <Tabs
               tabs={[
                 `All (${tabCounts.All})`,

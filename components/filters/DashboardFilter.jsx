@@ -38,32 +38,6 @@ export default function DashboardFilter({ updateDateFilter }) {
     }
   };
 
-  // const handleFilterSelect = (filterType) => {
-  //   setShowModal(false); // Close the modal when an option is selected
-
-  //   if (filterType === "Custom" && customStartDate && customEndDate) {
-  //     // Only apply Custom filter when both dates are selected
-
-  //     updateDateFilter({
-  //       type: "Custom",
-  //       startDate: customStartDate,
-  //       endDate: customEndDate,
-  //     });
-  //   } else if (filterType === "Today") {
-  //     updateDateFilter({
-  //       type: "Today",
-  //       startDate: null,
-  //       endDate: null,
-  //     });
-  //   } else if (filterType === "This Month") {
-  //     updateDateFilter({
-  //       type: "This Month",
-  //       startDate: moment().startOf("month").toDate(),
-  //       endDate: moment().endOf("month").toDate(),
-  //     });
-  //   }
-  // };
-
   const handleFilterSelect = (filterType) => {
     setShowModal(false);
 

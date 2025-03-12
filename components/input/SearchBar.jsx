@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 
 export default function SearchBar({ value, onChangeText, style }) {
   const { t } = useTranslation();
+
   return (
     <View
       style={[
@@ -35,8 +36,7 @@ export default function SearchBar({ value, onChangeText, style }) {
         placeholder={t("placeholder")}
         value={value}
         onChangeText={onChangeText}
-        // blurOnSubmit={false}
-        autoFocus={true} // Ensure input stays focuseds
+        autoFocus={true}
         style={[
           { marginHorizontal: 4, height: 48, paddingLeft: 12, fontSize: 18 },
           style,
