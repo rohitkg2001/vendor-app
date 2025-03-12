@@ -20,7 +20,7 @@ import { getAllTasks, getTaskById } from "../redux/actions/taskActions";
 
 // import styles
 import { H5, H6, P, Span } from "../components/text";
-import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
+import { spacing, styles, typography } from "../styles";
 
 export default function TasksScreen({ navigation }) {
   const { t } = useTranslation();
@@ -259,12 +259,6 @@ export default function TasksScreen({ navigation }) {
         contentContainerStyle={[{ flexGrow: 1 }]}
         ListHeaderComponent={() => (
           <View>
-            {/* <SearchBar
-              placeholder="Search"
-              value={searchText}
-              onChangeText={handleSearchChange}
-              style={{ width: SCREEN_WIDTH - 20 }}
-            /> */}
             <Tabs
               tabs={[
                 `All (${tabCounts.All})`,
