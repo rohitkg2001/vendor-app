@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import ClickableCard2 from "../components/card/ClickableCard2";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import {
   spacing,
   styles,
@@ -31,6 +33,8 @@ import {
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
+  const [surveyCounts, setSurveyCounts] = useState({});
+  const [completedSurveys, setCompletedSurveys] = useState({});
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
 
@@ -48,6 +52,40 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
+  // Load survey count from AsyncStorage
+  useEffect(() => {
+    const loadSurveyCounts = async () => {
+      try {
+        const storedCounts = await AsyncStorage.getItem("surveyCounts");
+        if (storedCounts) {
+          setSurveyCounts(JSON.parse(storedCounts));
+        }
+      } catch (error) {
+        console.error("Failed to load survey counts:", error);
+      }
+    };
+    loadSurveyCounts();
+  }, []);
+
+  useEffect(() => {
+    const loadSurveyCounts = async () => {
+      try {
+        const storedCounts = await AsyncStorage.getItem("surveyCounts");
+        const storedCompleted = await AsyncStorage.getItem("completedSurveys");
+
+        if (storedCounts) {
+          setSurveyCounts(JSON.parse(storedCounts));
+        }
+        if (storedCompleted) {
+          setCompletedSurveys(JSON.parse(storedCompleted));
+        }
+      } catch (error) {
+        console.error("Failed to load survey data:", error);
+      }
+    };
+    loadSurveyCounts();
+  }, []);
+
   const handleSurveyData = (
     data,
     isSurvey,
@@ -58,6 +96,7 @@ const StreetLightPendingTask = ({ navigation }) => {
       console.error("Error: site data is missing", data);
       return;
     }
+
     const { district, block, panchayat, state } = data?.site;
     const pole_number = formatString(
       [state, district, block, panchayat].join(" ")
@@ -65,6 +104,37 @@ const StreetLightPendingTask = ({ navigation }) => {
     dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
     dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
     dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+
+    // Update survey count for this pole
+    setSurveyCounts((prevCounts) => {
+      const updatedCounts = {
+        ...prevCounts,
+        [data.pole_id]: (prevCounts[data.pole_id] || 0) + 1,
+      };
+
+      // Save updated counts in AsyncStorage
+      AsyncStorage.setItem("surveyCounts", JSON.stringify(updatedCounts)).catch(
+        (error) => console.error("Failed to save survey counts:", error)
+      );
+
+      return updatedCounts;
+    });
+
+    // Mark survey as completed
+    if (isSurvey) {
+      setCompletedSurveys((prevCompleted) => {
+        const updatedCompleted = { ...prevCompleted, [data.pole_id]: true };
+
+        AsyncStorage.setItem(
+          "completedSurveys",
+          JSON.stringify(updatedCompleted)
+        ).catch((error) =>
+          console.error("Failed to save completed surveys:", error)
+        );
+
+        return updatedCompleted;
+      });
+    }
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
@@ -109,28 +179,29 @@ const StreetLightPendingTask = ({ navigation }) => {
     });
   };
 
-const filterData = (tab) => {
-  if (tab === "Survey") {
-    // Both "Survey" and "Surveyed poles" should show surveyed data
-    setFilteredData(surveyedStreetLights || []);
-  } else if (tab === "Installed") {
-    setFilteredData(installedStreetLights || []);
-  } else if (tab === "Approved") {
-    setFilteredData(
-      pendingStreetLights?.filter((task) => task.status === "Approved") || []
-    );
-  } else if (tab === "InApproved") {
-    setFilteredData(
-      pendingStreetLights?.filter((task) => task.status === "InApproved") || []
-    );
-  } else if (tab === "Rejected") {
-    setFilteredData(
-      pendingStreetLights?.filter((task) => task.status === "Rejected") || []
-    );
-  } else {
-    setFilteredData(pendingStreetLights || []);
-  }
-};
+  const filterData = (tab) => {
+    if (tab === "Survey") {
+      // Both "Survey" and "Surveyed poles" should show surveyed data
+      setFilteredData(surveyedStreetLights || []);
+    } else if (tab === "Installed") {
+      setFilteredData(installedStreetLights || []);
+    } else if (tab === "Approved") {
+      setFilteredData(
+        pendingStreetLights?.filter((task) => task.status === "Approved") || []
+      );
+    } else if (tab === "InApproved") {
+      setFilteredData(
+        pendingStreetLights?.filter((task) => task.status === "InApproved") ||
+          []
+      );
+    } else if (tab === "Rejected") {
+      setFilteredData(
+        pendingStreetLights?.filter((task) => task.status === "Rejected") || []
+      );
+    } else {
+      setFilteredData(pendingStreetLights || []);
+    }
+  };
 
   return (
     <ContainerComponent>
@@ -149,8 +220,8 @@ const filterData = (tab) => {
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
                 // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
-                isSurvey={activeTab === "Survey"} // Show submit button only in Survey tab
-                item={item} // Pass the full item
+                isSurvey={activeTab === "Survey"}
+                item={item}
               />
             );
           } else {
@@ -183,6 +254,9 @@ const filterData = (tab) => {
                       <P style={[typography.font12, typography.fontLato]}>
                         {item.end_date}
                       </P>
+                    </View>
+                    <View>
+                      <P> Survey Count: {surveyCounts[item.pole_id] || 0}</P>
                     </View>
                   </View>
                 </View>
