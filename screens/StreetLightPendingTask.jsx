@@ -228,7 +228,7 @@ const StreetLightPendingTask = ({ navigation }) => {
             return (
               <ClickableCard1
                 key={index}
-                title={`${item.site?.panchayat} ${item.site?.block}`}
+                title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)` }
                 subtitle={`${item.site?.district} - ${item.site?.state}`}
                 isPositiveButtonVisible={true}
                 positiveAction={() => handleSurveyData(item, false)}
@@ -311,12 +311,6 @@ const StreetLightPendingTask = ({ navigation }) => {
                 }
               }}
               activeTab={activeTab}
-              // tabStyles={{
-              //   activeBackgroundColor: "#76885B",
-              //   inactiveBackgroundColor: "#C8E6C9",
-              //   activeTextColor: "#FFF",
-              //   inactiveTextColor: "#333",
-              // }}
             />
           </View>
         )}
