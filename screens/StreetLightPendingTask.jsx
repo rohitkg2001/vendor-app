@@ -249,14 +249,16 @@ const StreetLightPendingTask = ({ navigation }) => {
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {
-                // Map "Surveyed poles" to "Survey" for internal state
-                if (tabLabel.startsWith("Surveyed")) {
-                  setActiveTab("Survey"); // Set activeTab to "Survey" for filtering
-                } else {
-                  setActiveTab(tabLabel.split(" ")[0]); // Set activeTab to the actual tab name
-                }
+                let normalizedTab = tabLabel.startsWith("Surveyed")
+                  ? "Survey"
+                  : tabLabel.split(" ")[0];
+                setActiveTab(normalizedTab);
               }}
-              activeTab={activeTab}
+              activeTab={
+                activeTab === "Survey"
+                  ? `Surveyed poles ${tabCounts.Survey}`
+                  : activeTab
+              }
             />
           </View>
         )}
