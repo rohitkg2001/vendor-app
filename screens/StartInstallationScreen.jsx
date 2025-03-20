@@ -61,13 +61,17 @@ export default function StartInstallationScreen({ navigation, route }) {
           .split(",")
           .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
       );
+      // List of surveyed poles
+      const surveyedPoles = currentSite?.surveyedPoles || []; // Surveyed poles from API
+      console.log("Surveyed Poles:", surveyedPoles); // Debugging
+
       setPoleOptions(
         [
           1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
         ].map((num) => ({ label: `${num}`, value: `${num}` }))
       );
     }
-  }, [pendingStreetLights]);
+  }, [pendingStreetLights, poleNumber]);
 
   const handleSubmission = async (images) => {
     if (!selectedWard || !poleNumber) {
@@ -118,17 +122,6 @@ export default function StartInstallationScreen({ navigation, route }) {
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
       >
-        {/* <P
-          style={[
-            typography.font16,
-            typography.textBold,
-            styles.bgPrimaryTransParent,
-            spacing.p2,
-            { width: SCREEN_WIDTH - 16 },
-          ]}
-        >
-          Location Info:
-        </P> */}
         {isSurvey && (
           <MyPickerInput
             title="Ward"
@@ -146,7 +139,6 @@ export default function StartInstallationScreen({ navigation, route }) {
             onChange={(value) => setPoleNumber(value)}
             options={poleOptions}
             style={spacing.mv2}
-            placeholder="Select Pole Number" // Placeholder added
           />
         )}
 

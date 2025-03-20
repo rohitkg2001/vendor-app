@@ -34,7 +34,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
   const [surveyCounts, setSurveyCounts] = useState({});
-  const [completedSurveys, setCompletedSurveys] = useState({});
+  // const [completedSurveys, setCompletedSurveys] = useState({});
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
 
@@ -53,38 +53,19 @@ const StreetLightPendingTask = ({ navigation }) => {
   }
 
   // Load survey count from AsyncStorage
-  useEffect(() => {
-    const loadSurveyCounts = async () => {
-      try {
-        const storedCounts = await AsyncStorage.getItem("surveyCounts");
-        if (storedCounts) {
-          setSurveyCounts(JSON.parse(storedCounts));
-        }
-      } catch (error) {
-        console.error("Failed to load survey counts:", error);
-      }
-    };
-    loadSurveyCounts();
-  }, []);
-
-  useEffect(() => {
-    const loadSurveyCounts = async () => {
-      try {
-        const storedCounts = await AsyncStorage.getItem("surveyCounts");
-        const storedCompleted = await AsyncStorage.getItem("completedSurveys");
-
-        if (storedCounts) {
-          setSurveyCounts(JSON.parse(storedCounts));
-        }
-        if (storedCompleted) {
-          setCompletedSurveys(JSON.parse(storedCompleted));
-        }
-      } catch (error) {
-        console.error("Failed to load survey data:", error);
-      }
-    };
-    loadSurveyCounts();
-  }, []);
+  // useEffect(() => {
+  //   const loadSurveyCounts = async () => {
+  //     try {
+  //       const storedCounts = await AsyncStorage.getItem("surveyCounts");
+  //       if (storedCounts) {
+  //         setSurveyCounts(JSON.parse(storedCounts));
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to load survey counts:", error);
+  //     }
+  //   };
+  //   loadSurveyCounts();
+  // }, []);
 
   const handleSurveyData = (
     data,
@@ -106,35 +87,20 @@ const StreetLightPendingTask = ({ navigation }) => {
     dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
 
     // Update survey count for this pole
-    setSurveyCounts((prevCounts) => {
-      const updatedCounts = {
-        ...prevCounts,
-        [data.pole_id]: (prevCounts[data.pole_id] || 0) + 1,
-      };
+    // setSurveyCounts((prevCounts) => {
+    //   const updatedCounts = {
+    //     ...prevCounts,
+    //     [data.pole_id]: (prevCounts[data.pole_id] || 0) + 1,
+    //   };
 
-      // Save updated counts in AsyncStorage
-      AsyncStorage.setItem("surveyCounts", JSON.stringify(updatedCounts)).catch(
-        (error) => console.error("Failed to save survey counts:", error)
-      );
+    //   // Save updated counts in AsyncStorage
+    //   AsyncStorage.setItem("surveyCounts", JSON.stringify(updatedCounts)).catch(
+    //     (error) => console.error("Failed to save survey counts:", error)
+    //   );
 
-      return updatedCounts;
-    });
+    //   return updatedCounts;
+    // });
 
-    // Mark survey as completed
-    if (isSurvey) {
-      setCompletedSurveys((prevCompleted) => {
-        const updatedCompleted = { ...prevCompleted, [data.pole_id]: true };
-
-        AsyncStorage.setItem(
-          "completedSurveys",
-          JSON.stringify(updatedCompleted)
-        ).catch((error) =>
-          console.error("Failed to save completed surveys:", error)
-        );
-
-        return updatedCompleted;
-      });
-    }
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
@@ -228,7 +194,7 @@ const StreetLightPendingTask = ({ navigation }) => {
             return (
               <ClickableCard1
                 key={index}
-                title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)` }
+                title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)`}
                 subtitle={`${item.site?.district} - ${item.site?.state}`}
                 isPositiveButtonVisible={true}
                 positiveAction={() => handleSurveyData(item, false)}
@@ -238,6 +204,24 @@ const StreetLightPendingTask = ({ navigation }) => {
                 negativeAction={() => handleSurveyData(item, true)}
               >
                 <View>
+                  <View style={[spacing.mt1, styles.row]}>
+                    <View>
+                      <Span style={[typography.font12, typography.fontLato]}>
+                        Surveyed pole
+                      </Span>
+                      <P style={[typography.font12, typography.fontLato]}>
+                        {item.surveyed_pole}
+                      </P>
+                    </View>
+                    <View>
+                      <Span style={[typography.font12, typography.fontLato]}>
+                        Installed pole
+                      </Span>
+                      <P style={[typography.font12, typography.fontLato]}>
+                        {item.installed_pole}
+                      </P>
+                    </View>
+                  </View>
                   <View style={[spacing.mt1, styles.row]}>
                     <View>
                       <Span style={[typography.font12, typography.fontLato]}>
