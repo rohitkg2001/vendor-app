@@ -89,6 +89,7 @@ const useExcelExport = () => {
     );
 
     let wb = XLSX.utils.book_new();
+    console.log(wb);
     XLSX.utils.book_append_sheet(wb, ws, "Tasks");
 
     const wbout = XLSX.write(wb, { type: "binary", bookType: "xlsx" });
