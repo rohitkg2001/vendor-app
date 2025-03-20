@@ -185,7 +185,6 @@ const StreetLightPendingTask = ({ navigation }) => {
                 submissionDate={item.updated_at}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
-                // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
                 isSurvey={activeTab === "Survey"}
                 item={item}
               />
@@ -210,7 +209,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                         Surveyed pole
                       </Span>
                       <P style={[typography.font12, typography.fontLato]}>
-                        {item.surveyed_pole}
+                        {`${item.site?.number_of_surveyed_poles}`}
                       </P>
                     </View>
                     <View>
@@ -218,7 +217,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                         Installed pole
                       </Span>
                       <P style={[typography.font12, typography.fontLato]}>
-                        {item.installed_pole}
+                        {item.site.number_of_installed_poles}
                       </P>
                     </View>
                   </View>
@@ -238,9 +237,6 @@ const StreetLightPendingTask = ({ navigation }) => {
                       <P style={[typography.font12, typography.fontLato]}>
                         {item.end_date}
                       </P>
-                    </View>
-                    <View>
-                      <P> Survey Count: {surveyCounts[item.pole_id] || 0}</P>
                     </View>
                   </View>
                 </View>
