@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import ClickableCard2 from "../components/card/ClickableCard2";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import {
   spacing,
   styles,
@@ -33,8 +31,6 @@ import {
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
-  const [surveyCounts, setSurveyCounts] = useState({});
-  // const [completedSurveys, setCompletedSurveys] = useState({});
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
 
@@ -51,21 +47,6 @@ const StreetLightPendingTask = ({ navigation }) => {
       .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercase
       .join("/"); // Join by '/'
   }
-
-  // Load survey count from AsyncStorage
-  // useEffect(() => {
-  //   const loadSurveyCounts = async () => {
-  //     try {
-  //       const storedCounts = await AsyncStorage.getItem("surveyCounts");
-  //       if (storedCounts) {
-  //         setSurveyCounts(JSON.parse(storedCounts));
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to load survey counts:", error);
-  //     }
-  //   };
-  //   loadSurveyCounts();
-  // }, []);
 
   const handleSurveyData = (
     data,
@@ -85,22 +66,6 @@ const StreetLightPendingTask = ({ navigation }) => {
     dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
     dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
     dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-
-    // Update survey count for this pole
-    // setSurveyCounts((prevCounts) => {
-    //   const updatedCounts = {
-    //     ...prevCounts,
-    //     [data.pole_id]: (prevCounts[data.pole_id] || 0) + 1,
-    //   };
-
-    //   // Save updated counts in AsyncStorage
-    //   AsyncStorage.setItem("surveyCounts", JSON.stringify(updatedCounts)).catch(
-    //     (error) => console.error("Failed to save survey counts:", error)
-    //   );
-
-    //   return updatedCounts;
-    // });
-
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
@@ -204,25 +169,47 @@ const StreetLightPendingTask = ({ navigation }) => {
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
-                    <View>
-                      <Span style={[typography.font12, typography.fontLato]}>
-                        Surveyed pole
-                      </Span>
-                      <P style={[typography.font12, typography.fontLato]}>
-                        {`${item.site?.number_of_surveyed_poles}`}
-                      </P>
-                    </View>
-                    <View>
-                      <Span style={[typography.font12, typography.fontLato]}>
-                        Installed pole
-                      </Span>
-                      <P style={[typography.font12, typography.fontLato]}>
-                        {item.site.number_of_installed_poles}
-                      </P>
+                    {/* Left side for other content (if needed) */}
+                    <View style={{ flex: 1 }}></View>
+
+                    {/* Right side for both Surveyed and Installed poles */}
+                    <View style={{ alignItems: "flex-end", marginTop: -70 }}>
+                      {/* Surveyed Pole */}
+                      <View style={{ marginBottom: 5 }}>
+                        <Span style={[typography.font12, typography.fontLato]}>
+                          Surveyed pole
+                        </Span>
+                        <P
+                          style={[
+                            typography.font12,
+                            typography.fontLato,
+                            { marginLeft: 30 },
+                          ]}
+                        >
+                          {`${item.site?.number_of_surveyed_poles}`}
+                        </P>
+                      </View>
+
+                      {/* Installed Pole */}
+                      <View>
+                        <Span style={[typography.font12, typography.fontLato]}>
+                          Installed pole
+                        </Span>
+                        <P
+                          style={[
+                            typography.font12,
+                            typography.fontLato,
+                            { marginLeft: 30 },
+                          ]}
+                        >
+                          {`${item.site?.number_of_installed_poles}`}
+                        </P>
+                      </View>
                     </View>
                   </View>
+
                   <View style={[spacing.mt1, styles.row]}>
-                    <View>
+                    <View style={[{ position: "absolute", top: -15 }]}>
                       <Span style={[typography.font12, typography.fontLato]}>
                         Start Date
                       </Span>
@@ -230,7 +217,10 @@ const StreetLightPendingTask = ({ navigation }) => {
                         {item.start_date}
                       </P>
                     </View>
-                    <View>
+                    <View
+                      style={[{ position: "absolute", left: 80, top: -15 }]}
+                    >
+                      {" "}
                       <Span style={[typography.font12, typography.fontLato]}>
                         End Date
                       </Span>
