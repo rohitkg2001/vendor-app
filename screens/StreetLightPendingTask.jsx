@@ -150,7 +150,6 @@ const StreetLightPendingTask = ({ navigation }) => {
                 submissionDate={item.updated_at}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
-                // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
                 isSurvey={activeTab === "Survey"}
                 item={item}
               />
@@ -170,25 +169,47 @@ const StreetLightPendingTask = ({ navigation }) => {
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
-                    <View>
-                      <Span style={[typography.font12, typography.fontLato]}>
-                        Surveyed pole
-                      </Span>
-                      <P style={[typography.font12, typography.fontLato]}>
-                        {`${item.site?.number_of_surveyed_poles}`}
-                      </P>
-                    </View>
-                    <View>
-                      <Span style={[typography.font12, typography.fontLato]}>
-                        Installed pole
-                      </Span>
-                      <P style={[typography.font12, typography.fontLato]}>
-                        {`${item.site?.number_of_installed_poles}`}
-                      </P>
+                    {/* Left side for other content (if needed) */}
+                    <View style={{ flex: 1 }}></View>
+
+                    {/* Right side for both Surveyed and Installed poles */}
+                    <View style={{ alignItems: "flex-end", marginTop: -70 }}>
+                      {/* Surveyed Pole */}
+                      <View style={{ marginBottom: 5 }}>
+                        <Span style={[typography.font12, typography.fontLato]}>
+                          Surveyed pole
+                        </Span>
+                        <P
+                          style={[
+                            typography.font12,
+                            typography.fontLato,
+                            { marginLeft: 30 },
+                          ]}
+                        >
+                          {`${item.site?.number_of_surveyed_poles}`}
+                        </P>
+                      </View>
+
+                      {/* Installed Pole */}
+                      <View>
+                        <Span style={[typography.font12, typography.fontLato]}>
+                          Installed pole
+                        </Span>
+                        <P
+                          style={[
+                            typography.font12,
+                            typography.fontLato,
+                            { marginLeft: 30 },
+                          ]}
+                        >
+                          {`${item.site?.number_of_installed_poles}`}
+                        </P>
+                      </View>
                     </View>
                   </View>
+
                   <View style={[spacing.mt1, styles.row]}>
-                    <View>
+                    <View style={[{ position: "absolute", top: -15 }]}>
                       <Span style={[typography.font12, typography.fontLato]}>
                         Start Date
                       </Span>
@@ -196,7 +217,10 @@ const StreetLightPendingTask = ({ navigation }) => {
                         {item.start_date}
                       </P>
                     </View>
-                    <View>
+                    <View
+                      style={[{ position: "absolute", left: 80, top: -15 }]}
+                    >
+                      {" "}
                       <Span style={[typography.font12, typography.fontLato]}>
                         End Date
                       </Span>

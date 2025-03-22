@@ -49,27 +49,57 @@ export default function StartInstallationScreen({ navigation, route }) {
     setSimNumber(values[1].toString());
   };
 
+  // useEffect(() => {
+  //   console.log(pole_number);
+  //   if (Array.isArray(pendingStreetLights)) {
+  //     const currentSite = pendingStreetLights.find(
+  //       (task) => task.id === itemId
+  //     );
+  //     const wards = currentSite.site?.ward;
+  //     setWardOptions(
+  //       wards
+  //         .split(",")
+  //         .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
+  //     );
+  //     // List of surveyed poles
+  //     const surveyedPoles = currentSite?.surveyedPoles || []; // Surveyed poles from API
+  //     console.log("Surveyed Poles:", surveyedPoles); // Debugging
+
+  //     setPoleOptions(
+  //       [
+  //         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  //       ].map((num) => ({ label: `${num}`, value: `${num}` }))
+  //     );
+  //   }
+  // }, [pendingStreetLights, poleNumber]);
+
   useEffect(() => {
-    console.log(pole_number);
     if (Array.isArray(pendingStreetLights)) {
       const currentSite = pendingStreetLights.find(
         (task) => task.id === itemId
       );
-      const wards = currentSite.site?.ward;
-      setWardOptions(
-        wards
-          .split(",")
-          .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
-      );
-      // List of surveyed poles
-      const surveyedPoles = currentSite?.surveyedPoles || []; // Surveyed poles from API
-      console.log("Surveyed Poles:", surveyedPoles); // Debugging
+      if (currentSite) {
+        const wards = currentSite.site?.ward;
+        setWardOptions(
+          wards
+            .split(",")
+            .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
+        );
 
-      setPoleOptions(
-        [
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        ].map((num) => ({ label: `${num}`, value: `${num}` }))
-      );
+        // Surveyed poles list
+        const surveyedPoles = currentSite?.surveyedPoles || [];
+
+        setPoleOptions(
+          [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ].map((num) => ({
+            label: `${num}`,
+            value: `${num}`,
+            color: surveyedPoles.includes(num) ? "red" : "black",
+          }))
+        );
+      }
     }
   }, [pendingStreetLights, poleNumber]);
 
@@ -137,8 +167,13 @@ export default function StartInstallationScreen({ navigation, route }) {
             title="Pole Number"
             value={poleNumber}
             onChange={(value) => setPoleNumber(value)}
-            options={poleOptions}
+            // options={poleOptions}
             style={spacing.mv2}
+            options={poleOptions.map((option) => ({
+              label: option.label,
+              value: option.value,
+              style: { color: option.color }, // Apply color dynamically
+            }))}
           />
         )}
 
