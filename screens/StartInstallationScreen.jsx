@@ -24,6 +24,7 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
   const [networkAvailable, setNetworkAvailable] = useState(false);
   const { isSurvey, itemId } = route.params;
   const [wardOptions, setWardOptions] = useState([]);
@@ -113,6 +114,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         task_id: itemId,
         complete_pole_number: [pole_number, selectedWard, poleNumber].join("/"),
         beneficiary: beneficiaryName,
+        contact: contactNumber,
         remarks: locationRemarks,
         isNetworkAvailable: networkAvailable,
         lat: images[0].lat,
@@ -134,6 +136,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         isInstallationDone: true,
         // survey_image: images.map((item) => item.uri),
         beneficiary: beneficiaryName,
+        contact: contactNumber,
         remarks: locationRemarks,
       };
       console.log("working fine");
@@ -143,6 +146,14 @@ export default function StartInstallationScreen({ navigation, route }) {
     //   message: "Your task uploaded successfully",
     //   nextScreen: "welcomeScreen",
     // });
+  };
+
+  const handleTakePhoto = () => {
+    if (isSurvey && (!selectedWard || !poleNumber)) {
+      setSnackbarVisible(true);
+      return;
+    }
+    setIsCameraVisible(true);
   };
 
   return (
@@ -262,6 +273,19 @@ export default function StartInstallationScreen({ navigation, route }) {
           onChangeText={setBeneficiaryName}
           placeholder="Beneficiary Name"
         />
+        <MyTextInput
+          multiline={false}
+          numberOfLines={1}
+          value={contactNumber}
+          onChangeText={(text) => {
+            const filteredText = text.replace(/[^0-9]/g, "");
+            if (filteredText.length <= 10) {
+              setContactNumber(filteredText);
+            }
+          }}
+          placeholder="Contact Number"
+          keyboardType="numeric"
+        />
 
         <MyTextInput
           multiline={true}
@@ -293,8 +317,7 @@ export default function StartInstallationScreen({ navigation, route }) {
           </View>
         )}
       </ScrollView>
-
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[
           spacing.p4,
           spacing.br1,
@@ -318,7 +341,27 @@ export default function StartInstallationScreen({ navigation, route }) {
         >
           Take Photo
         </P>
+      </TouchableOpacity> */}
+      <TouchableOpacity
+        style={[
+          spacing.p4,
+          spacing.br1,
+          spacing.mb1,
+          styles.bgPrimary,
+          {
+            width: SCREEN_WIDTH - 16,
+            alignItems: "center",
+          },
+        ]}
+        onPress={handleTakePhoto}
+      >
+        <P
+          style={[typography.font18, typography.textBold, typography.textLight]}
+        >
+          Take Photo
+        </P>
       </TouchableOpacity>
+      ;
       <CameraInput
         isCameraOpen={isCameraVisible}
         setIsCameraOpen={setIsCameraVisible}

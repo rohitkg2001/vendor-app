@@ -26,6 +26,7 @@ import {
   SET_POLE_NUMBER,
   SET_BENEFICIARY_NAME,
   SET_LOCATION_REMARKS,
+  SET_CONTACT_NUMBER,
 } from "../redux/constant";
 
 const StreetLightPendingTask = ({ navigation }) => {
@@ -52,7 +53,8 @@ const StreetLightPendingTask = ({ navigation }) => {
     data,
     isSurvey,
     beneficiaryName,
-    locationRemarks
+    locationRemarks,
+    contactNumber
   ) => {
     if (!data?.site) {
       console.error("Error: site data is missing", data);
@@ -66,6 +68,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
     dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
     dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,

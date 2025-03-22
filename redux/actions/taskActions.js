@@ -365,7 +365,8 @@ export const submitStreetlightTasks =
         "complete_pole_number",
         String(dataToUpdate.complete_pole_number)
       );
-      formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
+      formData.append( "beneficiary", String( dataToUpdate.beneficiary || "" ) );
+       formData.append("contact", String(dataToUpdate.contact || ""));
       formData.append("remarks", String(dataToUpdate.remarks || ""));
       formData.append("lat", String(dataToUpdate.lat));
       formData.append("lng", String(dataToUpdate.lng));
