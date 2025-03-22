@@ -147,7 +147,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 key={index}
                 title={`${item.panchayat} ${item.block}`}
                 subtitle={`${item.district} - ${item.state}`}
-                submissionDate={item.updated_at}
+                submissionDate={item.submission_date}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
                 isSurvey={activeTab === "Survey"}

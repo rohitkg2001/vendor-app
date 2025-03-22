@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import moment from "moment";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import StreetLightImages from "../components/StreetLightImages";
@@ -61,7 +62,9 @@ const StreetLightDetailsScreen = ({ route }) => {
             >
               Submission Date
             </P>
-            <P style={[typography.font12]}>{item.updated_at}</P>
+            <P style={[typography.font12]}>
+              {moment(item.submission_date).format("DD/MM/YYYY HH:mm A")}
+            </P>
           </View>
         </View>
 
