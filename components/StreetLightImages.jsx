@@ -17,6 +17,28 @@ export default function StreetLightFiles({ source }) {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("Images"); // Track active tab
+  const [location, setLocation] = useState(null); // Store GPS location
+  const [timestamp, setTimestamp] = useState(""); // Store real-time timestamp
+
+  // useEffect(() => {
+  //   if (Array.isArray(source)) {
+  //     const newImages = [];
+  //     const newPdfs = [];
+
+  //     source.forEach((item) => {
+  //       if (typeof item === "string") {
+  //         if (item.endsWith(".pdf")) {
+  //           newPdfs.push(item);
+  //         } else {
+  //           newImages.push({ uri: item });
+  //         }
+  //       }
+  //     });
+
+  //     setImages(newImages);
+  //     setPdfs(newPdfs);
+  //   }
+  // }, [source]);
 
   useEffect(() => {
     if (Array.isArray(source)) {
@@ -36,7 +58,34 @@ export default function StreetLightFiles({ source }) {
       setImages(newImages);
       setPdfs(newPdfs);
     }
+
+    // Update timestamp
+    const updateTimestamp = () => {
+      const now = new Date();
+      setTimestamp(now.toLocaleString());
+    };
+
+    updateTimestamp();
+    const interval = setInterval(updateTimestamp, 60000);
+
+    return () => clearInterval(interval);
   }, [source]);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        let loc = await Location.getCurrentPositionAsync({});
+        setLocation(loc.coords);
+      }
+    })();
+
+    const interval = setInterval(() => {
+      setTimestamp(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View style={[spacing.mt4]}>
@@ -221,11 +270,61 @@ export default function StreetLightFiles({ source }) {
         )}
 
         {/* Image Viewer */}
+        {/* <ImageViewing
+          images={images}
+          imageIndex={selectedImageIndex}
+          visible={isVisible}
+          onRequestClose={() => setIsVisible(false)}
+        /> */}
+
+        {/* Image Viewer */}
         <ImageViewing
           images={images}
           imageIndex={selectedImageIndex}
           visible={isVisible}
           onRequestClose={() => setIsVisible(false)}
+          FooterComponent={() => (
+            <View
+              style={{
+                position: "absolute",
+                bottom: 150,
+                right: 10,
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                padding: 5,
+                borderRadius: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 10,
+                  textAlign: "right",
+                }}
+              >
+                Powered by Dashandots Technology
+              </Text>
+
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 10,
+                  textAlign: "right",
+                }}
+              >
+                📍 Lat: {location?.latitude || "N/A"}, Long:{" "}
+                {location?.longitude || "N/A"}
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 10,
+                  textAlign: "right",
+                }}
+              >
+                ⏰ {timestamp}
+              </Text>
+            </View>
+          )}
         />
       </View>
     </View>
