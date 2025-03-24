@@ -311,37 +311,12 @@ export default function StartInstallationScreen({ navigation, route }) {
               onPress={() => setNetworkAvailable((prev) => !prev)}
             >
               <P style={[typography.font18, typography.textBold]}>
-                Network Availability
+                Network Availability (Airtal)
               </P>
             </TouchableOpacity>
           </View>
         )}
       </ScrollView>
-      {/* <TouchableOpacity
-        style={[
-          spacing.p4,
-          spacing.br1,
-          spacing.mb1,
-          styles.bgPrimary,
-          {
-            width: SCREEN_WIDTH - 16,
-            alignItems: "center",
-          },
-        ]}
-        onPress={() => {
-          if (!selectedWard || !poleNumber) {
-            setSnackbarVisible(true);
-          } else {
-            setIsCameraVisible(true);
-          }
-        }}
-      >
-        <P
-          style={[typography.font18, typography.textBold, typography.textLight]}
-        >
-          Take Photo
-        </P>
-      </TouchableOpacity> */}
       <TouchableOpacity
         style={[
           spacing.p4,
