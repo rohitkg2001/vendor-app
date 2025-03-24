@@ -189,7 +189,8 @@ const StreetLightPendingTask = ({ navigation }) => {
                             { marginLeft: 30 },
                           ]}
                         >
-                          {`${item.site?.number_of_surveyed_poles}`}
+                          {`${item.site?.number_of_surveyed_poles}`} /
+                          {`${item.site?.total_poles}`}
                         </P>
                       </View>
 
@@ -205,7 +206,8 @@ const StreetLightPendingTask = ({ navigation }) => {
                             { marginLeft: 30 },
                           ]}
                         >
-                          {`${item.site?.number_of_installed_poles}`}
+                          {`${item.site?.number_of_installed_poles}`}/
+                          {`${item.site?.total_poles}`}
                         </P>
                       </View>
                     </View>
