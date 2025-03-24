@@ -285,7 +285,7 @@ export default function StartInstallationScreen({ navigation, route }) {
               onPress={() => setNetworkAvailable((prev) => !prev)}
             >
               <P style={[typography.font18, typography.textBold]}>
-                Network Availability (Airtal)
+                Network Availability (Airtel)
               </P>
             </TouchableOpacity>
           </View>
