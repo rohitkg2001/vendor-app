@@ -314,6 +314,7 @@ export default function StreetLightFiles({ source }) {
                 📍 Lat: {location?.latitude || "N/A"}, Long:{" "}
                 {location?.longitude || "N/A"}
               </Text>
+
               <Text
                 style={{
                   color: "white",
