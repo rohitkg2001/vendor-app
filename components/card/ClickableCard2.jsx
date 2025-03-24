@@ -13,6 +13,10 @@ const ClickableCard2 = ({
   endDate,
   onSubmit,
   isSurvey,
+  isNegativeButtonVisible = false,
+  isPositiveButtonVisible = false,
+  positiveAction,
+  positiveText,
   item,
 }) => {
   const navigation = useNavigation();

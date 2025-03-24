@@ -163,9 +163,9 @@ const StreetLightPendingTask = ({ navigation }) => {
                 key={index}
                 title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)`}
                 subtitle={`${item.site?.district} - ${item.site?.state}`}
-                isPositiveButtonVisible={true}
-                positiveAction={() => handleSurveyData(item, false)}
-                positiveText="Submit"
+                // isPositiveButtonVisible={true}
+                // positiveAction={() => handleSurveyData(item, false)}
+                // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
                 negativeAction={() => handleSurveyData(item, true)}
