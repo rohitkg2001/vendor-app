@@ -154,7 +154,8 @@ const StreetLightPendingTask = ({ navigation }) => {
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
                 isSurvey={activeTab === "Survey"}
-                item={item}
+                item={ item }
+                
               />
             );
           } else {
