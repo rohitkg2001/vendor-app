@@ -35,7 +35,6 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
-
   const dispatch = useDispatch();
   const { pendingStreetLights, pole_number } = useSelector(
     (state) => state.tasks
@@ -47,7 +46,6 @@ export default function StartInstallationScreen({ navigation, route }) {
     setSimNumber(values[1].toString());
   };
 
-  
   useEffect(() => {
     if (Array.isArray(pendingStreetLights)) {
       const currentSite = pendingStreetLights.find(
