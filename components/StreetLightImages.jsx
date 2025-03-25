@@ -76,38 +76,6 @@ export default function StreetLightFiles({ source }) {
     return () => clearInterval(interval);
   }, []);
 
-  // useEffect(() => {
-  //   if (Array.isArray(source)) {
-  //     const newImages = [];
-  //     const newPdfs = [];
-
-  //     source.forEach(async (item) => {
-  //       if (typeof item === "string") {
-  //         if (item.endsWith(".pdf")) {
-  //           newPdfs.push(item);
-  //         } else {
-  //           // Capture location when adding an image
-  //           let loc = await Location.getCurrentPositionAsync({});
-  //           const geocode = await Location.reverseGeocodeAsync(loc.coords);
-  //           const address =
-  //             geocode.length > 0
-  //               ? `${geocode[0].city}, ${geocode[0].district}, ${geocode[0].region} ${geocode[0].postalCode}`
-  //               : `Lat: ${loc.coords.latitude}, Long: ${loc.coords.longitude}`;
-
-  //           newImages.push({
-  //             uri: item,
-  //             location: address,
-  //             timestamp: new Date().toLocaleString(),
-  //           });
-  //         }
-  //       }
-  //     });
-
-  //     setImages(newImages);
-  //     setPdfs(newPdfs);
-  //   }
-  // }, [source]);
-
   return (
     <View style={[spacing.mt4]}>
       {/* Heading */}
