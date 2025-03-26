@@ -294,6 +294,7 @@ export default function StreetLightFiles({ source }) {
               >
                 📍 {address || `Lat: ${location?.latitude}, Long: ${location?.longitude}`}
               </Text>
+
               <Text
                 style={{
                   color: "white",
@@ -310,5 +311,3 @@ export default function StreetLightFiles({ source }) {
     </View>
   );
 }
-
-

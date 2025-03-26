@@ -28,6 +28,7 @@ import {
   SET_LOCATION_REMARKS,
   SET_CONTACT_NUMBER,
 } from "../redux/constant";
+import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
@@ -150,12 +151,11 @@ const StreetLightPendingTask = ({ navigation }) => {
                 key={index}
                 title={`${item.panchayat} ${item.block}`}
                 subtitle={`${item.district} - ${item.state}`}
-                submissionDate={item.submission_date}
-                endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
-                isSurvey={activeTab === "Survey"}
-                item={ item }
-                
+                item={item}
+                isPositiveButtonVisible={true}
+                positiveAction={() => handleSurveyData(item, false)}
+                positiveText="Submit"
               />
             );
           } else {
@@ -164,9 +164,9 @@ const StreetLightPendingTask = ({ navigation }) => {
                 key={index}
                 title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)`}
                 subtitle={`${item.site?.district} - ${item.site?.state}`}
-                isPositiveButtonVisible={true}
-                positiveAction={() => handleSurveyData(item, false)}
-                positiveText="Submit"
+                // isPositiveButtonVisible={true}
+                // positiveAction={() => handleSurveyData(item, false)}
+                // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
                 negativeAction={() => handleSurveyData(item, true)}
