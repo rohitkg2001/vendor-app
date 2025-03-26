@@ -6,7 +6,8 @@ import NoRecord from "./NoRecord";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import ClickableCard2 from "../components/card/ClickableCard2";
-import { View } from "react-native";
+import { View, Alert } from "react-native";
+import { Snackbar } from "react-native-paper";
 import {
   spacing,
   styles,
@@ -141,16 +142,15 @@ const StreetLightPendingTask = ({ navigation }) => {
     }
   };
 
-  // const handleExport = () => {
-  //   if (activeTab === "Survey") {
-  //     const ids = surveyedStreetLights.map((item) => item.id);
-  //     ids.forEach((id) => {
-  //       dispatch(download(id));
-  //     });
-  //   } else {
-  //     console.log("Export is only available for surveyed poles.");
-  //   }
-  // };
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "info",
+  });
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: "", severity: "info" });
+  };
 
   // const handleExport = () => {
   //   if (activeTab === "Survey") {
@@ -158,7 +158,7 @@ const StreetLightPendingTask = ({ navigation }) => {
 
   //     if (ids.length > 0) {
   //       ids.forEach((id) => {
-  //         download(id)();
+  //         download(id); // Call the function directly
   //       });
   //     } else {
   //       console.log("No surveyed poles found.");
@@ -174,13 +174,21 @@ const StreetLightPendingTask = ({ navigation }) => {
 
       if (ids.length > 0) {
         ids.forEach((id) => {
-          download(id); // Call the function directly
+          download(id, setSnackbar);
         });
       } else {
-        console.log("No surveyed poles found.");
+        setSnackbar({
+          open: true,
+          message: "No surveyed poles found.",
+          severity: "warning",
+        });
       }
     } else {
-      console.log("Export is only available for surveyed poles.");
+      setSnackbar({
+        open: true,
+        message: "Export is only available for surveyed poles.",
+        severity: "warning",
+      });
     }
   };
 
@@ -351,6 +359,18 @@ const StreetLightPendingTask = ({ navigation }) => {
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
+      {/* Snackbar Component */}
+      <Snackbar
+        visible={snackbar.open}
+        duration={8000}
+        onDismiss={handleCloseSnackbar}
+        action={{
+          label: "Close",
+          onPress: handleCloseSnackbar,
+        }}
+      >
+        {snackbar.message}
+      </Snackbar>
     </ContainerComponent>
   );
 };
