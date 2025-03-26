@@ -141,46 +141,48 @@ const StreetLightPendingTask = ({ navigation }) => {
     }
   };
 
- const handleExport = () => {
-   if (activeTab === "Survey") {
-     const ids = surveyedStreetLights.map((item) => item.id);
+  // const handleExport = () => {
+  //   if (activeTab === "Survey") {
+  //     const ids = surveyedStreetLights.map((item) => item.id);
+  //     ids.forEach((id) => {
+  //       dispatch(download(id));
+  //     });
+  //   } else {
+  //     console.log("Export is only available for surveyed poles.");
+  //   }
+  // };
 
-     // Create a data structure suitable for exporting to Excel
-     const exportData = surveyedStreetLights.map((item) => {
-       return {
-         "Pole Number": item.site?.number_of_surveyed_poles,
-         District: item.site?.district,
-         State: item.site?.state,
-         Panchayat: item.site?.panchayat,
-         Block: item.site?.block,
-         "Surveyed Poles": item.site?.number_of_surveyed_poles,
-         "Total Poles": item.site?.total_poles,
-         "Start Date": item.start_date,
-         "End Date": item.end_date,
-       };
-     });
+  // const handleExport = () => {
+  //   if (activeTab === "Survey") {
+  //     const ids = surveyedStreetLights.map((item) => item.id);
 
-     // Create a new worksheet from the data
-     const ws = XLSX.utils.json_to_sheet(exportData);
-     const wb = XLSX.utils.book_new();
-     XLSX.utils.book_append_sheet(wb, ws, "Surveyed Poles");
+  //     if (ids.length > 0) {
+  //       ids.forEach((id) => {
+  //         download(id)();
+  //       });
+  //     } else {
+  //       console.log("No surveyed poles found.");
+  //     }
+  //   } else {
+  //     console.log("Export is only available for surveyed poles.");
+  //   }
+  // };
 
-     // Generate the file
-     const filePath = `${DocumentDirectoryPath}/Surveyed_Poles.xlsx`;
-     const writeBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+  const handleExport = () => {
+    if (activeTab === "Survey") {
+      const ids = surveyedStreetLights.map((item) => item.id);
 
-     // Write the buffer to the file
-     writeFile(filePath, writeBuffer, "ascii")
-       .then(() => {
-         alert("Excel file saved successfully!");
-       })
-       .catch((err) => {
-         console.error("Error writing file:", err);
-       });
-   } else {
-     console.log("Export is only available for surveyed poles.");
-   }
- };
+      if (ids.length > 0) {
+        ids.forEach((id) => {
+          download(id); // Call the function directly
+        });
+      } else {
+        console.log("No surveyed poles found.");
+      }
+    } else {
+      console.log("Export is only available for surveyed poles.");
+    }
+  };
 
   return (
     <ContainerComponent>

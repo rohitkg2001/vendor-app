@@ -361,3 +361,19 @@ export const getViewPoles = (vendor_id) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const download = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/export-poles/vendor/${id}`);
+    const { status } = response;
+    if (status === 200) {
+      alert("Downloaded successfully");
+    } else {
+      console.error("Failed to download");
+    }
+  } catch (error) {
+    console.error("Error downloading data:", error);
+  }
+};
+
+
