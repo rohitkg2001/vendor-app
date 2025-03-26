@@ -28,7 +28,10 @@ import {
   SET_LOCATION_REMARKS,
   SET_CONTACT_NUMBER,
 } from "../redux/constant";
-import { submitStreetlightTasks } from "../redux/actions/taskActions";
+import { download } from "../redux/actions/taskActions";
+
+import * as XLSX from "xlsx";
+// import { writeFile, DocumentDirectoryPath } from "react-native-fs";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
@@ -138,6 +141,47 @@ const StreetLightPendingTask = ({ navigation }) => {
     }
   };
 
+ const handleExport = () => {
+   if (activeTab === "Survey") {
+     const ids = surveyedStreetLights.map((item) => item.id);
+
+     // Create a data structure suitable for exporting to Excel
+     const exportData = surveyedStreetLights.map((item) => {
+       return {
+         "Pole Number": item.site?.number_of_surveyed_poles,
+         District: item.site?.district,
+         State: item.site?.state,
+         Panchayat: item.site?.panchayat,
+         Block: item.site?.block,
+         "Surveyed Poles": item.site?.number_of_surveyed_poles,
+         "Total Poles": item.site?.total_poles,
+         "Start Date": item.start_date,
+         "End Date": item.end_date,
+       };
+     });
+
+     // Create a new worksheet from the data
+     const ws = XLSX.utils.json_to_sheet(exportData);
+     const wb = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, "Surveyed Poles");
+
+     // Generate the file
+     const filePath = `${DocumentDirectoryPath}/Surveyed_Poles.xlsx`;
+     const writeBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+
+     // Write the buffer to the file
+     writeFile(filePath, writeBuffer, "ascii")
+       .then(() => {
+         alert("Excel file saved successfully!");
+       })
+       .catch((err) => {
+         console.error("Error writing file:", err);
+       });
+   } else {
+     console.log("Export is only available for surveyed poles.");
+   }
+ };
+
   return (
     <ContainerComponent>
       <MyHeader
@@ -148,7 +192,7 @@ const StreetLightPendingTask = ({ navigation }) => {
         menuItems={[
           {
             title: "Export to Excel",
-            onPress: () => console.log("Export to Excel"),
+            onPress: handleExport,
           },
         ]}
       />

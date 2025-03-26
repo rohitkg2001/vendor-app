@@ -35,8 +35,6 @@ export const tasksCounts = [
   },
 ];
 
-
-
 export const getAllTasks = (my_id) => async (dispatch) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/task`);
