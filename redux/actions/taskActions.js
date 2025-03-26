@@ -35,6 +35,8 @@ export const tasksCounts = [
   },
 ];
 
+
+
 export const getAllTasks = (my_id) => async (dispatch) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/task`);
@@ -76,12 +78,6 @@ export const getAllInstallationCount = async (my_id, category) => {
     // Aur status kya hai. Agar In Progress hai to humne use inApprovalTasks me dal diya
     const approvedTasks = myTasks.filter((myTask) => myTask.status === "Done");
     // Lastly approvedTasks me status dekh liya
-    // return {
-    //   totalTasks: myTasks.length,
-    //   pendingTasks: pendingTasks.length,
-    //   inApprovalTasks: pendingTasks.length,
-    //   approvedTasks: approvedTasks.length
-    // }
     return myTasks.length;
   } catch (error) {
     console.error(`Error fetching tasks by Status: ${error.message}`);
@@ -242,11 +238,6 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
   }
 };
 
-// 0=INSTALLATION
-// 1 = FIXING SLIP
-// 2=RMS
-// 3 = INSPECTION
-// 4=Report Sent
 
 export const getStreetLightTasks = (my_id) => async (dispatch) => {
   const response = await axios.get(
@@ -266,83 +257,6 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites });
 };
 
-// export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
-//   try {
-//     console.log("Surveying");
-//     console.log(dataToUpdate);
-//     const response = await axios.put(
-//       `${BASE_URL}/api/streetlight/tasks/update`,
-//       dataToUpdate
-//     );
-//     const { data } = response;
-//     console.log(data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// export const submitStreetlightTasks =
-//   (dataToUpdate, file) => async (dispatch) => {
-//     try {
-//       console.log("Surveying...");
-
-//       const formData = new FormData();
-//       let imageIndex = 0;
-
-//       // ✅ Ensure task_id and complete_pole_number are included
-//       if (!dataToUpdate.task_id || !dataToUpdate.complete_pole_number) {
-//         console.error("Missing task_id or complete_pole_number");
-//         return;
-//       }
-
-//       // ✅ Append all other fields
-//       Object.entries(dataToUpdate).forEach(([key, value]) => {
-//         if (value !== undefined && value !== null) {
-//           formData.append(key, value);
-//         }
-//       });
-
-//       // ✅ Append single file (if provided)
-//       if (file) {
-//         formData.append(`survey_image[${imageIndex}]`, {
-//           uri: file.uri,
-//           name: file.name || `photo_${imageIndex}.jpg`,
-//           type: file.mimeType || "image/jpeg",
-//         });
-//         imageIndex++;
-//       }
-
-//       // ✅ Append multiple images
-//       if (dataToUpdate.survey_image) {
-//         dataToUpdate.survey_image.forEach((item) => {
-//           formData.append(`survey_image[${imageIndex}]`, {
-//             uri: item.uri.startsWith("file://")
-//               ? item.uri
-//               : `file:/${item.uri}`,
-//             name: `photo_${imageIndex}.jpg`,
-//             type: "image/jpeg",
-//           });
-//           imageIndex++;
-//         });
-//       }
-
-//       // ✅ Debug: Print formData contents
-//       for (let pair of formData.entries()) {
-//         console.log(pair[0], pair[1]);
-//       }
-
-//       // ✅ Send POST request (instead of PUT)
-//       const response = await axios.post(
-//         `${BASE_URL}/api/streetlight/tasks/update`, // Ensure correct endpoint
-//         formData,
-//         { headers: { "Content-Type": "multipart/form-data" } }
-//       );
-
-//       console.log("Response Data:", response.data);
-//     } catch (error) {
-//       console.error("Error submitting data:", error.response?.data || error);
-//     }
-//   };
 
 export const submitStreetlightTasks =
   (dataToUpdate, file) => async (dispatch) => {

@@ -140,7 +140,18 @@ const StreetLightPendingTask = ({ navigation }) => {
 
   return (
     <ContainerComponent>
-      <MyHeader title={t("Total Installation")} isBack={true} hasIcon={true} />
+      <MyHeader
+        title={t("Total Installation")}
+        isBack={true}
+        hasIcon={true}
+        icon="ellipsis-vertical"
+        menuItems={[
+          {
+            title: "Export to Excel",
+            onPress: () => console.log("Export to Excel"),
+          },
+        ]}
+      />
 
       <MyFlatList
         data={filteredData}
