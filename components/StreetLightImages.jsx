@@ -309,35 +309,6 @@ export default function StreetLightFiles({ source }) {
             </View>
           )}
         />
-        {/* <ImageViewing
-          images={images}
-          imageIndex={selectedImageIndex}
-          visible={isVisible}
-          onRequestClose={() => setIsVisible(false)}
-          FooterComponent={() => (
-            <View
-              style={{
-                position: "absolute",
-                bottom: 150,
-                right: 10,
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                padding: 5,
-                borderRadius: 5,
-              }}
-            >
-              <Text
-                style={{ color: "white", fontSize: 10, textAlign: "right" }}
-              >
-                📍 {images[selectedImageIndex]?.location}
-              </Text>
-              <Text
-                style={{ color: "white", fontSize: 10, textAlign: "right" }}
-              >
-                ⏰ {images[selectedImageIndex]?.timestamp}
-              </Text>
-            </View>
-          )}
-        /> */}
       </View>
     </View>
   );
