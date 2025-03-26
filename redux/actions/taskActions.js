@@ -362,49 +362,18 @@ export const getViewPoles = (vendor_id) => async (dispatch) => {
   }
 };
 
-
-// export const download = async (my_id, setSnackbar) => {
-//   try {
-//     const response = await axios.get(
-//       `${BASE_URL}/api/export-poles/vendor/${my_id}`
-//     );
-//     const { status } = response;
-
-//     if (status === 200) {
-//       setSnackbar({
-//         open: true,
-//         message: "Downloaded successfully",
-//         severity: "success",
-//       });
-//     } else {
-//       setSnackbar({
-//         open: true,
-//         message: "Failed to download",
-//         severity: "error",
-//       });
-//     }
-//   } catch (error) {
-//     setSnackbar({
-//       open: true,
-//       message: "Error downloading data",
-//       severity: "error",
-//     });
-//     console.error("Error downloading data:", error);
-//   }
-// };
-
-export const download = async ( my_id ) =>
-{
-  try
-  {
+export const download = async (my_id) => {
+  try {
     const response = await axios.get(
-      `${ BASE_URL }/api/export-poles/vendor/${ my_id }`
+      `${BASE_URL}/api/export-poles/vendor/${my_id}`
     );
-    const { status } = response;
-    if ( status === 200 ) return true
-    return false
-  } catch ( err )
-  {
-    return err.message
+
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.error("Error downloading data:", err);
+    return err?.message || "An unknown error occurred";
   }
 };
