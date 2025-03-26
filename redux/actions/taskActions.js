@@ -450,18 +450,46 @@ export const getViewPoles = (vendor_id) => async (dispatch) => {
   }
 };
 
-export const download = async (id) => {
+// export const download = async (id) => {
+//   try {
+//     const response = await axios.get(`${BASE_URL}/api/export-poles/vendor/${id}`);
+//     const { status } = response;
+//     if (status === 200) {
+//       alert("Downloaded successfully");
+//     } else {
+//       console.error("Failed to download");
+//     }
+//   } catch (error) {
+//     console.error("Error downloading data:", error);
+//   }
+// };
+
+export const download = async (id, setSnackbar) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/export-poles/vendor/${id}`);
+    const response = await axios.get(
+      `${BASE_URL}/api/export-poles/vendor/${id}`
+    );
     const { status } = response;
+
     if (status === 200) {
-      alert("Downloaded successfully");
+      setSnackbar({
+        open: true,
+        message: "Downloaded successfully",
+        severity: "success",
+      });
     } else {
-      console.error("Failed to download");
+      setSnackbar({
+        open: true,
+        message: "Failed to download",
+        severity: "error",
+      });
     }
   } catch (error) {
+    setSnackbar({
+      open: true,
+      message: "Error downloading data",
+      severity: "error",
+    });
     console.error("Error downloading data:", error);
   }
 };
-
-
