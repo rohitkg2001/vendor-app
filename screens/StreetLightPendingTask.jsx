@@ -140,7 +140,26 @@ const StreetLightPendingTask = ({ navigation }) => {
 
   // const handleExport = () => {
   //   if (activeTab === "Survey") {
-  //     dispatch(download(surveyedStreetLights, "Surveyed_Poles_Data.xlsx"));
+  //     const ids = surveyedStreetLights.map((item) => item.id);
+  //     ids.forEach((id) => {
+  //       dispatch(download(id));
+  //     });
+  //   } else {
+  //     console.log("Export is only available for surveyed poles.");
+  //   }
+  // };
+
+  // const handleExport = () => {
+  //   if (activeTab === "Survey") {
+  //     const ids = surveyedStreetLights.map((item) => item.id);
+
+  //     if (ids.length > 0) {
+  //       ids.forEach((id) => {
+  //         download(id)();
+  //       });
+  //     } else {
+  //       console.log("No surveyed poles found.");
+  //     }
   //   } else {
   //     console.log("Export is only available for surveyed poles.");
   //   }
@@ -149,9 +168,14 @@ const StreetLightPendingTask = ({ navigation }) => {
   const handleExport = () => {
     if (activeTab === "Survey") {
       const ids = surveyedStreetLights.map((item) => item.id);
-      ids.forEach((id) => {
-        dispatch(download(id));
-      });
+
+      if (ids.length > 0) {
+        ids.forEach((id) => {
+          download(id); // Call the function directly
+        });
+      } else {
+        console.log("No surveyed poles found.");
+      }
     } else {
       console.log("Export is only available for surveyed poles.");
     }
