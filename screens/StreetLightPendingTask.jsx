@@ -37,6 +37,8 @@ const StreetLightPendingTask = ({ navigation }) => {
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
 
+  const { id } = useSelector((state) => state.vendor);
+
   const dispatch = useDispatch();
   useEffect(() => {
     Array.isArray(pendingStreetLights) &&
@@ -139,53 +141,18 @@ const StreetLightPendingTask = ({ navigation }) => {
     }
   };
 
-  const [snackbar, setSnackbar] = useState({
+  const [snackbar, setShowSnackbar] = useState({
     open: false,
     message: "",
-    severity: "info",
+    severity: "",
   });
 
-  const handleCloseSnackbar = () => {
-    setSnackbar({ open: false, message: "", severity: "info" });
-  };
-
-  // const handleExport = () => {
-  //   if (activeTab === "Survey") {
-  //     const ids = surveyedStreetLights.map((item) => item.id);
-
-  //     if (ids.length > 0) {
-  //       ids.forEach((id) => {
-  //         download(id); // Call the function directly
-  //       });
-  //     } else {
-  //       console.log("No surveyed poles found.");
-  //     }
-  //   } else {
-  //     console.log("Export is only available for surveyed poles.");
-  //   }
-  // };
-
-  const handleExport = () => {
-    if (activeTab === "Survey") {
-      const ids = surveyedStreetLights.map((item) => item.id);
-
-      if (ids.length > 0) {
-        ids.forEach((id) => {
-          download(id, setSnackbar);
-        });
-      } else {
-        setSnackbar({
-          open: true,
-          message: "No surveyed poles found.",
-          severity: "warning",
-        });
-      }
+  const handleExport = async () => {
+    const status = await dispatch(exportPoles(id));
+    if (status) {
+      setShowSnackbar("File downloaded successfully");
     } else {
-      setSnackbar({
-        open: true,
-        message: "Export is only available for surveyed poles.",
-        severity: "warning",
-      });
+      setShowSnackbar("There was a problem");
     }
   };
 
@@ -360,10 +327,10 @@ const StreetLightPendingTask = ({ navigation }) => {
       <Snackbar
         visible={snackbar.open}
         duration={8000}
-        onDismiss={handleCloseSnackbar}
+        onDismiss={() => setShowSnackbar({ ...snackbar, open: false })}
         action={{
           label: "Close",
-          onPress: handleCloseSnackbar,
+          onPress: () => setShowSnackbar({ ...snackbar, open: false }),
         }}
       >
         {snackbar.message}
