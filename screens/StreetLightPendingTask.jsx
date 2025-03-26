@@ -28,7 +28,7 @@ import {
   SET_LOCATION_REMARKS,
   SET_CONTACT_NUMBER,
 } from "../redux/constant";
-import { submitStreetlightTasks } from "../redux/actions/taskActions";
+import { download } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
@@ -138,6 +138,25 @@ const StreetLightPendingTask = ({ navigation }) => {
     }
   };
 
+  // const handleExport = () => {
+  //   if (activeTab === "Survey") {
+  //     dispatch(download(surveyedStreetLights, "Surveyed_Poles_Data.xlsx"));
+  //   } else {
+  //     console.log("Export is only available for surveyed poles.");
+  //   }
+  // };
+
+  const handleExport = () => {
+    if (activeTab === "Survey") {
+      const ids = surveyedStreetLights.map((item) => item.id);
+      ids.forEach((id) => {
+        dispatch(download(id));
+      });
+    } else {
+      console.log("Export is only available for surveyed poles.");
+    }
+  };
+
   return (
     <ContainerComponent>
       <MyHeader
@@ -148,7 +167,7 @@ const StreetLightPendingTask = ({ navigation }) => {
         menuItems={[
           {
             title: "Export to Excel",
-            onPress: () => console.log("Export to Excel"),
+            onPress: handleExport,
           },
         ]}
       />
