@@ -31,8 +31,7 @@ import {
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
-  const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
-    useSelector((state) => state.tasks);
+  const { pendingStreetLights, surveyedStreetLights, installedStreetLights } = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -121,7 +120,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     } else if (tab === "InApproved") {
       setFilteredData(
         pendingStreetLights?.filter((task) => task.status === "InApproved") ||
-          []
+        []
       );
     } else if (tab === "Rejected") {
       setFilteredData(
@@ -148,7 +147,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 submissionDate={item.updated_at}
                 endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
-               // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
+                // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
                 isSurvey={activeTab === "Survey"} // Show submit button only in Survey tab
                 item={item} // Pass the full item
               />
@@ -230,12 +229,12 @@ const StreetLightPendingTask = ({ navigation }) => {
               ]}
               onTabPress={(tabLabel) => setActiveTab(tabLabel.split(" ")[0])}
               activeTab={activeTab}
-              // tabStyles={{
-              //   activeBackgroundColor: "#76885B",
-              //   inactiveBackgroundColor: "#C8E6C9",
-              //   activeTextColor: "#FFF",
-              //   inactiveTextColor: "#333",
-              // }}
+            // tabStyles={{
+            //   activeBackgroundColor: "#76885B",
+            //   inactiveBackgroundColor: "#C8E6C9",
+            //   activeTextColor: "#FFF",
+            //   inactiveTextColor: "#333",
+            // }}
             />
           </View>
         )}
