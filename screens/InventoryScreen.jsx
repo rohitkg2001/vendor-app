@@ -11,7 +11,18 @@ export default function InventoryScreen() {
 
   return (
     <ContainerComponent>
-      <MyHeader title={t("inventory_title")} hasIcon={true} isBack={true} />
+      <MyHeader
+        title={t("inventory_title")}
+        hasIcon={true}
+        isBack={true}
+        icon="ellipsis-vertical"
+        menuItems={[
+          {
+            title: "Export to Excel",
+            //onPress: handleExport,
+          },
+        ]}
+      />
 
       <MyFlatList
         data={inventoryData}
