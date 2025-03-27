@@ -166,7 +166,7 @@ const StreetLightPendingTask = ({ navigation }) => {
       setShowSnackbar("File downloaded successfully");
     } else {
       console.error("File download failed!");
-      setShowSnackbar("There was a problem");
+      setShowSnackbar("There was a problem"); 
     }
 
     console.log("Export process finished.");
