@@ -20,7 +20,7 @@
     "axios": "^1.7.9",
     "expo": "^52.0.6",
     "expo-camera": "~16.0.14",
-    "expo-document-picker": "~13.0.1",
+    "expo-document-picker": "~13.0.3",
     "expo-font": "~13.0.3",
     "expo-location": "~18.0.1",
     "i18next": "^24.0.0",
@@ -28,7 +28,6 @@
     "react": "18.3.1",
     "react-i18next": "^15.1.1",
     "react-native": "0.76.1",
-    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-image-viewing": "^0.2.2",
     "react-native-paper": "^5.12.5",
@@ -38,7 +37,9 @@
     "react-redux": "^7.2.9",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "expo-file-system": "~18.0.12",
+    "expo-sharing": "~13.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

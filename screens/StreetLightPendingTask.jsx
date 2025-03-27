@@ -148,12 +148,14 @@ const StreetLightPendingTask = ({ navigation }) => {
   });
 
   const handleExport = async () => {
-    const status = await dispatch(exportPoles(id));
-    if (status) {
-      setShowSnackbar("File downloaded successfully");
-    } else {
-      setShowSnackbar("There was a problem");
-    }
+    console.log(id)
+    const status = await download(id);
+    console.log(status)
+    // if (status) {
+    //   setShowSnackbar("File downloaded successfully");
+    // } else {
+    //   setShowSnackbar("There was a problem");
+    // }
   };
 
   return (

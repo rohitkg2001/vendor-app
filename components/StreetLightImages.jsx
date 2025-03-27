@@ -258,17 +258,6 @@ export default function StreetLightFiles({ source }) {
           </ScrollView>
         )}
 
-<<<<<<< HEAD
-          {/* Image Viewer */}
-          <ImageViewing
-            images={source}
-            imageIndex={selectedImageIndex}
-            visible={isVisible}
-            onRequestClose={() => setIsVisible(false)}
-          />
-        </View>
-      )}
-=======
         {/* Image Viewer */}
         <ImageViewing
           images={images}
@@ -321,7 +310,7 @@ export default function StreetLightFiles({ source }) {
           )}
         />
       </View>
->>>>>>> 7602ebc6df90234130a73096e92b33c721500387
+
     </View>
   );
 }

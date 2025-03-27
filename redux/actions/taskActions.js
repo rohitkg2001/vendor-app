@@ -13,6 +13,12 @@ import {
 } from "../constant";
 import { filterByStatus } from "./projectActions";
 import axios from "axios";
+import * as FileSystem from "expo-file-system";
+import * as DocumentPicker from "expo-document-picker";
+import * as Sharing from "expo-sharing";
+import { Alert, Platform } from "react-native";
+
+
 
 export const INSTALLATION = filterByStatus([], 0);
 export const FIXING_SLIP = filterByStatus([], 1);
@@ -266,84 +272,6 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites });
 };
 
-// export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
-//   try {
-//     console.log("Surveying");
-//     console.log(dataToUpdate);
-//     const response = await axios.put(
-//       `${BASE_URL}/api/streetlight/tasks/update`,
-//       dataToUpdate
-//     );
-//     const { data } = response;
-//     console.log(data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// export const submitStreetlightTasks =
-//   (dataToUpdate, file) => async (dispatch) => {
-//     try {
-//       console.log("Surveying...");
-
-//       const formData = new FormData();
-//       let imageIndex = 0;
-
-//       // ✅ Ensure task_id and complete_pole_number are included
-//       if (!dataToUpdate.task_id || !dataToUpdate.complete_pole_number) {
-//         console.error("Missing task_id or complete_pole_number");
-//         return;
-//       }
-
-//       // ✅ Append all other fields
-//       Object.entries(dataToUpdate).forEach(([key, value]) => {
-//         if (value !== undefined && value !== null) {
-//           formData.append(key, value);
-//         }
-//       });
-
-//       // ✅ Append single file (if provided)
-//       if (file) {
-//         formData.append(`survey_image[${imageIndex}]`, {
-//           uri: file.uri,
-//           name: file.name || `photo_${imageIndex}.jpg`,
-//           type: file.mimeType || "image/jpeg",
-//         });
-//         imageIndex++;
-//       }
-
-//       // ✅ Append multiple images
-//       if (dataToUpdate.survey_image) {
-//         dataToUpdate.survey_image.forEach((item) => {
-//           formData.append(`survey_image[${imageIndex}]`, {
-//             uri: item.uri.startsWith("file://")
-//               ? item.uri
-//               : `file:/${item.uri}`,
-//             name: `photo_${imageIndex}.jpg`,
-//             type: "image/jpeg",
-//           });
-//           imageIndex++;
-//         });
-//       }
-
-//       // ✅ Debug: Print formData contents
-//       for (let pair of formData.entries()) {
-//         console.log(pair[0], pair[1]);
-//       }
-
-//       // ✅ Send POST request (instead of PUT)
-//       const response = await axios.post(
-//         `${BASE_URL}/api/streetlight/tasks/update`, // Ensure correct endpoint
-//         formData,
-//         { headers: { "Content-Type": "multipart/form-data" } }
-//       );
-
-//       console.log("Response Data:", response.data);
-//     } catch (error) {
-//       console.error("Error submitting data:", error.response?.data || error);
-//     }
-//   };
-
 export const submitStreetlightTasks =
   (dataToUpdate, file) => async (dispatch) => {
     try {
@@ -422,11 +350,8 @@ export const submitStreetlightTasks =
 
 export const getInstalledPoles = (vendor_id) => async (dispatch) => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/api/installed-poles/vendor/${vendor_id}`
-    );
+    const response = await axios.get(`${BASE_URL}/api/installed-poles/vendor/${vendor_id}`);
     const { data } = response;
-    ``;
     const { installed_poles, surveyed_poles } = data;
     dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyed_poles });
     dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
@@ -437,11 +362,8 @@ export const getInstalledPoles = (vendor_id) => async (dispatch) => {
 
 export const getViewPoles = (vendor_id) => async (dispatch) => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/api/pole-details/vendor/${vendor_id}`
-    );
+    const response = await axios.get(`${BASE_URL}/api/pole-details/vendor/${vendor_id}`);
     const { data } = response;
-    ``;
     const { installed_poles, surveyed_poles } = data;
     dispatch({ type: GET_VIEW_STREETLIGHTS, payload: surveyed_poles });
     // dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
@@ -452,16 +374,28 @@ export const getViewPoles = (vendor_id) => async (dispatch) => {
 
 export const download = async (my_id) => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/api/export-poles/vendor/${my_id}`
-    );
+    const url = `${BASE_URL}/api/export-poles/vendor/${my_id}`;
+    const fileName = `exported_poles_${my_id}.xlsx`;
 
-    if (response.status === 200) {
-      return true;
+    // Download to app's cache directory
+    const fileUri = FileSystem.cacheDirectory + fileName;
+    const downloadObject = FileSystem.createDownloadResumable(url, fileUri);
+    const { uri } = await downloadObject.downloadAsync();
+
+    if (!uri) throw new Error("File download failed");
+
+    // Check if Sharing is available (iOS has stricter file access)
+    if (Platform.OS === "ios" || !(await Sharing.isAvailableAsync())) {
+      Alert.alert("Download Complete", "File saved to app storage. Please share or move it.");
+      return;
     }
-    return false;
-  } catch (err) {
-    console.error("Error downloading data:", err);
-    return err?.message || "An unknown error occurred";
+
+    // Open file picker so the user can choose where to save it
+    await Sharing.shareAsync(uri, { mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+    return { success: true, uri };
+  } catch (error) {
+    console.error("Download error:", error);
+    return { success: false, error: error.message };
   }
 };
