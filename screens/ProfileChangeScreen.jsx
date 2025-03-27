@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, ImageBackground } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { P, H6, H4 } from "../components/text";
 import { spacing, typography, LIGHT } from "../styles";
@@ -13,18 +13,27 @@ const ProfileChangeScreen = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={[spacing.p5, { backgroundColor: "#000", paddingTop: 50 }]}>
-        <H4
-          style={[
-            typography.font18,
-            typography.fontLato,
-            typography.textBold,
-            { color: LIGHT },
-          ]}
-        >
-          Profile
-        </H4>
-      </View>
+      <ImageBackground
+        source={require("../assets/renable.jpeg")}
+        style={{
+          width: "100%",
+          height: 170,
+          justifyContent: "center",
+          alignItems: "center",
+          position: "relative",
+        }}
+        resizeMode="cover"
+      >
+        <View
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            // backgroundColor: "rgba(0, 0, 0, 0.3)",
+          }}
+        />
+      </ImageBackground>
+
       <View
         style={[
           spacing.p5,
@@ -47,6 +56,7 @@ const ProfileChangeScreen = ({ route, navigation }) => {
             borderColor: "#27AE60",
           }}
         />
+
         <H6
           style={[
             typography.font18,
@@ -60,18 +70,17 @@ const ProfileChangeScreen = ({ route, navigation }) => {
         </H6>
         <P style={[typography.font14, { color: "#BDC3C7" }]}>{email}</P>
 
+        {/* Camera Button */}
         <TouchableOpacity
           onPress={() => navigation.navigate("attendancePunch")}
-          style={[
-            spacing.p2,
-            spacing.br5,
-            {
-              position: "absolute",
-              bottom: 10,
-              right: 20,
-              backgroundColor: "#76885B",
-            },
-          ]}
+          style={{
+            position: "absolute",
+            bottom: 10,
+            right: 20,
+            backgroundColor: "#1ABC9C",
+            padding: 10,
+            borderRadius: 25,
+          }}
         >
           <Ionicons name="camera-outline" size={24} color="#fff" />
         </TouchableOpacity>

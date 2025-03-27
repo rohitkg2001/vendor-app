@@ -5,8 +5,10 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  Text,
 } from "react-native";
 import ImageViewing from "react-native-image-viewing";
+import * as Location from "expo-location";
 import { typography, spacing, styles } from "../styles";
 import { P } from "./text";
 
@@ -16,6 +18,9 @@ export default function StreetLightFiles({ source }) {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("Images"); // Track active tab
+  const [location, setLocation] = useState(null); // Store GPS location
+  const [timestamp, setTimestamp] = useState(""); // Store real-time timestamp
+  const [address, setAddress] = useState(""); // Store the geocoded address
 
   useEffect(() => {
     if (Array.isArray(source)) {
@@ -35,7 +40,41 @@ export default function StreetLightFiles({ source }) {
       setImages(newImages);
       setPdfs(newPdfs);
     }
+
+    // Update timestamp
+    const updateTimestamp = () => {
+      const now = new Date();
+      setTimestamp(now.toLocaleString());
+    };
+
+    updateTimestamp();
+    const interval = setInterval(updateTimestamp, 60000);
+
+    return () => clearInterval(interval);
   }, [source]);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        let loc = await Location.getCurrentPositionAsync({});
+        setLocation(loc.coords);
+
+        // Reverse Geocoding to get the address
+        const geocode = await Location.reverseGeocodeAsync(loc.coords);
+        if (geocode.length > 0) {
+          const { city, district, region, postalCode } = geocode[0];
+          setAddress(`${city}, ${district}, ${region} ${postalCode}`);
+        }
+      }
+    })();
+
+    const interval = setInterval(() => {
+      setTimestamp(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View style={[spacing.mt4]}>
@@ -45,95 +84,81 @@ export default function StreetLightFiles({ source }) {
           typography.font16,
           typography.fontLato,
           typography.textBold,
-
-          {
-            textAlign: "center",
-            bottom: 18,
-          },
+          { textAlign: "center", bottom: 18 },
         ]}
       >
         Survey Files
       </P>
-      {(images.length > 0 || pdfs.length > 0) && (
-        <View>
-          <View
+
+      {/* Tabs Always Visible */}
+      <View>
+        <View
+          style={[
+            styles.row,
+            spacing.pv1,
+            spacing.br2,
+            spacing.mb2,
+            { backgroundColor: "#f0f0f0" },
+          ]}
+        >
+          <TouchableOpacity
+            onPress={() => setActiveTab("Images")}
             style={[
-              styles.row,
-              spacing.pv1,
+              spacing.pv2,
+              spacing.mh1,
               spacing.br2,
-              spacing.mb2,
               {
-                backgroundColor: "#f0f0f0",
+                flex: 1,
+                alignItems: "center",
+                backgroundColor: activeTab === "Images" ? "#90afc4" : "white",
               },
             ]}
           >
-            <TouchableOpacity
-              onPress={() => setActiveTab("Images")}
+            <P
               style={[
-                spacing.pv2,
-                spacing.mh1,
-                spacing.br2,
-                {
-                  flex: 1,
-                  alignItems: "center",
-                  backgroundColor: activeTab === "Images" ? "#90afc4" : "white",
-                },
+                typography.font14,
+                typography.fontLato,
+                typography.textBold,
+                { color: activeTab === "Images" ? "white" : "black" },
               ]}
             >
-              <P
-                style={[
-                  typography.font14,
-                  typography.fontLato,
-                  typography.textBold,
-                  {
-                    color: activeTab === "Images" ? "white" : "black",
-                  },
-                ]}
-              >
-                Images
-              </P>
-            </TouchableOpacity>
+              Images
+            </P>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => setActiveTab("Documents")}
+          <TouchableOpacity
+            onPress={() => setActiveTab("Documents")}
+            style={[
+              spacing.pv2,
+              spacing.br2,
+              spacing.mh1,
+              {
+                flex: 1,
+                alignItems: "center",
+                backgroundColor:
+                  activeTab === "Documents" ? "#ff6347" : "white",
+              },
+            ]}
+          >
+            <P
               style={[
-                spacing.pv2,
-                spacing.br2,
-                spacing.mh1,
-                {
-                  flex: 1,
-                  alignItems: "center",
-                  backgroundColor:
-                    activeTab === "Documents" ? "#ff6347" : "white",
-                },
+                typography.font14,
+                typography.fontLato,
+                typography.textBold,
+                { color: activeTab === "Documents" ? "white" : "black" },
               ]}
             >
-              <P
-                style={[
-                  typography.font14,
-                  typography.fontLato,
-                  typography.textBold,
-                  {
-                    color: activeTab === "Documents" ? "white" : "black",
-                  },
-                ]}
-              >
-                Documents
-              </P>
-            </TouchableOpacity>
-          </View>
+              Documents
+            </P>
+          </TouchableOpacity>
+        </View>
 
-          {activeTab === "Images" && images.length > 0 && (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View
-                style={[
-                  styles.row,
-                  {
-                    gap: 4,
-                  },
-                ]}
-              >
-                {images.map((image, index) => (
+        {/* Images Section */}
+        {activeTab === "Images" && (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={[styles.row, { gap: 4 }]}>
+              {images.length > 0 ? (
+                images.map((image, index) => (
                   <TouchableOpacity
                     key={`image-${index}`}
                     onPress={() => {
@@ -156,23 +181,28 @@ export default function StreetLightFiles({ source }) {
                       ]}
                     />
                   </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          )}
+                ))
+              ) : (
+                <P
+                  style={[
+                    typography.font14,
+                    typography.fontLato,
+                    { textAlign: "center", color: "#888", padding: 10 },
+                  ]}
+                >
+                  No images available
+                </P>
+              )}
+            </View>
+          </ScrollView>
+        )}
 
-          {/* Document Section */}
-          {activeTab === "Documents" && pdfs.length > 0 && (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View
-                style={[
-                  styles.row,
-                  {
-                    gap: 4,
-                  },
-                ]}
-              >
-                {pdfs.map((pdf, index) => (
+        {/* Document Section */}
+        {activeTab === "Documents" && (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={[styles.row, { gap: 4 }]}>
+              {pdfs.length > 0 ? (
+                pdfs.map((pdf, index) => (
                   <TouchableOpacity
                     key={`pdf-${index}`}
                     onPress={() => {
@@ -201,20 +231,34 @@ export default function StreetLightFiles({ source }) {
                       style={[
                         typography.font14,
                         typography.fontLato,
-                        {
-                          textAlign: "center",
-                          color: "#ff6347",
-                        },
+                        { textAlign: "center", color: "#ff6347" },
                       ]}
                     >
                       Download PDF
                     </P>
                   </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          )}
+                ))
+              ) : (
+                <P
+                  style={[
+                    typography.font14,
+                    typography.fontLato,
+                    spacing.p4,
+                    {
+                      textAlign: "center",
+                      color: "#888",
+                      left: 90,
+                    },
+                  ]}
+                >
+                  No documents available
+                </P>
+              )}
+            </View>
+          </ScrollView>
+        )}
 
+<<<<<<< HEAD
           {/* Image Viewer */}
           <ImageViewing
             images={source}
@@ -224,6 +268,60 @@ export default function StreetLightFiles({ source }) {
           />
         </View>
       )}
+=======
+        {/* Image Viewer */}
+        <ImageViewing
+          images={images}
+          imageIndex={selectedImageIndex}
+          visible={isVisible}
+          onRequestClose={() => setIsVisible(false)}
+          FooterComponent={() => (
+            <View
+              style={{
+                position: "absolute",
+                bottom: 150,
+                right: 10,
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                padding: 5,
+                borderRadius: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 10,
+                  textAlign: "right",
+                }}
+              >
+                Powered by Dashandots Technology
+              </Text>
+
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 10,
+                  textAlign: "right",
+                }}
+              >
+                📍{" "}
+                {address ||
+                  `Lat: ${location?.latitude}, Long: ${location?.longitude}`}
+              </Text>
+
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 10,
+                  textAlign: "right",
+                }}
+              >
+                ⏰ {timestamp}
+              </Text>
+            </View>
+          )}
+        />
+      </View>
+>>>>>>> 7602ebc6df90234130a73096e92b33c721500387
     </View>
   );
 }

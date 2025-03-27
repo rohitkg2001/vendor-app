@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import moment from "moment";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import StreetLightImages from "../components/StreetLightImages";
@@ -46,17 +47,6 @@ const StreetLightDetailsScreen = ({ route }) => {
           >
             {item.complete_pole_number}
           </H5>
-
-          {/* <P
-            style={[
-              typography.font14,
-              typography.fontLato,
-              spacing.mb2,
-              { color: "#FFFFFF" },
-            ]}
-          >
-            {item.panchayat}, {item.block}, {item.ward} - {item.state}
-          </P> */}
         </View>
 
         <View style={[styles.row, spacing.pv2]}>
@@ -72,22 +62,10 @@ const StreetLightDetailsScreen = ({ route }) => {
             >
               Submission Date
             </P>
-            <P style={[typography.font12]}>{item.updated_at}</P>
-          </View>
-          {/* <View>
-            <P
-              style={[
-                typography.font12,
-                typography.fontLato,
-                {
-                  textTransform: "uppercase",
-                },
-              ]}
-            >
-              End Date
+            <P style={[typography.font12]}>
+              {moment(item.submission_date).format("DD/MM/YYYY HH:mm A")}
             </P>
-            <P style={[typography.font12]}>{item.end_date}</P>
-          </View> */}
+          </View>
         </View>
 
         <View

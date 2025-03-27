@@ -366,6 +366,7 @@ export const submitStreetlightTasks =
         String(dataToUpdate.complete_pole_number)
       );
       formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
+      formData.append("contact", String(dataToUpdate.contact || ""));
       formData.append("remarks", String(dataToUpdate.remarks || ""));
       formData.append("lat", String(dataToUpdate.lat));
       formData.append("lng", String(dataToUpdate.lng));
@@ -446,5 +447,21 @@ export const getViewPoles = (vendor_id) => async (dispatch) => {
     // dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const download = async (my_id) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/api/export-poles/vendor/${my_id}`
+    );
+
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.error("Error downloading data:", err);
+    return err?.message || "An unknown error occurred";
   }
 };

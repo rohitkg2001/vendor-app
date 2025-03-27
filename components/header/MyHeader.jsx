@@ -1,11 +1,11 @@
 import { View, TouchableOpacity } from "react-native";
-import { H4, H5 } from "../text";
+import { H4 } from "../text";
 import Icon from "react-native-vector-icons/Ionicons";
-import { Badge } from "react-native-paper";
 import { styles } from "../../styles/components.styles";
 import { useNavigation } from "@react-navigation/native";
-import { ICON_MEDIUM, ICON_SMALL } from "../../styles/constant";
+import { ICON_SMALL } from "../../styles/constant";
 import { typography } from "../../styles";
+import CustomMenu from "./CustomMenu";
 
 export default function MyHeader({
   isBack,
@@ -15,8 +15,10 @@ export default function MyHeader({
   hasBadge,
   badgeCount,
   onIconPress,
+  menuItems,
 }) {
   const navigation = useNavigation();
+
   return (
     <View style={styles.headerStyle}>
       {isBack && (
@@ -30,7 +32,7 @@ export default function MyHeader({
       <H4 style={[typography.font18, typography.fontLato, typography.textBold]}>
         {title}
       </H4>
-      {hasIcon && (
+      {/* {hasIcon && (
         <TouchableOpacity
           onPress={onIconPress}
           style={{ height: 54, width: 54 }}
@@ -46,7 +48,9 @@ export default function MyHeader({
             </Badge>
           )}
         </TouchableOpacity>
-      )}
+      )} */}
+
+      {hasIcon && <CustomMenu icon={icon} menuItems={menuItems} />}
     </View>
   );
 }

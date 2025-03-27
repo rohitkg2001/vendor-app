@@ -49,13 +49,12 @@ export default function WelcomeScreen({ navigation }) {
     surveyedStreetLightCounts,
   ]);
 
-  const openPendingTasks = async () =>
-  {
+  const openPendingTasks = async () => {
     try {
-         await dispatch(getInstalledPoles(id));
-         navigation.navigate("streetLightPendingTask"); 
+      await dispatch(getInstalledPoles(id));
+      navigation.navigate("streetLightPendingTask");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -66,7 +65,7 @@ export default function WelcomeScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh1]}
       >
-        <P
+        {/* <P
           style={[
             typography.font16,
             typography.textBold,
@@ -76,7 +75,7 @@ export default function WelcomeScreen({ navigation }) {
           ]}
         >
           Current Site: {siteInfo}
-        </P>
+        </P> */}
 
         <CardFullWidth backgroundColor={LIGHT} style={[spacing.mb4]}>
           <H5

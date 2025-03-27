@@ -24,6 +24,7 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
   const [networkAvailable, setNetworkAvailable] = useState(false);
   const { isSurvey, itemId } = route.params;
   const [wardOptions, setWardOptions] = useState([]);
@@ -33,10 +34,6 @@ export default function StartInstallationScreen({ navigation, route }) {
 
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-
-  // Redux se beneficiaryName aur locationRemarks le rahe hain
-  // const beneficiaryName = useSelector((state) => state.beneficiaryName);
-  // const locationRemarks = useSelector((state) => state.locationRemarks);
 
   const dispatch = useDispatch();
   const { pendingStreetLights, pole_number } = useSelector(
@@ -50,24 +47,34 @@ export default function StartInstallationScreen({ navigation, route }) {
   };
 
   useEffect(() => {
-    console.log(pole_number);
     if (Array.isArray(pendingStreetLights)) {
       const currentSite = pendingStreetLights.find(
         (task) => task.id === itemId
       );
-      const wards = currentSite.site?.ward;
-      setWardOptions(
-        wards
-          .split(",")
-          .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
-      );
-      setPoleOptions(
-        [
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        ].map((num) => ({ label: `${num}`, value: `${num}` }))
-      );
+      if (currentSite) {
+        const wards = currentSite.site?.ward;
+        setWardOptions(
+          wards
+            .split(",")
+            .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
+        );
+
+        // Surveyed poles list
+        const surveyedPoles = currentSite?.surveyedPoles || [];
+
+        setPoleOptions(
+          [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ].map((num) => ({
+            label: `${num}`,
+            value: `${num}`,
+            color: surveyedPoles.includes(num) ? "red" : "black",
+          }))
+        );
+      }
     }
-  }, [pendingStreetLights]);
+  }, [pendingStreetLights, poleNumber]);
 
   const handleSubmission = async (images) => {
     if (!selectedWard || !poleNumber) {
@@ -79,6 +86,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         task_id: itemId,
         complete_pole_number: [pole_number, selectedWard, poleNumber].join("/"),
         beneficiary: beneficiaryName,
+        contact: contactNumber,
         remarks: locationRemarks,
         isNetworkAvailable: networkAvailable,
         lat: images[0].lat,
@@ -100,6 +108,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         isInstallationDone: true,
         // survey_image: images.map((item) => item.uri),
         beneficiary: beneficiaryName,
+        contact: contactNumber,
         remarks: locationRemarks,
       };
       console.log("working fine");
@@ -111,6 +120,14 @@ export default function StartInstallationScreen({ navigation, route }) {
     });
   };
 
+  const handleTakePhoto = () => {
+    if (isSurvey && (!selectedWard || !poleNumber)) {
+      setSnackbarVisible(true);
+      return;
+    }
+    setIsCameraVisible(true);
+  };
+
   return (
     <ContainerComponent>
       <MyHeader isBack title="Start Installation" hasIcon />
@@ -118,17 +135,6 @@ export default function StartInstallationScreen({ navigation, route }) {
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
       >
-        {/* <P
-          style={[
-            typography.font16,
-            typography.textBold,
-            styles.bgPrimaryTransParent,
-            spacing.p2,
-            { width: SCREEN_WIDTH - 16 },
-          ]}
-        >
-          Location Info:
-        </P> */}
         {isSurvey && (
           <MyPickerInput
             title="Ward"
@@ -144,9 +150,13 @@ export default function StartInstallationScreen({ navigation, route }) {
             title="Pole Number"
             value={poleNumber}
             onChange={(value) => setPoleNumber(value)}
-            options={poleOptions}
+            // options={poleOptions}
             style={spacing.mv2}
-            placeholder="Select Pole Number" // Placeholder added
+            options={poleOptions.map((option) => ({
+              label: option.label,
+              value: option.value,
+              style: { color: option.color }, // Apply color dynamically
+            }))}
           />
         )}
 
@@ -235,6 +245,19 @@ export default function StartInstallationScreen({ navigation, route }) {
           onChangeText={setBeneficiaryName}
           placeholder="Beneficiary Name"
         />
+        <MyTextInput
+          multiline={false}
+          numberOfLines={1}
+          value={contactNumber}
+          onChangeText={(text) => {
+            const filteredText = text.replace(/[^0-9]/g, "");
+            if (filteredText.length <= 10) {
+              setContactNumber(filteredText);
+            }
+          }}
+          placeholder="Contact Number"
+          keyboardType="numeric"
+        />
 
         <MyTextInput
           multiline={true}
@@ -260,13 +283,12 @@ export default function StartInstallationScreen({ navigation, route }) {
               onPress={() => setNetworkAvailable((prev) => !prev)}
             >
               <P style={[typography.font18, typography.textBold]}>
-                Network Availability
+                Network Availability (Airtel)
               </P>
             </TouchableOpacity>
           </View>
         )}
       </ScrollView>
-
       <TouchableOpacity
         style={[
           spacing.p4,
@@ -278,13 +300,7 @@ export default function StartInstallationScreen({ navigation, route }) {
             alignItems: "center",
           },
         ]}
-        onPress={() => {
-          if (!selectedWard || !poleNumber) {
-            setSnackbarVisible(true);
-          } else {
-            setIsCameraVisible(true);
-          }
-        }}
+        onPress={handleTakePhoto}
       >
         <P
           style={[typography.font18, typography.textBold, typography.textLight]}
@@ -292,6 +308,7 @@ export default function StartInstallationScreen({ navigation, route }) {
           Take Photo
         </P>
       </TouchableOpacity>
+      ;
       <CameraInput
         isCameraOpen={isCameraVisible}
         setIsCameraOpen={setIsCameraVisible}

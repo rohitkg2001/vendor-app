@@ -18,6 +18,7 @@ export default function MyFlatList({
   renderItem,
   keyExtractor,
   loading,
+  showSearchBar = true,
   ...props
 }) {
   const [showBottomSheet, setShowBottomSheet] = useState(false);
@@ -30,40 +31,46 @@ export default function MyFlatList({
         <>
           <FlatList
             data={data}
+            keyboardShouldPersistTaps="handled" // Add this line
             renderItem={renderItem}
             keyExtractor={keyExtractor}
             initialNumToRender={50}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={() => (
-              <View
-                style={[
-                  spacing.mv4,
-                  styles.row,
-                  spacing.mh1,
-                  { alignItems: "center" },
-                ]}
-              >
-                <SearchBar
-                  placeholder="Search"
-                  style={{ width: SCREEN_WIDTH - 80 }}
-                />
-                <Button
-                  style={[
-                    styles.btn,
-                    styles.bgPrimary,
-                    spacing.mh1,
-                    { width: 50 },
-                  ]}
-                  onPress={() => setShowBottomSheet(true)}
-                >
-                  <Icon
-                    name="options-outline"
-                    size={ICON_MEDIUM}
-                    color={LIGHT}
-                  />
-                </Button>
-              </View>
-            )}
+            ListHeaderComponent={() =>
+              showSearchBar ? (
+                <View>
+                  <View
+                    style={[
+                      spacing.mv4,
+                      styles.row,
+                      spacing.mh1,
+                      { alignItems: "center" },
+                    ]}
+                  >
+                    <SearchBar
+                      placeholder="Search"
+                      style={{ width: SCREEN_WIDTH - 80 }}
+                    />
+
+                    <Button
+                      style={[
+                        styles.btn,
+                        styles.bgPrimary,
+                        spacing.mh1,
+                        { width: 50 },
+                      ]}
+                      onPress={() => setShowBottomSheet(true)}
+                    >
+                      <Icon
+                        name="options-outline"
+                        size={ICON_MEDIUM}
+                        color={LIGHT}
+                      />
+                    </Button>
+                  </View>
+                </View>
+              ) : null
+            }
             {...props}
           />
         </>

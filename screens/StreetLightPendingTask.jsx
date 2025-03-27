@@ -6,7 +6,8 @@ import NoRecord from "./NoRecord";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import ClickableCard2 from "../components/card/ClickableCard2";
-import { View } from "react-native";
+import { View, Alert } from "react-native";
+import { Snackbar } from "react-native-paper";
 import {
   spacing,
   styles,
@@ -26,12 +27,17 @@ import {
   SET_POLE_NUMBER,
   SET_BENEFICIARY_NAME,
   SET_LOCATION_REMARKS,
+  SET_CONTACT_NUMBER,
 } from "../redux/constant";
+import { download } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
-  const { pendingStreetLights, surveyedStreetLights, installedStreetLights } = useSelector((state) => state.tasks);
+  const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
+    useSelector((state) => state.tasks);
+
+  const { id } = useSelector((state) => state.vendor);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,12 +57,14 @@ const StreetLightPendingTask = ({ navigation }) => {
     data,
     isSurvey,
     beneficiaryName,
-    locationRemarks
+    locationRemarks,
+    contactNumber
   ) => {
     if (!data?.site) {
       console.error("Error: site data is missing", data);
       return;
     }
+
     const { district, block, panchayat, state } = data?.site;
     const pole_number = formatString(
       [state, district, block, panchayat].join(" ")
@@ -64,6 +72,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
     dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
     dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
@@ -110,6 +119,7 @@ const StreetLightPendingTask = ({ navigation }) => {
 
   const filterData = (tab) => {
     if (tab === "Survey") {
+      // Both "Survey" and "Surveyed poles" should show surveyed data
       setFilteredData(surveyedStreetLights || []);
     } else if (tab === "Installed") {
       setFilteredData(installedStreetLights || []);
@@ -131,9 +141,35 @@ const StreetLightPendingTask = ({ navigation }) => {
     }
   };
 
+  const [snackbar, setShowSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
+
+  const handleExport = async () => {
+    const status = await dispatch(exportPoles(id));
+    if (status) {
+      setShowSnackbar("File downloaded successfully");
+    } else {
+      setShowSnackbar("There was a problem");
+    }
+  };
+
   return (
     <ContainerComponent>
-      <MyHeader title={t("Total Installation")} isBack={true} hasIcon={true} />
+      <MyHeader
+        title={t("Total Installation")}
+        isBack={true}
+        hasIcon={true}
+        icon="ellipsis-vertical"
+        menuItems={[
+          {
+            title: "Export to Excel",
+            onPress: handleExport,
+          },
+        ]}
+      />
 
       <MyFlatList
         data={filteredData}
@@ -144,30 +180,71 @@ const StreetLightPendingTask = ({ navigation }) => {
                 key={index}
                 title={`${item.panchayat} ${item.block}`}
                 subtitle={`${item.district} - ${item.state}`}
-                submissionDate={item.updated_at}
-                endDate={item.end_date}
                 onView={() => handleSurveyData(item, true)}
-                // onSubmit={() => handleSurveyData(item, false)} // Only used for Survey
-                isSurvey={activeTab === "Survey"} // Show submit button only in Survey tab
-                item={item} // Pass the full item
+                item={item}
+                isPositiveButtonVisible={true}
+                positiveAction={() => handleSurveyData(item, false)}
+                positiveText="Submit"
               />
             );
           } else {
             return (
               <ClickableCard1
                 key={index}
-                title={`${item.site?.panchayat} ${item.site?.block}`}
+                title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)`}
                 subtitle={`${item.site?.district} - ${item.site?.state}`}
-                isPositiveButtonVisible={true}
-                positiveAction={() => handleSurveyData(item, false)}
-                positiveText="Submit"
+                // isPositiveButtonVisible={true}
+                // positiveAction={() => handleSurveyData(item, false)}
+                // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
                 negativeAction={() => handleSurveyData(item, true)}
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
-                    <View>
+                    {/* Left side for other content (if needed) */}
+                    <View style={{ flex: 1 }}></View>
+
+                    {/* Right side for both Surveyed and Installed poles */}
+                    <View style={{ alignItems: "flex-end", marginTop: -70 }}>
+                      {/* Surveyed Pole */}
+                      <View style={{ marginBottom: 5 }}>
+                        <Span style={[typography.font12, typography.fontLato]}>
+                          Surveyed pole
+                        </Span>
+                        <P
+                          style={[
+                            typography.font12,
+                            typography.fontLato,
+                            { marginLeft: 30 },
+                          ]}
+                        >
+                          {`${item.site?.number_of_surveyed_poles}`} /
+                          {`${item.site?.total_poles}`}
+                        </P>
+                      </View>
+
+                      {/* Installed Pole */}
+                      <View>
+                        <Span style={[typography.font12, typography.fontLato]}>
+                          Installed pole
+                        </Span>
+                        <P
+                          style={[
+                            typography.font12,
+                            typography.fontLato,
+                            { marginLeft: 30 },
+                          ]}
+                        >
+                          {`${item.site?.number_of_installed_poles}`}/
+                          {`${item.site?.total_poles}`}
+                        </P>
+                      </View>
+                    </View>
+                  </View>
+
+                  <View style={[spacing.mt1, styles.row]}>
+                    <View style={[{ position: "absolute", top: -15 }]}>
                       <Span style={[typography.font12, typography.fontLato]}>
                         Start Date
                       </Span>
@@ -175,7 +252,10 @@ const StreetLightPendingTask = ({ navigation }) => {
                         {item.start_date}
                       </P>
                     </View>
-                    <View>
+                    <View
+                      style={[{ position: "absolute", left: 80, top: -15 }]}
+                    >
+                      {" "}
                       <Span style={[typography.font12, typography.fontLato]}>
                         End Date
                       </Span>
@@ -221,25 +301,40 @@ const StreetLightPendingTask = ({ navigation }) => {
             <Tabs
               tabs={[
                 `All ${tabCounts.All}`,
-                `Survey ${tabCounts.Survey}`,
+                `Surveyed poles ${tabCounts.Survey}`,
                 `Installed ${tabCounts.Installed}`,
                 `Approved ${tabCounts.Approved}`,
                 `InApproved ${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
-              onTabPress={(tabLabel) => setActiveTab(tabLabel.split(" ")[0])}
-              activeTab={activeTab}
-            // tabStyles={{
-            //   activeBackgroundColor: "#76885B",
-            //   inactiveBackgroundColor: "#C8E6C9",
-            //   activeTextColor: "#FFF",
-            //   inactiveTextColor: "#333",
-            // }}
+              onTabPress={(tabLabel) => {
+                let normalizedTab = tabLabel.startsWith("Surveyed")
+                  ? "Survey"
+                  : tabLabel.split(" ")[0];
+                setActiveTab(normalizedTab);
+              }}
+              activeTab={
+                activeTab === "Survey"
+                  ? `Surveyed poles ${tabCounts.Survey}`
+                  : activeTab
+              }
             />
           </View>
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
+      {/* Snackbar Component */}
+      <Snackbar
+        visible={snackbar.open}
+        duration={8000}
+        onDismiss={() => setShowSnackbar({ ...snackbar, open: false })}
+        action={{
+          label: "Close",
+          onPress: () => setShowSnackbar({ ...snackbar, open: false }),
+        }}
+      >
+        {snackbar.message}
+      </Snackbar>
     </ContainerComponent>
   );
 };
