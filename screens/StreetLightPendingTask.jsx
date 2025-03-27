@@ -147,13 +147,29 @@ const StreetLightPendingTask = ({ navigation }) => {
     severity: "",
   });
 
+  // const handleExport = async () => {
+  //   const status = await dispatch(exportPoles(id));
+  //   if (status) {
+  //     setShowSnackbar("File downloaded successfully");
+  //   } else {
+  //     setShowSnackbar("There was a problem");
+  //   }
+  // };
+
   const handleExport = async () => {
+    console.log("Export process started...");
+
     const status = await dispatch(exportPoles(id));
+
     if (status) {
+      console.log("File downloaded successfully!");
       setShowSnackbar("File downloaded successfully");
     } else {
+      console.error("File download failed!");
       setShowSnackbar("There was a problem");
     }
+
+    console.log("Export process finished.");
   };
 
   return (
