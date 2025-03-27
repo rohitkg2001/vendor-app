@@ -114,10 +114,10 @@ export default function StartInstallationScreen({ navigation, route }) {
       console.log("working fine");
       await dispatch(submitStreetlightTasks(data));
     }
-    // navigation.navigate("successScreen", {
-    //   message: "Your task uploaded successfully",
-    //   nextScreen: "welcomeScreen",
-    // });
+    navigation.navigate("successScreen", {
+      message: "Your task uploaded successfully",
+      nextScreen: "welcomeScreen",
+    });
   };
 
   const handleTakePhoto = () => {

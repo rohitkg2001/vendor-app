@@ -133,7 +133,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     } else if (tab === "InApproved") {
       setFilteredData(
         pendingStreetLights?.filter((task) => task.status === "InApproved") ||
-          []
+        []
       );
     } else if (tab === "Rejected") {
       setFilteredData(
@@ -151,18 +151,14 @@ const StreetLightPendingTask = ({ navigation }) => {
   });
 
   const handleExport = async () => {
-    console.log("Export process started...");
-    const status = await dispatch(exportPoles(id));
-
-    if (status) {
-      console.log("File downloaded successfully!");
-      setShowSnackbar("File downloaded successfully");
-    } else {
-      console.error("File download failed!");
-      setShowSnackbar("There was a problem");
-    }
-
-    console.log("Export process finished.");
+    console.log(id)
+    const status = await download(id);
+    console.log(status)
+    // if (status) {
+    //   setShowSnackbar("File downloaded successfully");
+    // } else {
+    //   setShowSnackbar("There was a problem");
+    // }
   };
 
   return (
