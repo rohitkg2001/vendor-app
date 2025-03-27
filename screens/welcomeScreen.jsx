@@ -65,18 +65,6 @@ export default function WelcomeScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh1]}
       >
-        {/* <P
-          style={[
-            typography.font16,
-            typography.textBold,
-            spacing.m3,
-            styles.bgPrimaryTransParent,
-            spacing.p2,
-          ]}
-        >
-          Current Site: {siteInfo}
-        </P> */}
-
         <CardFullWidth backgroundColor={LIGHT} style={[spacing.mb4]}>
           <H5
             style={[
@@ -212,7 +200,7 @@ export default function WelcomeScreen({ navigation }) {
             style={[styles.row, { justifyContent: "space-between", gap: 10 }]}
           >
             <TouchableOpacity
-              // onPress={() => navigation.navigate("sitelocationscreen")}
+              //  onPress={() => navigation.navigate("sitelocationscreen")}
               style={[
                 spacing.br2,
                 spacing.pv4,
@@ -225,8 +213,6 @@ export default function WelcomeScreen({ navigation }) {
                 },
               ]}
             >
-              {/* <Icon name="location-sharp" size={80} />
-              <P style={[typography.font14, spacing.mt3]}>Total Earning</P> */}
               <Text style={{ fontSize: 40, fontWeight: "bold" }}>₹</Text>
               <P style={[typography.font14, typography.fontLato]}>
                 Total Earning
@@ -234,6 +220,7 @@ export default function WelcomeScreen({ navigation }) {
             </TouchableOpacity>
 
             <TouchableOpacity
+              onPress={() => navigation.navigate("inventoryScreen")}
               style={[
                 spacing.br2,
                 spacing.pv4,

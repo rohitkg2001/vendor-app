@@ -201,7 +201,7 @@ const panchayats = {
     { label: "Fatehpur", value: "Fathehpur" },
     { label: "Mahauli", value: "panchayat2" },
     { label: "Marchi", value: "panchayat3" },
-    { label: "Punadih", value: "panchayat4" }
+    { label: "Punadih", value: "panchayat4" },
   ],
   district2: [
     { label: "Gaya Sadar", value: "panchayat1" },
@@ -241,7 +241,7 @@ export const fakeStreetLights = [
     panchayat: "Fathepur",
     wards: [1, 2, 3, 4],
     start_date: "20-02-2025",
-    end_date: "30-03-2025"
+    end_date: "30-03-2025",
   },
   {
     id: 1,
@@ -251,6 +251,31 @@ export const fakeStreetLights = [
     panchayat: "Patna Sachivalaya",
     wards: [8, 9, 4],
     start_date: "20-02-2025",
-    end_date: "30-03-2025"
-  }
-]
+    end_date: "30-03-2025",
+  },
+];
+
+export const inventoryData = [
+  {
+    id: 1,
+    projectId: 1,
+    siteId: 1,
+    productName: "Solar LED Street Light",
+    initialQuantity: "1000 pieces",
+    quantityStock: "1000",
+    category: "Lighting",
+    sub_category: "Solar Products",
+    // url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfaVettxgHxUSbCpPamGNdUB8g_9t_qYFhgQ&s",
+  },
+  {
+    id: 2,
+    projectId: 1,
+    siteId: 1,
+    productName: "Smart Street Light System",
+    initialQuantity: "1000 pcs",
+    quantityStock: "200",
+    category: "Lighting",
+    sub_category: "IoT Systems",
+    // url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L6YoAFI4q74AoE5ijHorzYQF4ZgI7rvwhg&s",
+  },
+];
