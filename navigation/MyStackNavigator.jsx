@@ -27,6 +27,7 @@ import ProfileChangeScreen from "../screens/ProfileChangeScreen";
 import AttendancePunchScreen from "../screens/AttendancePunchScreen";
 import StartInstallationScreen from "../screens/StartInstallationScreen";
 import StreetLightDetailsScreen from "../screens/StreetLightDetailsScreen";
+import SubmitInstallationScreen from "../screens/SubmitInstallationScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -83,6 +84,7 @@ export default function MyStackNavigator() {
         name="streetlightDetails"
         component={StreetLightDetailsScreen}
       />
+      <Stack.Screen name="submitInstallation" component={SubmitInstallationScreen}/>
     </Stack.Navigator>
   );
 }

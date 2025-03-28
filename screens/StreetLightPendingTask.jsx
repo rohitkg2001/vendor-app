@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
+import axios from "axios";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
@@ -53,31 +54,40 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
-  const handleSurveyData = (
-    data,
-    isSurvey,
-    panelSerialNumber,
-    beneficiaryName,
-    locationRemarks,
-    contactNumber
-  ) => {
-    if (!data?.site) {
-      console.error("Error: site data is missing", data);
-      return;
-    }
+  // const handleSurveyData = (
+  //   data,
+  //   isSurvey,
+  //   panelSerialNumber,
+  //   beneficiaryName,
+  //   locationRemarks,
+  //   contactNumber
+  // ) => {
+  //   if (!data?.site) {
+  //     console.error("Error: site data is missing", data);
+  //     return;
+  //   }
 
-    const { district, block, panchayat, state } = data?.site;
-    const pole_number = formatString(
-      [state, district, block, panchayat].join(" ")
-    );
-    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
-    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
-    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
-    navigation.navigate("startInstallation", {
-      itemId: data.id,
-      isSurvey,
+  //   const { district, block, panchayat, state } = data?.site;
+  //   const pole_number = formatString(
+  //     [state, district, block, panchayat].join(" ")
+  //   );
+  //   dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
+  //   dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
+  //   dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+  //   dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
+  //   navigation.navigate("startInstallation", {
+  //     itemId: data.id,
+  //     isSurvey,
+  //   });
+  // };
+
+  const handleSurveyData = async (id) => {
+    console.log("Pole Id is ${id}");
+    const response = await axios.post(`https://slldm.com/api/pole-details`, {
+      pole_id: id,
     });
+    const { data } = response;
+    navigation.navigate("submitInstallation", { data });
   };
 
   const [activeTab, setActiveTab] = useState("All");
