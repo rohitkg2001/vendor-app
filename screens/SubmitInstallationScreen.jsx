@@ -33,8 +33,36 @@ const SubmitInstallationScreen = () => {
   const [contactNumber, setContactNumber] = useState("");
   const [isCameraVisible, setIsCameraVisible] = useState(false);
 
+  useEffect(() => {
+    const fetchInstallationData = async () => {
+      try {
+        const response = await axios.post(
+          "https://slldm.com/api/pole-details",
+          {
+            pole_id: "12345", // Yaha item.pole_id dynamically pass karein
+          }
+        );
+
+        if (response.data) {
+          setBeneficiaryName(response.data.beneficiaryName || "");
+          setLocationRemarks(response.data.locationRemarks || "");
+        }
+      } catch (error) {
+        console.error("Error fetching installation data:", error);
+      }
+    };
+
+    fetchInstallationData();
+  }, []);
+
   const handleTakePhoto = () => {
     setIsCameraVisible(true);
+  };
+
+  const handleLuminaryQR = (val) => {
+    const values = val.split(";");
+    setLuminarySerialNumber(values[0]?.toString() || "");
+    setSimNumber(values[1]?.toString() || "");
   };
 
   const handleSubmission = (image) => {
@@ -47,10 +75,7 @@ const SubmitInstallationScreen = () => {
       <View>
         {/* Luminary QR and Serial Number */}
         <View style={[spacing.pv2, { backgroundColor: "#f0f0f0" }]}>
-          <QRScanner
-            title="Scan Luminary QR"
-            onScan={setLuminarySerialNumber}
-          />
+          <QRScanner title="Scan Luminary QR" onScan={handleLuminaryQR} />
           <MyTextInput
             placeholder="Enter Luminary Serial Number"
             value={luminarySerialNumber}
@@ -123,10 +148,7 @@ const SubmitInstallationScreen = () => {
             spacing.br1,
             spacing.mb1,
             styles.bgPrimary,
-            {
-              width: SCREEN_WIDTH - 16,
-              alignItems: "center",
-            },
+            { width: SCREEN_WIDTH - 16, alignItems: "center" },
           ]}
           onPress={handleTakePhoto}
         >
