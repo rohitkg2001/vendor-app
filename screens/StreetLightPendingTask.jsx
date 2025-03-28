@@ -53,7 +53,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   function formatString(input) {
     return input
       .split(" ") // Split by space
-      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercase
+      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
       .join("/"); // Join by '/'
   }
 
