@@ -201,7 +201,7 @@ const panchayats = {
     { label: "Fatehpur", value: "Fathehpur" },
     { label: "Mahauli", value: "panchayat2" },
     { label: "Marchi", value: "panchayat3" },
-    { label: "Punadih", value: "panchayat4" }
+    { label: "Punadih", value: "panchayat4" },
   ],
   district2: [
     { label: "Gaya Sadar", value: "panchayat1" },
@@ -241,7 +241,7 @@ export const fakeStreetLights = [
     panchayat: "Fathepur",
     wards: [1, 2, 3, 4],
     start_date: "20-02-2025",
-    end_date: "30-03-2025"
+    end_date: "30-03-2025",
   },
   {
     id: 1,
@@ -251,6 +251,51 @@ export const fakeStreetLights = [
     panchayat: "Patna Sachivalaya",
     wards: [8, 9, 4],
     start_date: "20-02-2025",
-    end_date: "30-03-2025"
-  }
-]
+    end_date: "30-03-2025",
+  },
+];
+
+export const inventoryData = [
+  {
+    id: 1,
+    model: "SL01",
+    item: "Luminary",
+    manufacturer: "Ecosis",
+
+    rate: 500,
+    quantity: 1500,
+    total_value: 1500000,
+  },
+  {
+    id: 2,
+
+    model: "SL2",
+    item: "Solar Module",
+    manufacturer: "Alpex",
+    rate: 600,
+    quantity: 1500,
+    total_value: 500000,
+  },
+  {
+    id: 3,
+
+    model: "SL3",
+    item: "Battery",
+    manufacturer: "Ecosis",
+    make: "ESL",
+
+    rate: 700,
+    quantity: 1500,
+    total_value: 750000,
+  },
+  {
+    id: 4,
+
+    model: "SL4",
+    item: "Structure",
+    manufacturer: "Ecosis",
+    rate: 400,
+    quantity: 1500,
+    total_value: 600000,
+  },
+];

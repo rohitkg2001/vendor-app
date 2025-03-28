@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -6,7 +6,7 @@ import NoRecord from "./NoRecord";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import ClickableCard2 from "../components/card/ClickableCard2";
-import { View, Alert } from "react-native";
+import { View } from "react-native";
 import { Snackbar } from "react-native-paper";
 import {
   spacing,
@@ -20,6 +20,7 @@ import { P, Span } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Tabs from "../components/Tabs";
 import Button from "../components/buttons/Button";
+import axios from "axios"
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -53,31 +54,18 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
-  const handleSurveyData = (
-    data,
-    isSurvey,
-    beneficiaryName,
-    locationRemarks,
-    contactNumber
-  ) => {
-    if (!data?.site) {
-      console.error("Error: site data is missing", data);
-      return;
-    }
+  // Sumit Changed this
+  const handleSurveyData = async (id) => {
+    console.log(`Pole Id is ${id}`);
+    // First log your pole id
+    const response = await axios.post(`https://slldm.com/api/pole-details`, { pole_id: id })
+    // Hit API to get details of pole
+    const { data } = response
 
-    const { district, block, panchayat, state } = data?.site;
-    const pole_number = formatString(
-      [state, district, block, panchayat].join(" ")
-    );
-    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
-    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
-    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
-    navigation.navigate("startInstallation", {
-      itemId: data.id,
-      isSurvey,
-    });
+    navigation.navigate('submitInstallion', { data })
+    // Navigate to the submit installation screen
   };
+  // to this
 
   const [activeTab, setActiveTab] = useState("All");
   const [filteredData, setFilteredData] = useState([]);
@@ -148,9 +136,9 @@ const StreetLightPendingTask = ({ navigation }) => {
   });
 
   const handleExport = async () => {
-    console.log(id)
+    console.log(id);
     const status = await download(id);
-    console.log(status)
+    console.log(status);
     // if (status) {
     //   setShowSnackbar("File downloaded successfully");
     // } else {
@@ -182,7 +170,6 @@ const StreetLightPendingTask = ({ navigation }) => {
                 key={index}
                 title={`${item.panchayat} ${item.block}`}
                 subtitle={`${item.district} - ${item.state}`}
-                onView={() => handleSurveyData(item, true)}
                 item={item}
                 isPositiveButtonVisible={true}
                 positiveAction={() => handleSurveyData(item, false)}
