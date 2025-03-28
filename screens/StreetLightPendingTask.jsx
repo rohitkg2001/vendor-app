@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -6,7 +6,7 @@ import NoRecord from "./NoRecord";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import ClickableCard2 from "../components/card/ClickableCard2";
-import { View, Alert } from "react-native";
+import { View } from "react-native";
 import { Snackbar } from "react-native-paper";
 import {
   spacing,
@@ -56,6 +56,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   const handleSurveyData = (
     data,
     isSurvey,
+    panelSerialNumber,
     beneficiaryName,
     locationRemarks,
     contactNumber
@@ -130,7 +131,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     } else if (tab === "InApproved") {
       setFilteredData(
         pendingStreetLights?.filter((task) => task.status === "InApproved") ||
-        []
+          []
       );
     } else if (tab === "Rejected") {
       setFilteredData(
@@ -147,19 +148,10 @@ const StreetLightPendingTask = ({ navigation }) => {
     severity: "",
   });
 
-  // const handleExport = async () => {
-  //   const status = await dispatch(exportPoles(id));
-  //   if (status) {
-  //     setShowSnackbar("File downloaded successfully");
-  //   } else {
-  //     setShowSnackbar("There was a problem");
-  //   }
-  // };
-
   const handleExport = async () => {
-    console.log(id)
+    console.log(id);
     const status = await download(id);
-    console.log(status)
+    console.log(status);
     // if (status) {
     //   setShowSnackbar("File downloaded successfully");
     // } else {

@@ -20,6 +20,10 @@ export default function InventoryScreen() {
     dispatch(getAllItems(vendorId));
   }, [dispatch, vendorId]);
 
+  useEffect(() => {
+    console.log("Fetched Inventory Data:", inventoryData);
+  }, [inventoryData]);
+
   return (
     <ContainerComponent>
       <MyHeader
