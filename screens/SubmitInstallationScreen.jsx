@@ -166,9 +166,8 @@
 
 // export default SubmitInstallationScreen;
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import axios from "axios";
 import { spacing, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
 import QRScanner from "../components/input/QRScanner";
@@ -185,28 +184,6 @@ const SubmitInstallationScreen = () => {
   const [contactNumber, setContactNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
   const [isCameraVisible, setIsCameraVisible] = useState(false);
-
-  useEffect(() => {
-    const fetchInstallationData = async () => {
-      try {
-        const response = await axios.post(
-          "https://slldm.com/api/pole-details",
-          {
-            pole_id: "12345", // Yaha item.pole_id dynamically pass karein
-          }
-        );
-
-        if (response.data) {
-          setBeneficiaryName(response.data.beneficiaryName || "");
-          setLocationRemarks(response.data.locationRemarks || "");
-        }
-      } catch (error) {
-        console.error("Error fetching installation data:", error);
-      }
-    };
-
-    fetchInstallationData();
-  }, []);
 
   const handleTakePhoto = () => {
     setIsCameraVisible(true);
