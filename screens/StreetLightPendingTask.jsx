@@ -81,13 +81,23 @@ const StreetLightPendingTask = ({ navigation }) => {
   //   });
   // };
 
-  const handleSurveyData = async (id) => {
-    console.log("Pole Id is ${id}");
-    const response = await axios.post(`https://slldm.com/api/pole-details`, {
-      pole_id: id,
-    });
-    const { data } = response;
-    navigation.navigate("submitInstallation", { data });
+  const handleSurveyData = async (item, isSurvey) => {
+    console.log(`Pole Id is ${item.pole_id}`);
+
+    try {
+      const response = await axios.post("https://slldm.com/api/pole-details", {
+        pole_id: item.pole_id,
+      });
+
+      if (response.status === 200) {
+        const { data } = response;
+        navigation.navigate("submitInstallation", { data, isSurvey });
+      } else {
+        console.error("Failed to fetch data:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching survey data:", error);
+    }
   };
 
   const [activeTab, setActiveTab] = useState("All");
