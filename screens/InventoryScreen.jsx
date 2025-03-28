@@ -32,13 +32,8 @@ export default function InventoryScreen() {
           <InventoryCard
             key={item.id}
             item={item}
-            item_code={item.item_code}
-            manufacturer={item.manufacturer}
-            make={item.make}
             model={item.model}
-            serial_number={item.serial_number}
-            hsn={item.hsn}
-            unit={item.unit}
+            manufacturer={item.manufacturer}
             rate={item.rate}
             quantity={item.quantity}
             total_value={item.total_value}

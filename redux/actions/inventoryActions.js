@@ -13,7 +13,10 @@ export const viewInventory = (item) => ({
 
 export const getAllItems = () => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/inventories`);
+    // const response = await fetch(`${BASE_URL}/api/inventories`);
+    const response = await fetch(
+      `${BASE_URL}/api/get-inventory/vendor/${vendorId}`
+    );
     const data = await response.json();
     dispatch({ type: GET_ALL_INVENTORY, payload: data });
   } catch (err) {}
