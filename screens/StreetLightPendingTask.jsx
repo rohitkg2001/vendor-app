@@ -57,33 +57,6 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
-  // const handleSurveyData = (
-  //   data,
-  //   isSurvey,
-  //   panelSerialNumber,
-  //   beneficiaryName,
-  //   locationRemarks,
-  //   contactNumber
-  // ) => {
-  //   if (!data?.site) {
-  //     console.error("Error: site data is missing", data);
-  //     return;
-  //   }
-
-  //   const { district, block, panchayat, state } = data?.site;
-  //   const pole_number = formatString(
-  //     [state, district, block, panchayat].join(" ")
-  //   );
-  //   dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
-  //   dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
-  //   dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-  //   dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
-  //   navigation.navigate("startInstallation", {
-  //     itemId: data.id,
-  //     isSurvey,
-  //   });
-  // };
-
   const handleSurveyData = async (item, isSurvey) => {
     console.log(`Pole Id is ${item.pole_id}`);
 
