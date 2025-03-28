@@ -22,9 +22,28 @@ const SubmitInstallationScreen = () => {
     setIsCameraVisible(true);
   };
 
+  // const handleSubmission = (image) => {
+  //   console.log("Captured Image:", image);
+  //   setIsCameraVisible(false);
+  // };
+
   const handleSubmission = (image) => {
-    console.log("Captured Image:", image);
-    setIsCameraVisible(false); 
+    const payload = {
+      luminarySerialNumber,
+      simNumber,
+      batterySerialNumber,
+      panelSerialNumber,
+      beneficiaryName,
+      contactNumber,
+      locationRemarks,
+      capturedImage: image,
+    };
+
+    console.log("Submitting data:", payload);
+
+    setIsCameraVisible(false);
+
+    // submitData(payload);
   };
 
   return (
@@ -32,10 +51,19 @@ const SubmitInstallationScreen = () => {
       <View>
         {/* Luminary QR and Serial Number */}
         <View style={[spacing.pv2, { backgroundColor: "#f0f0f0" }]}>
-          <QRScanner
+          {/* <QRScanner
             title="Scan Luminary QR"
             onScan={setLuminarySerialNumber}
+          /> */}
+          <QRScanner
+            title="Scan Luminary QR"
+            onScan={(scannedValue) => {
+              const [luminary, sim] = scannedValue.split(","); // Assuming values are comma-separated
+              setLuminarySerialNumber(luminary || ""); // Set Luminary Serial Number
+              setSimNumber(sim || ""); // Set SIM Number
+            }}
           />
+
           <MyTextInput
             placeholder="Enter Luminary Serial Number"
             value={luminarySerialNumber}

@@ -14,15 +14,15 @@ export default function InventoryScreen() {
   const vendorId = "vendor_id";
   const dispatch = useDispatch();
 
-  const inventoryData = useSelector((state) => state.inventory.items);
+  // const inventoryData = useSelector((state) => state.inventory.items);
 
-  useEffect(() => {
-    dispatch(getAllItems(vendorId));
-  }, [dispatch, vendorId]);
+  // useEffect(() => {
+  //   dispatch(getAllItems(vendorId));
+  // }, [dispatch, vendorId]);
 
-  useEffect(() => {
-    console.log("Fetched Inventory Data:", inventoryData);
-  }, [inventoryData]);
+  // useEffect(() => {
+  //   console.log("Fetched Inventory Data:", inventoryData);
+  // }, [inventoryData]);
 
   return (
     <ContainerComponent>
