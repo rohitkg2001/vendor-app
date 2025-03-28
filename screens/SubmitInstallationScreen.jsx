@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native"; // Import useRoute
-import { spacing, typography } from "../styles";
+import { LIGHT, spacing, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
 import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
@@ -23,7 +23,7 @@ const SubmitInstallationScreen = () => {
     return null; // Or render an error message
   }
 
-  const { beneficiaryName, locationRemarks } = data; // Destructure the data passed
+  const { beneficiaryName, locationRemarks, complete_pole_number } = data; // Destructure the data passed
 
   // Use state only if you need to modify the values, otherwise, directly use `data` from route.params
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
@@ -32,28 +32,6 @@ const SubmitInstallationScreen = () => {
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [isCameraVisible, setIsCameraVisible] = useState(false);
-
-  useEffect(() => {
-    const fetchInstallationData = async () => {
-      try {
-        const response = await axios.post(
-          "https://slldm.com/api/pole-details",
-          {
-            pole_id: "12345", // Yaha item.pole_id dynamically pass karein
-          }
-        );
-
-        if (response.data) {
-          setBeneficiaryName(response.data.beneficiaryName || "");
-          setLocationRemarks(response.data.locationRemarks || "");
-        }
-      } catch (error) {
-        console.error("Error fetching installation data:", error);
-      }
-    };
-
-    fetchInstallationData();
-  }, []);
 
   const handleTakePhoto = () => {
     setIsCameraVisible(true);
@@ -73,6 +51,13 @@ const SubmitInstallationScreen = () => {
   return (
     <ScrollView style={spacing.mv2} keyboardShouldPersistTaps="handled">
       <View>
+        <MyTextInput
+          placeholder="Complete Pole Number"
+          value={complete_pole_number}
+          editable={false}
+          style={{ backgroundColor: "#5D92F4", color: LIGHT }}
+        />
+
         {/* Luminary QR and Serial Number */}
         <View style={[spacing.pv2, { backgroundColor: "#f0f0f0" }]}>
           <QRScanner title="Scan Luminary QR" onScan={handleLuminaryQR} />

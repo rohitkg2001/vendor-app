@@ -70,17 +70,10 @@ const StreetLightPendingTask = ({ navigation }) => {
         navigation.navigate("submitInstallation", {
           data: {
             ...data,
-            beneficiaryName: item.beneficiary,
-            locationRemarks: item.remarks,
+            beneficiaryName: item.beneficiary, 
+            locationRemarks: item.remarks, 
           },
           isSurvey,
-          onInstallSuccess: (installedData) => {
-            // Update the installed street light data once installation is complete
-            dispatch({
-              type: "SET_INSTALLED_STREETLIGHTS",
-              payload: [...installedStreetLights, installedData],
-            });
-          },
         });
         
       } else {
