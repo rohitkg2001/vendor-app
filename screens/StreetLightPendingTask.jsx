@@ -57,13 +57,50 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
-  const handleSurveyData = async (id) => {
-    console.log("Pole Id is ${id}");
-    const response = await axios.post(`https://slldm.com/api/pole-details`, {
-      pole_id: id,
-    });
-    const { data } = response;
-    navigation.navigate("submitInstallation", { data });
+  // const handleSurveyData = (
+  //   data,
+  //   isSurvey,
+  //   panelSerialNumber,
+  //   beneficiaryName,
+  //   locationRemarks,
+  //   contactNumber
+  // ) => {
+  //   if (!data?.site) {
+  //     console.error("Error: site data is missing", data);
+  //     return;
+  //   }
+
+  //   const { district, block, panchayat, state } = data?.site;
+  //   const pole_number = formatString(
+  //     [state, district, block, panchayat].join(" ")
+  //   );
+  //   dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
+  //   dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
+  //   dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+  //   dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
+  //   navigation.navigate("startInstallation", {
+  //     itemId: data.id,
+  //     isSurvey,
+  //   });
+  // };
+
+  const handleSurveyData = async (item, isSurvey) => {
+    console.log(`Pole Id is ${item.pole_id}`);
+
+    try {
+      const response = await axios.post("https://slldm.com/api/pole-details", {
+        pole_id: item.pole_id,
+      });
+
+      if (response.status === 200) {
+        const { data } = response;
+        navigation.navigate("submitInstallation", { data, isSurvey });
+      } else {
+        console.error("Failed to fetch data:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching survey data:", error);
+    }
   };
 
   const [activeTab, setActiveTab] = useState("All");
