@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { View, TouchableOpacity, ScrollView } from "react-native";
-import { spacing, typography } from "../styles"; // Ensure typography is imported
+import React, { useState, useEffect } from "react";
+import { ScrollView, View, TouchableOpacity } from "react-native";
+import { useRoute } from "@react-navigation/native"; // Import useRoute
+import { spacing, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
 import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
@@ -8,14 +9,28 @@ import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
 
 const SubmitInstallationScreen = () => {
+  const route = useRoute(); // Get route params using useRoute hook
+  const { data } = route.params || {}; // Safely access 'data' passed from the previous screen
+
+  // Log the data coming from the previous screen to make sure it's passed correctly
+  useEffect(() => {
+    console.log("Received data:", data); // Debugging step to check if the data is correct
+  }, [data]);
+
+  // Check if 'data' exists, otherwise return null or an error message
+  if (!data) {
+    console.error("No data received from previous screen!");
+    return null; // Or render an error message
+  }
+
+  const { beneficiaryName, locationRemarks } = data; // Destructure the data passed
+
+  // Use state only if you need to modify the values, otherwise, directly use `data` from route.params
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
   const [simNumber, setSimNumber] = useState("");
   const [batterySerialNumber, setBatterySerialNumber] = useState("");
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
-  const [beneficiaryName, setBeneficiaryName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-  const [locationRemarks, setLocationRemarks] = useState("");
-
   const [isCameraVisible, setIsCameraVisible] = useState(false);
 
   const handleTakePhoto = () => {
@@ -24,7 +39,7 @@ const SubmitInstallationScreen = () => {
 
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
-    setIsCameraVisible(false); 
+    setIsCameraVisible(false); // Close the camera after capturing an image
   };
 
   return (
@@ -79,8 +94,8 @@ const SubmitInstallationScreen = () => {
         {/* Beneficiary and Contact Details */}
         <MyTextInput
           placeholder="Beneficiary Name"
-          value={beneficiaryName}
-          onChangeText={setBeneficiaryName}
+          value={beneficiaryName} // Directly use beneficiaryName from `data`
+          onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
         <MyTextInput
           placeholder="Contact Number"
@@ -95,8 +110,8 @@ const SubmitInstallationScreen = () => {
         />
         <MyTextInput
           placeholder="Enter Location Remarks"
-          value={locationRemarks}
-          onChangeText={setLocationRemarks}
+          value={locationRemarks} // Directly use locationRemarks from `data`
+          onChangeText={(text) => console.log("Remarks changed:", text)} // Example change handler
           multiline
           numberOfLines={4}
         />

@@ -67,7 +67,15 @@ const StreetLightPendingTask = ({ navigation }) => {
 
       if (response.status === 200) {
         const { data } = response;
-        navigation.navigate("submitInstallation", { data, isSurvey });
+        navigation.navigate("submitInstallation", {
+          data: {
+            ...data,
+            beneficiaryName: item.beneficiary, 
+            locationRemarks: item.remarks, 
+          },
+          isSurvey,
+        });
+        
       } else {
         console.error("Failed to fetch data:", response.status);
       }
