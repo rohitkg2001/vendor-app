@@ -22,6 +22,12 @@ const SubmitInstallationScreen = () => {
     setIsCameraVisible(true);
   };
 
+  const handleLuminaryQR = (val) => {
+    const values = val.split(";");
+    setLuminarySerialNumber(values[0].toString());
+    setSimNumber(values[1].toString());
+  };
+
   // const handleSubmission = (image) => {
   //   console.log("Captured Image:", image);
   //   setIsCameraVisible(false);
@@ -51,17 +57,9 @@ const SubmitInstallationScreen = () => {
       <View>
         {/* Luminary QR and Serial Number */}
         <View style={[spacing.pv2, { backgroundColor: "#f0f0f0" }]}>
-          {/* <QRScanner
-            title="Scan Luminary QR"
-            onScan={setLuminarySerialNumber}
-          /> */}
           <QRScanner
             title="Scan Luminary QR"
-            onScan={(scannedValue) => {
-              const [luminary, sim] = scannedValue.split(","); // Assuming values are comma-separated
-              setLuminarySerialNumber(luminary || ""); // Set Luminary Serial Number
-              setSimNumber(sim || ""); // Set SIM Number
-            }}
+            onScan={(val) => handleLuminaryQR(val)}
           />
 
           <MyTextInput

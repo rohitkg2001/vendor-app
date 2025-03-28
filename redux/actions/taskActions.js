@@ -82,12 +82,6 @@ export const getAllInstallationCount = async (my_id, category) => {
     // Aur status kya hai. Agar In Progress hai to humne use inApprovalTasks me dal diya
     const approvedTasks = myTasks.filter((myTask) => myTask.status === "Done");
     // Lastly approvedTasks me status dekh liya
-    // return {
-    //   totalTasks: myTasks.length,
-    //   pendingTasks: pendingTasks.length,
-    //   inApprovalTasks: pendingTasks.length,
-    //   approvedTasks: approvedTasks.length
-    // }
     return myTasks.length;
   } catch (error) {
     console.error(`Error fetching tasks by Status: ${error.message}`);
@@ -248,11 +242,6 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
   }
 };
 
-// 0=INSTALLATION
-// 1 = FIXING SLIP
-// 2=RMS
-// 3 = INSPECTION
-// 4=Report Sent
 
 export const getStreetLightTasks = (my_id) => async (dispatch) => {
   const response = await axios.get(
@@ -293,8 +282,8 @@ export const submitStreetlightTasks =
         "complete_pole_number",
         String(dataToUpdate.complete_pole_number)
       );
-      formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
-      formData.append("contact", String(dataToUpdate.contact || ""));
+      formData.append( "beneficiary", String( dataToUpdate.beneficiary || "" ) );
+       formData.append("contact", String(dataToUpdate.contact || ""));
       formData.append("remarks", String(dataToUpdate.remarks || ""));
       formData.append("lat", String(dataToUpdate.lat));
       formData.append("lng", String(dataToUpdate.lng));
@@ -390,7 +379,7 @@ export const download = async (my_id) => {
       return;
     }
 
-    // Open file picker so the user can choose where to save it
+    // Open file picker so the user can choose where to save it (like whatsapp/Insta or whatever)
     await Sharing.shareAsync(uri, { mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
 
     return { success: true, uri };
