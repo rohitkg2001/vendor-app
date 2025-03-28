@@ -1,4 +1,4 @@
-// Updated DashboardScreen.js
+W// Updated DashboardScreen.js
 import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -15,55 +15,55 @@ import { spacing } from "../styles";
 import OverViewCard from "../components/dashboard/OverviewCard";
 
 export default function DashboardScreen() {
-  const [dueTasks, setDueTasks] = useState(0);
-  const [totalTasks, setTotalTasks] = useState(0);
-  const [greeting, setGreeting] = useState("Good morning");
+    const [dueTasks, setDueTasks] = useState(0);
+    const [totalTasks, setTotalTasks] = useState(0);
+    const [greeting, setGreeting] = useState("Good morning");
 
-  const navigation = useNavigation();
+    const navigation = useNavigation();
 
-  const { id, name } = useSelector((state) => state.vendor);
-  const { tasks } = useSelector((state) => state.tasks);
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
+    const { id, name } = useSelector((state) => state.vendor);
+    const { tasks } = useSelector((state) => state.tasks);
+    const { t } = useTranslation();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    setGreeting(greet());
-    dispatch(getAllTasks(id));
-    dispatch(fetchSites(id));
-  }, [dispatch, id]);
+    useEffect(() => {
+        setGreeting(greet());
+        dispatch(getAllTasks(id));
+        dispatch(fetchSites(id));
+    }, [dispatch, id]);
 
-  useEffect(() => {
-    if (Array.isArray(tasks)) {
-      setTotalTasks(tasks.length);
-      const pendingTasks = tasks.filter(
-        (task) => task.status === "Pending"
-      ).length;
-      setDueTasks(pendingTasks);
-    } else {
-      setTotalTasks(0);
-      setDueTasks(0);
-    }
-  }, [tasks]);
+    useEffect(() => {
+        if (Array.isArray(tasks)) {
+            setTotalTasks(tasks.length);
+            const pendingTasks = tasks.filter(
+                (task) => task.status === "Pending"
+            ).length;
+            setDueTasks(pendingTasks);
+        } else {
+            setTotalTasks(0);
+            setDueTasks(0);
+        }
+    }, [tasks]);
 
-  return (
-    <ContainerComponent>
-      <DashboardHeader
-        dueTasks={dueTasks}
-        greeting={greeting}
-        firstName={name}
-        navigation={navigation}
-        notificationCount={totalTasks}
-      />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[spacing.mh1]}
-      >
-        <DashboardFilter />
+    return (
+        <ContainerComponent>
+            <DashboardHeader
+                dueTasks={dueTasks}
+                greeting={greeting}
+                firstName={name}
+                navigation={navigation}
+                notificationCount={totalTasks}
+            />
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={[spacing.mh1]}
+            >
+                <DashboardFilter />
 
-        <OverViewCard totalSites={totalTasks} />
+                <OverViewCard totalSites={totalTasks} />
 
-        <ProgressReportCard />
-      </ScrollView>
-    </ContainerComponent>
-  );
+                <ProgressReportCard />
+            </ScrollView>
+        </ContainerComponent>
+    );
 }
