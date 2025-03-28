@@ -57,6 +57,33 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
+  // const handleSurveyData = async (item, isSurvey) => {
+  //   console.log(`Pole Id is ${item.pole_id}`);
+
+  //   try {
+  //     const response = await axios.post("https://slldm.com/api/pole-details", {
+  //       pole_id: item.pole_id,
+  //     });
+
+  //     if (response.status === 200) {
+  //       const { data } = response;
+  //       navigation.navigate("submitInstallation", {
+  //         data: {
+  //           ...data,
+  //           complete_pole_number: item.complete_pole_number,
+  //           beneficiaryName: item.beneficiary,
+  //           locationRemarks: item.remarks,
+  //         },
+  //         isSurvey,
+  //       });
+  //     } else {
+  //       console.error("Failed to fetch data:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching survey data:", error);
+  //   }
+  // };
+
   const handleSurveyData = async (item, isSurvey) => {
     console.log(`Pole Id is ${item.pole_id}`);
 
@@ -67,7 +94,18 @@ const StreetLightPendingTask = ({ navigation }) => {
 
       if (response.status === 200) {
         const { data } = response;
-        navigation.navigate("submitInstallation", { data, isSurvey });
+        navigation.navigate(
+          isSurvey ? "startInstallation" : "submitInstallation",
+          {
+            data: {
+              ...data,
+              complete_pole_number: item.complete_pole_number,
+              beneficiaryName: item.beneficiary,
+              locationRemarks: item.remarks,
+            },
+            isSurvey,
+          }
+        );
       } else {
         console.error("Failed to fetch data:", response.status);
       }
@@ -75,6 +113,7 @@ const StreetLightPendingTask = ({ navigation }) => {
       console.error("Error fetching survey data:", error);
     }
   };
+
   const [activeTab, setActiveTab] = useState("All");
   const [filteredData, setFilteredData] = useState([]);
   const [tabCounts, setTabCounts] = useState({
