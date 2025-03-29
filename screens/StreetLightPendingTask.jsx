@@ -30,10 +30,7 @@ import {
   SET_LOCATION_REMARKS,
   SET_CONTACT_NUMBER,
 } from "../redux/constant";
-import { download } from "../redux/actions/taskActions";
-
-import * as XLSX from "xlsx";
-// import { writeFile, DocumentDirectoryPath } from "react-native-fs";
+import { download, getInstalledPoles } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
@@ -57,32 +54,31 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
-  // const handleSurveyData = async (item, isSurvey) => {
-  //   console.log(`Pole Id is ${item.pole_id}`);
+  const handleSurvey = (
+    data,
+    isSurvey,
+    beneficiaryName,
+    locationRemarks,
+    contactNumber
+  ) => {
+    if (!data?.site) {
+      console.error("Error: site data is missing", data);
+      return;
+    }
 
-  //   try {
-  //     const response = await axios.post("https://slldm.com/api/pole-details", {
-  //       pole_id: item.pole_id,
-  //     });
-
-  //     if (response.status === 200) {
-  //       const { data } = response;
-  //       navigation.navigate("submitInstallation", {
-  //         data: {
-  //           ...data,
-  //           complete_pole_number: item.complete_pole_number,
-  //           beneficiaryName: item.beneficiary,
-  //           locationRemarks: item.remarks,
-  //         },
-  //         isSurvey,
-  //       });
-  //     } else {
-  //       console.error("Failed to fetch data:", response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching survey data:", error);
-  //   }
-  // };
+    const { district, block, panchayat, state } = data?.site;
+    const pole_number = formatString(
+      [state, district, block, panchayat].join(" ")
+    );
+    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
+    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
+    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
+    navigation.navigate("startInstallation", {
+      itemId: data.id,
+      isSurvey,
+    });
+  };
 
   const handleSurveyData = async (item, isSurvey) => {
     console.log(`Pole Id is ${item.pole_id}`);
@@ -94,18 +90,15 @@ const StreetLightPendingTask = ({ navigation }) => {
 
       if (response.status === 200) {
         const { data } = response;
-        navigation.navigate(
-          isSurvey ? "startInstallation" : "submitInstallation",
-          {
-            data: {
-              ...data,
-              complete_pole_number: item.complete_pole_number,
-              beneficiaryName: item.beneficiary,
-              locationRemarks: item.remarks,
-            },
-            isSurvey,
-          }
-        );
+        navigation.navigate("submitInstallation", {
+          data: {
+            ...data,
+            complete_pole_number: item.complete_pole_number,
+            beneficiaryName: item.beneficiary,
+            locationRemarks: item.remarks,
+          },
+          isSurvey,
+        });
       } else {
         console.error("Failed to fetch data:", response.status);
       }
@@ -134,6 +127,10 @@ const StreetLightPendingTask = ({ navigation }) => {
     installedStreetLights,
     activeTab,
   ]);
+
+  useEffect(() => {
+    dispatch(getInstalledPoles(id));
+  }, [dispatch, id]);
 
   const updateTabCounts = () => {
     setTabCounts({
@@ -235,7 +232,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
-                negativeAction={() => handleSurveyData(item, true)}
+                negativeAction={() => handleSurvey(item, true)}
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
