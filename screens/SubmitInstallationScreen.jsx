@@ -45,7 +45,8 @@ const SubmitInstallationScreen = () => {
 
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
-    setIsCameraVisible(false); // Close the camera after capturing an image
+    setIsCameraVisible( false );// Close the camera after capturing an image
+    
   };
 
   return (
