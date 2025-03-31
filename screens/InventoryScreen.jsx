@@ -167,6 +167,7 @@ export default function InventoryScreen() {
             quantity={item.quantity}
             total_value={item.total_value}
             dispatch_date={item.dispatch_dates}
+            onPress={() => openModal(item)}
           />
         )}
       />
