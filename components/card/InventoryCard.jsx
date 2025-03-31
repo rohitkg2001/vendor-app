@@ -4,7 +4,7 @@ import { styles, spacing, SCREEN_WIDTH, typography } from "../../styles";
 import { useTranslation } from "react-i18next";
 import { Card } from "react-native-paper";
 
-export default function InventoryCard({ item, onPress }) {
+export default function InventoryCard({ item, onPress, }) {
   const { t } = useTranslation();
 
   // Calculate total value
