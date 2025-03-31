@@ -10,6 +10,7 @@ import { H1, H5, H6, P } from "../components/text";
 import { useDispatch, useSelector } from "react-redux";
 import CardFullWidth from "../components/card/CardFullWidth";
 import { getInstalledPoles, getStreetLightTasks } from "../redux/actions/taskActions";
+import { getAllItems } from "../redux/actions/inventoryActions";
 
 export default function WelcomeScreen({ navigation }) {
     const { id } = useSelector((state) => state.vendor);
@@ -21,6 +22,7 @@ export default function WelcomeScreen({ navigation }) {
 
     useEffect(() => {
         dispatch(getStreetLightTasks(id));
+        dispatch(getAllItems(id))
     }, [dispatch, id]);
 
     useEffect(() => {
