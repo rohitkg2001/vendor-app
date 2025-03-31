@@ -18,15 +18,13 @@ import { H1, H5, H6, P } from "../components/text";
 import { useDispatch, useSelector } from "react-redux";
 import CardFullWidth from "../components/card/CardFullWidth";
 import {
-  getAllInstallationCount,
-  getAllTasks,
   getInstalledPoles,
   getStreetLightTasks,
 } from "../redux/actions/taskActions";
+import { getAllItems } from "../redux/actions/inventoryActions";
 
 export default function WelcomeScreen({ navigation }) {
-  const { siteInfo } = useSelector((state) => state.site);
-  const { id, name } = useSelector((state) => state.vendor);
+  const { id } = useSelector((state) => state.vendor);
   const {
     pendingStreetLightCounts,
     surveyedStreetLightCounts,
@@ -39,6 +37,7 @@ export default function WelcomeScreen({ navigation }) {
 
   useEffect(() => {
     dispatch(getStreetLightTasks(id));
+    //  dispatch(getAllItems(id))
   }, [dispatch, id]);
 
   useEffect(() => {
