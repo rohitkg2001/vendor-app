@@ -34,7 +34,7 @@ export default function InventoryScreen() {
   const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // const inventoryData = useSelector((state) => state.inventory.items);
+   //const inventoryData = useSelector((state) => state.inventory.items);
 
   // useEffect(() => {
   //   dispatch(getAllItems(vendorId));
