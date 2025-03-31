@@ -134,11 +134,11 @@ const SubmitInstallationScreen = () => {
           value={beneficiaryName} // Directly use beneficiaryName from `data`
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-        {/* <MyTextInput
+        <MyTextInput
           placeholder="Pole Number"
           value={poleNumber}
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
-        /> */}
+        />
         <MyTextInput
           placeholder="Contact Number"
           value={contactNumber}
