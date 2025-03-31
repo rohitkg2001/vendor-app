@@ -77,6 +77,8 @@ const StreetLightPendingTask = ({ navigation }) => {
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
+      poleNumber: pole_number,
+      wardPanchayat: ward_panchayat,
     });
   };
 
@@ -110,7 +112,6 @@ const StreetLightPendingTask = ({ navigation }) => {
       console.error("Error fetching survey data:", error);
     }
   };
-
   const [activeTab, setActiveTab] = useState("All");
   const [filteredData, setFilteredData] = useState([]);
   const [tabCounts, setTabCounts] = useState({

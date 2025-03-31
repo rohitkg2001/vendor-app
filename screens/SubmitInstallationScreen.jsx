@@ -32,7 +32,7 @@ const SubmitInstallationScreen = () => {
     complete_pole_number,
     panchayat,
     block,
-    pole_number,
+    // pole_number,
     ward,
   } = data; // Destructure the data passed
 
@@ -56,7 +56,8 @@ const SubmitInstallationScreen = () => {
 
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
-    setIsCameraVisible(false); // Close the camera after capturing an image
+    setIsCameraVisible( false );// Close the camera after capturing an image
+    
   };
 
   return (
@@ -131,6 +132,11 @@ const SubmitInstallationScreen = () => {
         <MyTextInput
           placeholder="Beneficiary Name"
           value={beneficiaryName} // Directly use beneficiaryName from `data`
+          onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
+        />
+        <MyTextInput
+          placeholder="Pole Number"
+          value={poleNumber}
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
         <MyTextInput

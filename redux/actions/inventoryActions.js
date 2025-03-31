@@ -11,9 +11,8 @@ export const viewInventory = (item) => ({
   payload: item,
 });
 
-export const getAllItems = () => async (dispatch) => {
+export const getAllItems = (vendorId) => async (dispatch) => {
   try {
-    // const response = await fetch(`${BASE_URL}/api/inventories`);
     const response = await fetch(
       `${BASE_URL}/api/get-inventory/vendor/${vendorId}`
     );

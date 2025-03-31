@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Modal, Portal } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
@@ -20,7 +20,6 @@ import {
   styles,
   LIGHT,
   SCREEN_HEIGHT,
-  SECONDARY_COLOR,
   ICON_MEDIUM,
 } from "../styles";
 import { H5, H6 } from "../components/text";
@@ -34,25 +33,25 @@ export default function InventoryScreen() {
   const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-   //const inventoryData = useSelector((state) => state.inventory.items);
+  const inventoryData = useSelector((state) => state.inventory.inventory);
 
-  // useEffect(() => {
-  //   dispatch(getAllItems(vendorId));
-  // }, [dispatch, vendorId]);
+  useEffect(() => {
+    dispatch(getAllItems(vendorId));
+  }, [dispatch, vendorId]);
 
-  // useEffect(() => {
-  //   console.log("Fetched Inventory Data:", inventoryData);
-  // }, [inventoryData]);
+  useEffect(() => {
+    console.log("Fetched Inventory Data:", inventoryData);
+  }, [inventoryData]);
 
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
   }, []);
 
   const stockData = {
-    Battery: { consumed: 50, inStock: 200, receivedToday: 10 },
-    Luminary: { consumed: 30, inStock: 150, receivedToday: 5 },
-    Panel: { consumed: 20, inStock: 120, receivedToday: 8 },
-    SIM: { consumed: 40, inStock: 100, receivedToday: 12 },
+    Battery: { consumed: 0, inStock: 10, receivedToday: 10 },
+    Luminary: { consumed: 0, inStock: 2, receivedToday: 2 },
+    SolarModule: { consumed: 0, inStock: 3, receivedToday: 2 },
+    Structure: { consumed: 0, inStock: 1, receivedToday: 1 },
   };
 
   const openModal = (item) => {
@@ -100,28 +99,30 @@ export default function InventoryScreen() {
             },
           ]}
         >
-          {["Battery", "Luminary", "Panel", "SIM"].map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                spacing.m1,
-                spacing.br2,
-                {
-                  width: "47%",
-                  height: 65,
-                  borderWidth: 0.5,
-                  borderColor: "#ddd",
-                  backgroundColor: LIGHT,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  elevation: 1,
-                },
-              ]}
-              onPress={() => openModal(item)}
-            >
-              <P style={[typography.font14, typography.fontLato]}>{item}</P>
-            </TouchableOpacity>
-          ))}
+          {["Battery", "Luminary", "SolarModule", "Structure"].map(
+            (item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  spacing.m1,
+                  spacing.br2,
+                  {
+                    width: "47%",
+                    height: 65,
+                    borderWidth: 0.5,
+                    borderColor: "#ddd",
+                    backgroundColor: LIGHT,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    elevation: 1,
+                  },
+                ]}
+                onPress={() => openModal(item)}
+              >
+                <P style={[typography.font14, typography.fontLato]}>{item}</P>
+              </TouchableOpacity>
+            )
+          )}
         </View>
       </View>
 
