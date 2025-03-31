@@ -30,10 +30,7 @@ import {
   SET_LOCATION_REMARKS,
   SET_CONTACT_NUMBER,
 } from "../redux/constant";
-import { download } from "../redux/actions/taskActions";
-
-import * as XLSX from "xlsx";
-// import { writeFile, DocumentDirectoryPath } from "react-native-fs";
+import { download, getInstalledPoles } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
@@ -57,6 +54,32 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
+  const handleSurvey = (
+    data,
+    isSurvey,
+    beneficiaryName,
+    locationRemarks,
+    contactNumber
+  ) => {
+    if (!data?.site) {
+      console.error("Error: site data is missing", data);
+      return;
+    }
+
+    const { district, block, panchayat, state } = data?.site;
+    const pole_number = formatString(
+      [state, district, block, panchayat].join(" ")
+    );
+    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
+    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
+    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
+    navigation.navigate("startInstallation", {
+      itemId: data.id,
+      isSurvey,
+    });
+  };
+
   const handleSurveyData = async (item, isSurvey) => {
     console.log(`Pole Id is ${item.pole_id}`);
 
@@ -70,12 +93,12 @@ const StreetLightPendingTask = ({ navigation }) => {
         navigation.navigate("submitInstallation", {
           data: {
             ...data,
-            beneficiaryName: item.beneficiary, 
-            locationRemarks: item.remarks, 
+            complete_pole_number: item.complete_pole_number,
+            beneficiaryName: item.beneficiary,
+            locationRemarks: item.remarks,
           },
           isSurvey,
         });
-        
       } else {
         console.error("Failed to fetch data:", response.status);
       }
@@ -103,6 +126,10 @@ const StreetLightPendingTask = ({ navigation }) => {
     installedStreetLights,
     activeTab,
   ]);
+
+  useEffect(() => {
+    dispatch(getInstalledPoles(id));
+  }, [dispatch, id]);
 
   const updateTabCounts = () => {
     setTabCounts({
@@ -204,7 +231,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
-                negativeAction={() => handleSurveyData(item, true)}
+                negativeAction={() => handleSurvey(item, true)}
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
