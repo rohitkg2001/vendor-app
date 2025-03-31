@@ -27,8 +27,22 @@ export default function InventoryCard({ item, onPress, }) {
     >
       <TouchableOpacity onPress={onPress}>
         {/* Item Name */}
-        <View style={[styles.row, spacing.mb1]}>
+        {/* <View style={[styles.row, spacing.mb1]}>
           <H5 style={[typography.font16, typography.fontLato]}>{item.item}</H5>
+        </View> */}
+        <View
+          style={[
+            styles.row,
+            spacing.mb1,
+            { justifyContent: "space-between", alignItems: "center" },
+          ]}
+        >
+          <H5 style={[typography.font16, typography.fontLato]}>{item.item}</H5>
+          <P
+            style={[typography.font12, typography.fontLato, { color: "gray" }]}
+          >
+            {item.dispatch_date}
+          </P>
         </View>
 
         {/* Manufacturer & Model in one row */}

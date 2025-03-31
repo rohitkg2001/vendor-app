@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Modal, Portal } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -31,7 +31,6 @@ export default function InventoryScreen() {
   const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // const inventoryData = useSelector((state) => state.inventory);
   const { inventory } = useSelector((state) => state.inventory);
 
   useEffect(() => {
@@ -57,6 +56,38 @@ export default function InventoryScreen() {
   const closeModal = () => {
     setVisible(false);
     setSelectedItem(null);
+  };
+
+  // Grouping function
+  const groupInventoryItems = (items) => {
+    const grouped = {};
+
+    items.forEach((item) => {
+      const key = `${item.model}-${item.manufacturer}-${item.rate}`;
+
+      if (!grouped[key]) {
+        grouped[key] = {
+          ...item,
+          quantity: 0,
+          total_value: 0,
+          dispatch_dates: new Set(), // Unique dispatch dates
+        };
+      }
+
+      grouped[key].quantity += item.quantity;
+      grouped[key].total_value += item.total_value;
+
+      // Add dispatch date
+      if (item.dispatch_date) {
+        grouped[key].dispatch_dates.add(item.dispatch_date);
+      }
+    });
+
+    // Convert Set to comma-separated string
+    return Object.values(grouped).map((item) => ({
+      ...item,
+      dispatch_dates: Array.from(item.dispatch_dates).join(", "),
+    }));
   };
 
   return (
@@ -122,7 +153,7 @@ export default function InventoryScreen() {
       </View>
 
       <MyFlatList
-        data={inventory}
+        data={groupInventoryItems(inventory)}
         keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={() => <NoRecord msg={t("no_inventory")} />}
         showSearchBar={false}
@@ -135,6 +166,7 @@ export default function InventoryScreen() {
             rate={item.rate}
             quantity={item.quantity}
             total_value={item.total_value}
+            dispatch_date={item.dispatch_dates}
           />
         )}
       />
@@ -181,11 +213,7 @@ export default function InventoryScreen() {
                 >
                   {selectedItem} Stock Details
                 </H5>
-                {/* <P
-                  style={[typography.font14, typography.fontLato, spacing.mb1]}
-                >
-                  🔹 Total Consumed: {stockData[selectedItem].consumed}
-                </P> */}
+
                 <P
                   style={[typography.font14, typography.fontLato, spacing.mb1]}
                 >
@@ -211,21 +239,6 @@ export default function InventoryScreen() {
                 </P>
               </>
             )}
-
-            <View style={[spacing.mt3]}>
-              <Button style={[spacing.ph4]} onPress={closeModal}>
-                <P
-                  style={[
-                    typography.font16,
-                    typography.textBold,
-                    typography.fontLato,
-                    { color: "red" },
-                  ]}
-                >
-                  Close
-                </P>
-              </Button>
-            </View>
           </View>
         </Modal>
       </Portal>
