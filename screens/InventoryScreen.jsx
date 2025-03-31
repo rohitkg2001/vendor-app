@@ -27,21 +27,16 @@ import { P } from "../components/text";
 
 export default function InventoryScreen() {
   const { t } = useTranslation();
-  const vendorId = "vendor_id";
-  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const inventoryData = useSelector((state) => state.inventory.inventory);
+  // const inventoryData = useSelector((state) => state.inventory);
+  const { inventory } = useSelector((state) => state.inventory);
 
   useEffect(() => {
-    dispatch(getAllItems(vendorId));
-  }, [dispatch, vendorId]);
-
-  useEffect(() => {
-    console.log("Fetched Inventory Data:", inventoryData);
-  }, [inventoryData]);
+    console.log("Fetched Inventory Data:", { inventory });
+  }, [inventory]);
 
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
@@ -127,7 +122,7 @@ export default function InventoryScreen() {
       </View>
 
       <MyFlatList
-        data={inventoryData}
+        data={inventory}
         keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={() => <NoRecord msg={t("no_inventory")} />}
         showSearchBar={false}

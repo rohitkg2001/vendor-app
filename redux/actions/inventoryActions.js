@@ -4,6 +4,7 @@ import {
   COUNT_INVENTORY,
   BASE_URL,
   GET_ALL_INVENTORY,
+  SET_TOTAL_INVENTORY_VALUE,
 } from "../constant";
 
 export const viewInventory = (item) => ({
@@ -17,8 +18,12 @@ export const getAllItems = (vendorId) => async (dispatch) => {
       `${BASE_URL}/api/get-inventory/vendor/${vendorId}`
     );
     const data = await response.json();
-    console.log(data);
-    dispatch({ type: GET_ALL_INVENTORY, payload: data });
+    const { inventory, total_inventory_value } = data;
+    dispatch({
+      type: SET_TOTAL_INVENTORY_VALUE,
+      payload: total_inventory_value,
+    });
+    dispatch({ type: GET_ALL_INVENTORY, payload: inventory });
   } catch (err) {
     alert(err.message);
   }
