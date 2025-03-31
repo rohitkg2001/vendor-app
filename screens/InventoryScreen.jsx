@@ -27,17 +27,11 @@ import { P } from "../components/text";
 
 export default function InventoryScreen() {
   const { t } = useTranslation();
-  const vendorId = "vendor_id";
-  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const inventoryData = useSelector((state) => state.inventory.inventory);
-
-  useEffect(() => {
-    dispatch(getAllItems(vendorId));
-  }, [dispatch, vendorId]);
+  const inventoryData = useSelector((state) => state.inventory);
 
   useEffect(() => {
     console.log("Fetched Inventory Data:", inventoryData);
