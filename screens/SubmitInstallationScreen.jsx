@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native"; // Import useRoute
+import { Checkbox } from "react-native-paper";
 import { LIGHT, spacing, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
 import QRScanner from "../components/input/QRScanner";
@@ -10,6 +11,7 @@ import { SCREEN_WIDTH, styles } from "../styles";
 
 const SubmitInstallationScreen = () => {
   const route = useRoute(); // Get route params using useRoute hook
+  const [networkAvailable, setNetworkAvailable] = useState(false);
   const { data } = route.params || {}; // Safely access 'data' passed from the previous screen
 
   // Log the data coming from the previous screen to make sure it's passed correctly
@@ -23,7 +25,8 @@ const SubmitInstallationScreen = () => {
     return null; // Or render an error message
   }
 
-  const { beneficiaryName, locationRemarks, complete_pole_number } = data; // Destructure the data passed
+  const { beneficiaryName, locationRemarks, complete_pole_number, poleNumber } =
+    data; // Destructure the data passed
 
   // Use state only if you need to modify the values, otherwise, directly use `data` from route.params
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
@@ -109,6 +112,11 @@ const SubmitInstallationScreen = () => {
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
         <MyTextInput
+          placeholder="Pole Number"
+          value={poleNumber}
+          onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
+        />
+        <MyTextInput
           placeholder="Contact Number"
           value={contactNumber}
           onChangeText={(text) => {
@@ -126,6 +134,23 @@ const SubmitInstallationScreen = () => {
           multiline
           numberOfLines={4}
         />
+
+        <View
+          style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
+        >
+          <Checkbox
+            status={networkAvailable ? "checked" : "unchecked"}
+            onPress={() => setNetworkAvailable((prev) => !prev)}
+            color="#76885B"
+          />
+          <TouchableOpacity
+            onPress={() => setNetworkAvailable((prev) => !prev)}
+          >
+            <P style={[typography.font18, typography.textBold]}>
+              Network Availability (Airtel)
+            </P>
+          </TouchableOpacity>
+        </View>
 
         {/* Take Photo Button */}
         <TouchableOpacity
