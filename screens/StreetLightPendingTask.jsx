@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
+import axios from "axios";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
@@ -30,7 +31,7 @@ import {
   SET_LOCATION_REMARKS,
   SET_CONTACT_NUMBER,
 } from "../redux/constant";
-import { download } from "../redux/actions/taskActions";
+import { download, getInstalledPoles } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
@@ -50,23 +51,68 @@ const StreetLightPendingTask = ({ navigation }) => {
   function formatString(input) {
     return input
       .split(" ") // Split by space
-      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercase
+      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
       .join("/"); // Join by '/'
   }
 
-  // Sumit Changed this
-  const handleSurveyData = async (id) => {
-    console.log(`Pole Id is ${id}`);
-    // First log your pole id
-    const response = await axios.post(`https://slldm.com/api/pole-details`, { pole_id: id })
-    // Hit API to get details of pole
-    const { data } = response
+  const handleSurvey = (
+    data,
+    isSurvey,
+    beneficiaryName,
+    locationRemarks,
+    contactNumber
+  ) => {
+    if (!data?.site) {
+      console.error("Error: site data is missing", data);
+      return;
+    }
 
-    navigation.navigate('submitInstallion', { data })
-    // Navigate to the submit installation screen
+    const { district, block, panchayat, state } = data?.site;
+    const pole_number = formatString(
+      [state, district, block, panchayat].join(" ")
+    );
+    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
+    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
+    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
+    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
+    navigation.navigate("startInstallation", {
+      itemId: data.id,
+      isSurvey,
+      poleNumber: pole_number,
+      wardPanchayat: ward_panchayat,
+    });
   };
-  // to this
 
+  const handleSurveyData = async (item, isSurvey) => {
+    console.log(`Pole Id is ${item.pole_id}`);
+
+    try {
+      const response = await axios.post("https://slldm.com/api/pole-details", {
+        pole_id: item.pole_id,
+      });
+
+      if (response.status === 200) {
+        const { data } = response;
+        navigation.navigate("submitInstallation", {
+          data: {
+            ...data,
+            complete_pole_number: item.complete_pole_number,
+            beneficiaryName: item.beneficiary,
+            locationRemarks: item.remarks,
+            panchayat: item.panchayat,
+            block: item.block,
+            pole_number: item.pole_number,
+            ward: item.ward,
+          },
+          isSurvey,
+        });
+      } else {
+        console.error("Failed to fetch data:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching survey data:", error);
+    }
+  };
   const [activeTab, setActiveTab] = useState("All");
   const [filteredData, setFilteredData] = useState([]);
   const [tabCounts, setTabCounts] = useState({
@@ -87,6 +133,10 @@ const StreetLightPendingTask = ({ navigation }) => {
     installedStreetLights,
     activeTab,
   ]);
+
+  useEffect(() => {
+    dispatch(getInstalledPoles(id));
+  }, [dispatch, id]);
 
   const updateTabCounts = () => {
     setTabCounts({
@@ -187,7 +237,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
-                negativeAction={() => handleSurveyData(item, true)}
+                negativeAction={() => handleSurvey(item, true)}
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>

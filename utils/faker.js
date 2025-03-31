@@ -262,9 +262,9 @@ export const inventoryData = [
     item: "Luminary",
     manufacturer: "Ecosis",
 
-    rate: 500,
-    quantity: 1500,
-    total_value: 1500000,
+    rate: 10,
+    quantity: 2,
+    total_value: 20,
   },
   {
     id: 2,
@@ -272,9 +272,9 @@ export const inventoryData = [
     model: "SL2",
     item: "Solar Module",
     manufacturer: "Alpex",
-    rate: 600,
-    quantity: 1500,
-    total_value: 500000,
+    rate: 5,
+    quantity: 3,
+    total_value: 15,
   },
   {
     id: 3,
@@ -284,9 +284,9 @@ export const inventoryData = [
     manufacturer: "Ecosis",
     make: "ESL",
 
-    rate: 700,
-    quantity: 1500,
-    total_value: 750000,
+    rate: 100,
+    quantity: 10,
+    total_value: 1000,
   },
   {
     id: 4,
@@ -294,8 +294,8 @@ export const inventoryData = [
     model: "SL4",
     item: "Structure",
     manufacturer: "Ecosis",
-    rate: 400,
-    quantity: 1500,
-    total_value: 600000,
+    rate: 1,
+    quantity: 1,
+    total_value: 2
   },
 ];
