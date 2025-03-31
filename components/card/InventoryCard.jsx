@@ -4,11 +4,21 @@ import { styles, spacing, SCREEN_WIDTH, typography } from "../../styles";
 import { useTranslation } from "react-i18next";
 import { Card } from "react-native-paper";
 
-export default function InventoryCard({ item, onPress, }) {
+export default function InventoryCard({ item, onPress }) {
   const { t } = useTranslation();
 
   // Calculate total value
   const totalValue = item.rate * item.quantity;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // Agar date na ho to empty string return kare
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
 
   return (
     <Card
@@ -27,9 +37,6 @@ export default function InventoryCard({ item, onPress, }) {
     >
       <TouchableOpacity onPress={onPress}>
         {/* Item Name */}
-        {/* <View style={[styles.row, spacing.mb1]}>
-          <H5 style={[typography.font16, typography.fontLato]}>{item.item}</H5>
-        </View> */}
         <View
           style={[
             styles.row,
@@ -41,7 +48,7 @@ export default function InventoryCard({ item, onPress, }) {
           <P
             style={[typography.font12, typography.fontLato, { color: "gray" }]}
           >
-            {item.dispatch_date}
+            {formatDate(item.dispatch_date)}
           </P>
         </View>
 
