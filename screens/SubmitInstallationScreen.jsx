@@ -32,7 +32,7 @@ const SubmitInstallationScreen = () => {
     complete_pole_number,
     panchayat,
     block,
-    pole_number,
+    // pole_number,
     ward,
   } = data; // Destructure the data passed
 
@@ -64,19 +64,18 @@ const SubmitInstallationScreen = () => {
     <ScrollView style={spacing.mv2} keyboardShouldPersistTaps="handled">
       <View>
         <View>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <P style={{ fontSize: 16, fontWeight: "bold", marginRight: 5 }}>
-              Panchayat:
-            </P>
-            <P style={{ fontSize: 14 }}>{data.panchayat}</P>
+          <View style={[styles.row, { alignItems: "center" }]}>
+            <P style={[typography.font14]}>Panchayat:</P>
+
+            <P style={[typography.font14, { right: 10 }]}>{data.panchayat}</P>
           </View>
 
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <P style={{ fontSize: 16, fontWeight: "bold" }}>Block:</P>
-            <P style={{ fontSize: 14 }}>{data.block}</P>
+          <View style={[styles.row, { alignItems: "center" }]}>
+            <P style={[typography.font14]}>Block:</P>
+            <P style={[typography.font14, { right: 10 }]}>{data.block}</P>
           </View>
-          <P style={{ fontSize: 16 }}>{data.pole_number}</P>
-          <P style={{ fontSize: 16 }}>{data.ward}</P>
+          {/* <P style={[typography.font14]}>{data.pole_number}</P> */}
+          <P style={[typography.font14]}>{data.ward}</P>
         </View>
 
         <MyTextInput
@@ -135,11 +134,11 @@ const SubmitInstallationScreen = () => {
           value={beneficiaryName} // Directly use beneficiaryName from `data`
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-        <MyTextInput
+        {/* <MyTextInput
           placeholder="Pole Number"
           value={poleNumber}
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
-        />
+        /> */}
         <MyTextInput
           placeholder="Contact Number"
           value={contactNumber}
