@@ -8,6 +8,7 @@ import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
 import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
+import TextInput from "react-native-paper";
 
 const SubmitInstallationScreen = () => {
   const route = useRoute(); // Get route params using useRoute hook
@@ -25,8 +26,15 @@ const SubmitInstallationScreen = () => {
     return null; // Or render an error message
   }
 
-  const { beneficiaryName, locationRemarks, complete_pole_number, poleNumber } =
-    data; // Destructure the data passed
+  const {
+    beneficiaryName,
+    locationRemarks,
+    complete_pole_number,
+    panchayat,
+    block,
+    pole_number,
+    ward,
+  } = data; // Destructure the data passed
 
   // Use state only if you need to modify the values, otherwise, directly use `data` from route.params
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
@@ -55,6 +63,22 @@ const SubmitInstallationScreen = () => {
   return (
     <ScrollView style={spacing.mv2} keyboardShouldPersistTaps="handled">
       <View>
+        <View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <P style={{ fontSize: 16, fontWeight: "bold", marginRight: 5 }}>
+              Panchayat:
+            </P>
+            <P style={{ fontSize: 14 }}>{data.panchayat}</P>
+          </View>
+
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <P style={{ fontSize: 16, fontWeight: "bold" }}>Block:</P>
+            <P style={{ fontSize: 14 }}>{data.block}</P>
+          </View>
+          <P style={{ fontSize: 16 }}>{data.pole_number}</P>
+          <P style={{ fontSize: 16 }}>{data.ward}</P>
+        </View>
+
         <MyTextInput
           placeholder="Complete Pole Number"
           value={complete_pole_number}
