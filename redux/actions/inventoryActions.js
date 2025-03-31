@@ -17,10 +17,10 @@ export const getAllItems = (vendorId) => async (dispatch) => {
       `${BASE_URL}/api/get-inventory/vendor/${vendorId}`
     );
     const data = await response.json();
-    console.log(data)
-    // dispatch({ type: GET_ALL_INVENTORY, payload: data });
+    console.log(data);
+    dispatch({ type: GET_ALL_INVENTORY, payload: data });
   } catch (err) {
-    alert(err.message)
+    alert(err.message);
   }
 };
 

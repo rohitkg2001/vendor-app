@@ -37,7 +37,7 @@ export default function WelcomeScreen({ navigation }) {
 
   useEffect(() => {
     dispatch(getStreetLightTasks(id));
-    //  dispatch(getAllItems(id))
+    dispatch(getAllItems(id));
   }, [dispatch, id]);
 
   useEffect(() => {
