@@ -1,4 +1,4 @@
-W// Updated DashboardScreen.js
+// Updated DashboardScreen.js
 import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -59,9 +59,7 @@ export default function DashboardScreen() {
                 contentContainerStyle={[spacing.mh1]}
             >
                 <DashboardFilter />
-
                 <OverViewCard totalSites={totalTasks} />
-
                 <ProgressReportCard />
             </ScrollView>
         </ContainerComponent>

@@ -4,34 +4,16 @@ import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import {
-    DANGER_COLOR,
-    ICON_SMALL,
-    layouts,
-    LIGHT,
-    PRIMARY_COLOR,
-    SCREEN_WIDTH,
-    spacing,
-    styles,
-    typography,
+    DANGER_COLOR, ICON_SMALL, layouts, LIGHT, PRIMARY_COLOR, SCREEN_WIDTH, spacing, styles, typography,
 } from "../styles";
 import { H1, H5, H6, P } from "../components/text";
 import { useDispatch, useSelector } from "react-redux";
 import CardFullWidth from "../components/card/CardFullWidth";
-import {
-    getAllInstallationCount,
-    getAllTasks,
-    getInstalledPoles,
-    getStreetLightTasks,
-} from "../redux/actions/taskActions";
+import { getInstalledPoles, getStreetLightTasks } from "../redux/actions/taskActions";
 
 export default function WelcomeScreen({ navigation }) {
-    const { siteInfo } = useSelector((state) => state.site);
-    const { id, name } = useSelector((state) => state.vendor);
-    const {
-        pendingStreetLightCounts,
-        surveyedStreetLightCounts,
-        installedStreetLightCounts,
-    } = useSelector((state) => state.tasks);
+    const { id } = useSelector((state) => state.vendor);
+    const { pendingStreetLightCounts, surveyedStreetLightCounts, installedStreetLightCounts } = useSelector((state) => state.tasks);
     const [doneInstallation, setDoneInstallation] = useState(0);
     const [taskCount, setTaskCount] = useState(0);
 
