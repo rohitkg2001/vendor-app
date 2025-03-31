@@ -22,16 +22,13 @@ export const greet = () => {
 
 export const login = (user, pass) => async (dispatch) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: user, password: pass }),
+    const response = await axios.post(`${BASE_URL}/api/login`, {
+      email: user,
+      password: pass
     });
-    alert(response);
-    const data = await response.json();
-    if (data.status === 200) {
+
+    const { data, status } = response
+    if (status === 200) {
       if (data.user.role !== 3) {
         alert("You are not authorised to use this app");
         return false;
