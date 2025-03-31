@@ -96,6 +96,10 @@ const StreetLightPendingTask = ({ navigation }) => {
             complete_pole_number: item.complete_pole_number,
             beneficiaryName: item.beneficiary,
             locationRemarks: item.remarks,
+            panchayat: item.panchayat,
+            block: item.block,
+            pole_number: item.pole_number,
+            ward: item.ward,
           },
           isSurvey,
         });
