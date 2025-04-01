@@ -261,7 +261,6 @@ export const inventoryData = [
     model: "SL01",
     item: "Luminary",
     manufacturer: "Ecosis",
-
     rate: 10,
     quantity: 2,
     total_value: 20,
@@ -269,7 +268,7 @@ export const inventoryData = [
   {
     id: 2,
 
-    model: "SL2",
+    model: "SL02",
     item: "Solar Module",
     manufacturer: "Alpex",
     rate: 5,
@@ -278,20 +277,17 @@ export const inventoryData = [
   },
   {
     id: 3,
-
-    model: "SL3",
+    model: "SL03",
     item: "Battery",
     manufacturer: "Ecosis",
     make: "ESL",
-
     rate: 100,
     quantity: 10,
     total_value: 1000,
   },
   {
     id: 4,
-
-    model: "SL4",
+    model: "SL04",
     item: "Structure",
     manufacturer: "Ecosis",
     rate: 1,
