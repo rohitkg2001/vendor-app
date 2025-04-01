@@ -9,6 +9,11 @@ import CameraInput from "../components/input/CameraInput";
 import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
 import TextInput from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { getInstalledStreetLights } from "../redux/actions/taskActions";
+
+const dispatch = useDispatch();
+
 
 const SubmitInstallationScreen = () => {
   const route = useRoute(); // Get route params using useRoute hook
@@ -56,9 +61,10 @@ const SubmitInstallationScreen = () => {
 
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
-    setIsCameraVisible( false );// Close the camera after capturing an image
+    setIsCameraVisible( false );// Close the camera after capturing an image 
     
   };
+ 
 
   return (
     <ScrollView style={spacing.mv2} keyboardShouldPersistTaps="handled">
@@ -75,7 +81,7 @@ const SubmitInstallationScreen = () => {
             <P style={[typography.font14, { right: 10 }]}>{data.block}</P>
           </View>
           {/* <P style={[typography.font14]}>{data.pole_number}</P> */}
-          <P style={[typography.font14]}>{data.ward}</P>
+          {/* <P style={[typography.font14]}>{data.ward}</P> */}
         </View>
 
         <MyTextInput
@@ -134,11 +140,11 @@ const SubmitInstallationScreen = () => {
           value={beneficiaryName} // Directly use beneficiaryName from `data`
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-        <MyTextInput
+        {/* <MyTextInput
           placeholder="Pole Number"
           value={poleNumber}
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
-        />
+        /> */}
         <MyTextInput
           placeholder="Contact Number"
           value={contactNumber}

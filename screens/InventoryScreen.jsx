@@ -4,14 +4,13 @@ import { View, TouchableOpacity } from "react-native";
 import { Modal, Portal } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
-import Button from "../components/buttons/Button";
 import MyHeader from "../components/header/MyHeader";
 import MyFlatList from "../components/utility/MyFlatList";
 import { inventoryData } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAllItems } from "../redux/actions/inventoryActions";
 import SearchBar from "../components/input/SearchBar";
 import {
@@ -23,7 +22,7 @@ import {
   SCREEN_HEIGHT,
   ICON_MEDIUM,
 } from "../styles";
-import { H5, H6 } from "../components/text";
+import { H5} from "../components/text";
 import { P } from "../components/text";
 
 export default function InventoryScreen() {
@@ -66,22 +65,13 @@ export default function InventoryScreen() {
     setShowDetailsModal(true);
   };
 
-  // const openDetailsModal = (item) => {
-  //   const duplicateSerials = inventory
-  //     .filter((invItem) => invItem.serial_number === item.serial_number)
-  //     .map((invItem) => invItem.serial_number);
-
-  //   setDetailsItem({ ...item, duplicateSerials });
-  //   setShowDetailsModal(true);
-  // };
-
   const closeDetailsModal = () => {
     setShowDetailsModal(false);
     setDetailsItem(null);
   };
 
   // Grouping function
-  const groupInventoryItems = (items) => {
+  const groupInventoryItems = (items = []) => {
     const grouped = {};
 
     items.forEach((item) => {
