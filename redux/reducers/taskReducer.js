@@ -10,7 +10,7 @@ import {
   TOTAL_INSTALLED_STREETLIGHTS,
   SET_POLE_NUMBER,
   SET_BENEFICIARY_NAME,
-  SET_CONTACT_NUMBER,
+  SET_BENEFICIARY_CONTACT,
   SET_LOCATION_REMARKS,
 } from "../constant";
 
@@ -46,7 +46,7 @@ export const taskReducer = (state = initialState, action) => {
       return { ...state, pole_number: action.payload };
     case SET_BENEFICIARY_NAME:
       return { ...state, beneficiaryName: action.payload };
-    case SET_CONTACT_NUMBER:
+    case SET_BENEFICIARY_CONTACT:
       return { ...state, contactNumber: action.payload };
     case SET_LOCATION_REMARKS:
       return { ...state, locationRemarks: action.payload };

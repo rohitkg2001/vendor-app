@@ -9,6 +9,8 @@ import CameraInput from "../components/input/CameraInput";
 import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
 import TextInput from "react-native-paper";
+import { Text } from "react-native-paper";
+import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 const SubmitInstallationScreen = () => {
   const route = useRoute(); // Get route params using useRoute hook
@@ -54,14 +56,36 @@ const SubmitInstallationScreen = () => {
     setSimNumber(values[1]?.toString() || "");
   };
 
+  // const handleSubmission = (image) => {
+  //   console.log("Captured Image:", image);
+  //   setIsCameraVisible(false); // Close the camera after capturing an image
+  // };
+
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
-    setIsCameraVisible(false); // Close the camera after capturing an image
+    const submissionData = {
+      beneficiaryName,
+      locationRemarks,
+      complete_pole_number,
+      panchayat,
+      block,
+      ward,
+      luminarySerialNumber,
+      simNumber,
+      batterySerialNumber,
+      panelSerialNumber,
+      contactNumber,
+      networkAvailable,
+      capturedImage: image,
+    };
+
+    console.log("Submitting Data:", submissionData);
+    setIsCameraVisible(false);
   };
 
   return (
     <ScrollView style={spacing.mv2} keyboardShouldPersistTaps="handled">
-      <View>
+      <View style={{ marginLeft: 8 }}>
         <View>
           <View style={[styles.row, { alignItems: "center" }]}>
             <P style={[typography.font14]}>Panchayat:</P>
@@ -126,14 +150,32 @@ const SubmitInstallationScreen = () => {
             keyboardType="numeric"
           />
         </View>
-
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Beneficiary Name
+        </Text>
         {/* Beneficiary and Contact Details */}
         <MyTextInput
           placeholder="Beneficiary Name"
           value={beneficiaryName} // Directly use beneficiaryName from `data`
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Contact Number
+        </Text>
         <MyTextInput
           placeholder="Contact Number"
           value={contactNumber}
@@ -145,6 +187,16 @@ const SubmitInstallationScreen = () => {
           }}
           keyboardType="numeric"
         />
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Location Remarks
+        </Text>
         <MyTextInput
           placeholder="Enter Location Remarks"
           value={locationRemarks} // Directly use locationRemarks from `data`
@@ -156,13 +208,13 @@ const SubmitInstallationScreen = () => {
         <View
           style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
         >
-          <Checkbox
+          {/* <Checkbox
             status={networkAvailable ? "checked" : "unchecked"}
             onPress={() => setNetworkAvailable((prev) => !prev)}
             color="#76885B"
-          />
+          /> */}
           <TouchableOpacity
-            onPress={() => setNetworkAvailable((prev) => !prev)}
+          // onPress={() => setNetworkAvailable((prev) => !prev)}
           >
             <P style={[typography.font18, typography.textBold]}>
               Network Availability (Airtel)
