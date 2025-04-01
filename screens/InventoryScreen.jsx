@@ -23,7 +23,7 @@ import {
   SCREEN_HEIGHT,
   ICON_MEDIUM,
 } from "../styles";
-import { H5} from "../components/text";
+import { H5, H6, Span } from "../components/text";
 import { P } from "../components/text";
 
 export default function InventoryScreen({ navigation }) {
@@ -49,14 +49,6 @@ export default function InventoryScreen({ navigation }) {
     Luminary: { consumed: 0, inStock: 2, receivedToday: 2 },
     SolarModule: { consumed: 0, inStock: 3, receivedToday: 2 },
     Structure: { consumed: 0, inStock: 1, receivedToday: 1 },
-  };
-
-  // const openModal = (item) => {
-  //   setSelectedItem(item);
-  //   setVisible(true);
-  // };
-  const openModal = (item) => {
-    navigation.navigate("inventoryMaterialScreen", { selectedItem: item });
   };
 
   const closeModal = () => {
@@ -124,7 +116,7 @@ export default function InventoryScreen({ navigation }) {
       <SearchBar
         value={searchText}
         onChangeText={handleSearchChange}
-        style={{ marginHorizontal: 10 }}
+        style={{ marginHorizontal: 16 }}
       />
 
       <View style={[spacing.mv2, { alignItems: "center" }]}>
@@ -134,17 +126,15 @@ export default function InventoryScreen({ navigation }) {
             spacing.p2,
             spacing.br2,
             {
-              width: SCREEN_WIDTH - 32,
+              width: SCREEN_WIDTH - 8,
               flexWrap: "wrap",
-              borderWidth: 1,
-              borderColor: "#ddd",
             },
           ]}
         >
-          {["Battery", "Luminary", "SolarModule", "Structure"].map(
-            (item, index) => (
+          {inventoryData.map(
+            ({ item, quantity, total_value, id }) => (
               <TouchableOpacity
-                key={index}
+                key={id}
                 style={[
                   spacing.m1,
                   spacing.br2,
@@ -159,9 +149,11 @@ export default function InventoryScreen({ navigation }) {
                     elevation: 1,
                   },
                 ]}
-                onPress={() => openModal(item)}
+                onPress={() => navigation.navigate("inventoryMaterialScreen", { material: item })}
               >
                 <P style={[typography.font14, typography.fontLato]}>{item}</P>
+                <Span style={[typography.font14, typography.fontLato]}>Available Items: {quantity}</Span>
+                <Span style={[typography.font14, typography.fontLato]}>Stock Value: RS{total_value}</Span>
               </TouchableOpacity>
             )
           )}
