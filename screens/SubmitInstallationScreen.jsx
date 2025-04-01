@@ -10,6 +10,7 @@ import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
 import TextInput from "react-native-paper";
 import { Text } from "react-native-paper";
+import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 const SubmitInstallationScreen = () => {
   const route = useRoute(); // Get route params using useRoute hook
@@ -55,7 +56,10 @@ const SubmitInstallationScreen = () => {
     setSimNumber(values[1]?.toString() || "");
   };
 
-
+  // const handleSubmission = (image) => {
+  //   console.log("Captured Image:", image);
+  //   setIsCameraVisible(false); // Close the camera after capturing an image
+  // };
 
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
@@ -146,7 +150,16 @@ const SubmitInstallationScreen = () => {
             keyboardType="numeric"
           />
         </View>
-
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Beneficiary Name
+        </Text>
         {/* Beneficiary and Contact Details */}
 
         <Text

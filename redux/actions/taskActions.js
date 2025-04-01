@@ -18,8 +18,6 @@ import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
 import { Alert, Platform } from "react-native";
 
-
-
 export const INSTALLATION = filterByStatus([], 0);
 export const FIXING_SLIP = filterByStatus([], 1);
 export const RMS = filterByStatus([], 2);
@@ -242,7 +240,6 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
   }
 };
 
-
 export const getStreetLightTasks = (my_id) => async (dispatch) => {
   const response = await axios.get(
     `${BASE_URL}/api/streetlight/tasks/vendors`,
@@ -278,12 +275,20 @@ export const submitStreetlightTasks =
 
       // ✅ Append required fields
       formData.append("task_id", String(dataToUpdate.task_id));
+      formData.append("isInstallationDone", "true"); // Boolean ko string me convert
+
+      // ✅ Append QR codes & other details
+      formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
+      formData.append("sim_number", String(dataToUpdate.sim_number || ""));
+      formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
+      formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
+
       formData.append(
         "complete_pole_number",
         String(dataToUpdate.complete_pole_number)
       );
-      formData.append( "beneficiary", String( dataToUpdate.beneficiary || "" ) );
-       formData.append("contact", String(dataToUpdate.contact || ""));
+      formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
+      formData.append("contact", String(dataToUpdate.contact || ""));
       formData.append("remarks", String(dataToUpdate.remarks || ""));
       formData.append("lat", String(dataToUpdate.lat));
       formData.append("lng", String(dataToUpdate.lng));
@@ -294,6 +299,15 @@ export const submitStreetlightTasks =
         dataToUpdate.isNetworkAvailable ? true : false
       );
       formData.append("isSurveyDone", dataToUpdate.isSurveyDone ? true : false);
+
+      // ✅ Append submission image
+      if (file && file.uri) {
+        formData.append("submission_image", {
+          uri: file.uri,
+          name: file.name || "submission_photo.jpg",
+          type: file.type || "image/jpeg",
+        });
+      }
 
       // ✅ Append single file (React Native format)
       if (file && file.uri) {
@@ -339,7 +353,9 @@ export const submitStreetlightTasks =
 
 export const getInstalledPoles = (vendor_id) => async (dispatch) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/installed-poles/vendor/${vendor_id}`);
+    const response = await axios.get(
+      `${BASE_URL}/api/installed-poles/vendor/${vendor_id}`
+    );
     const { data } = response;
     const { installed_poles, surveyed_poles } = data;
     dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyed_poles });
@@ -351,7 +367,9 @@ export const getInstalledPoles = (vendor_id) => async (dispatch) => {
 
 export const getViewPoles = (vendor_id) => async (dispatch) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/pole-details/vendor/${vendor_id}`);
+    const response = await axios.get(
+      `${BASE_URL}/api/pole-details/vendor/${vendor_id}`
+    );
     const { data } = response;
     const { installed_poles, surveyed_poles } = data;
     dispatch({ type: GET_VIEW_STREETLIGHTS, payload: surveyed_poles });
@@ -375,12 +393,18 @@ export const download = async (my_id) => {
 
     // Check if Sharing is available (iOS has stricter file access)
     if (Platform.OS === "ios" || !(await Sharing.isAvailableAsync())) {
-      Alert.alert("Download Complete", "File saved to app storage. Please share or move it.");
+      Alert.alert(
+        "Download Complete",
+        "File saved to app storage. Please share or move it."
+      );
       return;
     }
 
     // Open file picker so the user can choose where to save it (like whatsapp/Insta or whatever)
-    await Sharing.shareAsync(uri, { mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    await Sharing.shareAsync(uri, {
+      mimeType:
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
 
     return { success: true, uri };
   } catch (error) {

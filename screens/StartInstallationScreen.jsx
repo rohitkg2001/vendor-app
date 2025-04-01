@@ -86,7 +86,8 @@ export default function StartInstallationScreen({ navigation, route }) {
         task_id: itemId,
         complete_pole_number: [pole_number, selectedWard, poleNumber].join("/"),
         beneficiary: beneficiaryName,
-        contact: contactNumber,
+        // contact: contactNumber,
+        beneficiary_contact: contactNumber,
         remarks: locationRemarks,
         isNetworkAvailable: networkAvailable,
         lat: images[0].lat,
@@ -108,7 +109,8 @@ export default function StartInstallationScreen({ navigation, route }) {
         isInstallationDone: true,
         // survey_image: images.map((item) => item.uri),
         beneficiary: beneficiaryName,
-        contact: contactNumber,
+        // contact: contactNumber,
+        beneficiary_contact: contactNumber,
         remarks: locationRemarks,
       };
       console.log("working fine");

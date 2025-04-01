@@ -1,3 +1,4 @@
+// import react native
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import ContainerComponent from "../components/ContainerComponent";
@@ -19,7 +20,7 @@ import {
   SET_POLE_NUMBER,
   SET_BENEFICIARY_NAME,
   SET_LOCATION_REMARKS,
-  SET_CONTACT_NUMBER,
+  SET_BENEFICIARY_CONTACT,
 } from "../redux/constant";
 import { download, getInstalledPoles } from "../redux/actions/taskActions";
 
@@ -65,12 +66,12 @@ const StreetLightPendingTask = ({ navigation }) => {
     dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
     dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
     dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-    dispatch({ type: SET_CONTACT_NUMBER, payload: contactNumber });
+    dispatch({ type: SET_BENEFICIARY_CONTACT, payload: contactNumber });
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
-     // poleNumber: pole_number,
-     // wardPanchayat: ward_panchayat,
+      // poleNumber: pole_number,
+      // wardPanchayat: ward_panchayat,
     });
   };
 

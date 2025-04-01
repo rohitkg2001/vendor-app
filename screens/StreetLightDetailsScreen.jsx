@@ -65,6 +65,23 @@ const StreetLightDetailsScreen = ({ route }) => {
             <P style={[typography.font12]}>
               {moment(item.submission_date).format("DD/MM/YYYY HH:mm A")}
             </P>
+            <P style={[typography.font12]}>{item.beneficiary_contact}</P>
+          </View>
+
+          <View>
+            <P
+              style={[
+                typography.font12,
+                typography.fontLato,
+                {
+                  textTransform: "uppercase",
+                },
+              ]}
+            >
+              Contact Number
+            </P>
+
+            <P style={[typography.font12]}>{item.beneficiary_contact}</P>
           </View>
         </View>
 
