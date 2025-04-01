@@ -1,3 +1,4 @@
+// import react native
 import { FlatList } from "react-native";
 import React from "react";
 import ContainerComponent from "../components/ContainerComponent";
