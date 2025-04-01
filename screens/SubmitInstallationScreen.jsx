@@ -56,8 +56,7 @@ const SubmitInstallationScreen = () => {
 
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
-    setIsCameraVisible( false );// Close the camera after capturing an image
-    
+    setIsCameraVisible(false); // Close the camera after capturing an image
   };
 
   return (
@@ -75,7 +74,7 @@ const SubmitInstallationScreen = () => {
             <P style={[typography.font14, { right: 10 }]}>{data.block}</P>
           </View>
           {/* <P style={[typography.font14]}>{data.pole_number}</P> */}
-          <P style={[typography.font14]}>{data.ward}</P>
+          {/* <P style={[typography.font14]}>{data.ward}</P> */}
         </View>
 
         <MyTextInput
@@ -134,11 +133,7 @@ const SubmitInstallationScreen = () => {
           value={beneficiaryName} // Directly use beneficiaryName from `data`
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-        <MyTextInput
-          placeholder="Pole Number"
-          value={poleNumber}
-          onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
-        />
+
         <MyTextInput
           placeholder="Contact Number"
           value={contactNumber}

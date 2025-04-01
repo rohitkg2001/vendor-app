@@ -69,8 +69,8 @@ const StreetLightPendingTask = ({ navigation }) => {
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
-      poleNumber: pole_number,
-      wardPanchayat: ward_panchayat,
+     // poleNumber: pole_number,
+     // wardPanchayat: ward_panchayat,
     });
   };
 
