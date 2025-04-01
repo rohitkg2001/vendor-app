@@ -13,24 +13,15 @@ import { spacing, styles, typography } from "../styles";
 import { P, Span } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Tabs from "../components/Tabs";
-
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  SET_POLE_NUMBER,
-  SET_BENEFICIARY_NAME,
-  SET_LOCATION_REMARKS,
-  SET_BENEFICIARY_CONTACT,
-} from "../redux/constant";
 import { download, getInstalledPoles } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
   const [searchText, setSearchText] = useState(""); // State for search input
-  const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
-    useSelector((state) => state.tasks);
-
+  const { pendingStreetLights, surveyedStreetLights, installedStreetLights } = useSelector((state) => state.tasks);
   const { id } = useSelector((state) => state.vendor);
 
   const dispatch = useDispatch();
@@ -40,49 +31,9 @@ const StreetLightPendingTask = ({ navigation }) => {
     updateTabCounts(pendingStreetLights);
   }, [pendingStreetLights]);
 
-  function formatString(input) {
-    return input
-      .split(" ") // Split by space
-      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
-      .join("/"); // Join by '/'
-  }
-
-  const handleSurvey = (
-    data,
-    isSurvey,
-    beneficiaryName,
-    locationRemarks,
-    contactNumber
-  ) => {
-    if (!data?.site) {
-      console.error("Error: site data is missing", data);
-      return;
-    }
-
-    const { district, block, panchayat, state } = data?.site;
-    const pole_number = formatString(
-      [state, district, block, panchayat].join(" ")
-    );
-    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
-    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
-    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-    dispatch({ type: SET_BENEFICIARY_CONTACT, payload: contactNumber });
-    navigation.navigate("startInstallation", {
-      itemId: data.id,
-      isSurvey,
-      // poleNumber: pole_number,
-      // wardPanchayat: ward_panchayat,
-    });
-  };
-
   const handleSurveyData = async (item, isSurvey) => {
-    console.log(`Pole Id is ${item.pole_id}`);
-
     try {
-      const response = await axios.post("https://slldm.com/api/pole-details", {
-        pole_id: item.pole_id,
-      });
-
+      const response = await axios.post("https://slldm.com/api/pole-details", { pole_id: item.pole_id });
       if (response.status === 200) {
         const { data } = response;
         navigation.navigate("submitInstallation", {
@@ -90,11 +41,11 @@ const StreetLightPendingTask = ({ navigation }) => {
             ...data,
             complete_pole_number: item.complete_pole_number,
             beneficiaryName: item.beneficiary,
-            locationRemarks: item.remarks,
+            remarks: data.pole.remarks,
             panchayat: item.panchayat,
             block: item.block,
             pole_number: item.pole_number,
-            ward: item.ward,
+            ward: data.pole.ward_name,
           },
           isSurvey,
         });
@@ -110,9 +61,9 @@ const StreetLightPendingTask = ({ navigation }) => {
   const [tabCounts, setTabCounts] = useState({
     All: 0,
     Survey: 0,
-    Installed: 0,
+    InApproval: 0,
     Approved: 0,
-    InApproved: 0,
+    InApproval: 0,
     Rejected: 0,
   });
 
@@ -134,7 +85,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     setTabCounts({
       All: pendingStreetLights?.length || 0,
       Survey: surveyedStreetLights?.length || 0,
-      Installed: installedStreetLights?.length || 0,
+      InApproval: installedStreetLights?.length || 0,
       Approved:
         pendingStreetLights?.filter((task) => task.status === "Approved")
           .length || 0,
@@ -151,7 +102,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     if (tab === "Survey") {
       // Both "Survey" and "Surveyed poles" should show surveyed data
       setFilteredData(surveyedStreetLights || []);
-    } else if (tab === "Installed") {
+    } else if (tab === "InApproval") {
       setFilteredData(installedStreetLights || []);
     } else if (tab === "Approved") {
       setFilteredData(
@@ -216,7 +167,7 @@ const StreetLightPendingTask = ({ navigation }) => {
       <MyFlatList
         data={filteredData}
         renderItem={({ item, index }) => {
-          if (["Survey", "Installed"].includes(activeTab)) {
+          if (["Survey", "InApproval"].includes(activeTab)) {
             return (
               <ClickableCard2
                 key={index}
@@ -239,7 +190,12 @@ const StreetLightPendingTask = ({ navigation }) => {
                 // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
-                negativeAction={() => handleSurvey(item, true)}
+                negativeAction={() =>
+                  navigation.navigate("startInstallation", {
+                    itemId: item.id,
+                    isSurvey: true,
+                  })
+                }
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
@@ -327,9 +283,9 @@ const StreetLightPendingTask = ({ navigation }) => {
               tabs={[
                 `All ${tabCounts.All}`,
                 `Surveyed poles ${tabCounts.Survey}`,
-                `Installed ${tabCounts.Installed}`,
+                `In Approval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
-                `InApproved ${tabCounts.InApproved}`,
+               // `InApproved ${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {

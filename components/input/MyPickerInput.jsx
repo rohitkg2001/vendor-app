@@ -1,13 +1,15 @@
 import { View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { styles } from "../../styles/components.styles";
-import { H5 } from "../text";
+import { H5, P } from "../text";
 import { useTranslation } from "react-i18next";
+import { typography } from "../../styles";
 
 export default function MyPickerInput({
   title,
   value,
   onChange,
+  option,
   options = [],
   style = {},
   placeholder = "Select an option", // Default placeholder
@@ -16,8 +18,7 @@ export default function MyPickerInput({
 
   return (
     <View style={[styles.textInput, style]}>
-      <H5>{title}</H5>
-
+      <P style={typography.fontLato}>{title}</P>
       <View
         style={{
           borderRadius: 10,

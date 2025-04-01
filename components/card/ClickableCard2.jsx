@@ -34,6 +34,27 @@ const ClickableCard2 = ({
         Pole Number: {item.complete_pole_number}
       </P>
 
+      {/* Submission Date */}
+      {item.submission_date && (
+        <View style={{ position: "absolute", top: 8, right: 8 }}>
+          <P
+            style={[
+              typography.font12,
+              typography.fontLato,
+              spacing.p1,
+              spacing.br1,
+              { backgroundColor: "#f0f0f0" },
+            ]}
+          >
+            {new Date(item.submission_date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
+          </P>
+        </View>
+      )}
+
       <View style={[spacing.mt2, styles.row, { justifyContent: "flex-end" }]}>
         {isPositiveButtonVisible && (
           <Button

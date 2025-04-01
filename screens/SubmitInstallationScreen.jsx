@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native"; // Import useRoute
-import { Checkbox } from "react-native-paper";
 import { LIGHT, spacing, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
 import QRScanner from "../components/input/QRScanner";
@@ -12,9 +11,9 @@ import { Text } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
-const SubmitInstallationScreen = () => {
+const SubmitInstallationScreen = ({ navigation }) => {
   const route = useRoute(); // Get route params using useRoute hook
-  const [networkAvailable, setNetworkAvailable] = useState(false);
+
   const { data } = route.params || {}; // Safely access 'data' passed from the previous screen
 
   // Log the data coming from the previous screen to make sure it's passed correctly
@@ -28,22 +27,14 @@ const SubmitInstallationScreen = () => {
     return null; // Or render an error message
   }
 
-  const {
-    beneficiaryName,
-    locationRemarks,
-    complete_pole_number,
-    panchayat,
-    block,
-    // pole_number,
-    ward,
-  } = data; // Destructure the data passed
+  const { complete_pole_number, panchayat, block, ward, pole } = data; // Destructure the data passed
 
   // Use state only if you need to modify the values, otherwise, directly use `data` from route.params
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
   const [simNumber, setSimNumber] = useState("");
   const [batterySerialNumber, setBatterySerialNumber] = useState("");
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
+  const [contactNumber, setContactNumber] = useState(pole.beneficiary_contact);
   const [isCameraVisible, setIsCameraVisible] = useState(false);
 
   const handleTakePhoto = () => {
@@ -56,33 +47,28 @@ const SubmitInstallationScreen = () => {
     setSimNumber(values[1]?.toString() || "");
   };
 
-  // const handleSubmission = (image) => {
-  //   console.log("Captured Image:", image);
-  //   setIsCameraVisible(false); // Close the camera after capturing an image
-  // };
-
   const dispatch = useDispatch();
 
-  const handleSubmission = (image) => {
-    console.log("Captured Image:", image);
+  const handleSubmission = async (image) => {
     const submissionData = {
-      beneficiaryName,
-      locationRemarks,
+      task_id: pole.task_id,
       complete_pole_number,
-      panchayat,
-      block,
-      ward,
-      luminarySerialNumber,
-      simNumber,
-      batterySerialNumber,
-      panelSerialNumber,
-      contactNumber,
-      networkAvailable,
-      capturedImage: image,
+      luminary_qr: luminarySerialNumber,
+      sim_number: simNumber,
+      battery_qr: batterySerialNumber,
+      panel_qr: panelSerialNumber,
+      submission_image: image,
+      lat: image[0].lat,
+      lng: image[0].long,
+      isSurvey: false,
     };
-
-    dispatch(submitStreetlightTasks(submissionData));
-    console.log("Submitting Data:", submissionData);
+    const result = await dispatch(submitStreetlightTasks(submissionData));
+    if (result == 200) {
+      navigation.navigate("successScreen", {
+        message: "Your task uploaded successfully",
+        nextScreen: "welcomeScreen",
+      });
+    }
     setIsCameraVisible(false);
   };
 
@@ -115,12 +101,14 @@ const SubmitInstallationScreen = () => {
         <View style={[spacing.pv2, { backgroundColor: "#f0f0f0" }]}>
           <QRScanner title="Scan Luminary QR" onScan={handleLuminaryQR} />
           <MyTextInput
+            title="Luminary Serial Number"
             placeholder="Enter Luminary Serial Number"
             value={luminarySerialNumber}
             onChangeText={setLuminarySerialNumber}
             keyboardType="numeric"
           />
           <MyTextInput
+            title="SIM Number"
             placeholder="Enter SIM Number"
             value={simNumber}
             onChangeText={setSimNumber}
@@ -134,6 +122,7 @@ const SubmitInstallationScreen = () => {
         >
           <QRScanner title="Scan Battery QR" onScan={setBatterySerialNumber} />
           <MyTextInput
+            title="Battery Serial Number"
             placeholder="Enter Battery Serial Number"
             value={batterySerialNumber}
             onChangeText={setBatterySerialNumber}
@@ -147,39 +136,24 @@ const SubmitInstallationScreen = () => {
         >
           <QRScanner title="Scan Panel QR" onScan={setPanelSerialNumber} />
           <MyTextInput
+            title="Panel Serial Number"
             placeholder="Enter Panel Serial Number"
             value={panelSerialNumber}
             onChangeText={setPanelSerialNumber}
             keyboardType="numeric"
           />
         </View>
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-            marginLeft: 5,
-            marginBottom: -16,
-          }}
-        >
-          Beneficiary Name
-        </Text>
+
         {/* Beneficiary and Contact Details */}
         <MyTextInput
+          title="Beneficiary Name"
           placeholder="Beneficiary Name"
-          value={beneficiaryName} // Directly use beneficiaryName from `data`
+          value={pole.beneficiary}
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-            marginLeft: 5,
-            marginBottom: -16,
-          }}
-        >
-          Contact Number
-        </Text>
+
         <MyTextInput
+          title="Contact Number"
           placeholder="Contact Number"
           value={contactNumber}
           onChangeText={(text) => {
@@ -190,39 +164,52 @@ const SubmitInstallationScreen = () => {
           }}
           keyboardType="numeric"
         />
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-            marginLeft: 5,
-            marginBottom: -16,
-          }}
-        >
-          Location Remarks
-        </Text>
         <MyTextInput
+          title="Location Remarks"
           placeholder="Enter Location Remarks"
-          value={locationRemarks} // Directly use locationRemarks from `data`
+          value={pole.remarks}
           onChangeText={(text) => console.log("Remarks changed:", text)} // Example change handler
           multiline
           numberOfLines={4}
         />
 
         <View
-          style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
+          style={[
+            spacing.m2,
+            {
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingVertical: 4,
+            },
+          ]}
         >
-          {/* <Checkbox
-            status={networkAvailable ? "checked" : "unchecked"}
-            onPress={() => setNetworkAvailable((prev) => !prev)}
-            color="#76885B"
-          /> */}
-          <TouchableOpacity
-          // onPress={() => setNetworkAvailable((prev) => !prev)}
+          <P style={[typography.font14, typography.textBold]}>
+            Network Availability (Airtel)
+          </P>
+
+          <View
+            style={[
+              spacing.p1,
+              spacing.ph2,
+              spacing.br2,
+              {
+                backgroundColor: pole.isNetworkAvailable
+                  ? "#d4edda"
+                  : "#f8d7da",
+              },
+            ]}
           >
-            <P style={[typography.font18, typography.textBold]}>
-              Network Availability (Airtel)
+            <P
+              style={[
+                typography.font12,
+                typography.textBold,
+                { color: pole.isNetworkAvailable ? "green" : "red" },
+              ]}
+            >
+              {pole.isNetworkAvailable ? "Available" : "Not Available"}
             </P>
-          </TouchableOpacity>
+          </View>
         </View>
 
         {/* Take Photo Button */}

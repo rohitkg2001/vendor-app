@@ -67,22 +67,6 @@ const StreetLightDetailsScreen = ({ route }) => {
             </P>
             <P style={[typography.font12]}>{item.beneficiary_contact}</P>
           </View>
-
-          <View>
-            <P
-              style={[
-                typography.font12,
-                typography.fontLato,
-                {
-                  textTransform: "uppercase",
-                },
-              ]}
-            >
-              Contact Number
-            </P>
-
-            <P style={[typography.font12]}>{item.beneficiary_contact}</P>
-          </View>
         </View>
 
         <View

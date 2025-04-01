@@ -258,98 +258,78 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites });
 };
 
-export const submitStreetlightTasks =
-  (dataToUpdate, file) => async (dispatch) => {
-    try {
-      console.log("Surveying...");
-      console.log("Data being sent:", dataToUpdate);
+export const submitStreetlightTasks = (dataToUpdate, file) => async (dispatch) => {
+  try {
+    const formData = new FormData();
+    let imageIndex = 0;
+    // ✅ Validate required fields
+    if (!dataToUpdate?.task_id || !dataToUpdate?.complete_pole_number) {
+      console.error("Missing task_id or complete_pole_number");
+      return;
+    }
 
-      const formData = new FormData();
-      let imageIndex = 0;
-
-      // ✅ Validate required fields
-      if (!dataToUpdate?.task_id || !dataToUpdate?.complete_pole_number) {
-        console.error("Missing task_id or complete_pole_number");
-        return;
-      }
-
-      // ✅ Append required fields
-      formData.append("task_id", String(dataToUpdate.task_id));
-
-      formData.append(
-        "complete_pole_number",
-        String(dataToUpdate.complete_pole_number)
-      );
+    // ✅ Append required fields
+    formData.append("task_id", String(dataToUpdate.task_id));
+    formData.append("complete_pole_number", String(dataToUpdate.complete_pole_number));
+    formData.append("lat", String(dataToUpdate.lat));
+    formData.append("lng", String(dataToUpdate.lng));
+    if (dataToUpdate.isSurvey) {
       formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
-      formData.append("contact", String(dataToUpdate.contact || ""));
+      formData.append("beneficiary_contact", String(dataToUpdate.beneficiary_contact || ""));
+      formData.append("ward_name", String(dataToUpdate.ward_name || ""));
       formData.append("remarks", String(dataToUpdate.remarks || ""));
-      formData.append("lat", String(dataToUpdate.lat));
-      formData.append("lng", String(dataToUpdate.lng));
-
-      // ✅ Additional Fields for Installation
-      formData.append("isInstallationDone", "true");
-      formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
-      formData.append("sim_number", String(dataToUpdate.sim_number || ""));
-      formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
-      formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
-
-      // ✅ Send Boolean values correctly
-      formData.append(
-        "isNetworkAvailable",
-        dataToUpdate.isNetworkAvailable ? true : false
-      );
+      formData.append("isNetworkAvailable", dataToUpdate.isNetworkAvailable ? true : false);
       formData.append("isSurveyDone", dataToUpdate.isSurveyDone ? true : false);
-
-      // ✅ Append submission image
-      if (file && file.uri) {
-        formData.append("submission_image", {
-          uri: file.uri,
-          name: file.name || "submission_photo.jpg",
-          type: file.type || "image/jpeg",
-        });
-      }
-
-      // ✅ Append single file (React Native format)
-      if (file && file.uri) {
-        formData.append(`survey_image[${imageIndex}]`, {
-          uri: file.uri,
-          name: file.name || `photo_${imageIndex}.jpg`,
-          type: file.type || "image/jpeg",
-        });
-        imageIndex++;
-      }
-
       // ✅ Append multiple images
       if (Array.isArray(dataToUpdate.survey_image)) {
         dataToUpdate.survey_image.forEach((item) => {
           if (item?.uri) {
             formData.append(`survey_image[${imageIndex}]`, {
               uri: item.uri,
-              name: `photo_${imageIndex}.jpg`,
+              name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
               type: "image/jpeg",
             });
             imageIndex++;
           }
         });
       }
-
-      // ✅ Debug: Print formData contents
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
+    } else {
+      formData.append("isInstallationDone", "true");
+      formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
+      formData.append("sim_number", String(dataToUpdate.sim_number || ""));
+      formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
+      formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
+      // ✅ Append multiple images
+      if (Array.isArray(dataToUpdate.submission_image)) {
+        dataToUpdate.submission_image.forEach((item) => {
+          if (item?.uri) {
+            formData.append(`submission_image[${imageIndex}]`, {
+              uri: item.uri,
+              name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
+              type: "image/jpeg",
+            });
+            imageIndex++;
+          }
+        });
       }
-
-      // ✅ Send POST request (REMOVE "Content-Type" HEADER)
-      const response = await axios.post(
-        `${BASE_URL}/api/streetlight/tasks/update`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } } // Let axios set the correct Content-Type
-      );
-
-      console.log("Response Data:", response.data);
-    } catch (error) {
-      console.error("Error submitting data:", error.response?.data || error);
     }
-  };
+
+    // ✅ Debug: Print formData contents
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    // ✅ Send POST request (REMOVE "Content-Type" HEADER)
+    const response = await axios.post(`${BASE_URL}/api/streetlight/tasks/update`, formData,
+      { headers: { "Content-Type": "multipart/form-data" } } // Let axios set the correct Content-Type
+    );
+    const { data, status } = await response;
+    return status;
+  } catch (error) {
+    console.error("Error submitting data:", error.response?.data || error);
+    return false
+  }
+};
 
 export const getInstalledPoles = (vendor_id) => async (dispatch) => {
   try {

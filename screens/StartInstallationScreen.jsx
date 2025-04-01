@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import { Snackbar } from "react-native-paper";
+import { ActivityIndicator, Snackbar } from "react-native-paper";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -26,6 +26,7 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [beneficiaryName, setBeneficiaryName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [networkAvailable, setNetworkAvailable] = useState(false);
+  const [loading, setLoading] = useState(false)
   const { isSurvey, itemId } = route.params;
   const [wardOptions, setWardOptions] = useState([]);
   const [poleOptions, setPoleOptions] = useState([]);
@@ -34,17 +35,17 @@ export default function StartInstallationScreen({ navigation, route }) {
 
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [formattedPole, setFormattedPoleNumber] = useState("");
 
   const dispatch = useDispatch();
-  const { pendingStreetLights, pole_number } = useSelector(
-    (state) => state.tasks
-  );
+  const { pendingStreetLights } = useSelector(state => state.tasks);
 
-  const handleLuminaryQR = (val) => {
-    const values = val.split(";");
-    setLuminarySerialNumber(values[0].toString());
-    setSimNumber(values[1].toString());
-  };
+  function formatString(input) {
+    return input
+      .split(" ") // Split by space
+      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
+      .join("/"); // Join by '/'
+  }
 
   useEffect(() => {
     if (Array.isArray(pendingStreetLights)) {
@@ -72,6 +73,9 @@ export default function StartInstallationScreen({ navigation, route }) {
             color: surveyedPoles.includes(num) ? "red" : "black",
           }))
         );
+        const { panchayat, block, district, state } = currentSite.site;
+        const formattedPole = formatString([state, district, block, panchayat].join(" "));
+        setFormattedPoleNumber(formattedPole);
       }
     }
   }, [pendingStreetLights, poleNumber]);
@@ -81,45 +85,30 @@ export default function StartInstallationScreen({ navigation, route }) {
       setSnackbarVisible(true); // Show Snackbar if validation fails
       return;
     }
-    if (isSurvey) {
-      const data = {
-        task_id: itemId,
-        complete_pole_number: [pole_number, selectedWard, poleNumber].join("/"),
-        beneficiary: beneficiaryName,
-        // contact: contactNumber,
-        beneficiary_contact: contactNumber,
-        remarks: locationRemarks,
-        isNetworkAvailable: networkAvailable,
-        lat: images[0].lat,
-        lng: images[0].long,
-        isSurveyDone: true,
-        //survey_image: images.map((item) => item.uri),
-        survey_image: images,
-      };
-      await dispatch(submitStreetlightTasks(data));
-    } else {
-      console.log("submitting");
-      const data = {
-        task_id: itemId,
-        complete_pole_number: [pole_number, selectedWard, poleNumber].join("/"),
-        luminary_qr: luminarySerialNumber,
-        sim_number: simNumber,
-        battery_qr: batterySerialNumber,
-        panel_qr: panelSerialNumber,
-        isInstallationDone: true,
-        // survey_image: images.map((item) => item.uri),
-        beneficiary: beneficiaryName,
-        // contact: contactNumber,
-        beneficiary_contact: contactNumber,
-        remarks: locationRemarks,
-      };
-      console.log("working fine");
-      await dispatch(submitStreetlightTasks(data));
+    setLoading(true);
+    const data = {
+      task_id: itemId,
+      complete_pole_number: [formattedPole, selectedWard, poleNumber].join("/"),
+      ward_name: `Ward ${selectedWard}`,
+      beneficiary: beneficiaryName,
+      beneficiary_contact: contactNumber,
+      remarks: locationRemarks,
+      isNetworkAvailable: networkAvailable,
+      lat: images[0].lat,
+      lng: images[0].long,
+      isSurveyDone: true,
+      survey_image: images,
+      isSurvey: true,
+    };
+    console.log(data)
+    const result = await dispatch(submitStreetlightTasks(data));
+    if (result == 200) {
+      setLoading(false)
+      navigation.navigate("successScreen", {
+        message: "Your task uploaded successfully",
+        nextScreen: "welcomeScreen",
+      });
     }
-    navigation.navigate("successScreen", {
-      message: "Your task uploaded successfully",
-      nextScreen: "welcomeScreen",
-    });
   };
 
   const handleTakePhoto = () => {
@@ -130,117 +119,43 @@ export default function StartInstallationScreen({ navigation, route }) {
     setIsCameraVisible(true);
   };
 
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" animating />;
+  }
+
   return (
     <ContainerComponent>
-      <MyHeader isBack title="Start Installation" hasIcon />
+      <MyHeader
+        isBack
+        title={isSurvey ? "Start Survey" : "Start Installation"}
+        hasIcon
+      />
       <ScrollView
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
       >
-        {isSurvey && (
-          <MyPickerInput
-            title="Ward"
-            value={selectedWard}
-            onChange={(value) => setSelectedWard(value)}
-            options={wardOptions}
-            style={spacing.mv2}
-            placeholder="Select Ward" // Placeholder added
-          />
-        )}
-        {isSurvey && (
-          <MyPickerInput
-            title="Pole Number"
-            value={poleNumber}
-            onChange={(value) => setPoleNumber(value)}
-            // options={poleOptions}
-            style={spacing.mv2}
-            options={poleOptions.map((option) => ({
-              label: option.label,
-              value: option.value,
-              style: { color: option.color }, // Apply color dynamically
-            }))}
-          />
-        )}
-
-        {!isSurvey && (
-          <View
-            style={[
-              spacing.mv2,
-              spacing.pv2,
-              {
-                backgroundColor: "#f0f0f0",
-              },
-            ]}
-          >
-            <>
-              <QRScanner
-                title="Scan Luminary QR"
-                onScan={(val) => handleLuminaryQR(val)}
-              />
-              <MyTextInput
-                placeholder="Enter Luminary Serial Number"
-                value={luminarySerialNumber}
-                onChangeText={setLuminarySerialNumber}
-                keyboardType="numeric"
-              />
-              <MyTextInput
-                placeholder="Enter SIM Number"
-                value={simNumber}
-                onChangeText={setSimNumber}
-                keyboardType="numeric"
-              />
-            </>
-          </View>
-        )}
-        {!isSurvey && (
-          <View
-            style={[
-              spacing.mv2,
-              spacing.pv2,
-              {
-                backgroundColor: "#f0f0f0",
-              },
-            ]}
-          >
-            <>
-              <QRScanner
-                title="Scan Battery QR"
-                onScan={(val) => setBatterySerialNumber(val)}
-              />
-              <MyTextInput
-                placeholder="Enter Battery Serial Number"
-                value={batterySerialNumber}
-                onChangeText={setBatterySerialNumber}
-                keyboardType="numeric"
-              />
-            </>
-          </View>
-        )}
-
-        {!isSurvey && (
-          <View
-            style={[
-              spacing.mv2,
-              spacing.pv2,
-              {
-                backgroundColor: "#f0f0f0",
-              },
-            ]}
-          >
-            <QRScanner
-              title="Scan Panel QR"
-              onScan={(val) => setPanelSerialNumber(val)}
-            />
-            <MyTextInput
-              placeholder="Enter Panel Serial Number"
-              value={panelSerialNumber}
-              onChangeText={setPanelSerialNumber}
-              keyboardType="numeric"
-            />
-          </View>
-        )}
-
+        <MyPickerInput
+          title="Ward"
+          value={selectedWard}
+          onChange={(value) => setSelectedWard(value)}
+          options={wardOptions}
+          style={spacing.mv2}
+          placeholder="Select Ward" // Placeholder added
+        />
+        <MyPickerInput
+          title="Pole Number"
+          value={poleNumber}
+          onChange={(value) => setPoleNumber(value)}
+          // options={poleOptions}
+          style={spacing.mv2}
+          options={poleOptions.map((option) => ({
+            label: option.label,
+            value: option.value,
+            style: { color: option.color }, // Apply color dynamically
+          }))}
+        />
         <MyTextInput
+          title="Beneficiary Name"
           multiline={false}
           numberOfLines={1}
           value={beneficiaryName}
@@ -248,6 +163,7 @@ export default function StartInstallationScreen({ navigation, route }) {
           placeholder="Beneficiary Name"
         />
         <MyTextInput
+          title="Contact Number"
           multiline={false}
           numberOfLines={1}
           value={contactNumber}
@@ -262,6 +178,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         />
 
         <MyTextInput
+          title="Location"
           multiline={true}
           numberOfLines={4}
           value={locationRemarks}
