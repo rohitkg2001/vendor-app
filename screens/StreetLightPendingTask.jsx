@@ -21,7 +21,6 @@ import { P, Span } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Tabs from "../components/Tabs";
 import Button from "../components/buttons/Button";
-import axios from "axios"
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -168,7 +167,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     } else if (tab === "InApproved") {
       setFilteredData(
         pendingStreetLights?.filter((task) => task.status === "InApproved") ||
-        []
+          []
       );
     } else if (tab === "Rejected") {
       setFilteredData(

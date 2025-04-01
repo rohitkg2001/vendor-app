@@ -10,6 +10,16 @@ export default function InventoryCard({ item, onPress }) {
   // Calculate total value
   const totalValue = item.rate * item.quantity;
 
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // Agar date na ho to empty string return kare
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   return (
     <Card
       style={[
@@ -27,8 +37,19 @@ export default function InventoryCard({ item, onPress }) {
     >
       <TouchableOpacity onPress={onPress}>
         {/* Item Name */}
-        <View style={[styles.row, spacing.mb1]}>
+        <View
+          style={[
+            styles.row,
+            spacing.mb1,
+            { justifyContent: "space-between", alignItems: "center" },
+          ]}
+        >
           <H5 style={[typography.font16, typography.fontLato]}>{item.item}</H5>
+          <P
+            style={[typography.font12, typography.fontLato, { color: "gray" }]}
+          >
+            {formatDate(item.dispatch_date)}
+          </P>
         </View>
 
         {/* Manufacturer & Model in one row */}
