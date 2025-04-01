@@ -65,6 +65,15 @@ export default function InventoryScreen() {
     setShowDetailsModal(true);
   };
 
+  // const openDetailsModal = (item) => {
+  //   const duplicateSerials = inventory
+  //     .filter((invItem) => invItem.serial_number === item.serial_number)
+  //     .map((invItem) => invItem.serial_number);
+
+  //   setDetailsItem({ ...item, duplicateSerials });
+  //   setShowDetailsModal(true);
+  // };
+
   const closeDetailsModal = () => {
     setShowDetailsModal(false);
     setDetailsItem(null);
@@ -315,6 +324,15 @@ export default function InventoryScreen() {
                     {detailsItem.serial_number}
                   </P>
                 </P>
+
+                {/* <P
+                  style={[typography.font14, typography.fontLato, spacing.mb1]}
+                >
+                  🔹 Serial Number(s):{" "}
+                  <P style={[typography.textBold]}>
+                    {detailsItem.duplicateSerials?.join(", ")}
+                  </P>
+                </P> */}
               </>
             )}
           </View>
