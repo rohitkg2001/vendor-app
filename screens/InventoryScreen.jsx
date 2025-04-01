@@ -26,7 +26,7 @@ import {
 import { H5} from "../components/text";
 import { P } from "../components/text";
 
-export default function InventoryScreen() {
+export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
   const [visible, setVisible] = useState(false);
@@ -51,9 +51,12 @@ export default function InventoryScreen() {
     Structure: { consumed: 0, inStock: 1, receivedToday: 1 },
   };
 
+  // const openModal = (item) => {
+  //   setSelectedItem(item);
+  //   setVisible(true);
+  // };
   const openModal = (item) => {
-    setSelectedItem(item);
-    setVisible(true);
+    navigation.navigate("inventoryMaterialScreen", { selectedItem: item });
   };
 
   const closeModal = () => {
