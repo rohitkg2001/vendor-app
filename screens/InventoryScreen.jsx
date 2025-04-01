@@ -31,11 +31,11 @@ export default function InventoryScreen() {
   const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const inventoryData = useSelector((state) => state.inventory);
+  const { inventory } = useSelector((state) => state.inventory);
 
   useEffect(() => {
-    console.log("Fetched Inventory Data:", inventoryData);
-  }, [inventoryData]);
+    console.log("Fetched Inventory Data:", inventory);
+  }, [inventory]);
 
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
@@ -121,7 +121,7 @@ export default function InventoryScreen() {
       </View>
 
       <MyFlatList
-        data={inventoryData}
+        data={inventory}
         keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={() => <NoRecord msg={t("no_inventory")} />}
         showSearchBar={false}
