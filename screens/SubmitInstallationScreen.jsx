@@ -9,11 +9,7 @@ import CameraInput from "../components/input/CameraInput";
 import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
 import TextInput from "react-native-paper";
-import { useDispatch } from "react-redux";
-import { getInstalledStreetLights } from "../redux/actions/taskActions";
-
-const dispatch = useDispatch();
-
+import { Text } from "react-native-paper";
 
 const SubmitInstallationScreen = () => {
   const route = useRoute(); // Get route params using useRoute hook
@@ -41,7 +37,7 @@ const SubmitInstallationScreen = () => {
     ward,
   } = data; // Destructure the data passed
 
-  // Use state only if you need to modify the values, otherwise, directly use `data` from route.params
+  // Use state only if you need to modify the values, otherwise, directly use data from route.params
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
   const [simNumber, setSimNumber] = useState("");
   const [batterySerialNumber, setBatterySerialNumber] = useState("");
@@ -59,16 +55,33 @@ const SubmitInstallationScreen = () => {
     setSimNumber(values[1]?.toString() || "");
   };
 
+
+
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
-    setIsCameraVisible( false );// Close the camera after capturing an image 
-    
+    const submissionData = {
+      beneficiaryName,
+      locationRemarks,
+      complete_pole_number,
+      panchayat,
+      block,
+      ward,
+      luminarySerialNumber,
+      simNumber,
+      batterySerialNumber,
+      panelSerialNumber,
+      contactNumber,
+      networkAvailable,
+      capturedImage: image,
+    };
+
+    console.log("Submitting Data:", submissionData);
+    setIsCameraVisible(false);
   };
- 
 
   return (
     <ScrollView style={spacing.mv2} keyboardShouldPersistTaps="handled">
-      <View>
+      <View style={{ marginLeft: 8 }}>
         <View>
           <View style={[styles.row, { alignItems: "center" }]}>
             <P style={[typography.font14]}>Panchayat:</P>
@@ -135,16 +148,32 @@ const SubmitInstallationScreen = () => {
         </View>
 
         {/* Beneficiary and Contact Details */}
+
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Beneficiary Name
+        </Text>
         <MyTextInput
           placeholder="Beneficiary Name"
-          value={beneficiaryName} // Directly use beneficiaryName from `data`
+          value={beneficiaryName} // Directly use beneficiaryName from data
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-        {/* <MyTextInput
-          placeholder="Pole Number"
-          value={poleNumber}
-          onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
-        /> */}
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Contact Number
+        </Text>
         <MyTextInput
           placeholder="Contact Number"
           value={contactNumber}
@@ -156,9 +185,19 @@ const SubmitInstallationScreen = () => {
           }}
           keyboardType="numeric"
         />
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Location Remarks
+        </Text>
         <MyTextInput
           placeholder="Enter Location Remarks"
-          value={locationRemarks} // Directly use locationRemarks from `data`
+          value={locationRemarks} // Directly use locationRemarks from data
           onChangeText={(text) => console.log("Remarks changed:", text)} // Example change handler
           multiline
           numberOfLines={4}
@@ -167,13 +206,13 @@ const SubmitInstallationScreen = () => {
         <View
           style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}
         >
-          <Checkbox
+          {/* <Checkbox
             status={networkAvailable ? "checked" : "unchecked"}
             onPress={() => setNetworkAvailable((prev) => !prev)}
             color="#76885B"
-          />
+          /> */}
           <TouchableOpacity
-            onPress={() => setNetworkAvailable((prev) => !prev)}
+          // onPress={() => setNetworkAvailable((prev) => !prev)}
           >
             <P style={[typography.font18, typography.textBold]}>
               Network Availability (Airtel)

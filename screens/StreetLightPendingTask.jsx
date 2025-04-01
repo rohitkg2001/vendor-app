@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import Icon from "react-native-vector-icons/Ionicons";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -9,18 +8,10 @@ import ClickableCard1 from "../components/card/ClickableCard1";
 import ClickableCard2 from "../components/card/ClickableCard2";
 import { View } from "react-native";
 import { Snackbar } from "react-native-paper";
-import {
-  spacing,
-  styles,
-  typography,
-  SCREEN_WIDTH,
-  ICON_MEDIUM,
-  LIGHT,
-} from "../styles";
+import { spacing, styles, typography } from "../styles";
 import { P, Span } from "../components/text";
 import SearchBar from "../components/input/SearchBar";
 import Tabs from "../components/Tabs";
-import Button from "../components/buttons/Button";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -35,6 +26,7 @@ import { download, getInstalledPoles } from "../redux/actions/taskActions";
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
   const [streetLightSites, setStreetLightSites] = useState([]);
+  const [searchText, setSearchText] = useState(""); // State for search input
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
 
@@ -77,8 +69,8 @@ const StreetLightPendingTask = ({ navigation }) => {
     navigation.navigate("startInstallation", {
       itemId: data.id,
       isSurvey,
-      poleNumber: pole_number,
-      wardPanchayat: ward_panchayat,
+     // poleNumber: pole_number,
+     // wardPanchayat: ward_panchayat,
     });
   };
 
@@ -195,6 +187,10 @@ const StreetLightPendingTask = ({ navigation }) => {
     // }
   };
 
+  const handleSearchChange = useCallback((text) => {
+    setSearchText(text);
+  }, []);
+
   return (
     <ContainerComponent>
       <MyHeader
@@ -208,6 +204,12 @@ const StreetLightPendingTask = ({ navigation }) => {
             onPress: handleExport,
           },
         ]}
+      />
+
+      <SearchBar
+        value={searchText}
+        onChangeText={handleSearchChange}
+        style={{ marginHorizontal: 10 }}
       />
 
       <MyFlatList
@@ -318,23 +320,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 spacing.mh1,
                 { alignItems: "center" },
               ]}
-            >
-              <SearchBar
-                placeholder="Search"
-                style={{ width: SCREEN_WIDTH - 80 }}
-              />
-              <Button
-                style={[
-                  styles.btn,
-                  styles.bgPrimary,
-                  spacing.mh1,
-                  { width: 50 },
-                ]}
-                onPress={() => setShowBottomSheet(true)}
-              >
-                <Icon name="options-outline" size={ICON_MEDIUM} color={LIGHT} />
-              </Button>
-            </View>
+            ></View>
 
             <Tabs
               tabs={[
@@ -360,6 +346,7 @@ const StreetLightPendingTask = ({ navigation }) => {
           </View>
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
+        showSearchBar={false}
       />
       {/* Snackbar Component */}
       <Snackbar
