@@ -1,3 +1,4 @@
+// import react native
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Modal, Portal } from "react-native-paper";
@@ -64,6 +65,15 @@ export default function InventoryScreen() {
     setDetailsItem(item);
     setShowDetailsModal(true);
   };
+
+  // const openDetailsModal = (item) => {
+  //   const duplicateSerials = inventory
+  //     .filter((invItem) => invItem.serial_number === item.serial_number)
+  //     .map((invItem) => invItem.serial_number);
+
+  //   setDetailsItem({ ...item, duplicateSerials });
+  //   setShowDetailsModal(true);
+  // };
 
   const closeDetailsModal = () => {
     setShowDetailsModal(false);
@@ -315,6 +325,15 @@ export default function InventoryScreen() {
                     {detailsItem.serial_number}
                   </P>
                 </P>
+
+                {/* <P
+                  style={[typography.font14, typography.fontLato, spacing.mb1]}
+                >
+                  🔹 Serial Number(s):{" "}
+                  <P style={[typography.textBold]}>
+                    {detailsItem.duplicateSerials?.join(", ")}
+                  </P>
+                </P> */}
               </>
             )}
           </View>
