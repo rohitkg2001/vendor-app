@@ -275,13 +275,6 @@ export const submitStreetlightTasks =
 
       // ✅ Append required fields
       formData.append("task_id", String(dataToUpdate.task_id));
-      formData.append("isInstallationDone", "true"); // Boolean ko string me convert
-
-      // ✅ Append QR codes & other details
-      formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
-      formData.append("sim_number", String(dataToUpdate.sim_number || ""));
-      formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
-      formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
 
       formData.append(
         "complete_pole_number",
@@ -292,6 +285,13 @@ export const submitStreetlightTasks =
       formData.append("remarks", String(dataToUpdate.remarks || ""));
       formData.append("lat", String(dataToUpdate.lat));
       formData.append("lng", String(dataToUpdate.lng));
+
+      // ✅ Additional Fields for Installation
+      formData.append("isInstallationDone", "true");
+      formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
+      formData.append("sim_number", String(dataToUpdate.sim_number || ""));
+      formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
+      formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
 
       // ✅ Send Boolean values correctly
       formData.append(

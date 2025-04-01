@@ -8,8 +8,8 @@ import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
 import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
-import TextInput from "react-native-paper";
 import { Text } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 const SubmitInstallationScreen = () => {
@@ -61,6 +61,8 @@ const SubmitInstallationScreen = () => {
   //   setIsCameraVisible(false); // Close the camera after capturing an image
   // };
 
+  const dispatch = useDispatch();
+
   const handleSubmission = (image) => {
     console.log("Captured Image:", image);
     const submissionData = {
@@ -79,6 +81,7 @@ const SubmitInstallationScreen = () => {
       capturedImage: image,
     };
 
+    dispatch(submitStreetlightTasks(submissionData));
     console.log("Submitting Data:", submissionData);
     setIsCameraVisible(false);
   };
