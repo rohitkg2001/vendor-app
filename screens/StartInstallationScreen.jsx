@@ -86,7 +86,6 @@ export default function StartInstallationScreen({ navigation, route }) {
       return;
     }
     setLoading(true);
-
     const data = {
       task_id: itemId,
       complete_pole_number: [formattedPole, selectedWard, poleNumber].join("/"),
@@ -104,6 +103,7 @@ export default function StartInstallationScreen({ navigation, route }) {
     console.log(data)
     const result = await dispatch(submitStreetlightTasks(data));
     if (result == 200) {
+      setLoading(false)
       navigation.navigate("successScreen", {
         message: "Your task uploaded successfully",
         nextScreen: "welcomeScreen",
