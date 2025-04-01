@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllItems } from "../redux/actions/inventoryActions";
 import SearchBar from "../components/input/SearchBar";
+
 import {
   typography,
   spacing,
@@ -81,7 +82,7 @@ export default function InventoryScreen() {
   };
 
   // Grouping function
-  const groupInventoryItems = (items) => {
+  const groupInventoryItems = (items = []) => {
     const grouped = {};
 
     items.forEach((item) => {
