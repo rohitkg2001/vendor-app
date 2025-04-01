@@ -60,7 +60,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
       submission_image: image,
       lat: image[0].lat,
       lng: image[0].long,
-      isSurvey: false
+      isSurvey: false,
     };
     const result = await dispatch(submitStreetlightTasks(submissionData));
     if (result == 200) {
@@ -101,12 +101,14 @@ const SubmitInstallationScreen = ({ navigation }) => {
         <View style={[spacing.pv2, { backgroundColor: "#f0f0f0" }]}>
           <QRScanner title="Scan Luminary QR" onScan={handleLuminaryQR} />
           <MyTextInput
+            title="Luminary Serial Number"
             placeholder="Enter Luminary Serial Number"
             value={luminarySerialNumber}
             onChangeText={setLuminarySerialNumber}
             keyboardType="numeric"
           />
           <MyTextInput
+            title="SIM Number"
             placeholder="Enter SIM Number"
             value={simNumber}
             onChangeText={setSimNumber}
@@ -120,6 +122,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
         >
           <QRScanner title="Scan Battery QR" onScan={setBatterySerialNumber} />
           <MyTextInput
+            title="Battery Serial Number"
             placeholder="Enter Battery Serial Number"
             value={batterySerialNumber}
             onChangeText={setBatterySerialNumber}
@@ -133,22 +136,14 @@ const SubmitInstallationScreen = ({ navigation }) => {
         >
           <QRScanner title="Scan Panel QR" onScan={setPanelSerialNumber} />
           <MyTextInput
+            title="Panel Serial Number"
             placeholder="Enter Panel Serial Number"
             value={panelSerialNumber}
             onChangeText={setPanelSerialNumber}
             keyboardType="numeric"
           />
         </View>
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-            marginLeft: 5,
-            marginBottom: -16,
-          }}
-        >
-          Beneficiary Name
-        </Text>
+
         {/* Beneficiary and Contact Details */}
 
         <Text
@@ -162,21 +157,14 @@ const SubmitInstallationScreen = ({ navigation }) => {
           Beneficiary Name
         </Text>
         <MyTextInput
+          title="Beneficiary Name"
           placeholder="Beneficiary Name"
           value={pole.beneficiary}
           onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
         />
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-            marginLeft: 5,
-            marginBottom: -16,
-          }}
-        >
-          Contact Number
-        </Text>
+
         <MyTextInput
+          title="Contact Number"
           placeholder="Contact Number"
           value={contactNumber}
           onChangeText={(text) => {
@@ -197,25 +185,42 @@ const SubmitInstallationScreen = ({ navigation }) => {
         />
 
         <View
-          style={[spacing.m2, { flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }]}
+          style={[
+            spacing.m2,
+            {
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingVertical: 4,
+            },
+          ]}
         >
-
-          <P style={[typography.font18, typography.textBold]}>
+          <P style={[typography.font14, typography.textBold]}>
             Network Availability (Airtel)
           </P>
-          {
-            pole.isNetworkAvailable ?
 
-              <P style={[typography.font18, typography.textBold, { color: 'green' }]}>
-                Available
-              </P>
-              :
-              <P style={[typography.font18, typography.textBold, { color: 'red' }]}>
-                Not Available
-              </P>
-
-          }
-
+          <View
+            style={[
+              spacing.p1,
+              spacing.ph2,
+              spacing.br2,
+              {
+                backgroundColor: pole.isNetworkAvailable
+                  ? "#d4edda"
+                  : "#f8d7da",
+              },
+            ]}
+          >
+            <P
+              style={[
+                typography.font12,
+                typography.textBold,
+                { color: pole.isNetworkAvailable ? "green" : "red" },
+              ]}
+            >
+              {pole.isNetworkAvailable ? "Available" : "Not Available"}
+            </P>
+          </View>
         </View>
 
         {/* Take Photo Button */}

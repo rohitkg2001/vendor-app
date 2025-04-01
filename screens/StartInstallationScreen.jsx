@@ -125,7 +125,11 @@ export default function StartInstallationScreen({ navigation, route }) {
 
   return (
     <ContainerComponent>
-      <MyHeader isBack title={isSurvey ? "Start Survey" : "Start Installation"} hasIcon />
+      <MyHeader
+        isBack
+        title={isSurvey ? "Start Survey" : "Start Installation"}
+        hasIcon
+      />
       <ScrollView
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
@@ -159,6 +163,7 @@ export default function StartInstallationScreen({ navigation, route }) {
           placeholder="Beneficiary Name"
         />
         <MyTextInput
+          title="Contact Number"
           multiline={false}
           numberOfLines={1}
           value={contactNumber}
@@ -173,6 +178,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         />
 
         <MyTextInput
+          title="Location"
           multiline={true}
           numberOfLines={4}
           value={locationRemarks}

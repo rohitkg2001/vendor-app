@@ -110,9 +110,9 @@ const StreetLightPendingTask = ({ navigation }) => {
   const [tabCounts, setTabCounts] = useState({
     All: 0,
     Survey: 0,
-    Installed: 0,
+    InApproval: 0,
     Approved: 0,
-    InApproved: 0,
+    InApproval: 0,
     Rejected: 0,
   });
 
@@ -134,7 +134,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     setTabCounts({
       All: pendingStreetLights?.length || 0,
       Survey: surveyedStreetLights?.length || 0,
-      Installed: installedStreetLights?.length || 0,
+      InApproval: installedStreetLights?.length || 0,
       Approved:
         pendingStreetLights?.filter((task) => task.status === "Approved")
           .length || 0,
@@ -151,7 +151,7 @@ const StreetLightPendingTask = ({ navigation }) => {
     if (tab === "Survey") {
       // Both "Survey" and "Surveyed poles" should show surveyed data
       setFilteredData(surveyedStreetLights || []);
-    } else if (tab === "Installed") {
+    } else if (tab === "InApproval") {
       setFilteredData(installedStreetLights || []);
     } else if (tab === "Approved") {
       setFilteredData(
@@ -215,8 +215,10 @@ const StreetLightPendingTask = ({ navigation }) => {
 
       <MyFlatList
         data={filteredData}
-        renderItem={({ item, index }) => {
-          if (["Survey", "Installed"].includes(activeTab)) {
+        renderItem={ ( { item, index } ) =>
+        {
+          
+          if (["Survey", "InApproval"].includes(activeTab)) {
             return (
               <ClickableCard2
                 key={index}
@@ -239,7 +241,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
-                negativeAction={() => handleSurvey(item, true)}
+                negativeAction={() => navigation.navigate("startInstallation", { itemId: item.id, isSurvey: true })}
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
@@ -327,9 +329,9 @@ const StreetLightPendingTask = ({ navigation }) => {
               tabs={[
                 `All ${tabCounts.All}`,
                 `Surveyed poles ${tabCounts.Survey}`,
-                `Installed ${tabCounts.Installed}`,
+                `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
-                `InApproved ${tabCounts.InApproved}`,
+               // `InApproved ${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {
