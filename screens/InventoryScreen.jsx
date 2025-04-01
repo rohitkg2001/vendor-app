@@ -32,6 +32,8 @@ export default function InventoryScreen() {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const { inventory } = useSelector((state) => state.inventory);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [detailsItem, setDetailsItem] = useState(null);
 
   useEffect(() => {
     console.log("Fetched Inventory Data:", { inventory });
@@ -56,6 +58,16 @@ export default function InventoryScreen() {
   const closeModal = () => {
     setVisible(false);
     setSelectedItem(null);
+  };
+
+  const openDetailsModal = (item) => {
+    setDetailsItem(item);
+    setShowDetailsModal(true);
+  };
+
+  const closeDetailsModal = () => {
+    setShowDetailsModal(false);
+    setDetailsItem(null);
   };
 
   // Grouping function
@@ -167,7 +179,7 @@ export default function InventoryScreen() {
             quantity={item.quantity}
             total_value={item.total_value}
             dispatch_date={item.dispatch_dates}
-            onPress={() => openModal(item)}
+            onPress={() => openDetailsModal(item)}
           />
         )}
       />
@@ -236,6 +248,71 @@ export default function InventoryScreen() {
                   🔹Today Received Material:{" "}
                   <P style={[typography.textBold]}>
                     {stockData[selectedItem].receivedToday}
+                  </P>
+                </P>
+              </>
+            )}
+          </View>
+        </Modal>
+      </Portal>
+
+      {/* inventory */}
+
+      <Portal>
+        <Modal visible={showDetailsModal} onDismiss={closeDetailsModal}>
+          <View
+            style={[
+              spacing.br3,
+              spacing.p3,
+              {
+                backgroundColor: LIGHT,
+                width: SCREEN_WIDTH - 32,
+                marginHorizontal: 8,
+                minHeight: SCREEN_HEIGHT / 6,
+              },
+            ]}
+          >
+            <TouchableOpacity
+              style={[
+                spacing.br3,
+                {
+                  position: "absolute",
+                  right: -10,
+                  top: -10,
+                  backgroundColor: "red",
+                },
+              ]}
+              onPress={closeDetailsModal}
+            >
+              <Icon name="close" color="white" size={ICON_MEDIUM} />
+            </TouchableOpacity>
+
+            {detailsItem && (
+              <>
+                <H5
+                  style={[
+                    typography.font16,
+                    typography.fontLato,
+                    typography.textBold,
+                    spacing.mb2,
+                  ]}
+                >
+                  {detailsItem.model} Details
+                </H5>
+
+                <P
+                  style={[typography.font14, typography.fontLato, spacing.mb1]}
+                >
+                  🔹 Make:{" "}
+                  <P style={[typography.textBold]}>{detailsItem.make}</P>
+                </P>
+
+                <P
+                  style={[typography.font14, typography.fontLato, spacing.mb1]}
+                >
+                  🔹 Serial Number:{" "}
+                  <P style={[typography.textBold]}>
+                    {detailsItem.serial_number}
                   </P>
                 </P>
               </>
