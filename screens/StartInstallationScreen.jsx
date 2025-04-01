@@ -74,7 +74,7 @@ export default function StartInstallationScreen({ navigation, route }) {
           }))
         );
         const { panchayat, block, district, state } = currentSite.site;
-        const formattedPole = formatString([panchayat, block, district, state].join(" "));
+        const formattedPole = formatString([state, district, block, panchayat].join(" "));
         setFormattedPoleNumber(formattedPole);
       }
     }
