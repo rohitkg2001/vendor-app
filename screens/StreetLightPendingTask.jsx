@@ -283,7 +283,7 @@ const StreetLightPendingTask = ({ navigation }) => {
               tabs={[
                 `All ${tabCounts.All}`,
                 `Surveyed poles ${tabCounts.Survey}`,
-                `In Approval ${tabCounts.InApproval}`,
+                `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
                // `InApproved ${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
