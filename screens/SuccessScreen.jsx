@@ -24,17 +24,6 @@ const SuccessScreen = ({ navigation, route }) => {
         color="green"
         style={{ marginBottom: 20 }}
       />
-      {/* <Text
-        style={{
-          fontSize: 16,
-          textAlign: "center",
-          fontWeight: "bold",
-          color: "#333",
-        }}
-      >
-        Task update has been successfully saved.
-      </Text> */}
-      {/* <Text style={styles.text}>{message}</Text> */}
       <Text
         style={{
           fontSize: 16,
@@ -47,7 +36,6 @@ const SuccessScreen = ({ navigation, route }) => {
       </Text>
       <Button
         style={[styles.btn, styles.bgPrimary]}
-        //onPress={() => navigation.navigate("taskScreen")}
         onPress={() => navigation.navigate(nextScreen)}
       >
         <Text style={[styles.btnText, typography.textLight]}>

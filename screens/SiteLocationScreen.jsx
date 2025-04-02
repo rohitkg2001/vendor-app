@@ -11,9 +11,6 @@ import { useDispatch } from "react-redux";
 import { setSiteInfo } from "../redux/actions/siteActions";
 
 export default function SetSiteLocationScreen({ navigation }) {
-  // Commented out District and Block
-  // const [selectedDistrict, setSelectedDistrict] = useState("");
-  // const [selectedBlock, setSelectedBlock] = useState("");
   const [selectedPanchayat, setSelectedPanchayat] = useState("");
   const [selectedWard, setSelectedWard] = useState("");
 
@@ -39,23 +36,6 @@ export default function SetSiteLocationScreen({ navigation }) {
       <MyHeader isBack title={"Set Site Location "} hasIcon />
       <H1>{"Bihar"}</H1>
       <View style={{ flex: 1, width: SCREEN_WIDTH - 16 }}>
-        {/* Commented out District and Block selection */}
-        {/* <MyPickerInput
-          title="District"
-          value={selectedDistrict}
-          onChange={(value) => setSelectedDistrict(value)}
-          options={[
-            { label: "Patna", value: "Patna" },
-            { label: "Gaya", value: "district2" },
-          ]}
-        />
-        <MyPickerInput
-          title="Block"
-          value={selectedBlock}
-          onChange={(value) => setSelectedBlock(value)}
-          options={getBlockOptions()}
-          style={spacing.mv2}
-        /> */}
 
         <MyPickerInput
           title="Panchayat"

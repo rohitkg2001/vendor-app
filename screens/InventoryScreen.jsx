@@ -168,6 +168,7 @@ export default function InventoryScreen({ navigation }) {
 
       <MyFlatList
         data={groupInventoryItems(inventory)}
+        // keyExtractor={(item) => item.id.toString()}
         keyExtractor={(item) =>
           item.id ? item.id.toString() : Math.random().toString()
         }
@@ -181,7 +182,7 @@ export default function InventoryScreen({ navigation }) {
             manufacturer={item.manufacturer}
             rate={item.rate}
             quantity={item.total_quantity}
-            total_value={item.total_value}
+            total_value={item.total_value} 
             dispatch_date={item.dispatch_dates}
             onPress={() => openDetailsModal(item)}
           />

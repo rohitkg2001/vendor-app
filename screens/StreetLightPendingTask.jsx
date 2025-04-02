@@ -16,93 +16,131 @@ import Tabs from "../components/Tabs";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  SET_POLE_NUMBER,
-  SET_BENEFICIARY_NAME,
-  SET_LOCATION_REMARKS,
-  SET_BENEFICIARY_CONTACT,
-} from "../redux/constant";
 import { download, getInstalledPoles } from "../redux/actions/taskActions";
+
+// Reusable function to handle survey data fetching
+const fetchSurveyData = async (item, isSurvey, navigation) => {
+  try {
+    const response = await axios.post("https://slldm.com/api/pole-details", {
+      pole_id: item.pole_id,
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      navigation.navigate("submitInstallation", {
+        data: {
+          ...data,
+          complete_pole_number: item.complete_pole_number,
+          beneficiaryName: item.beneficiary,
+          locationRemarks: item.remarks,
+          panchayat: item.panchayat,
+          block: item.block,
+          pole_number: item.pole_number,
+          ward: item.ward,
+        },
+        isSurvey,
+      });
+    } else {
+      console.error("Failed to fetch data:", response.status);
+    }
+  } catch (error) {
+    console.error("Error fetching survey data:", error);
+  }
+};
+
+// Reusable InfoCard Component for both Survey and Install cards
+const InfoCard = ({
+  item,
+  activeTab,
+  handleSurveyData,
+  navigation,
+  index,
+  isSurveyTab,
+}) => {
+  if (isSurveyTab) {
+    return (
+      <ClickableCard2
+        key={index}
+        title={`${item.panchayat} ${item.block}`}
+        subtitle={`${item.district} - ${item.state}`}
+        item={item}
+        isPositiveButtonVisible={activeTab !== "InApproval"}
+        positiveAction={() => handleSurveyData(item, false)}
+        positiveText="Submit"
+      />
+    );
+  } else {
+    return (
+      <ClickableCard1
+        key={index}
+        title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)`}
+        subtitle={`${item.site?.district} - ${item.site?.state}`}
+        isNegativeButtonVisible={true}
+        negativeText="Survey"
+        negativeAction={() =>
+          navigation.navigate("startInstallation", {
+            itemId: item.id,
+            isSurvey: true,
+          })
+        }
+      >
+        <View>
+          <SurveyedInstalledInfo item={item} />
+          <InstallationDates item={item} />
+        </View>
+      </ClickableCard1>
+    );
+  }
+};
+
+// Reusable component for Surveyed and Installed info
+const SurveyedInstalledInfo = ({ item }) => (
+  <View style={[spacing.mt1, styles.row]}>
+    <View style={{ flex: 1 }}></View>
+    <View style={{ alignItems: "flex-end", marginTop: -70 }}>
+      <View style={{ marginBottom: 5 }}>
+        <Span style={[typography.font12, typography.fontLato]}>
+          Surveyed pole
+        </Span>
+        <P style={[typography.font12, typography.fontLato, { marginLeft: 30 }]}>
+          {`${item.site?.number_of_surveyed_poles}`} /{" "}
+          {`${item.site?.total_poles}`}
+        </P>
+      </View>
+      <View>
+        <Span style={[typography.font12, typography.fontLato]}>
+          Installed pole
+        </Span>
+        <P style={[typography.font12, typography.fontLato, { marginLeft: 30 }]}>
+          {`${item.site?.number_of_installed_poles}`} /{" "}
+          {`${item.site?.total_poles}`}
+        </P>
+      </View>
+    </View>
+  </View>
+);
+
+// Reusable component for Start and End dates
+const InstallationDates = ({ item }) => (
+  <View style={[spacing.mt1, styles.row]}>
+    <View style={[{ position: "absolute", top: -15 }]}>
+      <Span style={[typography.font12, typography.fontLato]}>Start Date</Span>
+      <P style={[typography.font12, typography.fontLato]}>{item.start_date}</P>
+    </View>
+    <View style={[{ position: "absolute", left: 80, top: -15 }]}>
+      <Span style={[typography.font12, typography.fontLato]}>End Date</Span>
+      <P style={[typography.font12, typography.fontLato]}>{item.end_date}</P>
+    </View>
+  </View>
+);
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
-  const [streetLightSites, setStreetLightSites] = useState([]);
-  const [searchText, setSearchText] = useState(""); // State for search input
+  const [searchText, setSearchText] = useState("");
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
   const { id } = useSelector((state) => state.vendor);
-
   const dispatch = useDispatch();
-  useEffect(() => {
-    Array.isArray(pendingStreetLights) &&
-      setStreetLightSites(pendingStreetLights);
-    updateTabCounts(pendingStreetLights);
-  }, [pendingStreetLights]);
 
-  function formatString(input) {
-    return input
-      .split(" ") // Split by space
-      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
-      .join("/"); // Join by '/'
-  }
-
-  const handleSurvey = (
-    data,
-    isSurvey,
-    beneficiaryName,
-    locationRemarks,
-    contactNumber
-  ) => {
-    if (!data?.site) {
-      console.error("Error: site data is missing", data);
-      return;
-    }
-
-    const { district, block, panchayat, state } = data?.site;
-    const pole_number = formatString(
-      [state, district, block, panchayat].join(" ")
-    );
-    dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
-    dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
-    dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-    dispatch({ type: SET_BENEFICIARY_CONTACT, payload: contactNumber });
-    navigation.navigate("startInstallation", {
-      itemId: data.id,
-      isSurvey,
-      // poleNumber: pole_number,
-      // wardPanchayat: ward_panchayat,
-    });
-  };
-
-  const handleSurveyData = async (item, isSurvey) => {
-    console.log(`Pole Id is ${item.pole_id}`);
-
-    try {
-      const response = await axios.post("https://slldm.com/api/pole-details", {
-        pole_id: item.pole_id,
-      });
-      if (response.status === 200) {
-        const { data } = response;
-        navigation.navigate("submitInstallation", {
-          data: {
-            ...data,
-            complete_pole_number: item.complete_pole_number,
-            beneficiaryName: item.beneficiary,
-            locationRemarks: item.remarks,
-            panchayat: item.panchayat,
-            block: item.block,
-            pole_number: item.pole_number,
-            ward: item.ward,
-          },
-          isSurvey,
-        });
-      } else {
-        console.error("Failed to fetch data:", response.status);
-      }
-    } catch (error) {
-      console.error("Error fetching survey data:", error);
-    }
-  };
   const [activeTab, setActiveTab] = useState("All");
   const [filteredData, setFilteredData] = useState([]);
   const [tabCounts, setTabCounts] = useState({
@@ -113,6 +151,15 @@ const StreetLightPendingTask = ({ navigation }) => {
     Rejected: 0,
   });
 
+  // Handle search text change
+  const handleSearchChange = useCallback((text) => {
+    setSearchText(text);
+  }, []);
+
+  useEffect(() => {
+    dispatch(getInstalledPoles(id));
+  }, [dispatch, id]);
+
   useEffect(() => {
     updateTabCounts();
     filterData(activeTab);
@@ -122,18 +169,13 @@ const StreetLightPendingTask = ({ navigation }) => {
     installedStreetLights,
     activeTab,
   ]);
-  // Update the Redux state with the InApproval count
-  useEffect(() => {
-    // You can store InApproval count in Redux
-    dispatch({
-      type: "SET_IN_APPROVAL_COUNT", // Action to set InApproval count
-      payload: tabCounts.InApproval, // The count from tabCounts
-    });
-  }, [tabCounts.InApproval, dispatch]);
 
   useEffect(() => {
-    dispatch(getInstalledPoles(id));
-  }, [dispatch, id]);
+    dispatch({
+      type: "SET_IN_APPROVAL_COUNT",
+      payload: tabCounts.InApproval,
+    });
+  }, [tabCounts.InApproval, dispatch]);
 
   const updateTabCounts = () => {
     setTabCounts({
@@ -151,7 +193,6 @@ const StreetLightPendingTask = ({ navigation }) => {
 
   const filterData = (tab) => {
     if (tab === "Survey") {
-      // Both "Survey" and "Surveyed poles" should show surveyed data
       setFilteredData(surveyedStreetLights || []);
     } else if (tab === "InApproval") {
       setFilteredData(installedStreetLights || []);
@@ -180,10 +221,6 @@ const StreetLightPendingTask = ({ navigation }) => {
     console.log(status);
   };
 
-  const handleSearchChange = useCallback((text) => {
-    setSearchText(text);
-  }, []);
-
   return (
     <ContainerComponent>
       <MyHeader
@@ -207,124 +244,27 @@ const StreetLightPendingTask = ({ navigation }) => {
 
       <MyFlatList
         data={filteredData}
-        renderItem={({ item, index }) => {
-          if (["Survey", "InApproval"].includes(activeTab)) {
-            return (
-              <ClickableCard2
-                key={index}
-                title={`${item.panchayat} ${item.block}`}
-                subtitle={`${item.district} - ${item.state}`}
-                item={item}
-                // isPositiveButtonVisible={true}
-                isPositiveButtonVisible={activeTab !== "InApproval"}
-                positiveAction={() => handleSurveyData(item, false)}
-                positiveText="Submit"
-              />
-            );
-          } else {
-            return (
-              <ClickableCard1
-                key={index}
-                title={`${item.site?.panchayat} ${item.site?.block} (Panchayat)`}
-                subtitle={`${item.site?.district} - ${item.site?.state}`}
-                isNegativeButtonVisible={true}
-                negativeText="Survey"
-                negativeAction={() =>
-                  navigation.navigate("startInstallation", {
-                    itemId: item.id,
-                    isSurvey: true,
-                  })
-                }
-              >
-                <View>
-                  <View style={[spacing.mt1, styles.row]}>
-                    {/* Left side for other content (if needed) */}
-                    <View style={{ flex: 1 }}></View>
-
-                    {/* Right side for both Surveyed and Installed poles */}
-                    <View style={{ alignItems: "flex-end", marginTop: -70 }}>
-                      {/* Surveyed Pole */}
-                      <View style={{ marginBottom: 5 }}>
-                        <Span style={[typography.font12, typography.fontLato]}>
-                          Surveyed pole
-                        </Span>
-                        <P
-                          style={[
-                            typography.font12,
-                            typography.fontLato,
-                            { marginLeft: 30 },
-                          ]}
-                        >
-                          {`${item.site?.number_of_surveyed_poles}`} /
-                          {`${item.site?.total_poles}`}
-                        </P>
-                      </View>
-
-                      {/* Installed Pole */}
-                      <View>
-                        <Span style={[typography.font12, typography.fontLato]}>
-                          Installed pole
-                        </Span>
-                        <P
-                          style={[
-                            typography.font12,
-                            typography.fontLato,
-                            { marginLeft: 30 },
-                          ]}
-                        >
-                          {`${item.site?.number_of_installed_poles}`}/
-                          {`${item.site?.total_poles}`}
-                        </P>
-                      </View>
-                    </View>
-                  </View>
-
-                  <View style={[spacing.mt1, styles.row]}>
-                    <View style={[{ position: "absolute", top: -15 }]}>
-                      <Span style={[typography.font12, typography.fontLato]}>
-                        Start Date
-                      </Span>
-                      <P style={[typography.font12, typography.fontLato]}>
-                        {item.start_date}
-                      </P>
-                    </View>
-                    <View
-                      style={[{ position: "absolute", left: 80, top: -15 }]}
-                    >
-                      {" "}
-                      <Span style={[typography.font12, typography.fontLato]}>
-                        End Date
-                      </Span>
-                      <P style={[typography.font12, typography.fontLato]}>
-                        {item.end_date}
-                      </P>
-                    </View>
-                  </View>
-                </View>
-              </ClickableCard1>
-            );
-          }
-        }}
+        renderItem={({ item, index }) => (
+          <InfoCard
+            key={index}
+            item={item}
+            activeTab={activeTab}
+            handleSurveyData={fetchSurveyData}
+            navigation={navigation}
+            index={index}
+            isSurveyTab={["Survey", "InApproval"].includes(activeTab)}
+          />
+        )}
         keyExtractor={(item) => item.pole_id.toString()}
         contentContainerStyle={{ flexGrow: 1 }}
         ListHeaderComponent={() => (
           <View>
-            <View
-              style={[
-                spacing.mv4,
-                styles.row,
-                spacing.mh1,
-                { alignItems: "center" },
-              ]}
-            ></View>
-
             <Tabs
               tabs={[
                 `All ${tabCounts.All}`,
                 `Surveyed poles ${tabCounts.Survey}`,
                 `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
-                // `InApproved ${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {
@@ -333,16 +273,11 @@ const StreetLightPendingTask = ({ navigation }) => {
                   : tabLabel.split(" ")[0];
                 setActiveTab(normalizedTab);
               }}
-              activeTab={
-                activeTab === "Survey"
-                  ? `Surveyed poles ${tabCounts.Survey}`
-                  : activeTab
-              }
+              activeTab={activeTab}
             />
           </View>
         )}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
-        showSearchBar={false}
       />
       {/* Snackbar Component */}
       <Snackbar
