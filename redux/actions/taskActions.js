@@ -233,6 +233,7 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
       }
     );
     const { data, status } = await response;
+    
     dispatch({ type: UPDATE_TASK, payload: data });
     return status;
   } catch (error) {
@@ -391,4 +392,12 @@ export const download = async (my_id) => {
     console.error("Download error:", error);
     return { success: false, error: error.message };
   }
+};
+
+// actions/taskActions.js
+export const setInApprovalCount = (count) => {
+  return {
+    type: "SET_IN_APPROVAL_COUNT",
+    payload: count,
+  };
 };

@@ -36,6 +36,10 @@ export default function WelcomeScreen({ navigation }) {
 
   const dispatch = useDispatch();
 
+  // WelcomeScreen.js
+  const { inApprovalCount } = useSelector((state) => state.tasks);
+  const totalEarning = inApprovalCount * 10; 
+
   useEffect(() => {
     dispatch(getStreetLightTasks(id));
     dispatch(getAllItems(id));
@@ -216,6 +220,12 @@ export default function WelcomeScreen({ navigation }) {
               <Text style={{ fontSize: 40, fontWeight: "bold" }}>₹</Text>
               <P style={[typography.font14, typography.fontLato]}>
                 Total Earning
+              </P>
+              <P style={[typography.font10, typography.fontLato]}>
+                Installed Earning : {totalEarning}
+              </P>
+              <P style={[typography.font10, typography.fontLato]}>
+                RMS Earning : 0
               </P>
             </TouchableOpacity>
 

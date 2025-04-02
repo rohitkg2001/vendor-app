@@ -122,6 +122,14 @@ const StreetLightPendingTask = ({ navigation }) => {
     installedStreetLights,
     activeTab,
   ]);
+  // Update the Redux state with the InApproval count
+  useEffect(() => {
+    // You can store InApproval count in Redux
+    dispatch({
+      type: "SET_IN_APPROVAL_COUNT", // Action to set InApproval count
+      payload: tabCounts.InApproval, // The count from tabCounts
+    });
+  }, [tabCounts.InApproval, dispatch]);
 
   useEffect(() => {
     dispatch(getInstalledPoles(id));
@@ -204,9 +212,7 @@ const StreetLightPendingTask = ({ navigation }) => {
 
       <MyFlatList
         data={filteredData}
-        renderItem={ ( { item, index } ) =>
-        {
-          
+        renderItem={({ item, index }) => {
           if (["Survey", "InApproval"].includes(activeTab)) {
             return (
               <ClickableCard2
@@ -231,7 +237,12 @@ const StreetLightPendingTask = ({ navigation }) => {
                 // positiveText="Submit"
                 isNegativeButtonVisible={true}
                 negativeText="Survey"
-                negativeAction={() => navigation.navigate("startInstallation", { itemId: item.id, isSurvey: true })}
+                negativeAction={() =>
+                  navigation.navigate("startInstallation", {
+                    itemId: item.id,
+                    isSurvey: true,
+                  })
+                }
               >
                 <View>
                   <View style={[spacing.mt1, styles.row]}>
