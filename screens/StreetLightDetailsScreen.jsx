@@ -94,6 +94,7 @@ const StreetLightDetailsScreen = ({ route }) => {
             </P>
             <P style={[typography.font12]}>{item.project_manager_name}</P>
           </View>
+
           <View>
             <P
               style={[
@@ -110,6 +111,93 @@ const StreetLightDetailsScreen = ({ route }) => {
             <P style={[typography.font12]}>{item.site_engineer_name}</P>
           </View>
         </View>
+
+        <View
+          style={[
+            styles.row,
+            spacing.pv2,
+            {
+              borderTopWidth: 1,
+              borderColor: "#ddd",
+            },
+          ]}
+        >
+          <View>
+            <P
+              style={[
+                typography.font12,
+                typography.fontLato,
+                typography.textBold,
+                {
+                  textTransform: "uppercase",
+                },
+              ]}
+            >
+              Battery Qr
+            </P>
+            <P style={[typography.font12]}>{item.battery_qr}</P>
+          </View>
+
+          <View>
+            <P
+              style={[
+                typography.font12,
+                typography.fontLato,
+                typography.textBold,
+                {
+                  textTransform: "uppercase",
+                },
+              ]}
+            >
+              Luminary Qr
+            </P>
+            <P style={[typography.font12]}>{item.luminary_qr}</P>
+          </View>
+        </View>
+        <View
+          style={[
+            styles.row,
+            spacing.pv2,
+            {
+              borderTopWidth: 1,
+              borderColor: "#ddd",
+            },
+          ]}
+        >
+          <View>
+            <P
+              style={[
+                typography.font12,
+                typography.fontLato,
+                typography.textBold,
+                {
+                  textTransform: "uppercase",
+                },
+              ]}
+            >
+              Sim Number
+            </P>
+            <P style={[typography.font12]}>{item.sim_number}</P>
+          </View>
+
+          <View>
+            <P
+              style={[
+                typography.font12,
+                typography.fontLato,
+                typography.textBold,
+                {
+                  textTransform: "uppercase",
+                },
+              ]}
+            >
+              Panel Qr
+            </P>
+            <P style={[typography.font12]}>{item.panel_qr}</P>
+          </View>
+        </View>
+
+       
 
         <View style={[styles.row, spacing.pv2]}>
           <View>
