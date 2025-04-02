@@ -131,38 +131,47 @@ export default function InventoryScreen({ navigation }) {
             },
           ]}
         >
-          {inventoryData.map(
-            ({ item, quantity, total_value, id }) => (
-              <TouchableOpacity
-                key={id}
-                style={[
-                  spacing.m1,
-                  spacing.br2,
-                  {
-                    width: "47%",
-                    height: 65,
-                    borderWidth: 0.5,
-                    borderColor: "#ddd",
-                    backgroundColor: LIGHT,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    elevation: 1,
-                  },
-                ]}
-                onPress={() => navigation.navigate("inventoryMaterialScreen", { material: item })}
-              >
-                <P style={[typography.font14, typography.fontLato]}>{item}</P>
-                <Span style={[typography.font14, typography.fontLato]}>Available Items: {quantity}</Span>
-                <Span style={[typography.font14, typography.fontLato]}>Stock Value: RS{total_value}</Span>
-              </TouchableOpacity>
-            )
-          )}
+          {inventoryData.map(({ item, quantity, total_value, id }) => (
+            <TouchableOpacity
+              key={id}
+              style={[
+                spacing.m1,
+                spacing.br2,
+                {
+                  width: "47%",
+                  height: 65,
+                  borderWidth: 0.5,
+                  borderColor: "#ddd",
+                  backgroundColor: LIGHT,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  elevation: 1,
+                },
+              ]}
+              onPress={() =>
+                navigation.navigate("inventoryMaterialScreen", {
+                  material: item,
+                })
+              }
+            >
+              <P style={[typography.font14, typography.fontLato]}>{item}</P>
+              <Span style={[typography.font14, typography.fontLato]}>
+                Available Items: {quantity}
+              </Span>
+              <Span style={[typography.font14, typography.fontLato]}>
+                Stock Value: RS{total_value}
+              </Span>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
 
       <MyFlatList
         data={groupInventoryItems(inventory)}
-        keyExtractor={(item) => item.id.toString()}
+        // keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) =>
+          item.id ? item.id.toString() : Math.random().toString()
+        }
         ListEmptyComponent={() => <NoRecord msg={t("no_inventory")} />}
         showSearchBar={false}
         renderItem={({ item }) => (
@@ -172,8 +181,8 @@ export default function InventoryScreen({ navigation }) {
             model={item.model}
             manufacturer={item.manufacturer}
             rate={item.rate}
-            quantity={item.quantity}
-            total_value={item.total_value}
+            quantity={item.total_quantity}
+            total_value={item.total_value} 
             dispatch_date={item.dispatch_dates}
             onPress={() => openDetailsModal(item)}
           />
