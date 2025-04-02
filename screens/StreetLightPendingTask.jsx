@@ -122,6 +122,14 @@ const StreetLightPendingTask = ({ navigation }) => {
     installedStreetLights,
     activeTab,
   ]);
+  // Update the Redux state with the InApproval count
+  useEffect(() => {
+    // You can store InApproval count in Redux
+    dispatch({
+      type: "SET_IN_APPROVAL_COUNT", // Action to set InApproval count
+      payload: tabCounts.InApproval, // The count from tabCounts
+    });
+  }, [tabCounts.InApproval, dispatch]);
 
   useEffect(() => {
     dispatch(getInstalledPoles(id));
