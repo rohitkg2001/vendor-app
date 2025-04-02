@@ -146,6 +146,16 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
         {/* Beneficiary and Contact Details */}
 
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            marginLeft: 5,
+            marginBottom: -16,
+          }}
+        >
+          Beneficiary Name
+        </Text>
         <MyTextInput
           title="Beneficiary Name"
           placeholder="Beneficiary Name"
