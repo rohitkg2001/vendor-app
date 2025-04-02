@@ -135,11 +135,6 @@ const StreetLightPendingTask = ({ navigation }) => {
     console.log(id);
     const status = await download(id);
     console.log(status);
-    // if (status) {
-    //   setShowSnackbar("File downloaded successfully");
-    // } else {
-    //   setShowSnackbar("There was a problem");
-    // }
   };
 
   const handleSearchChange = useCallback((text) => {
