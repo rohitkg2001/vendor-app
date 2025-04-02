@@ -29,7 +29,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
   const { complete_pole_number, panchayat, block, ward, pole } = data; // Destructure the data passed
 
-  // Use state only if you need to modify the values, otherwise, directly use `data` from route.params
+  // Use state only if you need to modify the values, otherwise, directly use data from route.params
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
   const [simNumber, setSimNumber] = useState("");
   const [batterySerialNumber, setBatterySerialNumber] = useState("");
@@ -145,6 +145,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
         </View>
 
         {/* Beneficiary and Contact Details */}
+
         <MyTextInput
           title="Beneficiary Name"
           placeholder="Beneficiary Name"

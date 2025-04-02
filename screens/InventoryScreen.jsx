@@ -4,14 +4,13 @@ import { View, TouchableOpacity } from "react-native";
 import { Modal, Portal } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
-import Button from "../components/buttons/Button";
 import MyHeader from "../components/header/MyHeader";
 import MyFlatList from "../components/utility/MyFlatList";
 import { inventoryData } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAllItems } from "../redux/actions/inventoryActions";
 import SearchBar from "../components/input/SearchBar";
 
@@ -61,7 +60,6 @@ export default function InventoryScreen({ navigation }) {
     setDetailsItem(item);
     setShowDetailsModal(true);
   };
-
 
   const closeDetailsModal = () => {
     setShowDetailsModal(false);

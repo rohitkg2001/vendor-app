@@ -35,6 +35,7 @@ const ClickableCard2 = ({
       </P>
 
       {/* Submission Date */}
+
       {item.submission_date && (
         <View style={{ position: "absolute", top: 8, right: 8 }}>
           <P
@@ -46,11 +47,12 @@ const ClickableCard2 = ({
               { backgroundColor: "#f0f0f0" },
             ]}
           >
-            {new Date(item.submission_date).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            })}
+            {"Surveyed On   " +
+              new Date(item.submission_date).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })}
           </P>
         </View>
       )}

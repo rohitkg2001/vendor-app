@@ -50,6 +50,7 @@ export const taskReducer = (state = initialState, action) => {
       return { ...state, contactNumber: action.payload };
     case SET_LOCATION_REMARKS:
       return { ...state, locationRemarks: action.payload };
+      
     default:
       return state;
   }
