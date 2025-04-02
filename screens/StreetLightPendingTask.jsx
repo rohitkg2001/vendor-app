@@ -30,7 +30,6 @@ const StreetLightPendingTask = ({ navigation }) => {
   const [searchText, setSearchText] = useState(""); // State for search input
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
-
   const { id } = useSelector((state) => state.vendor);
 
   const dispatch = useDispatch();
@@ -82,7 +81,6 @@ const StreetLightPendingTask = ({ navigation }) => {
       const response = await axios.post("https://slldm.com/api/pole-details", {
         pole_id: item.pole_id,
       });
-
       if (response.status === 200) {
         const { data } = response;
         navigation.navigate("submitInstallation", {
@@ -112,7 +110,6 @@ const StreetLightPendingTask = ({ navigation }) => {
     Survey: 0,
     InApproval: 0,
     Approved: 0,
-    InApproval: 0,
     Rejected: 0,
   });
 
@@ -138,9 +135,6 @@ const StreetLightPendingTask = ({ navigation }) => {
       Approved:
         pendingStreetLights?.filter((task) => task.status === "Approved")
           .length || 0,
-      InApproved:
-        pendingStreetLights?.filter((task) => task.status === "InApproved")
-          .length || 0,
       Rejected:
         pendingStreetLights?.filter((task) => task.status === "Rejected")
           .length || 0,
@@ -156,11 +150,6 @@ const StreetLightPendingTask = ({ navigation }) => {
     } else if (tab === "Approved") {
       setFilteredData(
         pendingStreetLights?.filter((task) => task.status === "Approved") || []
-      );
-    } else if (tab === "InApproved") {
-      setFilteredData(
-        pendingStreetLights?.filter((task) => task.status === "InApproved") ||
-          []
       );
     } else if (tab === "Rejected") {
       setFilteredData(
@@ -225,7 +214,8 @@ const StreetLightPendingTask = ({ navigation }) => {
                 title={`${item.panchayat} ${item.block}`}
                 subtitle={`${item.district} - ${item.state}`}
                 item={item}
-                isPositiveButtonVisible={true}
+                // isPositiveButtonVisible={true}
+                isPositiveButtonVisible={activeTab !== "InApproval"}
                 positiveAction={() => handleSurveyData(item, false)}
                 positiveText="Submit"
               />
@@ -331,7 +321,7 @@ const StreetLightPendingTask = ({ navigation }) => {
                 `Surveyed poles ${tabCounts.Survey}`,
                 `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
-               // `InApproved ${tabCounts.InApproved}`,
+                // `InApproved ${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {
