@@ -145,6 +145,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
       luminary_qr: luminarySerialNumber,
       battery_qr: batterySerialNumber,
       panel_qr: panelSerialNumber,
+      
       submission_image: image,
       lat: image[0].lat,
       lng: image[0].long,
