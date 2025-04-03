@@ -136,6 +136,14 @@ const StreetLightDetailsScreen = ({ route }) => {
             <StreetLightImages source={item.survey_image} />
           </View>
         )}
+
+        {/* Submission Images */}
+        {Array.isArray(item.submission_image) &&
+          item.submission_image.length > 0 && (
+            <View style={{ marginTop: 12 }}>
+              <StreetLightImages source={item.submission_image} />
+            </View>
+          )}
       </View>
     </ContainerComponent>
   );

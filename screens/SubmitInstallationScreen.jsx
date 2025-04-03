@@ -49,7 +49,11 @@ const SubmitInstallationScreen = ({ navigation }) => {
       console.warn("Inventory is not available yet.");
       return false;
     }
-    return inventory.some((item) => item.serial_number === serialNumber);
+
+    // Loop through the inventory items and check if the serial number exists in the serial_number array
+    return inventory.some(
+      (item) => item.serial_number && item.serial_number.includes(serialNumber)
+    );
   };
 
   // Handle QR scan for Luminary
@@ -191,7 +195,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
             value={luminarySerialNumber}
             onChangeText={(text) => handleManualInput(text, "luminary")}
             keyboardType="numeric"
-            editable={luminaryValid} // Disable input if serial number is not valid
+            editable={true} // Disable input if serial number is not valid
           />
         </View>
 
@@ -210,7 +214,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
             value={batterySerialNumber}
             onChangeText={(text) => handleManualInput(text, "battery")}
             keyboardType="numeric"
-            editable={batteryValid} // Disable input if serial number is not valid
+            editable={true} // Disable input if serial number is not valid
           />
         </View>
 
@@ -229,7 +233,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
             value={panelSerialNumber}
             onChangeText={(text) => handleManualInput(text, "panel")}
             keyboardType="numeric"
-            editable={panelValid} // Disable input if serial number is not valid
+            editable={true} // Disable input if serial number is not valid
           />
         </View>
 
