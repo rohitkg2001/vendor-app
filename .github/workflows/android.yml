@@ -13,13 +13,19 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      
+      - name: Clean up before build
+        run: |
+          rm -rf ./node_modules
+          rm -rf ~/.gradle/caches
+          rm -rf ~/.gradle/wrapper
+
 
       - name: Install Java
         uses: actions/setup-java@v2
         with:
           java-version: "20"
           distribution: "adopt"
-          cache: "gradle"
 
       - name: Change wrapper permissions
         run: chmod +x ./android/gradlew
@@ -30,7 +36,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
 
       - name: Run Yarn Install
         run: |

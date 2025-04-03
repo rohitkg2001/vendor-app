@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -38,7 +37,7 @@ export default function WelcomeScreen({ navigation }) {
 
   // WelcomeScreen.js
   const { inApprovalCount } = useSelector((state) => state.tasks);
-  const totalEarning = inApprovalCount * 10; 
+  const totalEarning = inApprovalCount * 10;
 
   useEffect(() => {
     dispatch(getStreetLightTasks(id));
@@ -228,6 +227,8 @@ export default function WelcomeScreen({ navigation }) {
                 RMS Earning : 0
               </P>
             </TouchableOpacity>
+
+           
 
             <TouchableOpacity
               onPress={() => navigation.navigate("inventoryScreen")}

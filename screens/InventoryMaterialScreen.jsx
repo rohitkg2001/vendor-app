@@ -6,7 +6,7 @@ import SearchBar from "../components/input/SearchBar";
 import MyTabView from "../components/customtab/MyTabView";
 import { SceneMap } from "react-native-tab-view";
 
-export default function InventoryMaterialScreen({ route }) {
+export default function InventoryMaterialScreen({ route, navigation }) {
   const { material } = route.params;
   const [searchText, setSearchText] = useState("");
 
@@ -16,9 +16,18 @@ export default function InventoryMaterialScreen({ route }) {
 
   // Define the tabs (routes) for the inventory
   const inventoryTabs = [
-    { key: "totalReceived", title: "Total Received" },
-    { key: "inStock", title: "In Stock" },
-    { key: "consumed", title: "Consumed" },
+    {
+      key: 0,
+      title: "Total Received",
+    },
+    {
+      key: 1,
+      title: "In Stock",
+    },
+    {
+      key: 2,
+      title: "Consumed",
+    },
   ];
 
   // Define the render scenes (the content for each tab)
