@@ -29,6 +29,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
   // State for serial numbers and validation
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
+  const [simNumber, setSimNumber] = useState("");
   const [batterySerialNumber, setBatterySerialNumber] = useState("");
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
   const [luminaryValid, setLuminaryValid] = useState(false);
@@ -61,6 +62,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
     const luminarySerial = val.split(";")[0]?.toString() || "";
     if (isSerialNumberValid(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);
+      setSimNumber(values[1].toString());
       setLuminaryValid(true);
     } else {
       setLuminaryValid(false);
@@ -196,6 +198,12 @@ const SubmitInstallationScreen = ({ navigation }) => {
             onChangeText={(text) => handleManualInput(text, "luminary")}
             keyboardType="numeric"
             editable={true} // Disable input if serial number is not valid
+          />
+          <MyTextInput
+            placeholder="Enter SIM Number"
+            value={simNumber}
+            onChangeText={setSimNumber}
+            keyboardType="numeric"
           />
         </View>
 
