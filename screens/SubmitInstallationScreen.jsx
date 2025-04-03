@@ -62,7 +62,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
     const luminarySerial = val.split(";")[0]?.toString() || "";
     if (isSerialNumberValid(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);
-      setSimNumber(values[1].toString());
+      setSimNumber(val[1].toString());
       setLuminaryValid(true);
     } else {
       setLuminaryValid(false);
