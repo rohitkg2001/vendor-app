@@ -24,7 +24,6 @@ import SiteLocationScreen from "../screens/SiteLocationScreen";
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
 import ProfileChangeScreen from "../screens/ProfileChangeScreen";
-import AttendancePunchScreen from "../screens/AttendancePunchScreen";
 import StartInstallationScreen from "../screens/StartInstallationScreen";
 import StreetLightDetailsScreen from "../screens/StreetLightDetailsScreen";
 import SubmitInstallationScreen from "../screens/SubmitInstallationScreen";
@@ -80,7 +79,6 @@ export default function MyStackNavigator() {
       />
       <Stack.Screen name="taskDetail" component={TaskDetailScreen} />
       <Stack.Screen name="profileChange" component={ProfileChangeScreen} />
-      <Stack.Screen name="attendancePunch" component={AttendancePunchScreen} />
       <Stack.Screen
         name="streetlightDetails"
         component={StreetLightDetailsScreen}

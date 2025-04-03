@@ -1,0 +1,18 @@
+{
+  "task_id": 382,
+  "complete_pole_number": "BIH/MUZ/KAT/KAT/5/5",
+  "lat": 25.6518566,
+  "lng": 84.3388688,
+  "isInstallationDone": true,
+  "luminary_qr": "861268075119363",
+  "sim_number": "8991102406342584156U",
+  "panel_qr": "ASM12501250003",
+  "battery_qr": "EEPL/01/2025/6638",
+  "submission_image": [
+    {
+      "name": "photo_0_survey_25.6518566_84.3388688.jpg",
+      "type": "image/jpeg",
+      "uri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Fsugslloydsvendorapp-00a8e6d8-2468-4f42-a4f5-d617cf7afc63/Camera/aa1987f5-6844-48c0-b42a-8cd15a29e646.jpg"
+    }
+  ]
+}

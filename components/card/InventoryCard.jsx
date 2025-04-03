@@ -130,7 +130,7 @@ export default function InventoryCard({ item, onPress }) {
                 typography.fontLato,
               ]}
             >
-              {item.quantity}
+              {item.total_quantity}
             </P>
           </View>
 
@@ -146,7 +146,7 @@ export default function InventoryCard({ item, onPress }) {
                 { color: "#27ae60" },
               ]}
             >
-              ₹{totalValue}
+              ₹{item.total_value}
             </P>
           </View>
         </View>

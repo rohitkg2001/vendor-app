@@ -26,7 +26,7 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [beneficiaryName, setBeneficiaryName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [networkAvailable, setNetworkAvailable] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { isSurvey, itemId } = route.params;
   const [wardOptions, setWardOptions] = useState([]);
   const [poleOptions, setPoleOptions] = useState([]);
@@ -38,7 +38,7 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [formattedPole, setFormattedPoleNumber] = useState("");
 
   const dispatch = useDispatch();
-  const { pendingStreetLights } = useSelector(state => state.tasks);
+  const { pendingStreetLights } = useSelector((state) => state.tasks);
 
   function formatString(input) {
     return input
@@ -74,10 +74,13 @@ export default function StartInstallationScreen({ navigation, route }) {
           }))
         );
         const { panchayat, block, district, state } = currentSite.site;
-        const formattedPole = formatString([state, district, block, panchayat].join(" "));
+        const formattedPole = formatString(
+          [state, district, block, panchayat].join(" ")
+        );
         setFormattedPoleNumber(formattedPole);
       }
     }
+    setLoading(false); // set loading
   }, [pendingStreetLights, poleNumber]);
 
   const handleSubmission = async (images) => {
@@ -100,13 +103,13 @@ export default function StartInstallationScreen({ navigation, route }) {
       survey_image: images,
       isSurvey: true,
     };
-    console.log(data)
+    console.log(data);
     const result = await dispatch(submitStreetlightTasks(data));
     if (result == 200) {
-      setLoading(false)
+      setLoading(false);
       navigation.navigate("successScreen", {
         message: "Your task uploaded successfully",
-        nextScreen: "welcomeScreen",
+        nextScreen: "streetLightPendingTask",
       });
     }
   };
@@ -120,12 +123,20 @@ export default function StartInstallationScreen({ navigation, route }) {
   };
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" animating />;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   return (
     <ContainerComponent>
-      <MyHeader isBack title={isSurvey ? "Start Survey" : "Start Installation"} hasIcon />
+      <MyHeader
+        isBack
+        title={isSurvey ? "Start Survey" : "Start Installation"}
+        hasIcon
+      />
       <ScrollView
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
@@ -159,6 +170,7 @@ export default function StartInstallationScreen({ navigation, route }) {
           placeholder="Beneficiary Name"
         />
         <MyTextInput
+          title="Contact Number"
           multiline={false}
           numberOfLines={1}
           value={contactNumber}
@@ -173,6 +185,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         />
 
         <MyTextInput
+          title="Location"
           multiline={true}
           numberOfLines={4}
           value={locationRemarks}
@@ -221,7 +234,6 @@ export default function StartInstallationScreen({ navigation, route }) {
           Take Photo
         </P>
       </TouchableOpacity>
-      ;
       <CameraInput
         isCameraOpen={isCameraVisible}
         setIsCameraOpen={setIsCameraVisible}
