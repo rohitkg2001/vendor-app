@@ -1,5 +1,5 @@
 // import react native
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Modal, Portal } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -98,6 +98,20 @@ export default function InventoryScreen({ navigation }) {
     }));
   };
 
+  const iconMap = {
+    Luminary: "bulb-outline",
+    "Panel Module": "sunny-outline",
+    Battery: "battery-charging-outline",
+    Structure: "cube-outline",
+  };
+
+  const bgColorMap = {
+    Luminary: { bg: "#F8F8F8", icon: "#060606" },
+    "Panel Module": { bg: "#FFFFFF", icon: "#060606" },
+    Battery: { bg: "#E0E0E0", icon: "#060606" },
+    Structure: { bg: "#F0F0F0", icon: "#060606" },
+  };
+
   return (
     <ContainerComponent>
       <MyHeader
@@ -112,13 +126,11 @@ export default function InventoryScreen({ navigation }) {
           },
         ]}
       />
-
       <SearchBar
         value={searchText}
         onChangeText={handleSearchChange}
         style={{ marginHorizontal: 16 }}
       />
-
       <View style={[spacing.mv2, { alignItems: "center" }]}>
         <View
           style={[
@@ -128,44 +140,62 @@ export default function InventoryScreen({ navigation }) {
             {
               width: SCREEN_WIDTH - 8,
               flexWrap: "wrap",
+              justifyContent: "center",
             },
           ]}
         >
-          {inventoryData.map(({ item, quantity, total_value, id }) => (
-            <TouchableOpacity
-              key={id}
-              style={[
-                spacing.m1,
-                spacing.br2,
-                {
-                  width: "47%",
-                  height: 65,
-                  borderWidth: 0.5,
-                  borderColor: "#ddd",
-                  backgroundColor: LIGHT,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  elevation: 1,
-                },
-              ]}
-              onPress={() =>
-                navigation.navigate("inventoryMaterialScreen", {
-                  material: item,
-                })
-              }
-            >
-              <P style={[typography.font14, typography.fontLato]}>{item}</P>
-              <Span style={[typography.font14, typography.fontLato]}>
-                Available Items: {quantity}
-              </Span>
-              <Span style={[typography.font14, typography.fontLato]}>
-                Stock Value: RS{total_value}
-              </Span>
-            </TouchableOpacity>
-          ))}
+          {Object.keys(iconMap).map((itemName) => {
+            const { bg, text, icon } = bgColorMap[itemName];
+            const itemData = inventory?.find(
+              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
+            );
+
+            return (
+              <TouchableOpacity
+                key={itemName}
+                style={[
+                  spacing.m1,
+                  spacing.br2,
+                  {
+                    width: "47%",
+                    height: 100,
+                    backgroundColor: bg,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    elevation: 2,
+                  },
+                ]}
+                onPress={() =>
+                  navigation.navigate("inventoryMaterialScreen", {
+                    material: itemName,
+                  })
+                }
+              >
+                <Icon name={iconMap[itemName]} size={32} color={icon} />
+                <P
+                  style={[spacing.mt1, typography.font16, typography.fontLato]}
+                >
+                  {itemName}
+                </P>
+                <Span style={[typography.font12, typography.fontLato]}>
+                  Quantity: {itemData ? itemData.total_quantity : 0}
+                </Span>
+                <Span
+                  style={[
+                    typography.font14,
+                    typography.textBold,
+                    typography.fontLato,
+                    { color: "#27ae60" },
+                  ]}
+                >
+                  ₹{itemData ? itemData.total_value : 0}
+                </Span>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </View>
-
+      ;
       <MyFlatList
         data={groupInventoryItems(inventory)}
         // keyExtractor={(item) => item.id.toString()}
@@ -182,87 +212,13 @@ export default function InventoryScreen({ navigation }) {
             manufacturer={item.manufacturer}
             rate={item.rate}
             quantity={item.total_quantity}
-            total_value={item.total_value} 
+            total_value={item.total_value}
             dispatch_date={item.dispatch_dates}
             onPress={() => openDetailsModal(item)}
           />
         )}
       />
-
-      {/* Modal Popup */}
-      <Portal>
-        <Modal visible={visible} onDismiss={closeModal}>
-          <View
-            style={[
-              spacing.br3,
-              spacing.p3,
-              {
-                backgroundColor: LIGHT,
-                width: SCREEN_WIDTH - 32,
-                marginHorizontal: 8,
-                minHeight: SCREEN_HEIGHT / 6,
-              },
-            ]}
-          >
-            <TouchableOpacity
-              style={[
-                spacing.br3,
-                {
-                  position: "absolute",
-                  right: -10,
-                  top: -10,
-                  backgroundColor: "red",
-                },
-              ]}
-              onPress={closeModal}
-            >
-              <Icon name="close" color="white" size={ICON_MEDIUM} />
-            </TouchableOpacity>
-
-            {selectedItem && (
-              <>
-                <H5
-                  style={[
-                    typography.font16,
-                    typography.fontLato,
-                    typography.textBold,
-                    spacing.mb2,
-                  ]}
-                >
-                  {selectedItem} Stock Details
-                </H5>
-
-                <P
-                  style={[typography.font14, typography.fontLato, spacing.mb1]}
-                >
-                  🔹 Total Consumed:
-                  <P style={[typography.textBold]}>
-                    {stockData[selectedItem].consumed}
-                  </P>
-                </P>
-
-                <P
-                  style={[typography.font14, typography.fontLato, spacing.mb1]}
-                >
-                  🔹 Total In Stock Till Date:
-                  <P style={[typography.textBold]}>
-                    {stockData[selectedItem].inStock}
-                  </P>
-                </P>
-                <P style={[typography.font14, typography.fontLato]}>
-                  🔹Today Received Material:{" "}
-                  <P style={[typography.textBold]}>
-                    {stockData[selectedItem].receivedToday}
-                  </P>
-                </P>
-              </>
-            )}
-          </View>
-        </Modal>
-      </Portal>
-
       {/* inventory */}
-
       <Portal>
         <Modal visible={showDetailsModal} onDismiss={closeDetailsModal}>
           <View
@@ -294,16 +250,12 @@ export default function InventoryScreen({ navigation }) {
 
             {detailsItem && (
               <>
-                <H5
-                  style={[
-                    typography.font16,
-                    typography.fontLato,
-                    typography.textBold,
-                    spacing.mb2,
-                  ]}
+                <P
+                  style={[typography.font14, typography.fontLato, spacing.mb1]}
                 >
-                  {detailsItem.model} Details
-                </H5>
+                  🔹 Model:{" "}
+                  <P style={[typography.textBold]}>{detailsItem.model}</P>
+                </P>
 
                 <P
                   style={[typography.font14, typography.fontLato, spacing.mb1]}
@@ -312,23 +264,16 @@ export default function InventoryScreen({ navigation }) {
                   <P style={[typography.textBold]}>{detailsItem.make}</P>
                 </P>
 
-                <P
+                <View
                   style={[typography.font14, typography.fontLato, spacing.mb1]}
                 >
-                  🔹 Serial Number:{" "}
-                  <P style={[typography.textBold]}>
-                    {detailsItem.serial_number}
-                  </P>
-                </P>
-
-                {/* <P
-                  style={[typography.font14, typography.fontLato, spacing.mb1]}
-                >
-                  🔹 Serial Number(s):{" "}
-                  <P style={[typography.textBold]}>
-                    {detailsItem.duplicateSerials?.join(", ")}
-                  </P>
-                </P> */}
+                  <P>🔹 Serial Number:</P>
+                  {detailsItem.serial_number?.map((serial, index) => (
+                    <P key={index} style={[typography.textBold]}>
+                      • {serial}
+                    </P>
+                  ))}
+                </View>
               </>
             )}
           </View>

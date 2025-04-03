@@ -5,14 +5,14 @@ import MyHeader from "../components/header/MyHeader";
 import StreetLightImages from "../components/StreetLightImages";
 import { spacing, styles, typography } from "../styles";
 import { P, H5 } from "../components/text";
-import { useEffect } from "react";
+//import { useEffect } from "react";
 
 const StreetLightDetailsScreen = ({ route }) => {
   const { item } = route.params;
 
-  useEffect(() => {
-    console.log(item);
-  }, []);
+  // useEffect(() => {
+  //   console.log(item);
+  // }, []);
 
   // Check if the data is installed
   const isInstalled = item.isInstalled;
@@ -276,11 +276,16 @@ const StreetLightDetailsScreen = ({ route }) => {
             <StreetLightImages source={item.survey_image} />
           </View>
         )}
+
+        {Array.isArray(item.submission_image) &&
+          item.submission_image.length > 0 && (
+            <View style={{ marginTop: 12 }}>
+              <StreetLightImages source={item.submission_image} />
+            </View>
+          )}
       </View>
     </ContainerComponent>
   );
 };
 
 export default StreetLightDetailsScreen;
-
-

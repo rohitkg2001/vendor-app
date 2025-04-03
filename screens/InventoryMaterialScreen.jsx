@@ -1,10 +1,12 @@
-import React, { useState, useCallback } from "react";
-import { Text, View } from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
+import { useCallback, useState } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
+import SearchBar from "../components/input/SearchBar";
+import MyTabView from "../components/customtab/MyTabView";
+import { Text, View } from "react-native";
+import { SceneMap } from "react-native-tab-view";
 
-export default function InventoryMaterialScreen({ route }) {
+export default function InventoryMaterialScreen({ route, navigation }) {
   const { material } = route.params;
   const [searchText, setSearchText] = useState("");
   const handleSearchChange = useCallback((text) => {
@@ -12,26 +14,33 @@ export default function InventoryMaterialScreen({ route }) {
   }, []);
 
   const inventoryTabs = [
-    { key: "totalReceived", title: "Total Received" },
-    { key: "inStock", title: "In Stock" },
-    { key: "consumed", title: "Consumed" },
+    {
+      key: 0,
+      title: "Total Received",
+    },
+    {
+      key: 1,
+      title: "In Stock",
+    },
+    {
+      key: 2,
+      title: "Consumed",
+    },
   ];
 
-  const [index, setIndex] = useState(0);
-
   const renderScene = SceneMap({
-    totalReceived: () => (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    0: () => (
+      <View>
         <Text>Total Received</Text>
       </View>
     ),
-    inStock: () => (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    1: () => (
+      <View>
         <Text>In Stock</Text>
       </View>
     ),
-    consumed: () => (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    2: () => (
+      <View>
         <Text>Consumed</Text>
       </View>
     ),
@@ -51,18 +60,14 @@ export default function InventoryMaterialScreen({ route }) {
           },
         ]}
       />
-      {/* Uncomment SearchBar if required */}
       {/* <SearchBar
         value={searchText}
         onChangeText={handleSearchChange}
-        style={{ marginHorizontal: 16 }}
-      /> */}
-
-      <TabView
-        navigationState={{ index, routes: inventoryTabs }}
+        style={{ marginHorizontal: 16 }} /> */}
+      <MyTabView
         renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: 1000 }}
+        tabs={inventoryTabs}
+        handleIndexChange={(index) => console.log(index)}
       />
     </ContainerComponent>
   );
