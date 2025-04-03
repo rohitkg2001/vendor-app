@@ -58,10 +58,9 @@ const SubmitInstallationScreen = ({ navigation }) => {
   };
 
   // Handle QR scan for Luminary
-  const handleLuminaryQR = ( val ) =>
-  {
-    console.log(val)
-    const luminarySerial = val.split( ";" )[ 0 ]?.toString() || "";
+  const handleLuminaryQR = (val) => {
+    console.log(val);
+    const luminarySerial = val.split(";")[0]?.toString() || "";
     const values = val.split(";");
     if (isSerialNumberValid(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);
@@ -150,7 +149,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
       luminary_qr: luminarySerialNumber,
       battery_qr: batterySerialNumber,
       panel_qr: panelSerialNumber,
-      
+
       submission_image: image,
       lat: image[0].lat,
       lng: image[0].long,
