@@ -1,60 +1,148 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, TouchableOpacity } from "react-native";
-import { useRoute } from "@react-navigation/native"; // Import useRoute
+import { ScrollView, View, TouchableOpacity, Alert } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import { LIGHT, spacing, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
 import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
 import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
-import { Text } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
+import { getAllItems } from "../redux/actions/inventoryActions";
 
 const SubmitInstallationScreen = ({ navigation }) => {
-  const route = useRoute(); // Get route params using useRoute hook
+  const route = useRoute();
+  const { data } = route.params || {}; // Fetch data from route params
 
-  const { data } = route.params || {}; // Safely access 'data' passed from the previous screen
+  const { complete_pole_number, panchayat, block, ward, pole } = data || {}; // Ensure data is present
 
-  // Log the data coming from the previous screen to make sure it's passed correctly
+  // Log the data to ensure it is passed correctly
   useEffect(() => {
-    console.log("Received data:", data); // Debugging step to check if the data is correct
+    console.log("Received data:", data); // Debugging step
   }, [data]);
 
-  // Check if 'data' exists, otherwise return null or an error message
   if (!data) {
     console.error("No data received from previous screen!");
-    return null; // Or render an error message
+    return null; // Or render an error message if the data is missing
   }
 
-  const { complete_pole_number, panchayat, block, ward, pole } = data; // Destructure the data passed
-
-  // Use state only if you need to modify the values, otherwise, directly use data from route.params
+  // State for serial numbers and validation
   const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
-  const [simNumber, setSimNumber] = useState("");
   const [batterySerialNumber, setBatterySerialNumber] = useState("");
   const [panelSerialNumber, setPanelSerialNumber] = useState("");
-  const [contactNumber, setContactNumber] = useState(pole.beneficiary_contact);
+  const [luminaryValid, setLuminaryValid] = useState(false);
+  const [batteryValid, setBatteryValid] = useState(false);
+  const [panelValid, setPanelValid] = useState(false);
   const [isCameraVisible, setIsCameraVisible] = useState(false);
+  const [contactNumber, setContactNumber] = useState(
+    pole.beneficiary_contact || ""
+  ); // Use contact from pole data
+  const [locationRemarks, setLocationRemarks] = useState(pole.remarks || ""); // Use remarks from pole data
 
+  const dispatch = useDispatch();
+  const inventory = useSelector((state) => state.inventory.inventory);
+
+  // Check if a serial number exists in the inventory
+  const isSerialNumberValid = (serialNumber) => {
+    if (!inventory || inventory.length === 0) {
+      console.warn("Inventory is not available yet.");
+      return false;
+    }
+
+    // Loop through the inventory items and check if the serial number exists in the serial_number array
+    return inventory.some(
+      (item) => item.serial_number && item.serial_number.includes(serialNumber)
+    );
+  };
+
+  // Handle QR scan for Luminary
+  const handleLuminaryQR = (val) => {
+    const luminarySerial = val.split(";")[0]?.toString() || "";
+    if (isSerialNumberValid(luminarySerial)) {
+      setLuminarySerialNumber(luminarySerial);
+      setLuminaryValid(true);
+    } else {
+      setLuminaryValid(false);
+      Alert.alert(
+        "Invalid Serial Number",
+        "This Luminary serial number is not valid."
+      );
+    }
+  };
+
+  // Handle QR scan for Battery
+  const handleBatteryQR = (val) => {
+    const batterySerial = val.split(";")[0]?.toString() || "";
+    if (isSerialNumberValid(batterySerial)) {
+      setBatterySerialNumber(batterySerial);
+      setBatteryValid(true);
+    } else {
+      setBatteryValid(false);
+      Alert.alert(
+        "Invalid Serial Number",
+        "This Battery serial number is not valid."
+      );
+    }
+  };
+
+  // Handle QR scan for Panel
+  const handlePanelQR = (val) => {
+    const panelSerial = val.split(";")[0]?.toString() || "";
+    if (isSerialNumberValid(panelSerial)) {
+      setPanelSerialNumber(panelSerial);
+      setPanelValid(true);
+    } else {
+      setPanelValid(false);
+      Alert.alert(
+        "Invalid Serial Number",
+        "This Panel serial number is not valid."
+      );
+    }
+  };
+
+  // Handle manual input for serial numbers
+  const handleManualInput = (value, type) => {
+    const serialNumber = value.trim(); // Clean up input
+    if (isSerialNumberValid(serialNumber)) {
+      if (type === "luminary") {
+        setLuminarySerialNumber(serialNumber);
+        setLuminaryValid(true);
+      }
+      if (type === "battery") {
+        setBatterySerialNumber(serialNumber);
+        setBatteryValid(true);
+      }
+      if (type === "panel") {
+        setPanelSerialNumber(serialNumber);
+        setPanelValid(true);
+      }
+    } else {
+      setLuminaryValid(false);
+      setBatteryValid(false);
+      setPanelValid(false);
+      Alert.alert("Invalid Serial Number", "This serial number is not valid.");
+    }
+  };
+
+  // Handle Take Photo button click
   const handleTakePhoto = () => {
+    if (!luminaryValid || !batteryValid || !panelValid) {
+      Alert.alert(
+        "Invalid Data",
+        "Please ensure all serial numbers are valid before taking a photo."
+      );
+      return; // Prevent opening camera if serial numbers are not valid
+    }
     setIsCameraVisible(true);
   };
 
-  const handleLuminaryQR = (val) => {
-    const values = val.split(";");
-    setLuminarySerialNumber(values[0]?.toString() || "");
-    setSimNumber(values[1]?.toString() || "");
-  };
-
-  const dispatch = useDispatch();
-
+  // Handle form submission
   const handleSubmission = async (image) => {
     const submissionData = {
       task_id: pole.task_id,
       complete_pole_number,
       luminary_qr: luminarySerialNumber,
-      sim_number: simNumber,
       battery_qr: batterySerialNumber,
       panel_qr: panelSerialNumber,
       submission_image: image,
@@ -78,7 +166,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
         <View>
           <View style={[styles.row, { alignItems: "center" }]}>
             <P style={[typography.font14]}>Panchayat:</P>
-
             <P style={[typography.font14, { right: 10 }]}>{data.panchayat}</P>
           </View>
 
@@ -86,8 +173,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
             <P style={[typography.font14]}>Block:</P>
             <P style={[typography.font14, { right: 10 }]}>{data.block}</P>
           </View>
-          {/* <P style={[typography.font14]}>{data.pole_number}</P> */}
-          {/* <P style={[typography.font14]}>{data.ward}</P> */}
         </View>
 
         <MyTextInput
@@ -99,20 +184,18 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
         {/* Luminary QR and Serial Number */}
         <View style={[spacing.pv2, { backgroundColor: "#f0f0f0" }]}>
-          <QRScanner title="Scan Luminary QR" onScan={handleLuminaryQR} />
+          <QRScanner
+            title="Scan Luminary QR"
+            onScan={handleLuminaryQR}
+            disabled={!luminaryValid} // Disable QR scanner if serial number is not valid
+          />
           <MyTextInput
             title="Luminary Serial Number"
             placeholder="Enter Luminary Serial Number"
             value={luminarySerialNumber}
-            onChangeText={setLuminarySerialNumber}
+            onChangeText={(text) => handleManualInput(text, "luminary")}
             keyboardType="numeric"
-          />
-          <MyTextInput
-            title="SIM Number"
-            placeholder="Enter SIM Number"
-            value={simNumber}
-            onChangeText={setSimNumber}
-            keyboardType="numeric"
+            editable={true} // Disable input if serial number is not valid
           />
         </View>
 
@@ -120,13 +203,18 @@ const SubmitInstallationScreen = ({ navigation }) => {
         <View
           style={[spacing.mv2, spacing.pv2, { backgroundColor: "#f0f0f0" }]}
         >
-          <QRScanner title="Scan Battery QR" onScan={setBatterySerialNumber} />
+          <QRScanner
+            title="Scan Battery QR"
+            onScan={handleBatteryQR}
+            disabled={!batteryValid} // Disable QR scanner if serial number is not valid
+          />
           <MyTextInput
             title="Battery Serial Number"
             placeholder="Enter Battery Serial Number"
             value={batterySerialNumber}
-            onChangeText={setBatterySerialNumber}
+            onChangeText={(text) => handleManualInput(text, "battery")}
             keyboardType="numeric"
+            editable={true} // Disable input if serial number is not valid
           />
         </View>
 
@@ -134,25 +222,28 @@ const SubmitInstallationScreen = ({ navigation }) => {
         <View
           style={[spacing.mv2, spacing.pv2, { backgroundColor: "#f0f0f0" }]}
         >
-          <QRScanner title="Scan Panel QR" onScan={setPanelSerialNumber} />
+          <QRScanner
+            title="Scan Panel QR"
+            onScan={handlePanelQR}
+            disabled={!panelValid} // Disable QR scanner if serial number is not valid
+          />
           <MyTextInput
             title="Panel Serial Number"
             placeholder="Enter Panel Serial Number"
             value={panelSerialNumber}
-            onChangeText={setPanelSerialNumber}
+            onChangeText={(text) => handleManualInput(text, "panel")}
             keyboardType="numeric"
+            editable={true} // Disable input if serial number is not valid
           />
         </View>
 
         {/* Beneficiary and Contact Details */}
-
         <MyTextInput
           title="Beneficiary Name"
           placeholder="Beneficiary Name"
           value={pole.beneficiary}
-          onChangeText={(text) => console.log("Beneficiary changed:", text)} // Example change handler
+          editable={false} // Prevent editing beneficiary name
         />
-
         <MyTextInput
           title="Contact Number"
           placeholder="Contact Number"
@@ -168,12 +259,13 @@ const SubmitInstallationScreen = ({ navigation }) => {
         <MyTextInput
           title="Location Remarks"
           placeholder="Enter Location Remarks"
-          value={pole.remarks}
-          onChangeText={(text) => console.log("Remarks changed:", text)} // Example change handler
+          value={locationRemarks}
+          onChangeText={setLocationRemarks}
           multiline
           numberOfLines={4}
         />
 
+        {/* Network Availability */}
         <View
           style={[
             spacing.m2,
@@ -188,7 +280,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
           <P style={[typography.font14, typography.textBold]}>
             Network Availability (Airtel)
           </P>
-
           <View
             style={[
               spacing.p1,

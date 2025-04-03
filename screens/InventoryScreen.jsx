@@ -98,19 +98,19 @@ export default function InventoryScreen({ navigation }) {
     }));
   };
 
-  const iconMap = {
-    Luminary: "bulb-outline",
-    "Panel Module": "sunny-outline",
-    Battery: "battery-charging-outline",
-    Structure: "cube-outline",
-  };
+const iconMap = {
+  Luminary: "bulb-outline",
+  "Panel Module": "sunny-outline",
+  Battery: "battery-charging-outline",
+  Structure: "cube-outline",
+};
 
-  const bgColorMap = {
-    Luminary: { bg: "#F8F8F8", icon: "#060606" },
-    "Panel Module": { bg: "#FFFFFF", icon: "#060606" },
-    Battery: { bg: "#E0E0E0", icon: "#060606" },
-    Structure: { bg: "#F0F0F0", icon: "#060606" },
-  };
+const bgColorMap = {
+  Luminary: { bg: "#F8F8F8", icon: "#060606" },
+  "Panel Module": { bg: "#FFFFFF", icon: "#060606" },
+  Battery: { bg: "#E0E0E0", icon: "#060606" },
+  Structure: { bg: "#F0F0F0", icon: "#060606" },
+};
 
   return (
     <ContainerComponent>

@@ -321,10 +321,10 @@ const StreetLightPendingTask = ({ navigation }) => {
             <Tabs
               tabs={[
                 `All ${tabCounts.All}`,
-                `Surveyed poles ${tabCounts.Survey}`,
+               `Surveyed poles ${tabCounts.Survey}`,
                 `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
-                // `InApproved ${tabCounts.InApproved}`,
+                // InApproved `${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {

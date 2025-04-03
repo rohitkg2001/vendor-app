@@ -109,7 +109,6 @@ export default function StartInstallationScreen({ navigation, route }) {
       setLoading(false);
       navigation.navigate("successScreen", {
         message: "Your task uploaded successfully",
-        // nextScreen: "welcomeScreen",
         nextScreen: "streetLightPendingTask",
       });
     }
