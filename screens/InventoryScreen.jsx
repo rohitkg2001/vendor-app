@@ -6,12 +6,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import MyFlatList from "../components/utility/MyFlatList";
-import { inventoryData } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { getAllItems } from "../redux/actions/inventoryActions";
 import SearchBar from "../components/input/SearchBar";
 
 import {
@@ -23,7 +21,7 @@ import {
   SCREEN_HEIGHT,
   ICON_MEDIUM,
 } from "../styles";
-import { H5, H6, Span } from "../components/text";
+import { Span } from "../components/text";
 import { P } from "../components/text";
 
 export default function InventoryScreen({ navigation }) {
