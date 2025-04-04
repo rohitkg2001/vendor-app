@@ -30,13 +30,18 @@ export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
 
-  const { inventory } = useSelector((state) => state.inventory);
+  // const { inventory } = useSelector((state) => state.inventory);
+  const { today_inventory } = useSelector((state) => state.inventory);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [detailsItem, setDetailsItem] = useState(null);
 
+  // useEffect(() => {
+  //   console.log("Fetched Inventory Data:", { inventory });
+  // }, [inventory]);
+
   useEffect(() => {
-    console.log("Fetched Inventory Data:", { inventory });
-  }, [inventory]);
+    console.log("Fetched Today Inventory Data:", { today_inventory });
+  }, [today_inventory]);
 
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
@@ -132,7 +137,7 @@ export default function InventoryScreen({ navigation }) {
         >
           {Object.keys(iconMap).map((itemName) => {
             const { bg, text, icon } = bgColorMap[itemName];
-            const itemData = inventory?.find(
+            const itemData = today_inventory?.find(
               (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
             );
 
@@ -185,7 +190,7 @@ export default function InventoryScreen({ navigation }) {
       </View>
       ;
       <MyFlatList
-        data={groupInventoryItems(inventory)}
+        data={groupInventoryItems(today_inventory)}
         // keyExtractor={(item) => item.id.toString()}
         keyExtractor={(item) =>
           item.id ? item.id.toString() : Math.random().toString()

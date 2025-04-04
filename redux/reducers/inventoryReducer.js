@@ -4,6 +4,7 @@ import {
   COUNT_INVENTORY,
   GET_ALL_INVENTORY,
   SET_TOTAL_INVENTORY_VALUE,
+  GET_TODAY_INVENTORY,
 } from "../constant";
 
 const initialState = {
@@ -16,9 +17,9 @@ export const inventoryReducer = (state = initialState, action) => {
     case GET_ALL_INVENTORY:
       return { ...state, inventory: action.payload };
     case SET_TOTAL_INVENTORY_VALUE:
-      return { ...state, total_inventory_value: action.payload }
+      return { ...state, total_inventory_value: action.payload };
     case VIEW_INVENTORY:
-      return { ...state, currentItem: action.payload, };
+      return { ...state, currentItem: action.payload };
 
     case UPDATE_INVENTORY:
       return { ...state, inventory: action.payload };
@@ -27,6 +28,8 @@ export const inventoryReducer = (state = initialState, action) => {
         ...state,
         count: state.inventory.length,
       };
+    case GET_TODAY_INVENTORY:
+      return { ...state, today_inventory: action.payload };
     default:
       return state;
   }
