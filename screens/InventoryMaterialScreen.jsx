@@ -28,7 +28,7 @@ export default function InventoryMaterialScreen({ route }) {
   const [searchText, setSearchText] = useState("");
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-   useEffect(() => {
+  useEffect(() => {
     let list = [];
 
     const getCount = (tabName) => {
