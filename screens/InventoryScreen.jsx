@@ -23,16 +23,19 @@ import {
   SCREEN_HEIGHT,
   ICON_MEDIUM,
 } from "../styles";
-import { H5, H6, Span } from "../components/text";
+import {  Span } from "../components/text";
 import { P } from "../components/text";
 
 export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
 
-  const { inventory } = useSelector((state) => state.inventory);
+  // const { inventory } = useSelector( ( state ) => state.inventory );
+  const [isTodayInventory, setIsTodayInventory] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [detailsItem, setDetailsItem] = useState(null);
+  const [ detailsItem, setDetailsItem ] = useState( null );
+  const { inventory, todayInventory } = useSelector((state) => state.inventory);
+
 
   useEffect(() => {
     console.log("Fetched Inventory Data:", { inventory });
@@ -97,7 +100,7 @@ export default function InventoryScreen({ navigation }) {
     Battery: { bg: "#E0E0E0", icon: "#060606" },
     Structure: { bg: "#F0F0F0", icon: "#060606" },
   };
-
+const inventoryToShow = isTodayInventory ? todayInventory : inventory;
   return (
     <ContainerComponent>
       <MyHeader
@@ -185,7 +188,7 @@ export default function InventoryScreen({ navigation }) {
       </View>
       ;
       <MyFlatList
-        data={groupInventoryItems(inventory)}
+        data={groupInventoryItems(inventoryToShow)}
         // keyExtractor={(item) => item.id.toString()}
         keyExtractor={(item) =>
           item.id ? item.id.toString() : Math.random().toString()
