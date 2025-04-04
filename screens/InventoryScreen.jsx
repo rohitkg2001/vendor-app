@@ -31,8 +31,13 @@ export default function InventoryScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
 
   // const { inventory } = useSelector((state) => state.inventory);
-  const { today_inventory, all_inventory, total_received_inventory } =
-    useSelector((state) => state.inventory);
+  const {
+    today_inventory,
+    all_inventory,
+    total_received_inventory,
+    in_stock,
+    consumed,
+  } = useSelector((state) => state.inventory);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [detailsItem, setDetailsItem] = useState(null);
 
@@ -140,6 +145,14 @@ export default function InventoryScreen({ navigation }) {
               (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
             );
 
+            // Find the item in in_stock and consumed as well
+            const inStockData = in_stock?.find(
+              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
+            );
+            const consumedData = consumed?.find(
+              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
+            );
+
             // Calculate the counts
             const totalReceived = itemData ? itemData.total_quantity : 0;
 
@@ -161,10 +174,9 @@ export default function InventoryScreen({ navigation }) {
                 onPress={() =>
                   navigation.navigate("inventoryMaterialScreen", {
                     materialItem: itemData,
-
                     totalReceived,
-                    inStock: itemData.in_stock,
-                    consumed: itemData.consumed,
+                    inStock: inStockData,
+                    consumed: consumedData,
                   })
                 }
               >

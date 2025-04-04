@@ -18,8 +18,8 @@ export default function InventoryMaterialScreen({ route }) {
 
   const [tabCounts, setTabCounts] = useState({
     "Total Received": totalReceived,
-    "In Stock": inStock,
-    Consumed: consumed,
+    "In Stock": inStock?.total_quantity || 0, // Get the in_stock quantity
+    Consumed: consumed?.total_quantity || 0,
   });
 
   const [dummyList, setDummyList] = useState([]);
