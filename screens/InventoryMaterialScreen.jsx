@@ -18,7 +18,7 @@ export default function InventoryMaterialScreen({ route }) {
 
   const [tabCounts, setTabCounts] = useState({
     "Total Received": totalReceived,
-    "In Stock": inStock?.total_quantity || 0, // Get the in_stock quantity
+    "In Stock": inStock?.total_quantity || 0,
     Consumed: consumed?.total_quantity || 0,
   });
 
@@ -26,23 +26,32 @@ export default function InventoryMaterialScreen({ route }) {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [activeTab, setActiveTab] = useState("Total Received");
   const [searchText, setSearchText] = useState("");
-  const [expandedIndex, setExpandedIndex] = useState(null); // Track which card is expanded
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
-  useEffect(() => {
-    const list = [];
+   useEffect(() => {
+    let list = [];
 
-    for (let i = 0; i < totalReceived; i++) {
+    const getCount = (tabName) => {
+      if (tabName === "Total Received") return totalReceived;
+      if (tabName === "In Stock") return inStock?.total_quantity || 0;
+      if (tabName === "Consumed") return consumed?.total_quantity || 0;
+      return 0;
+    };
+
+    const count = getCount(activeTab);
+
+    for (let i = 0; i < count; i++) {
       list.push({
-        id: i + 1,
+        id: `${activeTab}-${i + 1}`,
         site: {
-          site_name: `${materialItem.item} - ${i + 1}`,
+          site_name: `${item} -  ${i + 1}`,
         },
         model: materialItem.model,
         item_code: materialItem.item_code,
         make: materialItem.make,
         manufacturer: materialItem.manufacturer,
         dispatch_date: materialItem.dispatch_dates?.[i] || "N/A",
-        serial_number: materialItem.serial_number?.[i] || SN - `${i + 1}`,
+        serial_number: materialItem.serial_number?.[i] || `SN-${i + 1}`,
         store_name: materialItem.store_name,
         store_incharge: materialItem.store_incharge,
       });
@@ -50,7 +59,7 @@ export default function InventoryMaterialScreen({ route }) {
 
     setDummyList(list);
     setFilteredTasks(list);
-  }, [materialItem, totalReceived]);
+  }, [activeTab, materialItem, totalReceived, inStock, consumed]);
 
   useEffect(() => {
     const filtered = dummyList.filter((item) =>
