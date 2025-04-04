@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { useTranslation } from "react-i18next";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
@@ -13,18 +13,20 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export default function InventoryMaterialScreen({ route }) {
   const { t } = useTranslation();
-  const { materialItem } = route.params;
-  const { item, total_quantity: totalReceived } = materialItem;
+  const { materialItem, totalReceived, inStock, consumed } = route.params;
+  const { item } = materialItem;
 
+  // Initialize the state for tab counts
   const [tabCounts, setTabCounts] = useState({
     "Total Received": totalReceived,
-    "In Stock": 0,
-    Consumed: 0,
+    "In Stock": inStock,
+    "Consumed": consumed,
   });
 
   const [dummyList, setDummyList] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
-  const [activeTab, setActiveTab] = useState("Total Received");
+  const [ activeTab, setActiveTab ] = useState( "Total Received , In Stock , Consumed" );
+  
   const [searchText, setSearchText] = useState("");
   const [expandedIndex, setExpandedIndex] = useState(null); // Track which card is expanded
 
@@ -50,7 +52,31 @@ export default function InventoryMaterialScreen({ route }) {
 
     setDummyList(list);
     setFilteredTasks(list);
-  }, [materialItem, totalReceived]);
+  }, [ materialItem, totalReceived ] );
+  
+   useEffect(() => {
+     const list = [];
+
+     for (let i = 0; i < totalReceived; i++) {
+       list.push({
+         id: i + 1,
+         site: {
+           site_name: `${materialItem.item} - ${i + 1}`,
+         },
+         model: materialItem.model,
+         item_code: materialItem.item_code,
+         make: materialItem.make,
+         manufacturer: materialItem.manufacturer,
+         dispatch_date: materialItem.dispatch_dates?.[i] || "N/A",
+         serial_number: materialItem.serial_number?.[i] || `SN-${i + 1}`,
+         store_name: materialItem.store_name,
+         store_incharge: materialItem.store_incharge,
+       });
+     }
+
+     setDummyList(list);
+     setFilteredTasks(list);
+   }, [materialItem, totalReceived]);
 
   useEffect(() => {
     const filtered = dummyList.filter((item) =>

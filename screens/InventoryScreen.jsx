@@ -6,12 +6,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import MyFlatList from "../components/utility/MyFlatList";
-import { inventoryData } from "../utils/faker";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { getAllItems } from "../redux/actions/inventoryActions";
 import SearchBar from "../components/input/SearchBar";
 
 import {
@@ -23,23 +21,26 @@ import {
   SCREEN_HEIGHT,
   ICON_MEDIUM,
 } from "../styles";
-import {  Span } from "../components/text";
+import { Span } from "../components/text";
 import { P } from "../components/text";
 
 export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
 
-  // const { inventory } = useSelector( ( state ) => state.inventory );
-  const [isTodayInventory, setIsTodayInventory] = useState(false);
+  // const { inventory } = useSelector((state) => state.inventory);
+  const { today_inventory, all_inventory, total_received_inventory } =
+    useSelector((state) => state.inventory);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [ detailsItem, setDetailsItem ] = useState( null );
-  const { inventory, todayInventory } = useSelector((state) => state.inventory);
+  const [detailsItem, setDetailsItem] = useState(null);
 
+  // useEffect(() => {
+  //   console.log("Fetched Inventory Data:", { inventory });
+  // }, [inventory]);
 
   useEffect(() => {
-    console.log("Fetched Inventory Data:", { inventory });
-  }, [inventory]);
+    console.log("Fetched Today Inventory Data:", { today_inventory });
+  }, [today_inventory]);
 
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
@@ -100,7 +101,7 @@ export default function InventoryScreen({ navigation }) {
     Battery: { bg: "#E0E0E0", icon: "#060606" },
     Structure: { bg: "#F0F0F0", icon: "#060606" },
   };
-const inventoryToShow = isTodayInventory ? todayInventory : inventory;
+
   return (
     <ContainerComponent>
       <MyHeader
@@ -134,10 +135,16 @@ const inventoryToShow = isTodayInventory ? todayInventory : inventory;
           ]}
         >
           {Object.keys(iconMap).map((itemName) => {
-            const { bg, text, icon } = bgColorMap[itemName];
-            const itemData = inventory?.find(
+            const { bg, icon } = bgColorMap[itemName];
+
+            // Find the item in total_received_inventory
+            const itemData = total_received_inventory?.find(
               (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
             );
+            // Calculate the counts
+            const totalReceived = itemData ? itemData.total_quantity : 0;
+            const inStock = itemData ? itemData.in_stock : 0; // Add in_stock if available
+            const consumed = itemData ? itemData.consumed : 0; // Add consumed if available
 
             return (
               <TouchableOpacity
@@ -156,9 +163,10 @@ const inventoryToShow = isTodayInventory ? todayInventory : inventory;
                 ]}
                 onPress={() =>
                   navigation.navigate("inventoryMaterialScreen", {
-                    // material: itemName,
-                    // totalReceived: itemData ? itemData.total_quantity : 0,
                     materialItem: itemData,
+                    totalReceived,
+                    inStock,
+                    consumed,
                   })
                 }
               >
@@ -188,8 +196,7 @@ const inventoryToShow = isTodayInventory ? todayInventory : inventory;
       </View>
       ;
       <MyFlatList
-        data={groupInventoryItems(inventoryToShow)}
-        // keyExtractor={(item) => item.id.toString()}
+        data={groupInventoryItems(today_inventory)}
         keyExtractor={(item) =>
           item.id ? item.id.toString() : Math.random().toString()
         }
