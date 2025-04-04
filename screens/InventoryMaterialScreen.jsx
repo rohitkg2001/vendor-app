@@ -1,86 +1,15 @@
-// import React, { useState, useCallback } from "react";
-// import { Text, View } from "react-native";
-// import { TabView, SceneMap } from "react-native-tab-view";
-// import ContainerComponent from "../components/ContainerComponent";
-// import MyHeader from "../components/header/MyHeader";
-
-// export default function InventoryMaterialScreen({ route }) {
-//   const { material } = route.params;
-//   const [searchText, setSearchText] = useState("");
-//   const handleSearchChange = useCallback((text) => {
-//     setSearchText(text);
-//   }, []);
-
-//   const inventoryTabs = [
-//     { key: "totalReceived", title: "Total Received" },
-//     { key: "inStock", title: "In Stock" },
-//     { key: "consumed", title: "Consumed" },
-//   ];
-
-//   const [index, setIndex] = useState(0);
-
-//   const renderScene = SceneMap({
-//     totalReceived: () => (
-//       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//         <Text>Total Received</Text>
-//       </View>
-//     ),
-//     inStock: () => (
-//       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//         <Text>In Stock</Text>
-//       </View>
-//     ),
-//     consumed: () => (
-//       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//         <Text>Consumed</Text>
-//       </View>
-//     ),
-//   });
-
-//   return (
-//     <ContainerComponent>
-//       <MyHeader
-//         title={`${material} Details`}
-//         isBack={true}
-//         hasIcon={true}
-//         icon="ellipsis-vertical"
-//         menuItems={[
-//           {
-//             title: "Export to Excel",
-//             onPress: () => console.log("Export to Excel"),
-//           },
-//         ]}
-//       />
-//       {/* Uncomment SearchBar if required */}
-//       {/* <SearchBar
-//         value={searchText}
-//         onChangeText={handleSearchChange}
-//         style={{ marginHorizontal: 16 }}
-//       /> */}
-
-//       <TabView
-//         navigationState={{ index, routes: inventoryTabs }}
-//         renderScene={renderScene}
-//         onIndexChange={setIndex}
-//         initialLayout={{ width: 1000 }}
-//       />
-//     </ContainerComponent>
-//   );
-// }
-
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useTranslation } from "react-i18next";
-//import MyHeader from "../components/MyHeader";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ContainerComponent from "../components/ContainerComponent";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import Tabs from "../components/Tabs";
-
 import { P } from "../components/text";
 import NoRecord from "./NoRecord";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default function InventoryMaterialScreen({ route }) {
   const { t } = useTranslation();
@@ -97,6 +26,7 @@ export default function InventoryMaterialScreen({ route }) {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [activeTab, setActiveTab] = useState("Total Received");
   const [searchText, setSearchText] = useState("");
+  const [expandedIndex, setExpandedIndex] = useState(null); // Track which card is expanded
 
   useEffect(() => {
     const list = [];
@@ -122,7 +52,6 @@ export default function InventoryMaterialScreen({ route }) {
     setFilteredTasks(list);
   }, [materialItem, totalReceived]);
 
-  // Filter tasks based on search input
   useEffect(() => {
     const filtered = dummyList.filter((item) =>
       item.site?.site_name.toLowerCase().includes(searchText.toLowerCase())
@@ -137,6 +66,10 @@ export default function InventoryMaterialScreen({ route }) {
   const handleTabChange = (selectedTab) => {
     const tabName = selectedTab.split(" (")[0];
     setActiveTab(tabName);
+  };
+
+  const toggleExpand = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index); // Toggle expand/collapse
   };
 
   return (
@@ -159,14 +92,32 @@ export default function InventoryMaterialScreen({ route }) {
         keyboardDismissMode="none"
         renderItem={({ item, index }) => (
           <ClickableCard1 key={index} title={item.site?.site_name}>
-            <P>Model: {item.model}</P>
-            <P>Manufacturer: {item.manufacturer}</P>
-            <P>Dispatch Date: {item.dispatch_date}</P>
-            <P>Serial Number: {item.serial_number}</P>
             <P>Item Code: {item.item_code}</P>
-            <P>Make: {item.make}</P>
-            <P>Store Name: {item.store_name}</P>
-            <P>Store Incharge: {item.store_incharge}</P>
+
+            {/* Toggle button with icon */}
+            <TouchableOpacity
+              onPress={() => toggleExpand(index)}
+              style={{ position: "absolute", right: 10, bottom: 12 }}
+            >
+              <Icon
+                name={expandedIndex === index ? "chevron-up" : "chevron-down"}
+                size={38}
+                color="#76885B"
+              />
+            </TouchableOpacity>
+
+            {/* Show details when expanded */}
+            {expandedIndex === index && (
+              <>
+                <P>Model: {item.model}</P>
+                <P>Manufacturer: {item.manufacturer}</P>
+                <P>Dispatch Date: {item.dispatch_date}</P>
+                <P>Serial Number: {item.serial_number}</P>
+                <P>Make: {item.make}</P>
+                <P>Store Name: {item.store_name}</P>
+                <P>Store Incharge: {item.store_incharge}</P>
+              </>
+            )}
           </ClickableCard1>
         )}
         keyExtractor={(item) => item.id.toString()}
