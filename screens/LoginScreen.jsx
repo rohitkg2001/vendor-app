@@ -12,9 +12,10 @@ import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 
+
 // Import components
 import MyImageBackground from "../components/MyImageBackground";
-import { H1, H5, Span, H2, P } from "../components/text";
+import { Span, H2, P } from "../components/text";
 import MyTextInput from "../components/input/MyTextInput";
 import Button from "../components/buttons/Button";
 // import reducers(action,reducer)
@@ -22,6 +23,13 @@ import { login } from "../redux/actions/vendorActions";
 import { alertMessage } from "../utils/faker";
 // import styles
 import { layouts, spacing, typography, ICON_LARGE, styles } from "../styles";
+
+//Data to get loaded at time of login
+import { submitStreetlightTasks } from "../redux/actions/taskActions";
+import { getViewPoles } from "../redux/actions/taskActions";
+import { surveyTask } from "../redux/actions/taskActions";
+import { setInApprovalCount } from "../redux/actions/taskActions";
+import { getAllItem } from "../redux/actions/inventoryActions";
 
 export default function LoginScreen({ navigation, route }) {
   const [username, setUsername] = useState("");
