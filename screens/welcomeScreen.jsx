@@ -68,7 +68,7 @@ export default function WelcomeScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh1]}
       >
-        <CardFullWidth backgroundColor={LIGHT} style={[spacing.mb4]}>
+        <CardFullWidth backgroundColor={LIGHT} style={{ marginLeft: 5 }}>
           <H5
             style={[
               typography.font16,
@@ -162,7 +162,7 @@ export default function WelcomeScreen({ navigation }) {
             style={[
               styles.row,
               spacing.mb4,
-              { justifyContent: "space-between", gap: 10 },
+              { justifyContent: "space-between", gap: 10, marginLeft: 7 },
             ]}
           >
             <TouchableOpacity
@@ -200,7 +200,10 @@ export default function WelcomeScreen({ navigation }) {
           </View>
 
           <View
-            style={[styles.row, { justifyContent: "space-between", gap: 10 }]}
+            style={[
+              styles.row,
+              { justifyContent: "space-between", gap: 10, marginLeft: 7 },
+            ]}
           >
             <TouchableOpacity
               //  onPress={() => navigation.navigate("sitelocationscreen")}
@@ -228,8 +231,6 @@ export default function WelcomeScreen({ navigation }) {
               </P>
             </TouchableOpacity>
 
-           
-
             <TouchableOpacity
               onPress={() => navigation.navigate("inventoryScreen")}
               style={[
@@ -251,14 +252,17 @@ export default function WelcomeScreen({ navigation }) {
           </View>
         </View>
 
-        <CardFullWidth backgroundColor={LIGHT}>
+        <CardFullWidth
+          backgroundColor={LIGHT}
+          style={{ marginLeft: 5 }} // Shifting the card to the right
+        >
           <View style={[styles.row, { alignItems: "center" }]}>
             <Icon name="filter" size={ICON_SMALL} color={PRIMARY_COLOR} />
             <H6
               style={[
                 typography.fontLato,
                 typography.textBold,
-                { marginRight: 170 },
+                { marginRight: 200 },
               ]}
             >
               {"Progress Report"}

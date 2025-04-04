@@ -1,7 +1,7 @@
 import { View } from "react-native";
-import { spacing, styles, LIGHT } from "../../styles";
+import { spacing, styles } from "../../styles";
 
-export default function CardFullWidth({ backgroundColor, children }) {
+export default function CardFullWidth({ backgroundColor, children, style }) {
   return (
     <View
       style={[
@@ -10,6 +10,7 @@ export default function CardFullWidth({ backgroundColor, children }) {
         spacing.bw05,
         { ...styles.cardFullWidth, backgroundColor },
         spacing.br2,
+        style, // Merge the passed style here
       ]}
     >
       {children}
