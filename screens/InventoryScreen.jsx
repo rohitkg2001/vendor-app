@@ -31,13 +31,10 @@ export default function InventoryScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
 
   // const { inventory } = useSelector((state) => state.inventory);
-  const { today_inventory } = useSelector((state) => state.inventory);
+  const { today_inventory, all_inventory, total_received_inventory } =
+    useSelector((state) => state.inventory);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [detailsItem, setDetailsItem] = useState(null);
-
-  // useEffect(() => {
-  //   console.log("Fetched Inventory Data:", { inventory });
-  // }, [inventory]);
 
   useEffect(() => {
     console.log("Fetched Today Inventory Data:", { today_inventory });
@@ -136,10 +133,15 @@ export default function InventoryScreen({ navigation }) {
           ]}
         >
           {Object.keys(iconMap).map((itemName) => {
-            const { bg, text, icon } = bgColorMap[itemName];
-            const itemData = today_inventory?.find(
+            const { bg, icon } = bgColorMap[itemName];
+
+            // Find the item in total_received_inventory
+            const itemData = total_received_inventory?.find(
               (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
             );
+
+            // Calculate the counts
+            const totalReceived = itemData ? itemData.total_quantity : 0;
 
             return (
               <TouchableOpacity
@@ -158,9 +160,11 @@ export default function InventoryScreen({ navigation }) {
                 ]}
                 onPress={() =>
                   navigation.navigate("inventoryMaterialScreen", {
-                    // material: itemName,
-                    // totalReceived: itemData ? itemData.total_quantity : 0,
                     materialItem: itemData,
+
+                    totalReceived,
+                    inStock: itemData.in_stock,
+                    consumed: itemData.consumed,
                   })
                 }
               >
@@ -191,7 +195,6 @@ export default function InventoryScreen({ navigation }) {
       ;
       <MyFlatList
         data={groupInventoryItems(today_inventory)}
-        // keyExtractor={(item) => item.id.toString()}
         keyExtractor={(item) =>
           item.id ? item.id.toString() : Math.random().toString()
         }
