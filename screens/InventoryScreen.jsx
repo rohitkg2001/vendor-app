@@ -29,8 +29,6 @@ import { P } from "../components/text";
 export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
-  const [visible, setVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
 
   const { inventory } = useSelector((state) => state.inventory);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -43,18 +41,6 @@ export default function InventoryScreen({ navigation }) {
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
   }, []);
-
-  const stockData = {
-    Battery: { consumed: 0, inStock: 10, receivedToday: 10 },
-    Luminary: { consumed: 0, inStock: 2, receivedToday: 2 },
-    SolarModule: { consumed: 0, inStock: 3, receivedToday: 2 },
-    Structure: { consumed: 0, inStock: 1, receivedToday: 1 },
-  };
-
-  const closeModal = () => {
-    setVisible(false);
-    setSelectedItem(null);
-  };
 
   const openDetailsModal = (item) => {
     setDetailsItem(item);
@@ -98,19 +84,19 @@ export default function InventoryScreen({ navigation }) {
     }));
   };
 
-const iconMap = {
-  Luminary: "bulb-outline",
-  "Panel Module": "sunny-outline",
-  Battery: "battery-charging-outline",
-  Structure: "cube-outline",
-};
+  const iconMap = {
+    Luminary: "bulb-outline",
+    "Panel Module": "sunny-outline",
+    Battery: "battery-charging-outline",
+    Structure: "cube-outline",
+  };
 
-const bgColorMap = {
-  Luminary: { bg: "#F8F8F8", icon: "#060606" },
-  "Panel Module": { bg: "#FFFFFF", icon: "#060606" },
-  Battery: { bg: "#E0E0E0", icon: "#060606" },
-  Structure: { bg: "#F0F0F0", icon: "#060606" },
-};
+  const bgColorMap = {
+    Luminary: { bg: "#F8F8F8", icon: "#060606" },
+    "Panel Module": { bg: "#FFFFFF", icon: "#060606" },
+    Battery: { bg: "#E0E0E0", icon: "#060606" },
+    Structure: { bg: "#F0F0F0", icon: "#060606" },
+  };
 
   return (
     <ContainerComponent>
@@ -167,7 +153,9 @@ const bgColorMap = {
                 ]}
                 onPress={() =>
                   navigation.navigate("inventoryMaterialScreen", {
-                    material: itemName,
+                    // material: itemName,
+                    // totalReceived: itemData ? itemData.total_quantity : 0,
+                    materialItem: itemData,
                   })
                 }
               >
@@ -214,6 +202,7 @@ const bgColorMap = {
             quantity={item.total_quantity}
             total_value={item.total_value}
             dispatch_date={item.dispatch_dates}
+            item_code={item.item_code}
             onPress={() => openDetailsModal(item)}
           />
         )}
