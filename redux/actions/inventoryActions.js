@@ -7,8 +7,8 @@ import {
   SET_TOTAL_INVENTORY_VALUE,
   GET_TODAY_INVENTORY,
   GET_TOTAL_RECEIVED_INVENTORY,
-  SET_IN_STOCK,
-  SET_CONSUMED,
+  GET_IN_STOCK,
+  GET_CONSUMED,
 } from "../constant";
 
 export const viewInventory = (item) => ({
@@ -23,13 +23,7 @@ export const getAllItems = (vendorId) => async (dispatch) => {
     );
     const data = await response.json();
 
-    const {
-      today_inventory,
-      all_inventory,
-      total_inventory_value,
-      in_stock,
-      consumed,
-    } = data;
+    const { today_inventory, all_inventory, total_inventory_value } = data;
 
     dispatch({
       type: SET_TOTAL_INVENTORY_VALUE,
@@ -48,18 +42,17 @@ export const getAllItems = (vendorId) => async (dispatch) => {
 
     dispatch({
       type: GET_TOTAL_RECEIVED_INVENTORY,
-      payload: all_inventory?.total_received, // Pass only the total_received array
+      payload: all_inventory?.total_received, // Pass only the `total_received` array
     } );
-        dispatch({
-          type: SET_IN_STOCK,
-          payload: in_stock, // assuming in_stock is part of the response data
-        });
-    dispatch({
-      type: SET_CONSUMED,
-      payload: consumed, // assuming consumed is part of the response data
-    });
+     dispatch({
+       type: GET_IN_STOCK,
+       payload: all_inventory?.in_stock,
+     });
 
-
+     dispatch({
+       type: GET_CONSUMED,
+       payload: all_inventory?.consumed,
+     });
   } catch (err) {
     alert(err.message);
   }

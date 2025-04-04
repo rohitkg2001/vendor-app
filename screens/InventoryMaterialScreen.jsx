@@ -19,8 +19,8 @@ export default function InventoryMaterialScreen({ route }) {
   // Initialize the state for tab counts
   const [tabCounts, setTabCounts] = useState({
     "Total Received": totalReceived,
-    "In Stock": inStock,
-    "Consumed": consumed,
+    "In Stock": inStock?.total_quantity || 0, // Get the in_stock quantity
+    Consumed: consumed?.total_quantity || 0,
   });
 
   const [dummyList, setDummyList] = useState([]);
@@ -57,22 +57,22 @@ export default function InventoryMaterialScreen({ route }) {
    useEffect(() => {
      const list = [];
 
-     for (let i = 0; i < totalReceived; i++) {
-       list.push({
-         id: i + 1,
-         site: {
-           site_name: `${materialItem.item} - ${i + 1}`,
-         },
-         model: materialItem.model,
-         item_code: materialItem.item_code,
-         make: materialItem.make,
-         manufacturer: materialItem.manufacturer,
-         dispatch_date: materialItem.dispatch_dates?.[i] || "N/A",
-         serial_number: materialItem.serial_number?.[i] || `SN-${i + 1}`,
-         store_name: materialItem.store_name,
-         store_incharge: materialItem.store_incharge,
-       });
-     }
+    for (let i = 0; i < totalReceived; i++) {
+      list.push({
+        id: i + 1,
+        site: {
+          site_name: `${materialItem.item} - ${i + 1}`,
+        },
+        model: materialItem.model,
+        item_code: materialItem.item_code,
+        make: materialItem.make,
+        manufacturer: materialItem.manufacturer,
+        dispatch_date: materialItem.dispatch_dates?.[i] || "N/A",
+        serial_number: materialItem.serial_number?.[i] || SN - `${i + 1}`,
+        store_name: materialItem.store_name,
+        store_incharge: materialItem.store_incharge,
+      });
+    }
 
      setDummyList(list);
      setFilteredTasks(list);

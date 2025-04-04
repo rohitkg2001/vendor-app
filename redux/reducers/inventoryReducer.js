@@ -6,8 +6,8 @@ import {
   SET_TOTAL_INVENTORY_VALUE,
   GET_TODAY_INVENTORY,
   GET_TOTAL_RECEIVED_INVENTORY,
-  SET_IN_STOCK,
-  SET_CONSUMED,
+  GET_IN_STOCK,
+  GET_CONSUMED,
 } from "../constant";
 
 const initialState = {
@@ -35,11 +35,18 @@ export const inventoryReducer = (state = initialState, action) => {
       return { ...state, today_inventory: action.payload };
     case GET_TOTAL_RECEIVED_INVENTORY:
       return { ...state, total_received_inventory: action.payload };
-    case SET_IN_STOCK:
-      return { ...state, inStock: action.payload };
 
-    case SET_CONSUMED:
-      return { ...state, consumed: action.payload };
+    case GET_IN_STOCK:
+      return {
+        ...state,
+        in_stock: action.payload, // Store 'In Stock' data
+      };
+
+    case GET_CONSUMED:
+      return {
+        ...state,
+        consumed: action.payload, // Store 'Consumed' data
+      };
     default:
       return state;
   }

@@ -29,14 +29,15 @@ export default function InventoryScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
 
   // const { inventory } = useSelector((state) => state.inventory);
-  const { today_inventory, all_inventory, total_received_inventory } =
-    useSelector((state) => state.inventory);
+  const {
+    today_inventory,
+    all_inventory,
+    total_received_inventory,
+    in_stock,
+    consumed,
+  } = useSelector((state) => state.inventory);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [detailsItem, setDetailsItem] = useState(null);
-
-  // useEffect(() => {
-  //   console.log("Fetched Inventory Data:", { inventory });
-  // }, [inventory]);
 
   useEffect(() => {
     console.log("Fetched Today Inventory Data:", { today_inventory });
@@ -141,10 +142,17 @@ export default function InventoryScreen({ navigation }) {
             const itemData = total_received_inventory?.find(
               (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
             );
+
+            // Find the item in in_stock and consumed as well
+            const inStockData = in_stock?.find(
+              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
+            );
+            const consumedData = consumed?.find(
+              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
+            );
+
             // Calculate the counts
             const totalReceived = itemData ? itemData.total_quantity : 0;
-            const inStock = itemData ? itemData.in_stock : 0; // Add in_stock if available
-            const consumed = itemData ? itemData.consumed : 0; // Add consumed if available
 
             return (
               <TouchableOpacity
@@ -165,8 +173,8 @@ export default function InventoryScreen({ navigation }) {
                   navigation.navigate("inventoryMaterialScreen", {
                     materialItem: itemData,
                     totalReceived,
-                    inStock,
-                    consumed,
+                    inStock: inStockData,
+                    consumed: consumedData,
                   })
                 }
               >

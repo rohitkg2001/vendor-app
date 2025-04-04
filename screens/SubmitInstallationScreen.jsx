@@ -45,26 +45,25 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const inventory = useSelector((state) => state.inventory.inventory);
 
   // Check if a serial number exists in the inventory
-  const isSerialNumberValid = (serialNumber) => {
-    if (!inventory || inventory.length === 0) {
-      console.warn("Inventory is not available yet.");
+  const isSerialNumberInStock = (serialNumber) => {
+    if (!inventory || !inventory.in_stock) {
+      console.warn("Inventory or in_stock data is not available yet.");
       return false;
     }
 
     // Loop through the inventory items and check if the serial number exists in the serial_number array
-    return inventory.some(
+    return inventory.in_stock?.some(
       (item) => item.serial_number && item.serial_number.includes(serialNumber)
     );
   };
 
+
   // Handle QR scan for Luminary
   const handleLuminaryQR = (val) => {
-    console.log(val);
     const luminarySerial = val.split(";")[0]?.toString() || "";
-    const values = val.split(";");
-    if (isSerialNumberValid(luminarySerial)) {
+    if (isSerialNumberInStock(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);
-      setSimNumber(values[1].toString());
+      setSimNumber(val.split(";")[1].toString());
       setLuminaryValid(true);
     } else {
       setLuminaryValid(false);
@@ -78,7 +77,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle QR scan for Battery
   const handleBatteryQR = (val) => {
     const batterySerial = val.split(";")[0]?.toString() || "";
-    if (isSerialNumberValid(batterySerial)) {
+    if (isSerialNumberInStock(batterySerial)) {
       setBatterySerialNumber(batterySerial);
       setBatteryValid(true);
     } else {
@@ -93,7 +92,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle QR scan for Panel
   const handlePanelQR = (val) => {
     const panelSerial = val.split(";")[0]?.toString() || "";
-    if (isSerialNumberValid(panelSerial)) {
+    if (isSerialNumberInStock(panelSerial)) {
       setPanelSerialNumber(panelSerial);
       setPanelValid(true);
     } else {
@@ -105,10 +104,11 @@ const SubmitInstallationScreen = ({ navigation }) => {
     }
   };
 
+
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
     const serialNumber = value.trim(); // Clean up input
-    if (isSerialNumberValid(serialNumber)) {
+    if (isSerialNumberInStock(serialNumber)) {
       if (type === "luminary") {
         setLuminarySerialNumber(serialNumber);
         setLuminaryValid(true);
