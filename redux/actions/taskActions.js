@@ -398,9 +398,9 @@ export const download = async (my_id) => {
   }
 };
 
-export const setInApprovalCount = (count) => {
+export const setApprovedCount = (count) => {
   return {
-    type: "SET_IN_APPROVAL_COUNT",
+    type: "SET_APPROVED_COUNT",
     payload: count,
   };
 };

@@ -24,12 +24,6 @@ import { alertMessage } from "../utils/faker";
 // import styles
 import { layouts, spacing, typography, ICON_LARGE, styles } from "../styles";
 
-//Data to get loaded at time of login
-import { submitStreetlightTasks } from "../redux/actions/taskActions";
-import { getViewPoles } from "../redux/actions/taskActions";
-import { surveyTask } from "../redux/actions/taskActions";
-import { setInApprovalCount } from "../redux/actions/taskActions";
-import { getAllItem } from "../redux/actions/inventoryActions";
 
 export default function LoginScreen({ navigation, route }) {
   const [username, setUsername] = useState("");
