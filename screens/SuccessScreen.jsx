@@ -10,13 +10,6 @@ const SuccessScreen = ({ navigation, route }) => {
   const message = params.message || "Task update has been successfully saved.";
   const nextScreen = params.nextScreen || "taskScreen";
 
-  // useEffect(() => {
-  //   // Simulating data fetching/loading
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000); // 2-second delay before showing success message
-  // }, []);
-
   useEffect(() => {
     setTimeout(() => {
       navigation.replace(nextScreen);

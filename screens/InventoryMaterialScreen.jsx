@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { useTranslation } from "react-i18next";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";

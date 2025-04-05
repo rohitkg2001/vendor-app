@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import moment from "moment";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -42,6 +42,8 @@ const StreetLightDetailsScreen = ({ route }) => {
   const { item } = route.params;
   const isInstalled = item.isInstalled;
 
+  console.log("StreetLightDetails item:", item);
+
   return (
     <ContainerComponent>
       <MyHeader
@@ -50,7 +52,7 @@ const StreetLightDetailsScreen = ({ route }) => {
         hasIcon={true}
       />
 
-      <View style={[spacing.p2, { width: "100%" }]}>
+      <ScrollView style={[spacing.p2, { width: "100%" }]}>
         {/* Pole Number */}
         <View style={[spacing.br2, spacing.p2, { backgroundColor: "#5D92F4" }]}>
           <H5
@@ -144,7 +146,7 @@ const StreetLightDetailsScreen = ({ route }) => {
               <StreetLightImages source={item.submission_image} />
             </View>
           )}
-      </View>
+      </ScrollView>
     </ContainerComponent>
   );
 };

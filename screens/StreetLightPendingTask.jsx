@@ -16,12 +16,6 @@ import Tabs from "../components/Tabs";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-// import {
-//   SET_POLE_NUMBER,
-//   SET_BENEFICIARY_NAME,
-//   SET_LOCATION_REMARKS,
-//   SET_BENEFICIARY_CONTACT,
-// } from "../redux/constant";
 import { download, getInstalledPoles } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
@@ -38,13 +32,6 @@ const StreetLightPendingTask = ({ navigation }) => {
       setStreetLightSites(pendingStreetLights);
     updateTabCounts(pendingStreetLights);
   }, [pendingStreetLights]);
-
-  function formatString(input) {
-    return input
-      .split(" ") // Split by space
-      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
-      .join("/"); // Join by '/'
-  }
 
   const handleSurveyData = async (item, isSurvey) => {
     console.log(`Pole Id is ${item.pole_id}`);
