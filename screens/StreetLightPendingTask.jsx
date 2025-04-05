@@ -46,34 +46,6 @@ const StreetLightPendingTask = ({ navigation }) => {
       .join("/"); // Join by '/'
   }
 
-  // const handleSurvey = (
-  //   data,
-  //   isSurvey,
-  //   beneficiaryName,
-  //   locationRemarks,
-  //   contactNumber
-  // ) => {
-  //   if (!data?.site) {
-  //     console.error("Error: site data is missing", data);
-  //     return;
-  //   }
-
-  //   const { district, block, panchayat, state } = data?.site;
-  //   const pole_number = formatString(
-  //     [state, district, block, panchayat].join(" ")
-  //   );
-  //   dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
-  //   dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
-  //   dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-  //   dispatch({ type: SET_BENEFICIARY_CONTACT, payload: contactNumber });
-  //   navigation.navigate("startInstallation", {
-  //     itemId: data.id,
-  //     isSurvey,
-  //     // poleNumber: pole_number,
-  //     // wardPanchayat: ward_panchayat,
-  //   });
-  // };
-
   const handleSurveyData = async (item, isSurvey) => {
     console.log(`Pole Id is ${item.pole_id}`);
 
@@ -321,7 +293,7 @@ const StreetLightPendingTask = ({ navigation }) => {
             <Tabs
               tabs={[
                 `All ${tabCounts.All}`,
-               `Surveyed poles ${tabCounts.Survey}`,
+                `Surveyed poles ${tabCounts.Survey}`,
                 `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
                 // InApproved `${tabCounts.InApproved}`,
