@@ -17,6 +17,7 @@ import {
 const initialState = {
   tasks: [],
   inApprovalCount: 0,
+  approvedCount: 0,
   currentTask: null,
 };
 
@@ -51,10 +52,10 @@ export const taskReducer = (state = initialState, action) => {
       return { ...state, contactNumber: action.payload };
     case SET_LOCATION_REMARKS:
       return { ...state, locationRemarks: action.payload };
-    case "SET_IN_APPROVAL_COUNT":
+    case "SET_APPROVED_COUNT":
       return {
         ...state,
-        inApprovalCount: action.payload, // Store the InApproval count
+        setApprovedCount: action.payload, // Store the approved count
       };
 
     default:

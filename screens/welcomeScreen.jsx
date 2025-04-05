@@ -29,6 +29,7 @@ export default function WelcomeScreen({ navigation }) {
     pendingStreetLightCounts,
     surveyedStreetLightCounts,
     installedStreetLightCounts,
+    approvedCount,
   } = useSelector((state) => state.tasks);
   const [doneInstallation, setDoneInstallation] = useState(0);
   const [taskCount, setTaskCount] = useState(0);
@@ -36,8 +37,8 @@ export default function WelcomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
   // WelcomeScreen.js
-  const { inApprovalCount } = useSelector((state) => state.tasks);
-  const totalEarning = inApprovalCount * 10;
+  // Default the approvedCount to 0 if it's undefined or null
+  const totalEarning = (approvedCount || 0) * 400; // Fallback to 0 if approvedCount is falsy
 
   useEffect(() => {
     dispatch(getStreetLightTasks(id));
@@ -224,8 +225,9 @@ export default function WelcomeScreen({ navigation }) {
                 Total Earning
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                Installed Earning : {totalEarning}
+                Installed Earning : {totalEarning || 0}{" "}
               </P>
+
               <P style={[typography.font10, typography.fontLato]}>
                 RMS Earning : 0
               </P>

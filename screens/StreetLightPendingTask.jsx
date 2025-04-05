@@ -31,6 +31,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
   const { id } = useSelector((state) => state.vendor);
+const { setApprovedCount } = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -130,6 +131,10 @@ const StreetLightPendingTask = ({ navigation }) => {
       payload: tabCounts.InApproval, // The count from tabCounts
     });
   }, [tabCounts.InApproval, dispatch]);
+
+  useEffect(() => {
+    console.log("Approved Count:", setApprovedCount); // Check if it's being set correctly
+  }, [setApprovedCount]);
 
   useEffect(() => {
     dispatch(getInstalledPoles(id));
