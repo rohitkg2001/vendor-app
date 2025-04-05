@@ -158,7 +158,11 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
     return status;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log("Axios Error Detected");
+      console.log( "Axios Error Detected" );
+       Alert.alert(
+         "Material Already Used",
+         "This material has already been used in installation."
+       );
       if (error.code === "ECONNABORTED") {
         console.log("Error: Request Timed Out");
       } else if (error.code === "ERR_NETWORK") {
