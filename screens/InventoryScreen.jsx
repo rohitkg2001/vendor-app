@@ -91,14 +91,14 @@ export default function InventoryScreen({ navigation }) {
 
   const iconMap = {
     Luminary: "bulb-outline",
-    "Panel Module": "sunny-outline",
+    Module: "sunny-outline",
     Battery: "battery-charging-outline",
     Structure: "cube-outline",
   };
 
   const bgColorMap = {
     Luminary: { bg: "#F8F8F8", icon: "#060606" },
-    "Panel Module": { bg: "#FFFFFF", icon: "#060606" },
+    Module: { bg: "#FFFFFF", icon: "#060606" },
     Battery: { bg: "#E0E0E0", icon: "#060606" },
     Structure: { bg: "#F0F0F0", icon: "#060606" },
   };
@@ -135,7 +135,7 @@ export default function InventoryScreen({ navigation }) {
             },
           ]}
         >
-          {Object.keys(iconMap).map((itemName) => {
+          {/* {Object.keys(iconMap).map((itemName) => {
             const { bg, icon } = bgColorMap[itemName];
 
             // Find the item in total_received_inventory
@@ -199,6 +199,86 @@ export default function InventoryScreen({ navigation }) {
                 </Span>
               </TouchableOpacity>
             );
+          })} */}
+
+          {["Battery", "Luminary", "Module", "Structure"].map((itemName) => {
+            // Find the item in total_received_inventory
+            const itemData = total_received_inventory?.find(
+              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
+            );
+
+            // Find the item in in_stock and consumed as well
+            const inStockData = in_stock?.find(
+              (inv) =>
+                inv.item_code?.toLowerCase() ===
+                itemData?.item_code?.toLowerCase()
+            );
+            const consumedData = consumed?.find(
+              (inv) =>
+                inv.item_code?.toLowerCase() ===
+                itemData?.item_code?.toLowerCase()
+            );
+
+            let bgColor, icon;
+            if (itemName === "Battery") {
+              bgColor = "#E0E0E0";
+              icon = "battery-charging-outline";
+            } else if (itemName === "Luminary") {
+              bgColor = "#F8F8F8";
+              icon = "bulb-outline";
+            } else if (itemName === "Module") {
+              bgColor = "#FFFFFF";
+              icon = "sunny-outline";
+            } else if (itemName === "Structure") {
+              bgColor = "#F0F0F0";
+              icon = "cube-outline";
+            }
+
+            return itemData ? (
+              <TouchableOpacity
+                key={itemName}
+                style={[
+                  spacing.m1,
+                  spacing.br2,
+                  {
+                    width: "47%",
+                    height: 100,
+                    backgroundColor: bgColor,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    elevation: 2,
+                  },
+                ]}
+                onPress={() =>
+                  navigation.navigate("inventoryMaterialScreen", {
+                    materialItem: itemData,
+                    totalReceived: itemData.total_quantity,
+                    inStock: inStockData,
+                    consumed: consumedData,
+                  })
+                }
+              >
+                <Icon name={icon} size={32} color="#000000" />
+                <P
+                  style={[spacing.mt1, typography.font16, typography.fontLato]}
+                >
+                  {itemData.item}
+                </P>
+                <Span style={[typography.font12, typography.fontLato]}>
+                  Quantity: {itemData.total_quantity}
+                </Span>
+                <Span
+                  style={[
+                    typography.font14,
+                    typography.textBold,
+                    typography.fontLato,
+                    { color: "#27ae60" },
+                  ]}
+                >
+                  ₹{itemData.total_value}
+                </Span>
+              </TouchableOpacity>
+            ) : null;
           })}
         </View>
       </View>

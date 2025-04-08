@@ -5,6 +5,7 @@ import MyHeader from "../components/header/MyHeader";
 import StreetLightImages from "../components/StreetLightImages";
 import { spacing, styles, typography } from "../styles";
 import { P, H5 } from "../components/text";
+import StreetLightMedia from "../components/StreetLightMedia";
 
 // Reusable Field Component to display label-value pairs
 const InfoField = ({ label, value }) => (
@@ -132,20 +133,23 @@ const StreetLightDetailsScreen = ({ route }) => {
           <InfoField label="Latitude" value={item.installed_location?.lat} />
         </View>
 
-        {/* Survey Images */}
-        {Array.isArray(item.survey_image) && item.survey_image.length > 0 && (
+        {/* {Array.isArray(item.survey_image) && item.survey_image.length > 0 && (
           <View style={{ marginTop: 12 }}>
-            <StreetLightImages source={item.survey_image} />
+            <StreetLightMedia source={item.survey_image} />
           </View>
-        )}
+        )} */}
 
-        {/* Submission Images */}
-        {Array.isArray(item.submission_image) &&
+        {/* {Array.isArray(item.submission_image) &&
           item.submission_image.length > 0 && (
             <View style={{ marginTop: 12 }}>
-              <StreetLightImages source={item.submission_image} />
+              <StreetLightMedia source={item.submission_image} />
             </View>
-          )}
+          )} */}
+
+        <StreetLightMedia
+          surveyImages={item.survey_image}
+          submissionImages={item.submission_image}
+        />
       </ScrollView>
     </ContainerComponent>
   );

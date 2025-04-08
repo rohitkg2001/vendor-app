@@ -292,7 +292,9 @@ export default function StreetLightFiles({ source }) {
                   textAlign: "right",
                 }}
               >
-                📍 {address || `Lat: ${location?.latitude}, Long: ${location?.longitude}`}
+                📍{" "}
+                {address ||
+                  `Lat: ${location?.latitude}, Long: ${location?.longitude}`}
               </Text>
 
               <Text
@@ -308,7 +310,6 @@ export default function StreetLightFiles({ source }) {
           )}
         />
       </View>
-
     </View>
   );
 }
