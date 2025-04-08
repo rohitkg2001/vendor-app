@@ -118,8 +118,6 @@ const StreetLightPendingTask = ({ navigation }) => {
     }
   };
 
-  
-
   const [snackbar, setShowSnackbar] = useState({
     open: false,
     message: "",

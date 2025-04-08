@@ -25,7 +25,7 @@ import { getAllItems } from "../redux/actions/inventoryActions";
 
 export default function WelcomeScreen({ navigation }) {
   const { id } = useSelector((state) => state.vendor);
-  const tasks = useSelector(state => state.tasks)
+  const tasks = useSelector((state) => state.tasks);
   const {
     pendingStreetLightCounts,
     surveyedStreetLightCounts,
@@ -33,7 +33,6 @@ export default function WelcomeScreen({ navigation }) {
     approvedPoles,
   } = useSelector((state) => state.tasks);
   const [doneInstallation, setDoneInstallation] = useState(0);
-
 
   const dispatch = useDispatch();
 
@@ -268,9 +267,21 @@ export default function WelcomeScreen({ navigation }) {
           </View>
 
           {[
-            { label: "Pending", done: pendingStreetLightCounts - (installedStreetLightCounts), installation: pendingStreetLightCounts },
-            { label: "In approval", done: pendingStreetLightCounts - (approvedPoles), installation: surveyedStreetLightCounts },
-            { label: "Approved", done: approvedPoles, installation: installedStreetLightCounts },
+            {
+              label: "Pending",
+              done: pendingStreetLightCounts - installedStreetLightCounts,
+              installation: pendingStreetLightCounts,
+            },
+            {
+              label: "In approval",
+              done: pendingStreetLightCounts - approvedPoles,
+              installation: surveyedStreetLightCounts,
+            },
+            {
+              label: "Approved",
+              done: approvedPoles,
+              installation: installedStreetLightCounts,
+            },
           ].map((row, index) => (
             <View
               key={index}
@@ -295,6 +306,6 @@ export default function WelcomeScreen({ navigation }) {
           ))}
         </CardFullWidth>
       </ScrollView>
-    </ContainerComponent >
+    </ContainerComponent>
   );
 }
