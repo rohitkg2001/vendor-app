@@ -25,7 +25,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
   const { id } = useSelector((state) => state.vendor);
-const { setApprovedCount } = useSelector((state) => state.tasks);
+  const { setApprovedCount } = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,8 +35,6 @@ const { setApprovedCount } = useSelector((state) => state.tasks);
   }, [pendingStreetLights]);
 
   const handleSurveyData = async (item, isSurvey) => {
-    console.log(`Pole Id is ${item.pole_id}`);
-
     try {
       const response = await axios.post("https://slldm.com/api/pole-details", {
         pole_id: item.pole_id,
@@ -82,18 +80,6 @@ const { setApprovedCount } = useSelector((state) => state.tasks);
     installedStreetLights,
     activeTab,
   ]);
-  // Update the Redux state with the InApproval count
-  useEffect(() => {
-    // You can store InApproval count in Redux
-    dispatch({
-      type: "SET_IN_APPROVAL_COUNT", // Action to set InApproval count
-      payload: tabCounts.InApproval, // The count from tabCounts
-    });
-  }, [tabCounts.InApproval, dispatch]);
-
-  useEffect(() => {
-    console.log("Approved Count:", setApprovedCount); // Check if it's being set correctly
-  }, [setApprovedCount]);
 
   useEffect(() => {
     dispatch(getInstalledPoles(id));
@@ -137,6 +123,8 @@ const filterData = (tab) => {
 };
 
 
+  
+
   const [snackbar, setShowSnackbar] = useState({
     open: false,
     message: "",
@@ -177,7 +165,7 @@ const filterData = (tab) => {
       <MyFlatList
         data={filteredData}
         renderItem={({ item, index }) => {
-          if (["Survey", "InApproval"].includes(activeTab)) {
+          if (["Survey", "InApproval", "Approved"].includes(activeTab)) {
             return (
               <ClickableCard2
                 key={index}
@@ -293,7 +281,6 @@ const filterData = (tab) => {
                 `Surveyed poles ${tabCounts.Survey}`,
                 `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
-                // InApproved `${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {

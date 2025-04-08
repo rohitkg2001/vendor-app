@@ -2,7 +2,7 @@ import { View, ScrollView } from "react-native";
 import moment from "moment";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
-import StreetLightImages from "../components/StreetLightImages";
+//import StreetLightImages from "../components/StreetLightImages";
 import { spacing, styles, typography } from "../styles";
 import { P, H5 } from "../components/text";
 import StreetLightMedia from "../components/StreetLightMedia";

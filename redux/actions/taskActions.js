@@ -10,6 +10,8 @@ import {
   GET_INSTALLED_STREETLIGHTS,
   TOTAL_INSTALLED_STREETLIGHTS,
   GET_VIEW_STREETLIGHTS,
+  GET_APPROVED_STREETLIGHTS,
+  GET_REJECTED_STREETLIGHTS,
 } from "../constant";
 import { filterByStatus } from "./projectActions";
 import axios from "axios";
@@ -158,11 +160,11 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
     return status;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log( "Axios Error Detected" );
-       Alert.alert(
-         "Material Already Used",
-         "This material has already been used in installation."
-       );
+      console.log("Axios Error Detected");
+      Alert.alert(
+        "Material Already Used",
+        "This material has already been used in installation."
+      );
       if (error.code === "ECONNABORTED") {
         console.log("Error: Request Timed Out");
       } else if (error.code === "ERR_NETWORK") {
@@ -237,7 +239,7 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
       }
     );
     const { data, status } = await response;
-    
+
     dispatch({ type: UPDATE_TASK, payload: data });
     return status;
   } catch (error) {
@@ -258,83 +260,97 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   );
   const { data } = response;
   const pendingSites = data.filter((task) => task.status === "Pending");
-  const pendingSitesCount = pendingSites.length;
-  dispatch({ type: TOTAL_PENDING_STREETLIGHT, payload: pendingSitesCount });
   dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites });
+  dispatch({ type: TOTAL_PENDING_STREETLIGHT, payload: pendingSites.length });
 };
 
-export const submitStreetlightTasks = (dataToUpdate, file) => async (dispatch) => {
-  try {
-    const formData = new FormData();
-    let imageIndex = 0;
-    // ✅ Validate required fields
-    if (!dataToUpdate?.task_id || !dataToUpdate?.complete_pole_number) {
-      console.error("Missing task_id or complete_pole_number");
-      return;
-    }
-
-    // ✅ Append required fields
-    formData.append("task_id", String(dataToUpdate.task_id));
-    formData.append("complete_pole_number", String(dataToUpdate.complete_pole_number));
-    formData.append("lat", String(dataToUpdate.lat));
-    formData.append("lng", String(dataToUpdate.lng));
-    if (dataToUpdate.isSurvey) {
-      formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
-      formData.append("beneficiary_contact", String(dataToUpdate.beneficiary_contact || ""));
-      formData.append("ward_name", String(dataToUpdate.ward_name || ""));
-      formData.append("remarks", String(dataToUpdate.remarks || ""));
-      formData.append("isNetworkAvailable", dataToUpdate.isNetworkAvailable ? true : false);
-      formData.append("isSurveyDone", dataToUpdate.isSurveyDone ? true : false);
-      // ✅ Append multiple images
-      if (Array.isArray(dataToUpdate.survey_image)) {
-        dataToUpdate.survey_image.forEach((item) => {
-          if (item?.uri) {
-            formData.append(`survey_image[${imageIndex}]`, {
-              uri: item.uri,
-              name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
-              type: "image/jpeg",
-            });
-            imageIndex++;
-          }
-        });
+export const submitStreetlightTasks =
+  (dataToUpdate, file) => async (dispatch) => {
+    try {
+      const formData = new FormData();
+      let imageIndex = 0;
+      // ✅ Validate required fields
+      if (!dataToUpdate?.task_id || !dataToUpdate?.complete_pole_number) {
+        console.error("Missing task_id or complete_pole_number");
+        return;
       }
-    } else {
-      formData.append("isInstallationDone", "true");
-      formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
-      formData.append("sim_number", String(dataToUpdate.sim_number || ""));
-      formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
-      formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
-      // ✅ Append multiple images
-      if (Array.isArray(dataToUpdate.submission_image)) {
-        dataToUpdate.submission_image.forEach((item) => {
-          if (item?.uri) {
-            formData.append(`submission_image[${imageIndex}]`, {
-              uri: item.uri,
-              name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
-              type: "image/jpeg",
-            });
-            imageIndex++;
-          }
-        });
+
+      // ✅ Append required fields
+      formData.append("task_id", String(dataToUpdate.task_id));
+      formData.append(
+        "complete_pole_number",
+        String(dataToUpdate.complete_pole_number)
+      );
+      formData.append("lat", String(dataToUpdate.lat));
+      formData.append("lng", String(dataToUpdate.lng));
+      if (dataToUpdate.isSurvey) {
+        formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
+        formData.append(
+          "beneficiary_contact",
+          String(dataToUpdate.beneficiary_contact || "")
+        );
+        formData.append("ward_name", String(dataToUpdate.ward_name || ""));
+        formData.append("remarks", String(dataToUpdate.remarks || ""));
+        formData.append(
+          "isNetworkAvailable",
+          dataToUpdate.isNetworkAvailable ? true : false
+        );
+        formData.append(
+          "isSurveyDone",
+          dataToUpdate.isSurveyDone ? true : false
+        );
+        // ✅ Append multiple images
+        if (Array.isArray(dataToUpdate.survey_image)) {
+          dataToUpdate.survey_image.forEach((item) => {
+            if (item?.uri) {
+              formData.append(`survey_image[${imageIndex}]`, {
+                uri: item.uri,
+                name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
+                type: "image/jpeg",
+              });
+              imageIndex++;
+            }
+          });
+        }
+      } else {
+        formData.append("isInstallationDone", "true");
+        formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
+        formData.append("sim_number", String(dataToUpdate.sim_number || ""));
+        formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
+        formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
+        // ✅ Append multiple images
+        if (Array.isArray(dataToUpdate.submission_image)) {
+          dataToUpdate.submission_image.forEach((item) => {
+            if (item?.uri) {
+              formData.append(`submission_image[${imageIndex}]`, {
+                uri: item.uri,
+                name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
+                type: "image/jpeg",
+              });
+              imageIndex++;
+            }
+          });
+        }
       }
-    }
 
-    // ✅ Debug: Print formData contents
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
+      // ✅ Debug: Print formData contents
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
 
-    // ✅ Send POST request (REMOVE "Content-Type" HEADER)
-    const response = await axios.post(`${BASE_URL}/api/streetlight/tasks/update`, formData,
-      { headers: { "Content-Type": "multipart/form-data" } } // Let axios set the correct Content-Type
-    );
-    const { data, status } = await response;
-    return status;
-  } catch (error) {
-    console.error("Error submitting data:", error.response?.data || error);
-    return false
-  }
-};
+      // ✅ Send POST request (REMOVE "Content-Type" HEADER)
+      const response = await axios.post(
+        `${BASE_URL}/api/streetlight/tasks/update`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } } // Let axios set the correct Content-Type
+      );
+      const { data, status } = await response;
+      return status;
+    } catch (error) {
+      console.error("Error submitting data:", error.response?.data || error);
+      return false;
+    }
+  };
 
 export const getInstalledPoles = (vendor_id) => async (dispatch) => {
   try {
@@ -343,8 +359,15 @@ export const getInstalledPoles = (vendor_id) => async (dispatch) => {
     );
     const { data } = response;
     const { installed_poles, surveyed_poles } = data;
+    const pendingPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Pending")
+    const approvedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Approved")
+    const rejectedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Rejected")
+    dispatch({ type: TOTAL_SURVEYED_STREETLIGHTS, payload: pendingPoles.length + approvedPoles.length });
+    dispatch({ type: TOTAL_INSTALLED_STREETLIGHTS, payload: approvedPoles.length })
     dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyed_poles });
     dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
+    dispatch({ type: GET_APPROVED_STREETLIGHTS, payload: approvedPoles })
+    dispatch({ type: GET_REJECTED_STREETLIGHTS, payload: rejectedPoles })
   } catch (error) {
     console.error(error);
   }
