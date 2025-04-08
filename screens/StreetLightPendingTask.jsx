@@ -85,38 +85,43 @@ const StreetLightPendingTask = ({ navigation }) => {
     dispatch(getInstalledPoles(id));
   }, [dispatch, id]);
 
-  const updateTabCounts = () => {
-    setTabCounts({
-      All: pendingStreetLights?.length || 0,
-      Survey: surveyedStreetLights?.length || 0,
-      InApproval: installedStreetLights?.length || 0,
-      Approved:
-        pendingStreetLights?.filter((task) => task.status === "Approved")
-          .length || 0,
-      Rejected:
-        pendingStreetLights?.filter((task) => task.status === "Rejected")
-          .length || 0,
-    });
-  };
+const updateTabCounts = () => {
+  setTabCounts({
+    All: pendingStreetLights?.length || 0,
+    Survey: surveyedStreetLights?.length || 0,
+    InApproval:
+      installedStreetLights?.filter((task) => task.status === "Pending")
+        .length || 0, 
+    Approved:
+      installedStreetLights?.filter((task) => task.status === "Approved")
+        .length || 0,
+    Rejected:
+      pendingStreetLights?.filter((task) => task.status === "Rejected")
+        .length || 0,
+  });
+};
 
-  const filterData = (tab) => {
-    if (tab === "Survey") {
-      // Both "Survey" and "Surveyed poles" should show surveyed data
-      setFilteredData(surveyedStreetLights || []);
-    } else if (tab === "InApproval") {
-      setFilteredData(installedStreetLights || []);
-    } else if (tab === "Approved") {
-      setFilteredData(
-        pendingStreetLights?.filter((task) => task.status === "Approved") || []
-      );
-    } else if (tab === "Rejected") {
-      setFilteredData(
-        pendingStreetLights?.filter((task) => task.status === "Rejected") || []
-      );
-    } else {
-      setFilteredData(pendingStreetLights || []);
-    }
-  };
+
+const filterData = (tab) => {
+  if (tab === "Survey") {
+    setFilteredData(surveyedStreetLights || []);
+  } else if (tab === "InApproval") {
+    setFilteredData(
+      installedStreetLights?.filter((task) => task.status === "Pending") || []
+    ); // Filter based on Pending status for InApproval tab
+  } else if (tab === "Approved") {
+    setFilteredData(
+      installedStreetLights?.filter((task) => task.status === "Approved") || []
+    ); // Filter based on Approved status for Approved tab
+  } else if (tab === "Rejected") {
+    setFilteredData(
+      pendingStreetLights?.filter((task) => task.status === "Rejected") || []
+    );
+  } else {
+    setFilteredData(pendingStreetLights || []);
+  }
+};
+
 
   const [snackbar, setShowSnackbar] = useState({
     open: false,
@@ -158,7 +163,7 @@ const StreetLightPendingTask = ({ navigation }) => {
       <MyFlatList
         data={filteredData}
         renderItem={({ item, index }) => {
-          if (["Survey", "InApproval"].includes(activeTab)) {
+          if (["Survey", "InApproval", "Approved"].includes(activeTab)) {
             return (
               <ClickableCard2
                 key={index}
@@ -274,7 +279,6 @@ const StreetLightPendingTask = ({ navigation }) => {
                 `Surveyed poles ${tabCounts.Survey}`,
                 `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
-                // InApproved `${tabCounts.InApproved}`,
                 `Rejected ${tabCounts.Rejected}`,
               ]}
               onTabPress={(tabLabel) => {
