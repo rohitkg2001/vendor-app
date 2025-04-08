@@ -22,7 +22,9 @@ export default function StreetLightFiles({ source }) {
   const [timestamp, setTimestamp] = useState(""); // Store real-time timestamp
   const [address, setAddress] = useState(""); // Store the geocoded address
 
-  useEffect(() => {
+  useEffect( () =>
+  {
+    console.log(source)
     if (Array.isArray(source)) {
       const newImages = [];
       const newPdfs = [];

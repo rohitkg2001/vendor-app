@@ -12,6 +12,8 @@ import {
   SET_BENEFICIARY_NAME,
   SET_BENEFICIARY_CONTACT,
   SET_LOCATION_REMARKS,
+  GET_APPROVED_STREETLIGHTS,
+  GET_REJECTED_STREETLIGHTS,
 } from "../constant";
 
 const initialState = {
@@ -52,12 +54,10 @@ export const taskReducer = (state = initialState, action) => {
       return { ...state, contactNumber: action.payload };
     case SET_LOCATION_REMARKS:
       return { ...state, locationRemarks: action.payload };
-    case "SET_APPROVED_COUNT":
-      return {
-        ...state,
-        setApprovedCount: action.payload, // Store the approved count
-      };
-
+    case GET_APPROVED_STREETLIGHTS:
+      return { ...state, approvedPoles: action.payload.length };
+    case GET_REJECTED_STREETLIGHTS:
+      return { ...state, rejectPoles: action.payload.length };
     default:
       return state;
   }

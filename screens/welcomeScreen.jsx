@@ -25,42 +25,27 @@ import { getAllItems } from "../redux/actions/inventoryActions";
 
 export default function WelcomeScreen({ navigation }) {
   const { id } = useSelector((state) => state.vendor);
+  const tasks = useSelector(state => state.tasks)
   const {
     pendingStreetLightCounts,
     surveyedStreetLightCounts,
     installedStreetLightCounts,
-    approvedCount,
+    approvedPoles,
   } = useSelector((state) => state.tasks);
   const [doneInstallation, setDoneInstallation] = useState(0);
-  const [taskCount, setTaskCount] = useState(0);
+
 
   const dispatch = useDispatch();
 
   // WelcomeScreen.js
   // Default the approvedCount to 0 if it's undefined or null
-  const totalEarning = (approvedCount || 0) * 400; // Fallback to 0 if approvedCount is falsy
+  const totalEarning = (approvedPoles || 0) * 400; // Fallback to 0 if approvedCount is falsy
 
   useEffect(() => {
+    dispatch(getInstalledPoles(id));
     dispatch(getStreetLightTasks(id));
     dispatch(getAllItems(id));
   }, [dispatch, id]);
-
-  useEffect(() => {
-    setTaskCount(pendingStreetLightCounts);
-  }, [
-    pendingStreetLightCounts,
-    installedStreetLightCounts,
-    surveyedStreetLightCounts,
-  ]);
-
-  const openPendingTasks = async () => {
-    try {
-      await dispatch(getInstalledPoles(id));
-      navigation.navigate("streetLightPendingTask");
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <ContainerComponent>
@@ -123,7 +108,7 @@ export default function WelcomeScreen({ navigation }) {
                 alignItems: "center",
               },
             ]}
-            onPress={openPendingTasks}
+            onPress={() => navigation.navigate("streetLightPendingTask")}
           >
             <Image
               source={require("../assets/solar.png")}
@@ -146,7 +131,7 @@ export default function WelcomeScreen({ navigation }) {
                 },
               ]}
             >
-              <H1 style={typography.textDanger}>{taskCount}</H1>
+              <H1 style={typography.textDanger}>{pendingStreetLightCounts}</H1>
             </View>
             <P
               style={[
@@ -283,9 +268,9 @@ export default function WelcomeScreen({ navigation }) {
           </View>
 
           {[
-            { label: "Pending", installation: pendingStreetLightCounts },
-            { label: "In approval", installation: surveyedStreetLightCounts },
-            { label: "Approved", installation: installedStreetLightCounts },
+            { label: "Pending", done: pendingStreetLightCounts - (installedStreetLightCounts), installation: pendingStreetLightCounts },
+            { label: "In approval", done: pendingStreetLightCounts - (approvedPoles), installation: surveyedStreetLightCounts },
+            { label: "Approved", done: approvedPoles, installation: installedStreetLightCounts },
           ].map((row, index) => (
             <View
               key={index}
@@ -302,7 +287,7 @@ export default function WelcomeScreen({ navigation }) {
               </View>
               <View style={{ alignItems: "center" }}>
                 <H6 style={spacing.ml2}>
-                  {doneInstallation}/
+                  {row.done}/
                   <H6 style={typography.textDanger}>{row.installation}</H6>
                 </H6>
               </View>
@@ -310,6 +295,6 @@ export default function WelcomeScreen({ navigation }) {
           ))}
         </CardFullWidth>
       </ScrollView>
-    </ContainerComponent>
+    </ContainerComponent >
   );
 }

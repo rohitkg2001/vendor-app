@@ -35,8 +35,6 @@ const StreetLightPendingTask = ({ navigation }) => {
   }, [pendingStreetLights]);
 
   const handleSurveyData = async (item, isSurvey) => {
-    console.log(`Pole Id is ${item.pole_id}`);
-
     try {
       const response = await axios.post("https://slldm.com/api/pole-details", {
         pole_id: item.pole_id,
@@ -82,18 +80,6 @@ const StreetLightPendingTask = ({ navigation }) => {
     installedStreetLights,
     activeTab,
   ]);
-  // Update the Redux state with the InApproval count
-  useEffect(() => {
-    // You can store InApproval count in Redux
-    dispatch({
-      type: "SET_IN_APPROVAL_COUNT", // Action to set InApproval count
-      payload: tabCounts.InApproval, // The count from tabCounts
-    });
-  }, [tabCounts.InApproval, dispatch]);
-
-  useEffect(() => {
-    console.log("Approved Count:", setApprovedCount); // Check if it's being set correctly
-  }, [setApprovedCount]);
 
   useEffect(() => {
     dispatch(getInstalledPoles(id));
