@@ -25,7 +25,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   const { pendingStreetLights, surveyedStreetLights, installedStreetLights } =
     useSelector((state) => state.tasks);
   const { id } = useSelector((state) => state.vendor);
-const { setApprovedCount } = useSelector((state) => state.tasks);
+  const { setApprovedCount } = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -131,6 +131,8 @@ const { setApprovedCount } = useSelector((state) => state.tasks);
       setFilteredData(pendingStreetLights || []);
     }
   };
+
+  
 
   const [snackbar, setShowSnackbar] = useState({
     open: false,
