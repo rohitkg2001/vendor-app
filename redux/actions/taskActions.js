@@ -10,6 +10,8 @@ import {
   GET_INSTALLED_STREETLIGHTS,
   TOTAL_INSTALLED_STREETLIGHTS,
   GET_VIEW_STREETLIGHTS,
+  GET_APPROVED_STREETLIGHTS,
+  GET_REJECTED_STREETLIGHTS,
 } from "../constant";
 import { filterByStatus } from "./projectActions";
 import axios from "axios";
@@ -158,11 +160,11 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
     return status;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log( "Axios Error Detected" );
-       Alert.alert(
-         "Material Already Used",
-         "This material has already been used in installation."
-       );
+      console.log("Axios Error Detected");
+      Alert.alert(
+        "Material Already Used",
+        "This material has already been used in installation."
+      );
       if (error.code === "ECONNABORTED") {
         console.log("Error: Request Timed Out");
       } else if (error.code === "ERR_NETWORK") {
@@ -237,7 +239,7 @@ export const surveyTask = (taskId, dataToUpdate) => async (dispatch) => {
       }
     );
     const { data, status } = await response;
-    
+
     dispatch({ type: UPDATE_TASK, payload: data });
     return status;
   } catch (error) {
@@ -258,9 +260,8 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   );
   const { data } = response;
   const pendingSites = data.filter((task) => task.status === "Pending");
-  const pendingSitesCount = pendingSites.length;
-  dispatch({ type: TOTAL_PENDING_STREETLIGHT, payload: pendingSitesCount });
   dispatch({ type: GET_PENDING_STREETLIGHTS, payload: pendingSites });
+  dispatch({ type: TOTAL_PENDING_STREETLIGHT, payload: pendingSites.length });
 };
 
 export const submitStreetlightTasks = (dataToUpdate, file) => async (dispatch) => {
@@ -343,8 +344,15 @@ export const getInstalledPoles = (vendor_id) => async (dispatch) => {
     );
     const { data } = response;
     const { installed_poles, surveyed_poles } = data;
+    const pendingPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Pending")
+    const approvedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Approved")
+    const rejectedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Rejected")
+    dispatch({ type: TOTAL_SURVEYED_STREETLIGHTS, payload: pendingPoles.length + approvedPoles.length });
+    dispatch({ type: TOTAL_INSTALLED_STREETLIGHTS, payload: approvedPoles.length })
     dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyed_poles });
     dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
+    dispatch({ type: GET_APPROVED_STREETLIGHTS, payload: approvedPoles })
+    dispatch({ type: GET_REJECTED_STREETLIGHTS, payload: rejectedPoles })
   } catch (error) {
     console.error(error);
   }
