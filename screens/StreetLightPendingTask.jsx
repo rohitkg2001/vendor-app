@@ -16,12 +16,6 @@ import Tabs from "../components/Tabs";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-// import {
-//   SET_POLE_NUMBER,
-//   SET_BENEFICIARY_NAME,
-//   SET_LOCATION_REMARKS,
-//   SET_BENEFICIARY_CONTACT,
-// } from "../redux/constant";
 import { download, getInstalledPoles } from "../redux/actions/taskActions";
 
 const StreetLightPendingTask = ({ navigation }) => {
@@ -39,41 +33,6 @@ const { setApprovedCount } = useSelector((state) => state.tasks);
       setStreetLightSites(pendingStreetLights);
     updateTabCounts(pendingStreetLights);
   }, [pendingStreetLights]);
-
-  function formatString(input) {
-    return input
-      .split(" ") // Split by space
-      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
-      .join("/"); // Join by '/'
-  }
-
-  // const handleSurvey = (
-  //   data,
-  //   isSurvey,
-  //   beneficiaryName,
-  //   locationRemarks,
-  //   contactNumber
-  // ) => {
-  //   if (!data?.site) {
-  //     console.error("Error: site data is missing", data);
-  //     return;
-  //   }
-
-  //   const { district, block, panchayat, state } = data?.site;
-  //   const pole_number = formatString(
-  //     [state, district, block, panchayat].join(" ")
-  //   );
-  //   dispatch({ type: SET_POLE_NUMBER, payload: pole_number });
-  //   dispatch({ type: SET_BENEFICIARY_NAME, payload: beneficiaryName });
-  //   dispatch({ type: SET_LOCATION_REMARKS, payload: locationRemarks });
-  //   dispatch({ type: SET_BENEFICIARY_CONTACT, payload: contactNumber });
-  //   navigation.navigate("startInstallation", {
-  //     itemId: data.id,
-  //     isSurvey,
-  //     // poleNumber: pole_number,
-  //     // wardPanchayat: ward_panchayat,
-  //   });
-  // };
 
   const handleSurveyData = async (item, isSurvey) => {
     console.log(`Pole Id is ${item.pole_id}`);
@@ -326,7 +285,7 @@ const { setApprovedCount } = useSelector((state) => state.tasks);
             <Tabs
               tabs={[
                 `All ${tabCounts.All}`,
-               `Surveyed poles ${tabCounts.Survey}`,
+                `Surveyed poles ${tabCounts.Survey}`,
                 `InApproval ${tabCounts.InApproval}`,
                 `Approved ${tabCounts.Approved}`,
                 // InApproved `${tabCounts.InApproved}`,

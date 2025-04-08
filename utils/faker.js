@@ -117,10 +117,6 @@ export const notifications = [
 export const PRIVACY_POLICY =
   "At Dashandots Technology, we deeply value your privacy and are committed to safeguarding the personal information you share with us.We collect essential personal information, including but not limited to your name, email address, and contact details, to ensure the efficient delivery of our services, enhance user experience, and better understand your needs.We assure you that we do not sell,";
 
-// statuscode=0->open,
-//statuscode = 1 -> completed,
-//statuscode = 2 -> hold
-
 export const documentData = [
   {
     id: "1",
@@ -231,67 +227,3 @@ const wards = {
     { label: "Ward 5", value: "ward5" },
   ],
 };
-
-export const fakeStreetLights = [
-  {
-    id: 1,
-    state: "Bihar",
-    district: "Patna",
-    block: "Patna sadar",
-    panchayat: "Fathepur",
-    wards: [1, 2, 3, 4],
-    start_date: "20-02-2025",
-    end_date: "30-03-2025",
-  },
-  {
-    id: 1,
-    state: "Bihar",
-    district: "Patna",
-    block: "Danapur",
-    panchayat: "Patna Sachivalaya",
-    wards: [8, 9, 4],
-    start_date: "20-02-2025",
-    end_date: "30-03-2025",
-  },
-];
-
-export const inventoryData = [
-  {
-    id: 1,
-    model: "SL01",
-    item: "Luminary",
-    manufacturer: "Ecosis",
-    rate: 10,
-    quantity: 2,
-    total_value: 20,
-  },
-  {
-    id: 2,
-
-    model: "SL02",
-    item: "Solar Module",
-    manufacturer: "Alpex",
-    rate: 5,
-    quantity: 3,
-    total_value: 15,
-  },
-  {
-    id: 3,
-    model: "SL03",
-    item: "Battery",
-    manufacturer: "Ecosis",
-    make: "ESL",
-    rate: 100,
-    quantity: 10,
-    total_value: 1000,
-  },
-  {
-    id: 4,
-    model: "SL04",
-    item: "Structure",
-    manufacturer: "Ecosis",
-    rate: 1,
-    quantity: 1,
-    total_value: 2
-  },
-];

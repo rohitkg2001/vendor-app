@@ -1,10 +1,11 @@
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import moment from "moment";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import StreetLightImages from "../components/StreetLightImages";
 import { spacing, styles, typography } from "../styles";
 import { P, H5 } from "../components/text";
+import StreetLightMedia from "../components/StreetLightMedia";
 
 // Reusable Field Component to display label-value pairs
 const InfoField = ({ label, value }) => (
@@ -42,6 +43,8 @@ const StreetLightDetailsScreen = ({ route }) => {
   const { item } = route.params;
   const isInstalled = item.isInstalled;
 
+  console.log("StreetLightDetails item:", item);
+
   return (
     <ContainerComponent>
       <MyHeader
@@ -50,7 +53,7 @@ const StreetLightDetailsScreen = ({ route }) => {
         hasIcon={true}
       />
 
-      <View style={[spacing.p2, { width: "100%" }]}>
+      <ScrollView style={[spacing.p2, { width: "100%" }]}>
         {/* Pole Number */}
         <View style={[spacing.br2, spacing.p2, { backgroundColor: "#5D92F4" }]}>
           <H5
@@ -130,21 +133,24 @@ const StreetLightDetailsScreen = ({ route }) => {
           <InfoField label="Latitude" value={item.installed_location?.lat} />
         </View>
 
-        {/* Survey Images */}
-        {Array.isArray(item.survey_image) && item.survey_image.length > 0 && (
+        {/* {Array.isArray(item.survey_image) && item.survey_image.length > 0 && (
           <View style={{ marginTop: 12 }}>
-            <StreetLightImages source={item.survey_image} />
+            <StreetLightMedia source={item.survey_image} />
           </View>
-        )}
+        )} */}
 
-        {/* Submission Images */}
-        {Array.isArray(item.submission_image) &&
+        {/* {Array.isArray(item.submission_image) &&
           item.submission_image.length > 0 && (
             <View style={{ marginTop: 12 }}>
-              <StreetLightImages source={item.submission_image} />
+              <StreetLightMedia source={item.submission_image} />
             </View>
-          )}
-      </View>
+          )} */}
+
+        <StreetLightMedia
+          surveyImages={item.survey_image}
+          submissionImages={item.submission_image}
+        />
+      </ScrollView>
     </ContainerComponent>
   );
 };

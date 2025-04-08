@@ -7,7 +7,6 @@ import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
 import { P } from "../components/text";
 import { useDispatch, useSelector } from "react-redux";
-import QRScanner from "../components/input/QRScanner";
 import CameraInput from "../components/input/CameraInput";
 import { Checkbox } from "react-native-paper";
 import MyPickerInput from "../components/input/MyPickerInput";
@@ -15,13 +14,8 @@ import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 export default function StartInstallationScreen({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
-  const [photoUri, setPhotoUri] = useState(null);
   const cameraRef = useRef(null);
   const [poleNumber, setPoleNumber] = useState("");
-  const [luminarySerialNumber, setLuminarySerialNumber] = useState("");
-  const [simNumber, setSimNumber] = useState("");
-  const [batterySerialNumber, setBatterySerialNumber] = useState("");
-  const [panelSerialNumber, setPanelSerialNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -34,7 +28,6 @@ export default function StartInstallationScreen({ navigation, route }) {
   const [selectedWard, setSelectedWard] = useState("");
 
   const [snackbarVisible, setSnackbarVisible] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [formattedPole, setFormattedPoleNumber] = useState("");
 
   const dispatch = useDispatch();

@@ -9,13 +9,12 @@ import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
-import { getAllItems } from "../redux/actions/inventoryActions";
 
 const SubmitInstallationScreen = ({ navigation }) => {
   const route = useRoute();
   const { data } = route.params || {}; // Fetch data from route params
 
-  const { complete_pole_number, panchayat, block, ward, pole } = data || {}; // Ensure data is present
+  const { complete_pole_number, pole } = data || {}; // Ensure data is present
 
   // Log the data to ensure it is passed correctly
   useEffect(() => {
@@ -56,7 +55,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
       (item) => item.serial_number && item.serial_number.includes(serialNumber)
     );
   };
-
 
   // Handle QR scan for Luminary
   const handleLuminaryQR = (val) => {
@@ -103,7 +101,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
       );
     }
   };
-
 
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
@@ -155,6 +152,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
       lng: image[0].long,
       isSurvey: false,
     };
+    console.log("Submitting data:", submissionData);
     const result = await dispatch(submitStreetlightTasks(submissionData));
     if (result == 200) {
       navigation.navigate("successScreen", {
