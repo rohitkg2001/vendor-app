@@ -1,15 +1,16 @@
 // import react native
 import { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { Modal, Portal } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { Modal, Portal } from "react-native-paper";
+
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import MyFlatList from "../components/utility/MyFlatList";
 import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import SearchBar from "../components/input/SearchBar";
 
 import {
@@ -21,14 +22,12 @@ import {
   SCREEN_HEIGHT,
   ICON_MEDIUM,
 } from "../styles";
-import { Span } from "../components/text";
-import { P } from "../components/text";
+import { Span, P } from "../components/text";
 
 export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
 
-  // const { inventory } = useSelector((state) => state.inventory);
   const {
     today_inventory,
     all_inventory,
@@ -36,8 +35,6 @@ export default function InventoryScreen({ navigation }) {
     in_stock,
     consumed,
   } = useSelector((state) => state.inventory);
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [detailsItem, setDetailsItem] = useState(null);
 
   useEffect(() => {
     console.log("Fetched Today Inventory Data:", { today_inventory });
@@ -46,16 +43,6 @@ export default function InventoryScreen({ navigation }) {
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
   }, []);
-
-  const openDetailsModal = (item) => {
-    setDetailsItem(item);
-    setShowDetailsModal(true);
-  };
-
-  const closeDetailsModal = () => {
-    setShowDetailsModal(false);
-    setDetailsItem(null);
-  };
 
   // Grouping function
   const groupInventoryItems = (items = []) => {
@@ -69,38 +56,45 @@ export default function InventoryScreen({ navigation }) {
           ...item,
           quantity: 0,
           total_value: 0,
-          dispatch_dates: new Set(), // Unique dispatch dates
+          dispatch_dates: new Set(),
         };
       }
 
       grouped[key].quantity += item.quantity;
       grouped[key].total_value += item.total_value;
 
-      // Add dispatch date
       if (item.dispatch_date) {
         grouped[key].dispatch_dates.add(item.dispatch_date);
       }
     });
 
-    // Convert Set to comma-separated string
     return Object.values(grouped).map((item) => ({
       ...item,
       dispatch_dates: Array.from(item.dispatch_dates).join(", "),
     }));
   };
 
-  const iconMap = {
-    Luminary: "bulb-outline",
-    Module: "sunny-outline",
-    Battery: "battery-charging-outline",
-    Structure: "cube-outline",
-  };
+  const openDetailsScreen = (item) => {
+    const itemCode = item.item_code;
 
-  const bgColorMap = {
-    Luminary: { bg: "#F8F8F8", icon: "#060606" },
-    Module: { bg: "#FFFFFF", icon: "#060606" },
-    Battery: { bg: "#E0E0E0", icon: "#060606" },
-    Structure: { bg: "#F0F0F0", icon: "#060606" },
+    const totalReceived = total_received_inventory?.find(
+      (inv) => inv.item_code?.toLowerCase() === itemCode?.toLowerCase()
+    );
+
+    const inStockData = in_stock?.find(
+      (inv) => inv.item_code?.toLowerCase() === itemCode?.toLowerCase()
+    );
+
+    const consumedData = consumed?.find(
+      (inv) => inv.item_code?.toLowerCase() === itemCode?.toLowerCase()
+    );
+
+    navigation.navigate("inventoryMaterialScreen", {
+      materialItem: totalReceived || item,
+      totalReceived: totalReceived?.total_quantity || item.quantity,
+      inStock: inStockData,
+      consumed: consumedData,
+    });
   };
 
   return (
@@ -117,11 +111,13 @@ export default function InventoryScreen({ navigation }) {
           },
         ]}
       />
+
       <SearchBar
         value={searchText}
         onChangeText={handleSearchChange}
         style={{ marginHorizontal: 16 }}
       />
+
       <View style={[spacing.mv2, { alignItems: "center" }]}>
         <View
           style={[
@@ -135,103 +131,43 @@ export default function InventoryScreen({ navigation }) {
             },
           ]}
         >
-          {/* {Object.keys(iconMap).map((itemName) => {
-            const { bg, icon } = bgColorMap[itemName];
-
-            // Find the item in total_received_inventory
-            const itemData = total_received_inventory?.find(
-              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
-            );
-
-            // Find the item in in_stock and consumed as well
-            const inStockData = in_stock?.find(
-              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
-            );
-            const consumedData = consumed?.find(
-              (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
-            );
-
-            // Calculate the counts
-            const totalReceived = itemData ? itemData.total_quantity : 0;
-
-            return (
-              <TouchableOpacity
-                key={itemName}
-                style={[
-                  spacing.m1,
-                  spacing.br2,
-                  {
-                    width: "47%",
-                    height: 100,
-                    backgroundColor: bg,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    elevation: 2,
-                  },
-                ]}
-                onPress={() =>
-                  navigation.navigate("inventoryMaterialScreen", {
-                    materialItem: itemData,
-                    totalReceived,
-                    inStock: inStockData,
-                    consumed: consumedData,
-                  })
-                }
-              >
-                <Icon name={iconMap[itemName]} size={32} color={icon} />
-                <P
-                  style={[spacing.mt1, typography.font16, typography.fontLato]}
-                >
-                  {itemName}
-                </P>
-                <Span style={[typography.font12, typography.fontLato]}>
-                  Quantity: {itemData ? itemData.total_quantity : 0}
-                </Span>
-                <Span
-                  style={[
-                    typography.font14,
-                    typography.textBold,
-                    typography.fontLato,
-                    { color: "#27ae60" },
-                  ]}
-                >
-                  ₹{itemData ? itemData.total_value : 0}
-                </Span>
-              </TouchableOpacity>
-            );
-          })} */}
-
           {["Battery", "Luminary", "Module", "Structure"].map((itemName) => {
-            // Find the item in total_received_inventory
             const itemData = total_received_inventory?.find(
               (inv) => inv.item.toLowerCase() === itemName.toLowerCase()
             );
 
-            // Find the item in in_stock and consumed as well
             const inStockData = in_stock?.find(
               (inv) =>
                 inv.item_code?.toLowerCase() ===
                 itemData?.item_code?.toLowerCase()
             );
+
             const consumedData = consumed?.find(
               (inv) =>
                 inv.item_code?.toLowerCase() ===
                 itemData?.item_code?.toLowerCase()
             );
 
-            let bgColor, icon;
-            if (itemName === "Battery") {
-              bgColor = "#E0E0E0";
-              icon = "battery-charging-outline";
-            } else if (itemName === "Luminary") {
-              bgColor = "#F8F8F8";
-              icon = "bulb-outline";
-            } else if (itemName === "Module") {
-              bgColor = "#FFFFFF";
-              icon = "sunny-outline";
-            } else if (itemName === "Structure") {
-              bgColor = "#F0F0F0";
-              icon = "cube-outline";
+            let bgColor = "#fff";
+            let icon = "cube-outline";
+
+            switch (itemName) {
+              case "Battery":
+                bgColor = "#E0E0E0";
+                icon = "battery-charging-outline";
+                break;
+              case "Luminary":
+                bgColor = "#F8F8F8";
+                icon = "bulb-outline";
+                break;
+              case "Module":
+                bgColor = "#FFFFFF";
+                icon = "sunny-outline";
+                break;
+              case "Structure":
+                bgColor = "#F0F0F0";
+                icon = "cube-outline";
+                break;
             }
 
             return itemData ? (
@@ -282,7 +218,7 @@ export default function InventoryScreen({ navigation }) {
           })}
         </View>
       </View>
-      ;
+
       <MyFlatList
         data={groupInventoryItems(today_inventory)}
         keyExtractor={(item) =>
@@ -297,75 +233,14 @@ export default function InventoryScreen({ navigation }) {
             model={item.model}
             manufacturer={item.manufacturer}
             rate={item.rate}
-            quantity={item.total_quantity}
+            quantity={item.quantity}
             total_value={item.total_value}
             dispatch_date={item.dispatch_dates}
             item_code={item.item_code}
-            onPress={() => openDetailsModal(item)}
+            onPress={() => openDetailsScreen(item)}
           />
         )}
       />
-      {/* inventory */}
-      <Portal>
-        <Modal visible={showDetailsModal} onDismiss={closeDetailsModal}>
-          <View
-            style={[
-              spacing.br3,
-              spacing.p3,
-              {
-                backgroundColor: LIGHT,
-                width: SCREEN_WIDTH - 32,
-                marginHorizontal: 8,
-                minHeight: SCREEN_HEIGHT / 6,
-              },
-            ]}
-          >
-            <TouchableOpacity
-              style={[
-                spacing.br3,
-                {
-                  position: "absolute",
-                  right: -10,
-                  top: -10,
-                  backgroundColor: "red",
-                },
-              ]}
-              onPress={closeDetailsModal}
-            >
-              <Icon name="close" color="white" size={ICON_MEDIUM} />
-            </TouchableOpacity>
-
-            {detailsItem && (
-              <>
-                <P
-                  style={[typography.font14, typography.fontLato, spacing.mb1]}
-                >
-                  🔹 Model:{" "}
-                  <P style={[typography.textBold]}>{detailsItem.model}</P>
-                </P>
-
-                <P
-                  style={[typography.font14, typography.fontLato, spacing.mb1]}
-                >
-                  🔹 Make:{" "}
-                  <P style={[typography.textBold]}>{detailsItem.make}</P>
-                </P>
-
-                <View
-                  style={[typography.font14, typography.fontLato, spacing.mb1]}
-                >
-                  <P>🔹 Serial Number:</P>
-                  {detailsItem.serial_number?.map((serial, index) => (
-                    <P key={index} style={[typography.textBold]}>
-                      • {serial}
-                    </P>
-                  ))}
-                </View>
-              </>
-            )}
-          </View>
-        </Modal>
-      </Portal>
     </ContainerComponent>
   );
 }

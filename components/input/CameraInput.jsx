@@ -53,7 +53,7 @@ export default function CameraInput({
   const handleCapture = async () => {
     if (cameraRef.current && location) {
       const photo = await cameraRef.current.takePictureAsync({ base64: false });
-
+      console.log( photo );
       const photoData = {
         uri: photo.uri,
         lat: location.latitude,

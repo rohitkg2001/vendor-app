@@ -1,5 +1,5 @@
 import { Card } from "react-native-paper";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity , View} from "react-native";
 import Button from "../buttons/Button";
 import { H5, H6, Span } from "../text";
 import {
@@ -46,23 +46,33 @@ export default function ClickableCard1({
           borderColor: borderColor,
         }}
       >
-        <Card.Title
-          title={<H5>{title}</H5>}
-          subtitle={
-            <Span
-              style={[
-                typography.font12,
-                typography.fontLato,
-                { textTransform: "capitalize" },
-              ]}
+        <Card.Content>
+          <View style={{ marginBottom: 8 }}>
+            <H5
+              style={{
+                flexWrap: "wrap",
+                flexShrink: 1,
+                width: "80%", 
+              }}
             >
-              {subtitle}
-            </Span>
-          }
-          left={leftContent}
-          right={() => <H6>{rightContent}</H6>}
-        />
-        <Card.Content>{children}</Card.Content>
+              {title}
+            </H5>
+            {!!subtitle && (
+              <Span
+                style={[
+                  typography.font12,
+                  typography.fontLato,
+                  { textTransform: "capitalize", marginTop: 2 },
+                ]}
+              >
+                {subtitle}
+              </Span>
+            )}
+          </View>
+
+          {children}
+        </Card.Content>
+
         <Card.Actions>
           {isNegativeButtonVisible && (
             <Button

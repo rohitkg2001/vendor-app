@@ -40,9 +40,13 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/lato_regular.ttf"
-          ]
+          "fonts": ["./assets/fonts/lato_regular.ttf"]
+        }
+      ],
+      [
+        "expo-document-picker",
+        {
+          "iCloudContainerEnvironment": "Production"
         }
       ]
     ]

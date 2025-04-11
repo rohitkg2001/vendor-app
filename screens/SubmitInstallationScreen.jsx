@@ -9,6 +9,7 @@ import { P } from "../components/text";
 import { SCREEN_WIDTH, styles } from "../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
+import * as DocumentPicker from "expo-document-picker";
 
 const SubmitInstallationScreen = ({ navigation }) => {
   const route = useRoute();
@@ -59,6 +60,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle QR scan for Luminary
   const handleLuminaryQR = (val) => {
     const luminarySerial = val.split(";")[0]?.toString() || "";
+    //YHAA ERROR DEH AGAR DATA FECTCH NAA KRE TOH
     if (isSerialNumberInStock(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);
       setSimNumber(val.split(";")[1].toString());
@@ -128,14 +130,30 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
   // Handle Take Photo button click
   const handleTakePhoto = () => {
-    if (!luminaryValid || !batteryValid || !panelValid) {
-      Alert.alert(
-        "Invalid Data",
-        "Please ensure all serial numbers are valid before taking a photo."
-      );
-      return; // Prevent opening camera if serial numbers are not valid
-    }
+    // if (!luminaryValid || !batteryValid || !panelValid) {
+    //   Alert.alert(
+    //     "Invalid Data",
+    //     "Please ensure all serial numbers are valid before taking a photo."
+    //   );
+    //   return; // Prevent opening camera if serial numbers are not valid
+    // }
+    // if (!simNumber || simNumber.trim() === "") {
+    //   Alert.alert(
+    //     "Missing SIM Number",
+    //     "SIM number is required before taking a photo."
+    //   );
+    //   return;
+    // }
     setIsCameraVisible(true);
+  };
+
+  //TO UPLOAD FROM GALLERY
+  const handleUploadFromGallery = async () => {
+    const { assets, canceled } = await DocumentPicker.getDocumentAsync();
+    if ( !canceled )
+    {
+      console.log( assets[ 0 ].uri );
+    }
   };
 
   // Handle form submission
@@ -206,6 +224,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
             value={simNumber}
             onChangeText={setSimNumber}
             keyboardType="numeric"
+            editable={false}
           />
         </View>
 
@@ -333,6 +352,28 @@ const SubmitInstallationScreen = ({ navigation }) => {
             ]}
           >
             Take Photo
+          </P>
+        </TouchableOpacity>
+
+        {/* UPLOAD FROM GALLERY */}
+        <TouchableOpacity
+          style={[
+            spacing.p4,
+            spacing.br1,
+            spacing.mb2,
+            styles.bgSecondary,
+            { width: SCREEN_WIDTH - 16, alignItems: "center" },
+          ]}
+          onPress={handleUploadFromGallery}
+        >
+          <P
+            style={[
+              typography.font18,
+              typography.textBold,
+              typography.textLight,
+            ]}
+          >
+            Upload From Gallery
           </P>
         </TouchableOpacity>
 

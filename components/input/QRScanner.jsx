@@ -85,7 +85,7 @@ export default function QRScanner({ title, onScan }) {
         <Icon
           name="qr-code-outline"
           size={ICON_LARGE}
-          style={{ position: "absolute", top: -60, right: 10 }}
+          style={{ position: "absolute", top: 10, right: 10 }}
         />
       </ClickableCard1>
 
