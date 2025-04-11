@@ -63,7 +63,10 @@ export default function InventoryMaterialScreen({ route }) {
     setFilteredTasks(list); // Reset filtered tasks to full list
   }, [activeTab, materialItem, totalReceived, inStock, consumed]);
 
-  
+  useEffect(() => {
+    console.log("materialItem received in detail screen:", materialItem);
+  }, []);
+
   // Filter tasks based on search text
   useEffect(() => {
     const filtered = dummyList.filter((item) =>
