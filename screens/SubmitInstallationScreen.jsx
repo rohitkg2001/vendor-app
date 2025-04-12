@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, TouchableOpacity, Alert } from "react-native";
+import { Snackbar } from "react-native-paper";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
 import { LIGHT, spacing, typography } from "../styles";
 import MyTextInput from "../components/input/MyTextInput";
@@ -40,6 +42,8 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const [luminaryError, setLuminaryError] = useState(false); // CHANGED
   const [batteryError, setBatteryError] = useState(false); // CHANGED
   const [panelError, setPanelError] = useState(false); // CHANGED
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const [contactNumber, setContactNumber] = useState(
     pole.beneficiary_contact || ""
@@ -197,19 +201,35 @@ const SubmitInstallationScreen = ({ navigation }) => {
   };
 
   // Handle Take Photo button click
+  // const handleTakePhoto = () => {
+  //   if (!luminaryValid || !batteryValid || !panelValid) {
+  //     Alert.alert(
+  //       "Invalid Data",
+  //       "Please ensure all serial numbers are valid before taking a photo."
+  //     );
+  //     return; // Prevent opening camera if serial numbers are not valid
+  //   }
+  //   if (!simNumber || simNumber.trim() === "") {
+  //     Alert.alert(
+  //       "Missing SIM Number",
+  //       "SIM number is required before taking a photo."
+  //     );
+  //     return;
+  //   }
+  //   setIsCameraVisible(true);
+  // };
+
   const handleTakePhoto = () => {
     if (!luminaryValid || !batteryValid || !panelValid) {
-      Alert.alert(
-        "Invalid Data",
+      setSnackbarMessage(
         "Please ensure all serial numbers are valid before taking a photo."
       );
-      return; // Prevent opening camera if serial numbers are not valid
+      setSnackbarVisible(true);
+      return;
     }
     if (!simNumber || simNumber.trim() === "") {
-      Alert.alert(
-        "Missing SIM Number",
-        "SIM number is required before taking a photo."
-      );
+      setSnackbarMessage("SIM number is required before taking a photo.");
+      setSnackbarVisible(true);
       return;
     }
     setIsCameraVisible(true);
@@ -219,28 +239,28 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const handleUploadFromGallery = async () => {
     // Check for all validations before proceeding
     if (!luminaryValid || !batteryValid || !panelValid) {
-      Alert.alert(
-        "Invalid Data",
+      setSnackbarMessage(
         "Please ensure all serial numbers are valid before uploading."
       );
-      return; // Block upload if invalid serials
+      setSnackbarVisible(true);
+      return;
     }
 
     if (!simNumber || simNumber.trim() === "") {
-      Alert.alert("Missing SIM Number", "SIM number is required.");
+      setSnackbarMessage("SIM number is required.");
+      setSnackbarVisible(true);
       return;
     }
 
     if (!beneficiary || beneficiary.trim() === "") {
-      Alert.alert("Missing Beneficiary", "Please enter beneficiary name.");
+      setSnackbarMessage("Please enter beneficiary name.");
+      setSnackbarVisible(true);
       return;
     }
 
     if (!contactNumber || contactNumber.trim().length !== 10) {
-      Alert.alert(
-        "Invalid Contact",
-        "Please enter a valid 10-digit contact number."
-      );
+      setSnackbarMessage("Please enter a valid 10-digit contact number.");
+      setSnackbarVisible(true);
       return;
     }
 
@@ -519,7 +539,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
           </P>
         </TouchableOpacity>
 
-        {/* UPLOAD FROM GALLERY */}
         <TouchableOpacity
           style={[
             spacing.p4,
@@ -541,13 +560,53 @@ const SubmitInstallationScreen = ({ navigation }) => {
           </P>
         </TouchableOpacity>
 
-        {/* Camera Input */}
         <CameraInput
           isCameraOpen={isCameraVisible}
           setIsCameraOpen={setIsCameraVisible}
           handleImageCapture={(image) => console.log(image)}
           handleSubmission={handleSubmission}
         />
+        <View
+          style={{
+            position: "absolute",
+            bottom: 20,
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
+          <Snackbar
+            visible={snackbarVisible}
+            onDismiss={() => setSnackbarVisible(false)}
+            duration={3000}
+            style={[
+              styles.br3,
+              {
+                backgroundColor: "#000",
+                maxWidth: "90%",
+              },
+            ]}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Ionicons
+                name="checkmark-circle-outline"
+                size={18}
+                color="#fff"
+                style={[styles.mr2]}
+              />
+              <P
+                style={[
+                  typography.font14,
+                  typography.fontLato,
+                  {
+                    color: LIGHT,
+                  },
+                ]}
+              >
+                {snackbarMessage}
+              </P>
+            </View>
+          </Snackbar>
+        </View>
       </View>
     </ScrollView>
   );
