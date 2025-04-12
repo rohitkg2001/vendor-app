@@ -35,6 +35,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const [luminaryValid, setLuminaryValid] = useState(false);
   const [batteryValid, setBatteryValid] = useState(false);
   const [panelValid, setPanelValid] = useState(false);
+  const [beneficiary, setbeneficiary] = useState(pole.beneficiary);
   const [isCameraVisible, setIsCameraVisible] = useState(false);
   const [contactNumber, setContactNumber] = useState(
     pole.beneficiary_contact || ""
@@ -130,34 +131,55 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
   // Handle Take Photo button click
   const handleTakePhoto = () => {
-    // if (!luminaryValid || !batteryValid || !panelValid) {
-    //   Alert.alert(
-    //     "Invalid Data",
-    //     "Please ensure all serial numbers are valid before taking a photo."
-    //   );
-    //   return; // Prevent opening camera if serial numbers are not valid
-    // }
-    // if (!simNumber || simNumber.trim() === "") {
-    //   Alert.alert(
-    //     "Missing SIM Number",
-    //     "SIM number is required before taking a photo."
-    //   );
-    //   return;
-    // }
+    if (!luminaryValid || !batteryValid || !panelValid) {
+      Alert.alert(
+        "Invalid Data",
+        "Please ensure all serial numbers are valid before taking a photo."
+      );
+      return; // Prevent opening camera if serial numbers are not valid
+    }
+    if (!simNumber || simNumber.trim() === "") {
+      Alert.alert(
+        "Missing SIM Number",
+        "SIM number is required before taking a photo."
+      );
+      return;
+    }
     setIsCameraVisible(true);
   };
 
   //TO UPLOAD FROM GALLERY
-  // const handleUploadFromGallery = async () => {
-  //   const { assets, canceled } = await DocumentPicker.getDocumentAsync();
-  //   if (!canceled) {
-  //     console.log(assets[0].uri);
-  //   }
-  // };
-
+  // TO UPLOAD FROM GALLERY
   const handleUploadFromGallery = async () => {
+    // Check for all validations before proceeding
+    if (!luminaryValid || !batteryValid || !panelValid) {
+      Alert.alert(
+        "Invalid Data",
+        "Please ensure all serial numbers are valid before uploading."
+      );
+      return; // Block upload if invalid serials
+    }
+
+    if (!simNumber || simNumber.trim() === "") {
+      Alert.alert("Missing SIM Number", "SIM number is required.");
+      return;
+    }
+
+    if (!beneficiary || beneficiary.trim() === "") {
+      Alert.alert("Missing Beneficiary", "Please enter beneficiary name.");
+      return;
+    }
+
+    if (!contactNumber || contactNumber.trim().length !== 10) {
+      Alert.alert(
+        "Invalid Contact",
+        "Please enter a valid 10-digit contact number."
+      );
+      return;
+    }
+
     const result = await DocumentPicker.getDocumentAsync({
-      type: "image/*", // Accept only images
+      type: "image/*",
       copyToCacheDirectory: true,
       multiple: false,
     });
@@ -247,7 +269,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
             value={simNumber}
             onChangeText={setSimNumber}
             keyboardType="numeric"
-            editable={false}
+            editable={true}
           />
         </View>
 
@@ -293,8 +315,8 @@ const SubmitInstallationScreen = ({ navigation }) => {
         <MyTextInput
           title="Beneficiary Name"
           placeholder="Beneficiary Name"
-          value={pole.beneficiary}
-          editable={false} // Prevent editing beneficiary name
+          value={beneficiary}
+          onChangeText={(val) => setbeneficiary(val)}
         />
         <MyTextInput
           title="Contact Number"
