@@ -67,14 +67,6 @@ export default function InventoryMaterialScreen({ route }) {
     console.log("materialItem received in detail screen:", materialItem);
   }, []);
 
-  // Filter tasks based on search text
-  // useEffect(() => {
-  //   const filtered = dummyList.filter((item) =>
-  //     item.site?.site_name.toLowerCase().includes(searchText.toLowerCase())
-  //   );
-  //   setFilteredTasks(filtered);
-  // }, [searchText, dummyList]);
-
   useEffect(() => {
     const search = searchText.toLowerCase();
 
