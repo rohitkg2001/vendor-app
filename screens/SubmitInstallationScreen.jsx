@@ -37,6 +37,10 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const [panelValid, setPanelValid] = useState(false);
   const [beneficiary, setbeneficiary] = useState(pole.beneficiary);
   const [isCameraVisible, setIsCameraVisible] = useState(false);
+  const [luminaryError, setLuminaryError] = useState(false); // CHANGED
+  const [batteryError, setBatteryError] = useState(false); // CHANGED
+  const [panelError, setPanelError] = useState(false); // CHANGED
+
   const [contactNumber, setContactNumber] = useState(
     pole.beneficiary_contact || ""
   ); // Use contact from pole data
@@ -62,70 +66,133 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const handleLuminaryQR = (val) => {
     const luminarySerial = val.split(";")[0]?.toString() || "";
     //YHAA ERROR DEH AGAR DATA FECTCH NAA KRE TOH
+    // if (isSerialNumberInStock(luminarySerial)) {
+    //   setLuminarySerialNumber(luminarySerial);
+    //   setSimNumber(val.split(";")[1].toString());
+    //   setLuminaryValid(true);
+    // } else {
+    //   setLuminaryValid(false);
+    //   Alert.alert(
+    //     "Invalid Serial Number",
+    //     "This Luminary serial number is not valid."
+    //   );
+    // }
+
     if (isSerialNumberInStock(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);
       setSimNumber(val.split(";")[1].toString());
       setLuminaryValid(true);
+      setLuminaryError(false); // CHANGED
     } else {
       setLuminaryValid(false);
-      Alert.alert(
-        "Invalid Serial Number",
-        "This Luminary serial number is not valid."
-      );
+      setLuminaryError(true); // CHANGED
+      // Alert removed here // CHANGED
     }
   };
 
   // Handle QR scan for Battery
   const handleBatteryQR = (val) => {
     const batterySerial = val.split(";")[0]?.toString() || "";
+    // if (isSerialNumberInStock(batterySerial)) {
+    //   setBatterySerialNumber(batterySerial);
+    //   setBatteryValid(true);
+    // } else {
+    //   setBatteryValid(false);
+    //   Alert.alert(
+    //     "Invalid Serial Number",
+    //     "This Battery serial number is not valid."
+    //   );
+    // }
+
     if (isSerialNumberInStock(batterySerial)) {
       setBatterySerialNumber(batterySerial);
       setBatteryValid(true);
+      setBatteryError(false); // CHANGED
     } else {
       setBatteryValid(false);
-      Alert.alert(
-        "Invalid Serial Number",
-        "This Battery serial number is not valid."
-      );
+      setBatteryError(true); // CHANGED
+      // Alert removed here // CHANGED
     }
   };
 
   // Handle QR scan for Panel
   const handlePanelQR = (val) => {
     const panelSerial = val.split(";")[0]?.toString() || "";
+    // if (isSerialNumberInStock(panelSerial)) {
+    //   setPanelSerialNumber(panelSerial);
+    //   setPanelValid(true);
+    // } else {
+    //   setPanelValid(false);
+    //   Alert.alert(
+    //     "Invalid Serial Number",
+    //     "This Panel serial number is not valid."
+    //   );
+    // }
+
     if (isSerialNumberInStock(panelSerial)) {
       setPanelSerialNumber(panelSerial);
       setPanelValid(true);
+      setPanelError(false); // CHANGED
     } else {
       setPanelValid(false);
-      Alert.alert(
-        "Invalid Serial Number",
-        "This Panel serial number is not valid."
-      );
+      setPanelError(true); // CHANGED
+      // Alert removed here // CHANGED
     }
   };
 
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
     const serialNumber = value.trim(); // Clean up input
+    // if (isSerialNumberInStock(serialNumber)) {
+    //   if (type === "luminary") {
+    //     setLuminarySerialNumber(serialNumber);
+    //     setLuminaryValid(true);
+    //   }
+    //   if (type === "battery") {
+    //     setBatterySerialNumber(serialNumber);
+    //     setBatteryValid(true);
+    //   }
+    //   if (type === "panel") {
+    //     setPanelSerialNumber(serialNumber);
+    //     setPanelValid(true);
+    //   }
+    // } else {
+    //   setLuminaryValid(false);
+    //   setBatteryValid(false);
+    //   setPanelValid(false);
+    //   Alert.alert("Invalid Serial Number", "This serial number is not valid.");
+    // }
+
     if (isSerialNumberInStock(serialNumber)) {
       if (type === "luminary") {
         setLuminarySerialNumber(serialNumber);
         setLuminaryValid(true);
+        setLuminaryError(false); // CHANGED
       }
       if (type === "battery") {
         setBatterySerialNumber(serialNumber);
         setBatteryValid(true);
+        setBatteryError(false); // CHANGED
       }
       if (type === "panel") {
         setPanelSerialNumber(serialNumber);
         setPanelValid(true);
+        setPanelError(false); // CHANGED
       }
     } else {
-      setLuminaryValid(false);
-      setBatteryValid(false);
-      setPanelValid(false);
-      Alert.alert("Invalid Serial Number", "This serial number is not valid.");
+      if (type === "luminary") {
+        setLuminaryValid(false);
+        setLuminaryError(true); // CHANGED
+      }
+      if (type === "battery") {
+        setBatteryValid(false);
+        setBatteryError(true); // CHANGED
+      }
+      if (type === "panel") {
+        setPanelValid(false);
+        setPanelError(true); // CHANGED
+      }
+      // Alert removed here // CHANGED
     }
   };
 
@@ -148,7 +215,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
     setIsCameraVisible(true);
   };
 
-  //TO UPLOAD FROM GALLERY
   // TO UPLOAD FROM GALLERY
   const handleUploadFromGallery = async () => {
     // Check for all validations before proceeding
@@ -255,14 +321,33 @@ const SubmitInstallationScreen = ({ navigation }) => {
             onScan={handleLuminaryQR}
             disabled={!luminaryValid} // Disable QR scanner if serial number is not valid
           />
-          <MyTextInput
+          {/* <MyTextInput
             title="Luminary Serial Number"
             placeholder="Enter Luminary Serial Number"
             value={luminarySerialNumber}
             onChangeText={(text) => handleManualInput(text, "luminary")}
             keyboardType="numeric"
             editable={true} // Disable input if serial number is not valid
+          /> */}
+
+          <MyTextInput
+            title="Luminary Serial Number"
+            placeholder="Enter Luminary Serial Number"
+            value={luminarySerialNumber}
+            onChangeText={(text) => handleManualInput(text, "luminary")}
+            keyboardType="numeric"
+            editable={true}
+            style={{
+              borderColor: luminaryError ? "red" : "#ccc", // CHANGED
+              borderWidth: 1, // CHANGED
+            }}
           />
+          {luminaryError && (
+            <P style={{ color: "red", marginLeft: 5, bottom: 10 }}>
+              Get correct luminary serial number
+            </P> // CHANGED
+          )}
+
           <MyTextInput
             title="SIM NUMBER"
             placeholder="Enter SIM Number"
@@ -282,14 +367,31 @@ const SubmitInstallationScreen = ({ navigation }) => {
             onScan={handleBatteryQR}
             disabled={!batteryValid} // Disable QR scanner if serial number is not valid
           />
-          <MyTextInput
+          {/* <MyTextInput
             title="Battery Serial Number"
             placeholder="Enter Battery Serial Number"
             value={batterySerialNumber}
             onChangeText={(text) => handleManualInput(text, "battery")}
             keyboardType="numeric"
             editable={true} // Disable input if serial number is not valid
+          /> */}
+          <MyTextInput
+            title="Battery Serial Number"
+            placeholder="Enter Battery Serial Number"
+            value={batterySerialNumber}
+            onChangeText={(text) => handleManualInput(text, "battery")}
+            keyboardType="numeric"
+            editable={true}
+            style={{
+              borderColor: batteryError ? "red" : "#ccc", // CHANGED
+              borderWidth: 1, // CHANGED
+            }}
           />
+          {batteryError && (
+            <P style={{ color: "red", marginLeft: 5, bottom: 10 }}>
+              Get correct battery serial number
+            </P> // CHANGED
+          )}
         </View>
 
         {/* Panel QR and Serial Number */}
@@ -301,14 +403,31 @@ const SubmitInstallationScreen = ({ navigation }) => {
             onScan={handlePanelQR}
             disabled={!panelValid} // Disable QR scanner if serial number is not valid
           />
-          <MyTextInput
+          {/* <MyTextInput
             title="Panel Serial Number"
             placeholder="Enter Panel Serial Number"
             value={panelSerialNumber}
             onChangeText={(text) => handleManualInput(text, "panel")}
             keyboardType="numeric"
             editable={true} // Disable input if serial number is not valid
+          /> */}
+          <MyTextInput
+            title="Panel Serial Number"
+            placeholder="Enter Panel Serial Number"
+            value={panelSerialNumber}
+            onChangeText={(text) => handleManualInput(text, "panel")}
+            keyboardType="numeric"
+            editable={true}
+            style={{
+              borderColor: panelError ? "red" : "#ccc", // CHANGED
+              borderWidth: 1, // CHANGED
+            }}
           />
+          {panelError && (
+            <P style={{ color: "red", marginLeft: 5, bottom: 10 }}>
+              Get correct panel serial number
+            </P> // CHANGED
+          )}
         </View>
 
         {/* Beneficiary and Contact Details */}

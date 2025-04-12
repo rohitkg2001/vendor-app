@@ -124,6 +124,7 @@ const StreetLightPendingTask = ({ navigation }) => {
 
     setFilteredData(baseData);
   };
+  
 
   useEffect(() => {
     updateTabCounts();
