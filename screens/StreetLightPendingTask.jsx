@@ -72,6 +72,60 @@ const StreetLightPendingTask = ({ navigation }) => {
   });
 
   useEffect(() => {
+    dispatch(getInstalledPoles(id));
+  }, [dispatch, id]);
+
+  const updateTabCounts = () => {
+    setTabCounts({
+      All: pendingStreetLights?.length || 0,
+      Survey: surveyedStreetLights?.length || 0,
+      InApproval:
+        installedStreetLights?.filter((task) => task.status === "Pending")
+          .length || 0,
+      Approved:
+        installedStreetLights?.filter((task) => task.status === "Approved")
+          .length || 0,
+      Rejected:
+        pendingStreetLights?.filter((task) => task.status === "Rejected")
+          .length || 0,
+    });
+  };
+
+  const filterData = (tab) => {
+    let baseData = [];
+
+    if (tab === "Survey") {
+      baseData = surveyedStreetLights || [];
+    } else if (tab === "InApproval") {
+      baseData =
+        installedStreetLights?.filter((task) => task.status === "Pending") ||
+        [];
+    } else if (tab === "Approved") {
+      baseData =
+        installedStreetLights?.filter((task) => task.status === "Approved") ||
+        [];
+    } else if (tab === "Rejected") {
+      baseData =
+        pendingStreetLights?.filter((task) => task.status === "Rejected") || [];
+    } else {
+      baseData = pendingStreetLights || [];
+    }
+
+    // Apply search filter
+    if (searchText.trim()) {
+      const search = searchText.toLowerCase();
+      baseData = baseData.filter((item) => {
+        const stringToSearch =
+          `${item?.panchayat} ${item?.block} ${item?.district} ${item?.state} ${item?.complete_pole_number} ${item?.pole_number} ${item?.site?.number_of_surveyed_poles}/${item?.site?.total_poles} ${item?.site?.number_of_installed_poles}/${item?.site?.total_poles}`.toLowerCase();
+
+        return stringToSearch.includes(search);
+      });
+    }
+
+    setFilteredData(baseData);
+  };
+
+  useEffect(() => {
     updateTabCounts();
     filterData(activeTab);
   }, [
@@ -79,49 +133,8 @@ const StreetLightPendingTask = ({ navigation }) => {
     surveyedStreetLights,
     installedStreetLights,
     activeTab,
+    searchText,
   ]);
-
-  useEffect(() => {
-    dispatch(getInstalledPoles(id));
-  }, [dispatch, id]);
-
-const updateTabCounts = () => {
-  setTabCounts({
-    All: pendingStreetLights?.length || 0,
-    Survey: surveyedStreetLights?.length || 0,
-    InApproval:
-      installedStreetLights?.filter((task) => task.status === "Pending")
-        .length || 0, 
-    Approved:
-      installedStreetLights?.filter((task) => task.status === "Approved")
-        .length || 0,
-    Rejected:
-      pendingStreetLights?.filter((task) => task.status === "Rejected")
-        .length || 0,
-  });
-};
-
-
-const filterData = (tab) => {
-  if (tab === "Survey") {
-    setFilteredData(surveyedStreetLights || []);
-  } else if (tab === "InApproval") {
-    setFilteredData(
-      installedStreetLights?.filter((task) => task.status === "Pending") || []
-    ); // Filter based on Pending status for InApproval tab
-  } else if (tab === "Approved") {
-    setFilteredData(
-      installedStreetLights?.filter((task) => task.status === "Approved") || []
-    ); // Filter based on Approved status for Approved tab
-  } else if (tab === "Rejected") {
-    setFilteredData(
-      pendingStreetLights?.filter((task) => task.status === "Rejected") || []
-    );
-  } else {
-    setFilteredData(pendingStreetLights || []);
-  }
-};
-
 
   const [snackbar, setShowSnackbar] = useState({
     open: false,
@@ -154,11 +167,7 @@ const filterData = (tab) => {
         ]}
       />
 
-      <SearchBar
-        value={searchText}
-        onChangeText={handleSearchChange}
-        style={{ marginHorizontal: 10 }}
-      />
+      <SearchBar value={searchText} onChangeText={handleSearchChange} />
 
       <MyFlatList
         data={filteredData}

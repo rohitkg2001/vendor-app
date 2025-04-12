@@ -68,10 +68,26 @@ export default function InventoryMaterialScreen({ route }) {
   }, []);
 
   // Filter tasks based on search text
+  // useEffect(() => {
+  //   const filtered = dummyList.filter((item) =>
+  //     item.site?.site_name.toLowerCase().includes(searchText.toLowerCase())
+  //   );
+  //   setFilteredTasks(filtered);
+  // }, [searchText, dummyList]);
+
   useEffect(() => {
-    const filtered = dummyList.filter((item) =>
-      item.site?.site_name.toLowerCase().includes(searchText.toLowerCase())
-    );
+    const search = searchText.toLowerCase();
+
+    const filtered = dummyList.filter((item) => {
+      const stringToSearch = `
+      ${item.serial_number}
+      ${item.item_code}
+      ${item.model}
+    `.toLowerCase();
+
+      return stringToSearch.includes(search);
+    });
+
     setFilteredTasks(filtered);
   }, [searchText, dummyList]);
 
@@ -99,11 +115,7 @@ export default function InventoryMaterialScreen({ route }) {
         hasIcon={true}
         icon="ellipsis-vertical"
       />
-      <SearchBar
-        value={searchText}
-        onChangeText={handleSearchChange}
-        style={{ marginHorizontal: 10 }}
-      />
+      <SearchBar value={searchText} onChangeText={handleSearchChange} />
 
       {/* Set key to force re-render when the tab changes */}
       <MyFlatList
