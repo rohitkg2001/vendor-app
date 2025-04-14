@@ -69,7 +69,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle QR scan for Luminary
   const handleLuminaryQR = (val) => {
     const luminarySerial = val.split(";")[0]?.toString() || "";
-    //YHAA ERROR DEH AGAR DATA FECTCH NAA KRE TOH
 
     if (isSerialNumberInStock(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);

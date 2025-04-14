@@ -106,16 +106,6 @@ export default function CameraInput({
           >
             <View style={styles.innerShutter} />
           </TouchableOpacity>
-          {/* {!isSurvey && photos.length >= 2 ? (
-            <TouchableOpacity
-              onPress={() => handleSubmission(photos)}
-              style={styles.retakeButton}
-            >
-              <Icon name="arrow-forward" size={ICON_LARGE} color={"white"} />
-            </TouchableOpacity>
-          ) : (
-            <View />
-          )} */}
           {!isSurvey && photos.length >= 2 ? (
             <TouchableOpacity
               onPress={() => {
@@ -131,8 +121,8 @@ export default function CameraInput({
                       text: "Submit",
                       onPress: () => {
                         handleSubmission(photos);
-                        // navigation.goBack();
-                        navigation.navigate("successScreen");
+                        navigation.goBack();
+                        // navigation.navigate("successScreen");
                       },
                     },
                   ]

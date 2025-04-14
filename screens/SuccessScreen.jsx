@@ -8,7 +8,7 @@ const SuccessScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
   const params = route.params || {};
   const message = params.message || "Task update has been successfully saved.";
-  const nextScreen = params.nextScreen || "taskScreen";
+  const nextScreen = params.nextScreen || "streetLightPendingTask";
 
   useEffect(() => {
     setTimeout(() => {
