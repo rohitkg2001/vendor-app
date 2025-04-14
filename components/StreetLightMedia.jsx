@@ -7,11 +7,15 @@ import { P } from "./text";
 export default function StreetLightMedia({
   surveyImages = [],
   submissionImages = [],
+  latitude,
+  longitude,
 }) {
   const [images, setImages] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("Images");
+  const [location, setLocation] = useState(null);
+  const [timestamp, setTimestamp] = useState("");
 
   useEffect(() => {
     const rawList =
@@ -135,12 +139,35 @@ export default function StreetLightMedia({
         </P>
       )}
 
-      {/* Image Viewer */}
       <ImageViewing
         images={images}
         imageIndex={selectedImageIndex}
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
+        FooterComponent={() => (
+          <View
+            style={{
+              position: "absolute",
+              bottom: 20,
+              left: 10,
+              right: 10,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              padding: 6,
+              borderRadius: 6,
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
+              Powered by Dashandots Technology
+            </Text>
+            <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
+              {/* 📍 {location?.latitude}, {location?.longitude} */}
+              📍 {latitude}, {longitude}
+            </Text>
+            {/* <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
+              ⏰ {timestamp}
+            </Text> */}
+          </View>
+        )}
       />
     </View>
   );

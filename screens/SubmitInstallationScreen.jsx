@@ -112,6 +112,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
     const serialNumber = value.trim(); // Clean up input
+   
 
     if (isSerialNumberInStock(serialNumber)) {
       if (type === "luminary") {

@@ -25,6 +25,7 @@ export default function CameraInput({
   const [location, setLocation] = useState(null); // Store GPS location
   const [timestamp, setTimestamp] = useState(""); // Store real-time timestamp
   const cameraRef = useRef(null); // Camera reference
+
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -121,7 +122,8 @@ export default function CameraInput({
                       text: "Submit",
                       onPress: () => {
                         handleSubmission(photos);
-                        navigation.goBack();
+                        setIsCameraOpen(false);
+                        // navigation.goBack();
                         // navigation.navigate("successScreen");
                       },
                     },
