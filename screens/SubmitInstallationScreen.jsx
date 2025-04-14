@@ -132,25 +132,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
     const serialNumber = value.trim(); // Clean up input
-    // if (isSerialNumberInStock(serialNumber)) {
-    //   if (type === "luminary") {
-    //     setLuminarySerialNumber(serialNumber);
-    //     setLuminaryValid(true);
-    //   }
-    //   if (type === "battery") {
-    //     setBatterySerialNumber(serialNumber);
-    //     setBatteryValid(true);
-    //   }
-    //   if (type === "panel") {
-    //     setPanelSerialNumber(serialNumber);
-    //     setPanelValid(true);
-    //   }
-    // } else {
-    //   setLuminaryValid(false);
-    //   setBatteryValid(false);
-    //   setPanelValid(false);
-    //   Alert.alert("Invalid Serial Number", "This serial number is not valid.");
-    // }
+   
 
     if (isSerialNumberInStock(serialNumber)) {
       if (type === "luminary") {
@@ -310,14 +292,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
             onScan={handleLuminaryQR}
             disabled={!luminaryValid} // Disable QR scanner if serial number is not valid
           />
-          {/* <MyTextInput
-            title="Luminary Serial Number"
-            placeholder="Enter Luminary Serial Number"
-            value={luminarySerialNumber}
-            onChangeText={(text) => handleManualInput(text, "luminary")}
-            keyboardType="numeric"
-            editable={true} // Disable input if serial number is not valid
-          /> */}
 
           <MyTextInput
             title="Luminary Serial Number"
@@ -356,14 +330,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
             onScan={handleBatteryQR}
             disabled={!batteryValid} // Disable QR scanner if serial number is not valid
           />
-          {/* <MyTextInput
-            title="Battery Serial Number"
-            placeholder="Enter Battery Serial Number"
-            value={batterySerialNumber}
-            onChangeText={(text) => handleManualInput(text, "battery")}
-            keyboardType="numeric"
-            editable={true} // Disable input if serial number is not valid
-          /> */}
+
           <MyTextInput
             title="Battery Serial Number"
             placeholder="Enter Battery Serial Number"
@@ -392,14 +359,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
             onScan={handlePanelQR}
             disabled={!panelValid} // Disable QR scanner if serial number is not valid
           />
-          {/* <MyTextInput
-            title="Panel Serial Number"
-            placeholder="Enter Panel Serial Number"
-            value={panelSerialNumber}
-            onChangeText={(text) => handleManualInput(text, "panel")}
-            keyboardType="numeric"
-            editable={true} // Disable input if serial number is not valid
-          /> */}
+
           <MyTextInput
             title="Panel Serial Number"
             placeholder="Enter Panel Serial Number"

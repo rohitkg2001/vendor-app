@@ -120,9 +120,10 @@ export default function CameraInput({
                     {
                       text: "Submit",
                       onPress: () => {
-                        handleSubmission(photos);
+                        handleSubmission( photos );
+                        setIsCameraOpen(false);
                         // navigation.goBack();
-                        navigation.navigate("successScreen");
+                        // navigation.navigate("successScreen");
                       },
                     },
                   ]
