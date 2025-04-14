@@ -65,18 +65,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle QR scan for Luminary
   const handleLuminaryQR = (val) => {
     const luminarySerial = val.split(";")[0]?.toString() || "";
-    //YHAA ERROR DEH AGAR DATA FECTCH NAA KRE TOH
-    // if (isSerialNumberInStock(luminarySerial)) {
-    //   setLuminarySerialNumber(luminarySerial);
-    //   setSimNumber(val.split(";")[1].toString());
-    //   setLuminaryValid(true);
-    // } else {
-    //   setLuminaryValid(false);
-    //   Alert.alert(
-    //     "Invalid Serial Number",
-    //     "This Luminary serial number is not valid."
-    //   );
-    // }
+
 
     if (isSerialNumberInStock(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);

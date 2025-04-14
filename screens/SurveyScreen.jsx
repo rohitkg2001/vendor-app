@@ -104,7 +104,7 @@ export default function SurveyScreen({ route, message = "" }) {
         setFile(null);
         navigation.navigate("successScreen", {
           message: "Task update has been successfully saved.",
-          nextScreen: "taskScreen",
+          nextScreen: "streetLightPendingTask",
         });
       } else {
         setSnackbarMessage("Error submitting task");
