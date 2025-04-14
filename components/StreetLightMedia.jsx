@@ -3,12 +3,20 @@ import { View, Image, ScrollView, TouchableOpacity, Text } from "react-native";
 import ImageViewing from "react-native-image-viewing";
 import { typography, spacing, styles } from "../styles";
 import { P } from "./text";
+import * as ImagePicker from "expo-image-picker";
+import Marker from "react-native-image-marker";
+import moment from "moment";
+import { Button, Alert } from "react-native";
+
 
 export default function StreetLightMedia({
   surveyImages = [],
   submissionImages = [],
   latitude,
   longitude,
+  state,
+  district,
+  submissionDate,
 }) {
   const [images, setImages] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
