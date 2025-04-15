@@ -1,19 +1,22 @@
-import { useEffect, useState, useRef } from "react";
-import { CameraView, useCameraPermissions } from "expo-camera";
+import { useState, useEffect, useRef } from "react";
+import { CameraView } from "expo-camera";
 import {
   View,
   Text,
   TouchableOpacity,
-  Modal,
-  StyleSheet,
-  Image,
-  FlatList,
   Alert,
+  Modal,
+  FlatList,
+  Image,
+  StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import * as ImageManipulator from "expo-image-manipulator";
+import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
-import { ICON_LARGE, typography } from "../../styles";
-import { useNavigation } from "@react-navigation/native";
+import Marker, { TextBackgroundType } from "react-native-image-marker";
+
+import { ICON_LARGE } from "../../styles";
 
 export default function CameraInput({
   isCameraOpen,
@@ -22,18 +25,16 @@ export default function CameraInput({
   handleSubmission,
 }) {
   const [photos, setPhotos] = useState([]);
-  const [location, setLocation] = useState(null); // Store GPS location
-  const [timestamp, setTimestamp] = useState(""); // Store real-time timestamp
-  const cameraRef = useRef(null); // Camera reference
-
-  const navigation = useNavigation();
+  const [location, setLocation] = useState(null);
+  const [timestamp, setTimestamp] = useState("");
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const cameraRef = useRef(null);
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
-        let loc = await Location.getCurrentPositionAsync({});
-        console.log(loc);
+        const loc = await Location.getCurrentPositionAsync({});
         setLocation(loc.coords);
       }
     })();
@@ -51,18 +52,122 @@ export default function CameraInput({
     }
   }, [photos]);
 
-  const handleCapture = async () => {
-    if (cameraRef.current && location) {
-      const photo = await cameraRef.current.takePictureAsync({ base64: false });
-      console.log(photo);
-      const photoData = {
-        uri: photo.uri,
-        lat: location.latitude,
-        long: location.longitude,
-        timestamp: new Date().toLocaleTimeString(),
-      };
+  const handleCameraReady = () => {
+    setIsCameraReady(true);
+  };
 
-      setPhotos((prev) => [photoData, ...prev].slice(0, 5));
+  // const handleCapture = async () => {
+  //   if (cameraRef.current && isCameraReady && location) {
+  //     try {
+  //       const photo = await cameraRef.current.takePictureAsync({
+  //         quality: 0.8,
+  //         skipProcessing: true,
+  //       });
+  //      // console.log(photo);
+  //        console.log("Original size:", photo.uri);
+
+  //       // Step 1: Compress photo (resize + compress to reduce size <1MB)
+  //       const compressedPhoto = await ImageManipulator.manipulateAsync(
+  //         photo.uri,
+  //         [{ resize: { width: 1080 } }], // resize if needed
+  //         {
+  //           compress: 0.7, // 0-1 range (0.7 usually gives <1MB)
+  //           format: ImageManipulator.SaveFormat.JPEG,
+  //         }
+  //       );
+
+  //       console.log("Compressed size:", compressedPhoto.uri);
+  //       const markedPhotoUri = await addWatermark(photo.uri);
+
+  //       const photoData = {
+  //         uri: markedPhotoUri,
+  //         lat: location.latitude,
+  //         long: location.longitude,
+  //         timestamp: new Date().toLocaleTimeString(),
+  //       };
+
+  //       setPhotos((prev) => [photoData, ...prev].slice(0, 5));
+  //     } catch (err) {
+  //       console.error("Error capturing or watermarking photo:", err);
+  //     }
+  //   }
+  // };
+
+  const handleCapture = async () => {
+    if (cameraRef.current && isCameraReady && location) {
+      try {
+        const photo = await cameraRef.current.takePictureAsync({
+          quality: 0.8,
+          skipProcessing: true,
+        });
+
+        // Get original file size
+        const originalInfo = await FileSystem.getInfoAsync(photo.uri);
+        const originalSizeMB = (originalInfo.size / (1024 * 1024)).toFixed(2);
+        console.log("Original image:");
+        console.log("   URI:", photo.uri);
+        console.log("   Size:", originalSizeMB, "MB");
+
+        // Step 1: Compress photo
+        const compressedPhoto = await ImageManipulator.manipulateAsync(
+          photo.uri,
+          [{ resize: { width: 1080 } }],
+          {
+            compress: 0.7,
+            format: ImageManipulator.SaveFormat.JPEG,
+          }
+        );
+
+        // Get compressed file size
+        const compressedInfo = await FileSystem.getInfoAsync(
+          compressedPhoto.uri
+        );
+        const compressedSizeMB = (compressedInfo.size / (1024 * 1024)).toFixed(
+          2
+        );
+        console.log("Compressed image:");
+        console.log("   URI:", compressedPhoto.uri);
+        console.log("   Size:", compressedSizeMB, "MB");
+
+        // Step 2: Add watermark on compressed image
+        const markedPhotoUri = await addWatermark(compressedPhoto.uri);
+
+        const photoData = {
+          uri: markedPhotoUri,
+          lat: location.latitude,
+          long: location.longitude,
+          timestamp: new Date().toLocaleTimeString(),
+        };
+
+        setPhotos((prev) => [photoData, ...prev].slice(0, 5));
+      } catch (err) {
+        console.error("Error capturing or watermarking photo:", err);
+      }
+    }
+  };
+
+  const addWatermark = async (imagePath) => {
+    try {
+      const watermarkText = `Dashnadots Technology\n📍 ${location.latitude.toFixed(
+        4
+      )}, ${location.longitude.toFixed(4)} ${new Date().toLocaleTimeString()}`;
+
+      const markedImagePath = await Marker.markText({
+        backgroundImage: {
+          src: imagePath,
+        },
+        watermarkTexts: [
+          {
+            text: "hello",
+            position: { x: 20, y: 20 },
+          },
+        ],
+      });
+
+      return markedImagePath;
+    } catch (e) {
+      console.error("Watermarking failed:", e);
+      return imagePath;
     }
   };
 
@@ -70,25 +175,41 @@ export default function CameraInput({
     setPhotos([]);
   };
 
-  return (
-    <Modal
-      visible={isCameraOpen}
-      animationType="slide"
-      onRequestClose={() => setIsCameraOpen(false)}
-    >
-      <View style={styles.cameraContainer}>
-        <CameraView ref={cameraRef} facing="back" style={styles.camera} />
+  const handleSubmitConfirmation = () => {
+    Alert.alert("Confirm Submission", "Are you sure you want to submit?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Submit",
+        onPress: () => {
+          handleSubmission(photos);
+          setIsCameraOpen(false);
+        },
+      },
+    ]);
+  };
 
-        {/* Watermark Overlay */}
+  return (
+    <Modal visible={isCameraOpen} animationType="slide">
+      <View style={styles.cameraContainer}>
+        <CameraView
+          ref={cameraRef}
+          facing="back"
+          style={styles.camera}
+          onCameraReady={handleCameraReady}
+        />
+
+        {/* Live On-Screen Watermark */}
         <View style={styles.watermark}>
           <Text style={styles.watermarkText}>
-            Powered by Dashandots Technology
+            Powered by Dashnadots Technology
           </Text>
           <Text style={styles.watermarkText}>
-            📍 {location?.latitude}, {location?.longitude}
+            📍 {location?.latitude?.toFixed(4)},{" "}
+            {location?.longitude?.toFixed(4)}
           </Text>
           <Text style={styles.watermarkText}>⏰ {timestamp}</Text>
         </View>
+
         <TouchableOpacity
           onPress={() => setIsCameraOpen(false)}
           style={styles.closeButton}
@@ -96,50 +217,29 @@ export default function CameraInput({
           <Icon name="close" size={35} color="white" />
         </TouchableOpacity>
 
-        {/* Controlsl */}
         <View style={styles.controls}>
           <TouchableOpacity onPress={handleRetake} style={styles.retakeButton}>
             <Icon name="refresh" size={35} color="white" />
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={handleCapture}
             style={styles.shutterButton}
           >
             <View style={styles.innerShutter} />
           </TouchableOpacity>
-          {!isSurvey && photos.length >= 2 ? (
+
+          {!isSurvey && photos.length >= 2 && (
             <TouchableOpacity
-              onPress={() => {
-                Alert.alert(
-                  "Confirm Submission",
-                  "Are you sure you want to submit the task?",
-                  [
-                    {
-                      text: "Cancel",
-                      style: "cancel",
-                    },
-                    {
-                      text: "Submit",
-                      onPress: () => {
-                        handleSubmission(photos);
-                        setIsCameraOpen(false);
-                        // navigation.goBack();
-                        // navigation.navigate("successScreen");
-                      },
-                    },
-                  ]
-                );
-              }}
+              onPress={handleSubmitConfirmation}
               style={styles.retakeButton}
             >
-              <Icon name="arrow-forward" size={ICON_LARGE} color={"white"} />
+              <Icon name="arrow-forward" size={ICON_LARGE} color="white" />
             </TouchableOpacity>
-          ) : (
-            <View />
           )}
         </View>
 
-        {/* Display Last 5 Photos */}
+        {/* Captured Photo Preview */}
         <FlatList
           data={photos}
           keyExtractor={(item, index) => index.toString()}
@@ -161,17 +261,6 @@ export default function CameraInput({
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: "#007AFF",
-    padding: 15,
-    borderRadius: 8,
-    alignSelf: "center",
-    marginTop: 20,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-  },
   cameraContainer: {
     flex: 1,
     justifyContent: "center",

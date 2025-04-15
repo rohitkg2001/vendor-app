@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, ScrollView, TouchableOpacity, Text } from "react-native";
-
-import Marker from "react-native-image-marker";
 import ImageViewing from "react-native-image-viewing";
 import { typography, spacing, styles } from "../styles";
 import { P } from "./text";
@@ -16,8 +14,6 @@ export default function StreetLightMedia({
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("Images");
-  const [location, setLocation] = useState(null);
-  const [timestamp, setTimestamp] = useState("");
 
   useEffect(() => {
     const rawList =
