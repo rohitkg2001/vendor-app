@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, ScrollView, TouchableOpacity, Text } from "react-native";
+
+import Marker from "react-native-image-marker";
 import ImageViewing from "react-native-image-viewing";
 import { typography, spacing, styles } from "../styles";
 import { P } from "./text";
@@ -144,30 +146,26 @@ export default function StreetLightMedia({
         imageIndex={selectedImageIndex}
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
-        FooterComponent={() => (
-          <View
-            style={{
-              position: "absolute",
-              bottom: 20,
-              left: 10,
-              right: 10,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              padding: 6,
-              borderRadius: 6,
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-              Powered by Dashandots Technology
-            </Text>
-            <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-              {/* 📍 {location?.latitude}, {location?.longitude} */}
-              📍 {latitude}, {longitude}
-            </Text>
-            {/* <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-              ⏰ {timestamp}
-            </Text> */}
-          </View>
-        )}
+        // FooterComponent={() => (
+        //   <View
+        //     style={{
+        //       position: "absolute",
+        //       bottom: 20,
+        //       left: 10,
+        //       right: 10,
+        //       backgroundColor: "rgba(0, 0, 0, 0.5)",
+        //       padding: 6,
+        //       borderRadius: 6,
+        //     }}
+        //   >
+        //     <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
+        //       Powered by Dashandots Technology
+        //     </Text>
+        //     <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
+        //       📍 {latitude}, {longitude}
+        //     </Text>
+        //   </View>
+        // )}
       />
     </View>
   );

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { ActivityIndicator, Snackbar } from "react-native-paper";
+import Marker from "react-native-image-marker";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -75,6 +76,34 @@ export default function StartInstallationScreen({ navigation, route }) {
     }
     setLoading(false); // set loading
   }, [pendingStreetLights, poleNumber]);
+
+  const addWatermark = async (imageUri, lat, lng) => {
+    try {
+      const result = await Marker.markText({
+        src: imageUri,
+        text: `Lat: ${lat}\nLng: ${lng}\nPowered by Dashandots`,
+        X: 30,
+        Y: 30,
+        color: "#ffffff",
+        fontName: "Arial-BoldMT",
+        fontSize: 36,
+        scale: 1,
+        quality: 100,
+        position: "topLeft",
+        shadowStyle: {
+          dx: 2,
+          dy: 2,
+          radius: 2,
+          color: "#000000",
+        },
+      });
+
+      return { uri: result };
+    } catch (err) {
+      console.log("Watermark error:", err);
+      return { uri: imageUri };
+    }
+  };
 
   const handleSubmission = async (images) => {
     if (!selectedWard || !poleNumber) {
@@ -227,12 +256,34 @@ export default function StartInstallationScreen({ navigation, route }) {
           Take Photo
         </P>
       </TouchableOpacity>
-      <CameraInput
+      {/* <CameraInput
         isCameraOpen={isCameraVisible}
         setIsCameraOpen={setIsCameraVisible}
         handleImageCapture={(val) => console.log(val)}
         handleSubmission={handleSubmission}
+      /> */}
+      <CameraInput
+        isCameraOpen={isCameraVisible}
+        setIsCameraOpen={setIsCameraVisible}
+        handleImageCapture={(val) => console.log(val)}
+        handleSubmission={async (images) => {
+          const lat = images[0]?.lat;
+          const lng = images[0]?.long;
+
+          const watermarked = await Promise.all(
+            images.map(async (img) => {
+              const wm = await addWatermark(img.uri, lat, lng);
+              return {
+                ...img,
+                uri: wm.uri,
+              };
+            })
+          );
+
+          await handleSubmission(watermarked);
+        }}
       />
+
       {/* Snackbar for validation error */}
       <Snackbar
         visible={snackbarVisible}
