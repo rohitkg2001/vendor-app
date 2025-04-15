@@ -67,12 +67,28 @@ const SubmitInstallationScreen = ({ navigation }) => {
   };
 
   // Handle QR scan for Luminary
+  // const handleLuminaryQR = (val) => {
+  //   const luminarySerial = val.split(";")[0]?.toString() || "";
+
+  //   if (isSerialNumberInStock(luminarySerial)) {
+  //     setLuminarySerialNumber(luminarySerial);
+  //     setSimNumber(val.split(";")[1].toString());
+  //     setLuminaryValid(true);
+  //     setLuminaryError(false);
+  //   } else {
+  //     setLuminaryValid(false);
+  //     setLuminaryError(true);
+  //   }
+  // };
+
   const handleLuminaryQR = (val) => {
-    const luminarySerial = val.split(";")[0]?.toString() || "";
+    const parts = val.split(";");
+    const luminarySerial = parts[0]?.toString() || "";
+    const sim = parts[1] ? parts[1].toString() : "";
 
     if (isSerialNumberInStock(luminarySerial)) {
       setLuminarySerialNumber(luminarySerial);
-      setSimNumber(val.split(";")[1].toString());
+      setSimNumber(sim);
       setLuminaryValid(true);
       setLuminaryError(false);
     } else {
@@ -112,7 +128,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
     const serialNumber = value.trim(); // Clean up input
-   
 
     if (isSerialNumberInStock(serialNumber)) {
       if (type === "luminary") {
