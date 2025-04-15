@@ -54,16 +54,45 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const inventory = useSelector((state) => state.inventory.inventory);
 
   // Check if a serial number exists in the inventory
-  const isSerialNumberInStock = (serialNumber) => {
+  const isSerialNumberInStock = (serialNumber, type) => {
+    console.log("Checking serial:", serialNumber, "for type:", type);
+
     if (!inventory || !inventory.in_stock) {
       console.warn("Inventory or in_stock data is not available yet.");
       return false;
     }
 
-    // Loop through the inventory items and check if the serial number exists in the serial_number array
-    return inventory.in_stock?.some(
-      (item) => item.serial_number && item.serial_number.includes(serialNumber)
-    );
+    const typeMap = {
+      luminary: "Luminary",
+      battery: "Battery",
+      panel: "Module", // Panel is stored as "Module"
+    };
+
+    const expectedItem = typeMap[type?.toLowerCase()];
+    if (!expectedItem) {
+      console.error(`Invalid type provided: ${type}`);
+      return false;
+    }
+
+    const match = inventory.in_stock?.some((item) => {
+      const matchFound =
+        item.item?.toLowerCase() === expectedItem.toLowerCase() &&
+        item.serial_number?.includes(serialNumber);
+
+      if (matchFound) {
+        console.log(`Match found in item: ${item.item}`);
+      }
+
+      return matchFound;
+    });
+
+    if (!match) {
+      console.warn(
+        ` No match for serial: ${serialNumber} in type: ${expectedItem}`
+      );
+    }
+
+    return match;
   };
 
   // Handle QR scan for Luminary
@@ -86,7 +115,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
     const luminarySerial = parts[0]?.toString() || "";
     const sim = parts[1] ? parts[1].toString() : "";
 
-    if (isSerialNumberInStock(luminarySerial)) {
+    if (isSerialNumberInStock(luminarySerial, "luminary")) {
       setLuminarySerialNumber(luminarySerial);
       setSimNumber(sim);
       setLuminaryValid(true);
@@ -101,7 +130,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const handleBatteryQR = (val) => {
     const batterySerial = val.split(";")[0]?.toString() || "";
 
-    if (isSerialNumberInStock(batterySerial)) {
+    if (isSerialNumberInStock(batterySerial, "battery")) {
       setBatterySerialNumber(batterySerial);
       setBatteryValid(true);
       setBatteryError(false);
@@ -115,7 +144,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const handlePanelQR = (val) => {
     const panelSerial = val.split(";")[0]?.toString() || "";
 
-    if (isSerialNumberInStock(panelSerial)) {
+    if (isSerialNumberInStock(panelSerial, "panel")) {
       setPanelSerialNumber(panelSerial);
       setPanelValid(true);
       setPanelError(false);
