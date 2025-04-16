@@ -1,103 +1,132 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import { useTranslation } from "react-i18next";
 import MyHeader from "../components/header/MyHeader";
 import SearchBar from "../components/input/SearchBar";
 import ContainerComponent from "../components/ContainerComponent";
 import MyFlatList from "../components/utility/MyFlatList";
 import ClickableCard1 from "../components/card/ClickableCard1";
-import Tabs from "../components/Tabs";
 import { P } from "../components/text";
 import NoRecord from "./NoRecord";
 import Icon from "react-native-vector-icons/Ionicons";
+import { styles, spacing, typography, PRIMARY_COLOR } from "../styles";
 
 export default function InventoryMaterialScreen({ route }) {
   const { t } = useTranslation();
   const { materialItem, totalReceived, inStock, consumed } = route.params;
   const { item } = materialItem;
 
-  // Tab counts
-  const [tabCounts, setTabCounts] = useState({
+  const [activeTab, setActiveTab] = useState("Total Received");
+  const [searchText, setSearchText] = useState("");
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  const tabCounts = {
     "Total Received": totalReceived,
     "In Stock": inStock?.total_quantity || 0,
     Consumed: consumed?.total_quantity || 0,
-  });
+  };
 
-  const [dummyList, setDummyList] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]);
-  const [activeTab, setActiveTab] = useState("Total Received");
-  const [searchText, setSearchText] = useState("");
-  const [expandedIndex, setExpandedIndex] = useState(null);
-
-  // Generate list based on the active tab
   const generateList = (tabName) => {
-    let count = 0;
-    if (tabName === "Total Received") count = totalReceived;
-    if (tabName === "In Stock") count = inStock?.total_quantity || 0;
-    if (tabName === "Consumed") count = consumed?.total_quantity || 0;
+    const count =
+      tabName === "Total Received"
+        ? totalReceived
+        : tabName === "In Stock"
+        ? inStock?.total_quantity || 0
+        : consumed?.total_quantity || 0;
 
-    const list = [];
-    for (let i = 0; i < count; i++) {
-      list.push({
-        id: `${tabName}-${i + 1}`,
-        site: { site_name: `${item} -  ${i + 1}` },
-        model: materialItem.model,
-        item_code: materialItem.item_code,
-        make: materialItem.make,
-        manufacturer: materialItem.manufacturer,
-        dispatch_date: materialItem.dispatch_dates?.[i] || "N/A",
-        serial_number: materialItem.serial_number?.[i] || `SN-${i + 1}`,
-        store_name: materialItem.store_name,
-        store_incharge: materialItem.store_incharge,
-      });
-    }
-    return list;
+    return Array.from({ length: count }, (_, i) => ({
+      id: `${tabName}-${i + 1}`,
+      site: { site_name: `${item} - ${i + 1}` },
+      model: materialItem.model,
+      item_code: materialItem.item_code,
+      make: materialItem.make,
+      manufacturer: materialItem.manufacturer,
+      dispatch_date: materialItem.dispatch_dates?.[i] || "N/A",
+      serial_number: materialItem.serial_number?.[i] || `SN-${i + 1}`,
+      store_name: materialItem.store_name,
+      store_incharge: materialItem.store_incharge,
+    }));
   };
 
-  // Update list and filtered tasks whenever the active tab changes
-  useEffect(() => {
-    console.log("Tab changed to:", activeTab); // Log current tab
+  const updateFilteredTasks = useCallback(() => {
     const list = generateList(activeTab);
-    console.log("Generated list for tab:", list); // Log generated list
-    setDummyList(list); // Set the new dummy list
-    setFilteredTasks(list); // Reset filtered tasks to full list
-  }, [activeTab, materialItem, totalReceived, inStock, consumed]);
-
-  useEffect(() => {
-    console.log("materialItem received in detail screen:", materialItem);
-  }, []);
-
-  useEffect(() => {
-    const search = searchText.toLowerCase();
-
-    const filtered = dummyList.filter((item) => {
-      const stringToSearch = `
-      ${item.serial_number}
-      ${item.item_code}
-      ${item.model}
-    `.toLowerCase();
-
-      return stringToSearch.includes(search);
+    const filtered = list.filter((item) => {
+      const str =
+        `${item.serial_number} ${item.item_code} ${item.model}`.toLowerCase();
+      return str.includes(searchText.toLowerCase());
     });
-
     setFilteredTasks(filtered);
-  }, [searchText, dummyList]);
+  }, [activeTab, searchText, materialItem]);
 
-  // Handle search text change
-  const handleSearchChange = useCallback((text) => {
-    setSearchText(text);
-  }, []);
+  useEffect(() => {
+    updateFilteredTasks();
+  }, [activeTab, searchText, updateFilteredTasks]);
 
-  // Handle tab switch and ensure active tab is updated correctly
-  const handleTabChange = (selectedTab) => {
-    const tabName = selectedTab.split(" (")[0]; // Extract tab name
-    console.log("Tab switched to:", tabName); // Log tab switch
-    setActiveTab(tabName); // Update active tab state
-  };
+  const toggleExpand = (index) =>
+    setExpandedIndex(expandedIndex === index ? null : index);
 
-  const toggleExpand = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index); // Toggle expand/collapse
-  };
+  const CustomTabBar = () => (
+    <View style={[styles.row, spacing.mv1, { flexWrap: "wrap" }]}>
+      {Object.keys(tabCounts).map((tab) => (
+        <TouchableOpacity
+          key={tab}
+          onPress={() => setActiveTab(tab)}
+          style={[
+            spacing.pv2,
+            spacing.ph3,
+            spacing.br2,
+            spacing.m1,
+            {
+              backgroundColor: activeTab === tab ? "#76885B" : "#C8E6C9",
+              position: "relative",
+            },
+          ]}
+        >
+          <Text
+            style={{
+              color: activeTab === tab ? "#FFF" : "#333",
+              fontWeight: activeTab === tab ? "bold" : "normal",
+            }}
+          >
+            {tab}
+          </Text>
+
+          {/* Badge Count like Notification */}
+          <View
+            style={[
+              spacing.br5,
+              {
+                position: "absolute",
+                top: -2,
+                right: -7,
+                backgroundColor: "white",
+                minWidth: 20,
+                height: 20,
+                borderRadius: 9,
+                justifyContent: "center",
+                alignItems: "center",
+              },
+            ]}
+          >
+            <P
+              style={[
+                typography.font12,
+                typography.fontLato,
+                typography.textBold,
+                {
+                  color:"red",
+                  textAlign: "center",
+                },
+              ]}
+            >
+              {tabCounts[tab]}
+            </P>
+          </View>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 
   return (
     <ContainerComponent>
@@ -107,65 +136,74 @@ export default function InventoryMaterialScreen({ route }) {
         hasIcon={true}
         icon="ellipsis-vertical"
       />
-      <SearchBar value={searchText} onChangeText={handleSearchChange} />
 
-      {/* Set key to force re-render when the tab changes */}
+      <SearchBar value={searchText} onChangeText={setSearchText} />
+
       <MyFlatList
-        key={activeTab} // Force re-render on tab change
+        key={activeTab}
         data={filteredTasks}
         keyboardShouldPersistTaps="always"
         keyboardDismissMode="none"
         renderItem={({ item, index }) => (
           <ClickableCard1 key={index} title={item.site?.site_name}>
-            <P>Item Code: {item.item_code}</P>
-
-            {/* Toggle button with icon */}
-            <TouchableOpacity
-              onPress={() => toggleExpand(index)}
-              style={{ position: "absolute", right: 10, bottom: 12 }}
+            <View
+              style={[
+                {
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                },
+              ]}
             >
-              <Icon
-                name={expandedIndex === index ? "chevron-up" : "chevron-down"}
-                size={38}
-                color="#76885B"
-              />
-            </TouchableOpacity>
+              <P style={[typography.font12, typography.fontLato]}>
+                Item Code: {item.item_code}
+              </P>
 
-            {/* Show details when expanded */}
+              <TouchableOpacity onPress={() => toggleExpand(index)}>
+                <Icon
+                  name={expandedIndex === index ? "chevron-up" : "chevron-down"}
+                  size={26}
+                  color="#76885B"
+                />
+              </TouchableOpacity>
+            </View>
+
             {expandedIndex === index && (
-              <>
-                <P>Model: {item.model}</P>
-                <P>Manufacturer: {item.manufacturer}</P>
-                <P>Dispatch Date: {item.dispatch_date}</P>
-                <P>Serial Number: {item.serial_number}</P>
-                <P>Make: {item.make}</P>
-                <P>Store Name: {item.store_name}</P>
-                <P>Store Incharge: {item.store_incharge}</P>
-              </>
+              <View
+                style={[
+                  spacing.mt1,
+                  spacing.p2,
+                  spacing.br1,
+                  {
+                    backgroundColor: "#f0f4f3",
+                    borderWidth: 1,
+                    borderColor: "#cddcbd",
+                  },
+                ]}
+              >
+                {[
+                  { label: "Model", value: item.model },
+                  { label: "Manufacturer", value: item.manufacturer },
+                  { label: "Dispatch Date", value: item.dispatch_date },
+                  { label: "Serial Number", value: item.serial_number },
+                  { label: "Make", value: item.make },
+                  { label: "Store Name", value: item.store_name },
+                  { label: "Store Incharge", value: item.store_incharge },
+                ].map((field, i) => (
+                  <View key={i} style={[styles.row, spacing.mb1]}>
+                    <P style={[typography.textBold]}>{field.label}:</P>
+                    <P style={[{ flex: 1, textAlign: "right" }]}>
+                      {field.value}
+                    </P>
+                  </View>
+                ))}
+              </View>
             )}
           </ClickableCard1>
         )}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={[{ flexGrow: 1 }]}
-        ListHeaderComponent={() => (
-          <View>
-            <Tabs
-              tabs={[
-                `Total Received (${tabCounts["Total Received"]})`,
-                `In Stock (${tabCounts["In Stock"]})`,
-                `Consumed (${tabCounts["Consumed"]})`,
-              ]}
-              onTabPress={handleTabChange}
-              activeTab={`${activeTab} (${tabCounts[activeTab]})`}
-              tabStyles={{
-                activeBackgroundColor: "#76885B",
-                inactiveBackgroundColor: "#C8E6C9",
-                activeTextColor: "#FFF",
-                inactiveTextColor: "#333",
-              }}
-            />
-          </View>
-        )}
+        contentContainerStyle={{ flexGrow: 1 }}
+        ListHeaderComponent={<CustomTabBar />}
         ListEmptyComponent={() => <NoRecord msg={t("no_task")} />}
       />
     </ContainerComponent>

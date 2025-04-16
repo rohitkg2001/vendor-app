@@ -3,27 +3,17 @@ import { View, Image, ScrollView, TouchableOpacity, Text } from "react-native";
 import ImageViewing from "react-native-image-viewing";
 import { typography, spacing, styles } from "../styles";
 import { P } from "./text";
-import * as ImagePicker from "expo-image-picker";
-import Marker from "react-native-image-marker";
-import moment from "moment";
-import { Button, Alert } from "react-native";
-
 
 export default function StreetLightMedia({
   surveyImages = [],
   submissionImages = [],
   latitude,
   longitude,
-  state,
-  district,
-  submissionDate,
 }) {
   const [images, setImages] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("Images");
-  const [location, setLocation] = useState(null);
-  const [timestamp, setTimestamp] = useState("");
 
   useEffect(() => {
     const rawList =
@@ -152,30 +142,26 @@ export default function StreetLightMedia({
         imageIndex={selectedImageIndex}
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
-        FooterComponent={() => (
-          <View
-            style={{
-              position: "absolute",
-              bottom: 20,
-              left: 10,
-              right: 10,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              padding: 6,
-              borderRadius: 6,
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-              Powered by Dashandots Technology
-            </Text>
-            <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-              {/* 📍 {location?.latitude}, {location?.longitude} */}
-              📍 {latitude}, {longitude}
-            </Text>
-            {/* <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-              ⏰ {timestamp}
-            </Text> */}
-          </View>
-        )}
+        // FooterComponent={() => (
+        //   <View
+        //     style={{
+        //       position: "absolute",
+        //       bottom: 20,
+        //       left: 10,
+        //       right: 10,
+        //       backgroundColor: "rgba(0, 0, 0, 0.5)",
+        //       padding: 6,
+        //       borderRadius: 6,
+        //     }}
+        //   >
+        //     <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
+        //       Powered by Dashandots Technology
+        //     </Text>
+        //     <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
+        //       📍 {latitude}, {longitude}
+        //     </Text>
+        //   </View>
+        // )}
       />
     </View>
   );

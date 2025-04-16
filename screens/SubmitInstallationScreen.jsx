@@ -1,3 +1,4 @@
+// import react native
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, TouchableOpacity, Alert } from "react-native";
 import { Snackbar } from "react-native-paper";
@@ -54,55 +55,70 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const inventory = useSelector((state) => state.inventory.inventory);
 
   // Check if a serial number exists in the inventory
- const isSerialNumberInStock = (serialNumber, type) => {
-   console.log("Checking serial:", serialNumber, "for type:", type);
+  const isSerialNumberInStock = (serialNumber, type) => {
+    console.log("Checking serial:", serialNumber, "for type:", type);
 
-   if (!inventory || !inventory.in_stock) {
-     console.warn("Inventory or in_stock data is not available yet.");
-     return false;
-   }
+    if (!inventory || !inventory.in_stock) {
+      console.warn("Inventory or in_stock data is not available yet.");
+      return false;
+    }
 
-   const typeMap = {
-     luminary: "Luminary",
-     battery: "Battery",
-     panel: "Module", // Panel is stored as "Module"
-   };
+    const typeMap = {
+      luminary: "Luminary",
+      battery: "Battery",
+      panel: "Module", // Panel is stored as "Module"
+    };
 
-   const expectedItem = typeMap[type?.toLowerCase()];
-   if (!expectedItem) {
-     console.error(`❌ Invalid type provided: ${type}`);
-     return false;
-   }
+    const expectedItem = typeMap[type?.toLowerCase()];
+    if (!expectedItem) {
+      console.error(`Invalid type provided: ${type}`);
+      return false;
+    }
 
-   const match = inventory.in_stock?.some((item) => {
-     const matchFound =
-       item.item?.toLowerCase() === expectedItem.toLowerCase() &&
-       item.serial_number?.includes(serialNumber);
+    const match = inventory.in_stock?.some((item) => {
+      const matchFound =
+        item.item?.toLowerCase() === expectedItem.toLowerCase() &&
+        item.serial_number?.includes(serialNumber);
 
-     if (matchFound) {
-       console.log(` Match found in item: ${item.item}`);
-     }
+      if (matchFound) {
+        console.log(`Match found in item: ${item.item}`);
+      }
 
-     return matchFound;
-   });
+      return matchFound;
+    });
 
-   if (!match) {
-     console.warn(
-       ` No match for serial: ${serialNumber} in type: ${expectedItem}`
-     );
-   }
+    if (!match) {
+      console.warn(
+        ` No match for serial: ${serialNumber} in type: ${expectedItem}`
+      );
+    }
 
-   return match;
- };
-
+    return match;
+  };
 
   // Handle QR scan for Luminary
+  // const handleLuminaryQR = (val) => {
+  //   const luminarySerial = val.split(";")[0]?.toString() || "";
+
+  //   if (isSerialNumberInStock(luminarySerial)) {
+  //     setLuminarySerialNumber(luminarySerial);
+  //     setSimNumber(val.split(";")[1].toString());
+  //     setLuminaryValid(true);
+  //     setLuminaryError(false);
+  //   } else {
+  //     setLuminaryValid(false);
+  //     setLuminaryError(true);
+  //   }
+  // };
+
   const handleLuminaryQR = (val) => {
-    const luminarySerial = val.split(";")[0]?.toString() || "";
+    const parts = val.split(";");
+    const luminarySerial = parts[0]?.toString() || "";
+    const sim = parts[1] ? parts[1].toString() : "";
 
     if (isSerialNumberInStock(luminarySerial, "luminary")) {
       setLuminarySerialNumber(luminarySerial);
-      setSimNumber(val.split(";")[1].toString());
+      setSimNumber(sim);
       setLuminaryValid(true);
       setLuminaryError(false);
     } else {
@@ -142,7 +158,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
     const serialNumber = value.trim(); // Clean up input
-   
 
     if (isSerialNumberInStock(serialNumber)) {
       if (type === "luminary") {

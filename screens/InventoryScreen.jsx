@@ -4,7 +4,6 @@ import { View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { Modal, Portal } from "react-native-paper";
 
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -13,15 +12,7 @@ import InventoryCard from "../components/card/InventoryCard";
 import NoRecord from "./NoRecord";
 import SearchBar from "../components/input/SearchBar";
 
-import {
-  typography,
-  spacing,
-  SCREEN_WIDTH,
-  styles,
-  LIGHT,
-  SCREEN_HEIGHT,
-  ICON_MEDIUM,
-} from "../styles";
+import { typography, spacing, SCREEN_WIDTH, styles } from "../styles";
 import { Span, P } from "../components/text";
 
 export default function InventoryScreen({ navigation }) {
@@ -228,7 +219,7 @@ export default function InventoryScreen({ navigation }) {
         showSearchBar={false}
         renderItem={({ item }) => (
           <InventoryCard
-            key={item.id}
+            key={item.id} 
             item={item}
             model={item.model}
             manufacturer={item.manufacturer}

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { ActivityIndicator, Snackbar } from "react-native-paper";
+import Marker from "react-native-image-marker";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -239,6 +240,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         handleImageCapture={(val) => console.log(val)}
         handleSubmission={handleSubmission}
       />
+
       {/* Snackbar for validation error */}
       <Snackbar
         visible={snackbarVisible}

@@ -11,11 +11,13 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import * as ImageManipulator from "expo-image-manipulator";
+import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
 import Marker, { TextBackgroundType } from "react-native-image-marker";
-import * as FileSystem from "expo-file-system";
+
 import { ICON_LARGE } from "../../styles";
-import * as ImageManipulator from 'expo-image-manipulator';
+// import * as ImageManipulator from 'expo-image-manipulator';
 
 export default function CameraInput({
   isCameraOpen,
@@ -55,14 +57,81 @@ export default function CameraInput({
     setIsCameraReady(true);
   };
 
+  // const handleCapture = async () => {
+  //   if (cameraRef.current && isCameraReady && location) {
+  //     try {
+  //       const photo = await cameraRef.current.takePictureAsync({
+  //         quality: 0.8,
+  //         skipProcessing: true,
+  //       });
+  //      // console.log(photo);
+  //        console.log("Original size:", photo.uri);
+
+  //       // Step 1: Compress photo (resize + compress to reduce size <1MB)
+  //       const compressedPhoto = await ImageManipulator.manipulateAsync(
+  //         photo.uri,
+  //         [{ resize: { width: 1080 } }], // resize if needed
+  //         {
+  //           compress: 0.7, // 0-1 range (0.7 usually gives <1MB)
+  //           format: ImageManipulator.SaveFormat.JPEG,
+  //         }
+  //       );
+
+  //       console.log("Compressed size:", compressedPhoto.uri);
+  //       const markedPhotoUri = await addWatermark(photo.uri);
+
+  //       const photoData = {
+  //         uri: markedPhotoUri,
+  //         lat: location.latitude,
+  //         long: location.longitude,
+  //         timestamp: new Date().toLocaleTimeString(),
+  //       };
+
+  //       setPhotos((prev) => [photoData, ...prev].slice(0, 5));
+  //     } catch (err) {
+  //       console.error("Error capturing or watermarking photo:", err);
+  //     }
+  //   }
+  // };
+
   const handleCapture = async () => {
     if (cameraRef.current && isCameraReady && location) {
       try {
         const photo = await cameraRef.current.takePictureAsync({
           quality: 0.8,
+          skipProcessing: true,
         });
-        console.log(photo);
-        const markedPhotoUri = await addWatermark(photo.uri);
+
+        // Get original file size
+        const originalInfo = await FileSystem.getInfoAsync(photo.uri);
+        const originalSizeMB = (originalInfo.size / (1024 * 1024)).toFixed(2);
+        console.log("Original image:");
+        console.log("   URI:", photo.uri);
+        console.log("   Size:", originalSizeMB, "MB");
+
+        // Step 1: Compress photo
+        const compressedPhoto = await ImageManipulator.manipulateAsync(
+          photo.uri,
+          [{ resize: { width: 1080 } }],
+          {
+            compress: 0.7,
+            format: ImageManipulator.SaveFormat.JPEG,
+          }
+        );
+
+        // Get compressed file size
+        const compressedInfo = await FileSystem.getInfoAsync(
+          compressedPhoto.uri
+        );
+        const compressedSizeMB = (compressedInfo.size / (1024 * 1024)).toFixed(
+          2
+        );
+        console.log("Compressed image:");
+        console.log("   URI:", compressedPhoto.uri);
+        console.log("   Size:", compressedSizeMB, "MB");
+
+        // Step 2: Add watermark on compressed image
+        const markedPhotoUri = await addWatermark(compressedPhoto.uri);
 
         const photoData = {
           uri: markedPhotoUri,
@@ -78,43 +147,30 @@ export default function CameraInput({
     }
   };
 
-const addWatermark = async (imagePath) => {
-  try {
-    const validUri = imagePath.startsWith("file://")
-      ? imagePath
-      : `file://${imagePath}`;
+  const addWatermark = async (imagePath) => {
+    try {
+      const watermarkText = `Dashnadots Technology\n📍 ${location.latitude.toFixed(
+        4
+      )}, ${location.longitude.toFixed(4)} ${new Date().toLocaleTimeString()}`;
 
-    const watermarkText = `Dashnadots Technology\n📍 ${location.latitude.toFixed(
-      4
-    )}, ${location.longitude.toFixed(
-      4
-    )}\n⏰ ${new Date().toLocaleTimeString()}`;
+      const markedImagePath = await Marker.markText({
+        backgroundImage: {
+          src: imagePath,
+        },
+        watermarkTexts: [
+          {
+            text: "hello",
+            position: { x: 20, y: 20 },
+          },
+        ],
+      });
 
-    const markedImagePath = await Marker.markText({
-      src: validUri,
-      text: watermarkText,
-      X: 20,
-      Y: 20,
-      color: "#FFFFFF",
-      fontName: "Arial-BoldMT",
-      fontSize: 32,
-      scale: 1,
-      quality: 100,
-      textBackgroundStyle: {
-        type: TextBackgroundType.StretchX,
-        paddingX: 10,
-        paddingY: 10,
-        color: "#00000088",
-      },
-    });
-
-    return markedImagePath;
-  } catch (error) {
-    console.error("Watermarking or compression failed:", error);
-    return imagePath;
-  }
-};
-
+      return markedImagePath;
+    } catch (error) {
+      console.error("Watermarking or compression failed:", error);
+      return imagePath;
+    }
+  };
 
   const handleRetake = () => {
     setPhotos([]);
