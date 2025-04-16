@@ -13,13 +13,12 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      
+
       - name: Clean up before build
         run: |
           rm -rf ./node_modules
           rm -rf ~/.gradle/caches
           rm -rf ~/.gradle/wrapper
-
 
       - name: Install Java
         uses: actions/setup-java@v2

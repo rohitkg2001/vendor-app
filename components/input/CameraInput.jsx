@@ -17,6 +17,7 @@ import * as Location from "expo-location";
 import Marker, { TextBackgroundType } from "react-native-image-marker";
 
 import { ICON_LARGE } from "../../styles";
+// import * as ImageManipulator from 'expo-image-manipulator';
 
 export default function CameraInput({
   isCameraOpen,
@@ -165,8 +166,8 @@ export default function CameraInput({
       });
 
       return markedImagePath;
-    } catch (e) {
-      console.error("Watermarking failed:", e);
+    } catch (error) {
+      console.error("Watermarking or compression failed:", error);
       return imagePath;
     }
   };
