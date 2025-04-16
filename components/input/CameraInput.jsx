@@ -15,6 +15,7 @@ import * as Location from "expo-location";
 import Marker, { TextBackgroundType } from "react-native-image-marker";
 import * as FileSystem from "expo-file-system";
 import { ICON_LARGE } from "../../styles";
+import * as ImageManipulator from 'expo-image-manipulator';
 
 export default function CameraInput({
   isCameraOpen,
@@ -77,33 +78,43 @@ export default function CameraInput({
     }
   };
 
-  const addWatermark = async (imagePath) => {
-    try {
-      const watermarkText = `Dashnadots Technology\n📍 ${location.latitude.toFixed(
-        4
-      )}, ${location.longitude.toFixed(
-        4
-      )} ${new Date().toLocaleTimeString()}`;
+const addWatermark = async (imagePath) => {
+  try {
+    const validUri = imagePath.startsWith("file://")
+      ? imagePath
+      : `file://${imagePath}`;
 
-      const markedImagePath = await Marker.markText( {
-        backgroundImage : {
-           src: imagePath,
-        },
-        watermarkTexts : [
-          {
-            text: 'hello',
-          position: { x: 20, y: 20 },
-        },
-       ]
-    
-      });
+    const watermarkText = `Dashnadots Technology\n📍 ${location.latitude.toFixed(
+      4
+    )}, ${location.longitude.toFixed(
+      4
+    )}\n⏰ ${new Date().toLocaleTimeString()}`;
 
-      return markedImagePath;
-    } catch (e) {
-      console.error("Watermarking failed:", e);
-      return imagePath;
-    }
-  };
+    const markedImagePath = await Marker.markText({
+      src: validUri,
+      text: watermarkText,
+      X: 20,
+      Y: 20,
+      color: "#FFFFFF",
+      fontName: "Arial-BoldMT",
+      fontSize: 32,
+      scale: 1,
+      quality: 100,
+      textBackgroundStyle: {
+        type: TextBackgroundType.StretchX,
+        paddingX: 10,
+        paddingY: 10,
+        color: "#00000088",
+      },
+    });
+
+    return markedImagePath;
+  } catch (error) {
+    console.error("Watermarking or compression failed:", error);
+    return imagePath;
+  }
+};
+
 
   const handleRetake = () => {
     setPhotos([]);

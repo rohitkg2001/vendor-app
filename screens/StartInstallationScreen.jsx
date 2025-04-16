@@ -66,9 +66,9 @@ export default function StartInstallationScreen({ navigation, route }) {
             color: surveyedPoles.includes(num) ? "red" : "black",
           }))
         );
-        const { panchayat, block, district, state } = currentSite.site;
+        const { panchayat, block, district } = currentSite.site;
         const formattedPole = formatString(
-          [state, district, block, panchayat].join(" ")
+          [ district, block, panchayat].join(" ")
         );
         setFormattedPoleNumber(formattedPole);
       }
@@ -84,7 +84,13 @@ export default function StartInstallationScreen({ navigation, route }) {
     setLoading(true);
     const data = {
       task_id: itemId,
-      complete_pole_number: [formattedPole, selectedWard, poleNumber].join("/"),
+      complete_pole_number: [
+        formattedPole,
+        "war-",
+        selectedWard,
+        poleNumber,
+      ].join("/"),
+
       ward_name: `Ward ${selectedWard}`,
       beneficiary: beneficiaryName,
       beneficiary_contact: contactNumber,

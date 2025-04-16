@@ -47,7 +47,8 @@
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
     "use-debounce": "^10.0.4",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "expo-image-manipulator": "~13.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

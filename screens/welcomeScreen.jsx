@@ -25,20 +25,24 @@ import { getAllItems } from "../redux/actions/inventoryActions";
 
 export default function WelcomeScreen({ navigation }) {
   const { id } = useSelector((state) => state.vendor);
-  const tasks = useSelector((state) => state.tasks);
   const {
     pendingStreetLightCounts,
     surveyedStreetLightCounts,
     installedStreetLightCounts,
     approvedPoles,
+    
   } = useSelector((state) => state.tasks);
-  const [doneInstallation, setDoneInstallation] = useState(0);
 
+  const [doneInstallation, setDoneInstallation] = useState(0);
   const dispatch = useDispatch();
 
-  // WelcomeScreen.js
-  // Default the approvedCount to 0 if it's undefined or null
-  const totalEarning = (approvedPoles || 0) * 400; // Fallback to 0 if approvedCount is falsy
+  const pendingCount = pendingStreetLightCounts || 0;
+  const surveyedCount = surveyedStreetLightCounts || 0;
+  const approvedCount = approvedPoles || 0;
+  const installedCount = installedStreetLightCounts || 0;
+  const inApprovalCount = Math.max(surveyedCount - approvedCount, 0);
+
+  const totalEarning = approvedCount * 400;
 
   useEffect(() => {
     dispatch(getInstalledPoles(id));
@@ -111,10 +115,7 @@ export default function WelcomeScreen({ navigation }) {
           >
             <Image
               source={require("../assets/solar.png")}
-              style={{
-                width: 80,
-                height: 80,
-              }}
+              style={{ width: 80, height: 80 }}
             />
             <View
               style={[
@@ -130,7 +131,7 @@ export default function WelcomeScreen({ navigation }) {
                 },
               ]}
             >
-              <H1 style={typography.textDanger}>{pendingStreetLightCounts}</H1>
+              <H1 style={typography.textDanger}>{pendingCount}</H1>
             </View>
             <P
               style={[
@@ -157,7 +158,6 @@ export default function WelcomeScreen({ navigation }) {
                 spacing.mh2,
                 {
                   width: SCREEN_WIDTH / 2.4,
-
                   alignItems: "center",
                   backgroundColor: "#68c690",
                 },
@@ -191,12 +191,10 @@ export default function WelcomeScreen({ navigation }) {
             ]}
           >
             <TouchableOpacity
-              //  onPress={() => navigation.navigate("sitelocationscreen")}
               style={[
                 spacing.br2,
                 spacing.pv4,
                 spacing.mh2,
-                styles.bgSuccess,
                 {
                   width: SCREEN_WIDTH / 2.4,
                   alignItems: "center",
@@ -209,9 +207,8 @@ export default function WelcomeScreen({ navigation }) {
                 Total Earning
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                Installed Earning : {totalEarning || 0}{" "}
+                Installed Earning : {totalEarning}
               </P>
-
               <P style={[typography.font10, typography.fontLato]}>
                 RMS Earning : 0
               </P>
@@ -238,10 +235,7 @@ export default function WelcomeScreen({ navigation }) {
           </View>
         </View>
 
-        <CardFullWidth
-          backgroundColor={LIGHT}
-          style={{ marginLeft: 5 }} // Shifting the card to the right
-        >
+        <CardFullWidth backgroundColor={LIGHT} style={{ marginLeft: 5 }}>
           <View style={[styles.row, { alignItems: "center" }]}>
             <Icon name="filter" size={ICON_SMALL} color={PRIMARY_COLOR} />
             <H6
@@ -251,36 +245,34 @@ export default function WelcomeScreen({ navigation }) {
                 { marginRight: 200 },
               ]}
             >
-              {"Progress Report"}
+              Progress Report
             </H6>
           </View>
           <View style={[spacing.bbw05, spacing.mv1]} />
 
           <View style={[styles.row, spacing.pv3, { borderBottomWidth: 1 }]}>
-            {["Progress", "Installation"].map((header) => (
-              <View style={{ alignItems: "center" }} key={header}>
-                <H6 style={[typography.font14, typography.fontLato]}>
-                  {header}
-                </H6>
-              </View>
-            ))}
+            <View style={{ flex: 1, alignItems: "center" }}>
+              <H6 style={[typography.font14, typography.fontLato]}>Progress</H6>
+            </View>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              <H6 style={[typography.font14, typography.fontLato]}>
+                Installation
+              </H6>
+            </View>
           </View>
 
           {[
             {
               label: "Pending",
-              done: pendingStreetLightCounts - installedStreetLightCounts,
-              installation: pendingStreetLightCounts,
+              value: `${surveyedCount} / ${inApprovalCount}`,
             },
             {
-              label: "In approval",
-              done: pendingStreetLightCounts - approvedPoles,
-              installation: surveyedStreetLightCounts,
+              label: "In Approval",
+              value: `${inApprovalCount}`,
             },
             {
               label: "Approved",
-              done: approvedPoles,
-              installation: installedStreetLightCounts,
+              value: ` ${approvedCount}`,
             },
           ].map((row, index) => (
             <View
@@ -291,15 +283,14 @@ export default function WelcomeScreen({ navigation }) {
                 { borderBottomWidth: index < 2 ? 1 : 0 },
               ]}
             >
-              <View style={{ alignItems: "center" }}>
+              <View style={{ flex: 1, alignItems: "center" }}>
                 <P style={[typography.font14, typography.fontLato]}>
                   {row.label}
                 </P>
               </View>
-              <View style={{ alignItems: "center" }}>
-                <H6 style={spacing.ml2}>
-                  {row.done}/
-                  <H6 style={typography.textDanger}>{row.installation}</H6>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <H6 style={[typography.font14, typography.fontLato]}>
+                  {row.value}
                 </H6>
               </View>
             </View>
