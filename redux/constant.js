@@ -1,6 +1,6 @@
-export const BASE_URL = "https://slldm.com";
+//export const BASE_URL = "https://slldm.com";
 //export const BASE_URL = "http://192.168.1.5:8000"
-//export const BASE_URL = "https://solarcrm.dashandots.tech";
+export const BASE_URL = "https://solarcrm.dashandots.tech";
 export const initialState = {};
 
 export const LOGIN_VENDOR = "LOGIN_VENDOR";
@@ -51,8 +51,8 @@ export const TOTAL_PENDING_STREETLIGHT = "SET_TOTAL_PENDING_STREETLIGHT";
 export const GET_SURVEYED_STREETLIGHTS = "GET_SURVEYED_STREETLIGHTS";
 export const TOTAL_SURVEYED_STREETLIGHTS = "TOTAL_SURVEYED_STREETLIGHTS";
 export const GET_INSTALLED_STREETLIGHTS = "GET_INSTALLED_STREETLIGHTS";
-export const GET_APPROVED_STREETLIGHTS = "GET_APPROVED_STREETLIGHTS"
-export const GET_REJECTED_STREETLIGHTS = "GET_REJECTED_STREETLIGHTS"
+export const GET_APPROVED_STREETLIGHTS = "GET_APPROVED_STREETLIGHTS";
+export const GET_REJECTED_STREETLIGHTS = "GET_REJECTED_STREETLIGHTS";
 export const TOTAL_INSTALLED_STREETLIGHTS = "TOTAL_INSTALLED_STREETLIGHTS";
 export const GET_VIEW_STREETLIGHTS = "GET_VIEW_STREETLIGHTS";
 export const SET_POLE_NUMBER = "SET_POLE_NUMBER";

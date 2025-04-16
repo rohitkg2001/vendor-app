@@ -142,7 +142,6 @@ export default function WelcomeScreen({ navigation }) {
               Start Light Installation
             </P>
           </TouchableOpacity>
-
           <View
             style={[
               styles.row,
@@ -151,20 +150,48 @@ export default function WelcomeScreen({ navigation }) {
             ]}
           >
             <TouchableOpacity
+              onPress={() => navigation.navigate("approvedTaskScreen")}
               style={[
                 spacing.br2,
                 spacing.pv4,
                 spacing.mh2,
                 {
                   width: SCREEN_WIDTH / 2.4,
-
                   alignItems: "center",
                   backgroundColor: "#68c690",
                 },
               ]}
             >
-              <Icon name="checkmark-circle-sharp" size={40} />
-              <P style={[typography.font14, spacing.mt3]}>Completed</P>
+              <View style={[styles.row, { alignItems: "center", gap: 6 }]}>
+                <Icon name="checkmark-circle-sharp" size={40} />
+                <View
+                  style={[
+                    spacing.br4,
+                    spacing.bw2,
+                    {
+                      width: 30,
+                      height: 30,
+                      borderColor: DANGER_COLOR,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: LIGHT,
+                    },
+                  ]}
+                >
+                  <P
+                    style={[
+                      typography.font18,
+                      typography.fontLato,
+                      typography.textBold,
+                      { color: "red" },
+                    ]}
+                  >
+                    {approvedPoles || 0}
+                  </P>
+                </View>
+              </View>
+
+              <P style={[typography.font18, spacing.mt3]}>Completed</P>
             </TouchableOpacity>
 
             <TouchableOpacity

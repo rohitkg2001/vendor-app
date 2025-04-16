@@ -28,6 +28,7 @@ import StartInstallationScreen from "../screens/StartInstallationScreen";
 import StreetLightDetailsScreen from "../screens/StreetLightDetailsScreen";
 import SubmitInstallationScreen from "../screens/SubmitInstallationScreen";
 import InventoryMaterialScreen from "../screens/InventoryMaterialScreen";
+import ApprovedTaskScreen from "../screens/ApprovedTaskScreen";
 const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
@@ -84,7 +85,8 @@ export default function MyStackNavigator() {
         component={StreetLightDetailsScreen}
       />
       <Stack.Screen name="submitInstallation" component={ SubmitInstallationScreen } />
-      <Stack.Screen name="inventoryMaterialScreen" component={InventoryMaterialScreen}/>
+      <Stack.Screen name="inventoryMaterialScreen" component={ InventoryMaterialScreen } />
+      <Stack.Screen name="approvedTaskScreen" component={ApprovedTaskScreen}/>
     </Stack.Navigator>
   );
 }
