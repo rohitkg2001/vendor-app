@@ -2,7 +2,7 @@
   "expo": {
     "name": "LLoydBA",
     "slug": "sugslloydsvendorapp",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "newArchEnabled": true,
