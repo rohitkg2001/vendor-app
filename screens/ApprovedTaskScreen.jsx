@@ -1,5 +1,6 @@
 import { ScrollView, TouchableOpacity, View, Image } from "react-native";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import CardFullWidth from "../components/card/CardFullWidth";
@@ -10,6 +11,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 export default function ApprovedTaskScreen() {
   const navigation = useNavigation();
   const route = useRoute();
+  const { t } = useTranslation();
 
   const type = route.params?.type || "Approved";
 
@@ -20,7 +22,8 @@ export default function ApprovedTaskScreen() {
   const filteredTasks =
     installedStreetLights?.filter((task) => task.status === type) || [];
 
-  const headerTitle = type === "Approved" ? "Approved Tasks" : "Rejected Tasks";
+  const headerTitle =
+    type === "Approved" ? t("approved_tasks") : t("rejected_tasks");
 
   return (
     <ContainerComponent>

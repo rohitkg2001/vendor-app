@@ -50,6 +50,21 @@
     "my_tasks": "My Tasks",
     "reports": "Reports",
     "settings": "Settings",
-    "this_month": "This Month"
+    "this_month": "This Month",
+    "welcome": "Welcome",
+    "progress_overview": "Progress Overview",
+    "monitor_progress": "Monitor Progress",
+    "start_light_installation": "Start Light Installation",
+    "completed": "Completed",
+    "rejected": "rejected",
+    "installed_earning": "installed_earning",
+    "rMS_earning": "rMS_earning",
+    "pending": "pending",
+    "in_approval": "in_approval",
+    "approved": "approved",
+    "installation": "installation",
+    "progress": "progress",
+    "approved_tasks": "approved_tasks",
+    "rejected_tasks": "rejected_tasks"
   }
 }

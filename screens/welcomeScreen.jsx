@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
+import { useTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/Ionicons";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
@@ -34,6 +35,7 @@ export default function WelcomeScreen({ navigation }) {
 
   const [doneInstallation, setDoneInstallation] = useState(0);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const pendingCount = pendingStreetLightCounts || 0;
   const surveyedCount = surveyedStreetLightCounts || 0;
@@ -51,7 +53,7 @@ export default function WelcomeScreen({ navigation }) {
 
   return (
     <ContainerComponent>
-      <MyHeader isBack title="Welcome" hasIcon />
+      <MyHeader isBack title={t("welcome")} hasIcon />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[spacing.mh1]}
@@ -65,9 +67,9 @@ export default function WelcomeScreen({ navigation }) {
               typography.fontLato,
             ]}
           >
-            Progress Overview
+            {t("progress_overview")}
           </H5>
-          <P>Track daily task and monitor progress efficiently.</P>
+          <P>{t("monitor_progress")}</P>
           <View
             style={{
               height: 10,
@@ -139,7 +141,7 @@ export default function WelcomeScreen({ navigation }) {
                 typography.fontLato,
               ]}
             >
-              Start Light Installation
+              {t("start_light_installation")}
             </P>
           </TouchableOpacity>
           <View
@@ -194,7 +196,7 @@ export default function WelcomeScreen({ navigation }) {
                 </View>
               </View>
 
-              <P style={[typography.font18, spacing.mt3]}>Completed</P>
+              <P style={[typography.font18, spacing.mt3]}>{t("completed")}</P>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -213,7 +215,7 @@ export default function WelcomeScreen({ navigation }) {
               ]}
             >
               <Icon name="close-circle-sharp" size={40} />
-              <P style={[typography.font16, spacing.mt3]}>Rejected</P>
+              <P style={[typography.font16, spacing.mt3]}>{t("rejected")}</P>
             </TouchableOpacity>
           </View>
 
@@ -237,13 +239,13 @@ export default function WelcomeScreen({ navigation }) {
             >
               <Text style={{ fontSize: 40, fontWeight: "bold" }}>₹</Text>
               <P style={[typography.font14, typography.fontLato]}>
-                Total Earning
+                {t("total_earning")}
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                Installed Earning : {totalEarning}
+                {t("installed_earning")} : {totalEarning}
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                RMS Earning : 0
+                {t("rMS_earning")} : 0
               </P>
             </TouchableOpacity>
 
@@ -262,7 +264,7 @@ export default function WelcomeScreen({ navigation }) {
             >
               <Icon name="reader-sharp" size={40} />
               <P style={[typography.font16, typography.fontLato, spacing.mt3]}>
-                Inventory
+                {t("inventory_title")}
               </P>
             </TouchableOpacity>
           </View>
@@ -275,36 +277,38 @@ export default function WelcomeScreen({ navigation }) {
               style={[
                 typography.fontLato,
                 typography.textBold,
-                { marginRight: 200 },
+                { marginRight: 180 },
               ]}
             >
-              Progress Report
+              {t("progress_overview")}
             </H6>
           </View>
           <View style={[spacing.bbw05, spacing.mv1]} />
 
           <View style={[styles.row, spacing.pv3, { borderBottomWidth: 1 }]}>
             <View style={{ flex: 1, alignItems: "center" }}>
-              <H6 style={[typography.font14, typography.fontLato]}>Progress</H6>
+              <H6 style={[typography.font14, typography.fontLato]}>
+                {t("progress")}
+              </H6>
             </View>
             <View style={{ flex: 1, alignItems: "center" }}>
               <H6 style={[typography.font14, typography.fontLato]}>
-                Installation
+                {t("installation")}
               </H6>
             </View>
           </View>
 
           {[
             {
-              label: "Pending",
+              label: t("pending"),
               value: `${surveyedCount} / ${inApprovalCount}`,
             },
             {
-              label: "In Approval",
+              label: t("in_approval"),
               value: `${inApprovalCount}`,
             },
             {
-              label: "Approved",
+              label: t("approved"),
               value: ` ${approvedCount}`,
             },
           ].map((row, index) => (
