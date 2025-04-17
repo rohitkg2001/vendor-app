@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { ActivityIndicator, Snackbar } from "react-native-paper";
-import Marker from "react-native-image-marker";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -15,7 +14,6 @@ import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 export default function StartInstallationScreen({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
-  const cameraRef = useRef(null);
   const [poleNumber, setPoleNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
@@ -69,7 +67,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         );
         const { panchayat, block, district } = currentSite.site;
         const formattedPole = formatString(
-          [ district, block, panchayat].join(" ")
+          [district, block, panchayat].join(" ")
         );
         setFormattedPoleNumber(formattedPole);
       }
