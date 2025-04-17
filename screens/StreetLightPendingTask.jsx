@@ -29,6 +29,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   const { setApprovedCount } = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     Array.isArray(pendingStreetLights) &&
       setStreetLightSites(pendingStreetLights);
@@ -62,6 +63,7 @@ const StreetLightPendingTask = ({ navigation }) => {
       console.error("Error fetching survey data:", error);
     }
   };
+
   const [activeTab, setActiveTab] = useState("All");
   const [filteredData, setFilteredData] = useState([]);
   const [tabCounts, setTabCounts] = useState({
