@@ -30,7 +30,6 @@ export default function WelcomeScreen({ navigation }) {
     surveyedStreetLightCounts,
     installedStreetLightCounts,
     approvedPoles,
-    
   } = useSelector((state) => state.tasks);
 
   const [doneInstallation, setDoneInstallation] = useState(0);
@@ -151,7 +150,10 @@ export default function WelcomeScreen({ navigation }) {
             ]}
           >
             <TouchableOpacity
-              onPress={() => navigation.navigate("approvedTaskScreen")}
+              // onPress={() => navigation.navigate("approvedTaskScreen")}
+              onPress={() =>
+                navigation.navigate("approvedTaskScreen", { type: "Approved" })
+              }
               style={[
                 spacing.br2,
                 spacing.pv4,
@@ -196,6 +198,9 @@ export default function WelcomeScreen({ navigation }) {
             </TouchableOpacity>
 
             <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("approvedTaskScreen", { type: "Rejected" })
+              }
               style={[
                 spacing.br2,
                 spacing.pv4,

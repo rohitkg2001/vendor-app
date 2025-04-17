@@ -9,7 +9,7 @@ import ClickableCard1 from "../components/card/ClickableCard1";
 import { P } from "../components/text";
 import NoRecord from "./NoRecord";
 import Icon from "react-native-vector-icons/Ionicons";
-import { styles, spacing, typography, PRIMARY_COLOR } from "../styles";
+import { styles, spacing, typography,  } from "../styles";
 
 export default function InventoryMaterialScreen({ route }) {
   const { t } = useTranslation();
@@ -115,7 +115,7 @@ export default function InventoryMaterialScreen({ route }) {
                 typography.fontLato,
                 typography.textBold,
                 {
-                  color:"red",
+                  color: "red",
                   textAlign: "center",
                 },
               ]}

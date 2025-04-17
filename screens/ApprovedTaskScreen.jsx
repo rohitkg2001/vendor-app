@@ -1,36 +1,42 @@
-import { ScrollView, TouchableOpacity, View } from "react-native";
-import React from "react";
+import { ScrollView, TouchableOpacity, View, Image } from "react-native";
 import { useSelector } from "react-redux";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import CardFullWidth from "../components/card/CardFullWidth";
-import { spacing, styles, typography } from "../styles";
+import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
 import { P } from "../components/text";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function ApprovedTaskScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const type = route.params?.type || "Approved";
 
   const installedStreetLights = useSelector(
     (state) => state.tasks?.installedStreetLights || []
   );
 
-  const approvedTasks =
-    installedStreetLights?.filter((task) => task.status === "Approved") || [];
+  const filteredTasks =
+    installedStreetLights?.filter((task) => task.status === type) || [];
+
+  const headerTitle = type === "Approved" ? "Approved Tasks" : "Rejected Tasks";
 
   return (
     <ContainerComponent>
-      <MyHeader isBack title="Approved Tasks" hasIcon />
+      <MyHeader isBack title={headerTitle} hasIcon />
       <ScrollView contentContainerStyle={[spacing.mh2]}>
-        {approvedTasks.length > 0 ? (
-          approvedTasks.map((task, index) => (
+        {filteredTasks.length > 0 ? (
+          filteredTasks.map((task, index) => (
             <TouchableOpacity
               key={index}
               onPress={() =>
                 navigation.navigate("streetlightDetails", { item: task })
               }
             >
-              <CardFullWidth backgroundColor={"#d5f5e3"}>
+              <CardFullWidth
+                backgroundColor={type === "Approved" ? "#d5f5e3" : "#f5b7b1"}
+              >
                 <P style={[typography.font14, typography.fontLato]}>
                   Pole Number: {task.complete_pole_number || "N/A"}
                 </P>
@@ -49,14 +55,12 @@ export default function ApprovedTaskScreen() {
                   <P>{task.site_engineer_name || "N/A"}</P>
                 </View>
 
-                {/* Labels for Beneficiary and Status */}
                 <View style={[spacing.mt2]}>
                   <P style={[typography.font12, typography.fontLato]}>
                     Beneficiary
                   </P>
                 </View>
 
-                {/* Values for Beneficiary and Status */}
                 <View style={[styles.row]}>
                   <P>{task.beneficiary || "N/A"}</P>
                   <P
@@ -64,7 +68,7 @@ export default function ApprovedTaskScreen() {
                       typography.font14,
                       typography.fontLato,
                       typography.textBold,
-                      { color: "green" },
+                      { color: type === "Approved" ? "green" : "red" },
                     ]}
                   >
                     {task.status}
@@ -74,9 +78,16 @@ export default function ApprovedTaskScreen() {
             </TouchableOpacity>
           ))
         ) : (
-          <P style={[typography.font14, typography.fontLato]}>
-            No approved tasks found.
-          </P>
+          <View style={{ alignItems: "center", marginTop: 20 }}>
+            <Image
+              source={require("../assets/norecode.png")}
+              style={{ height: SCREEN_WIDTH / 2, width: SCREEN_WIDTH / 2 }}
+              resizeMode="contain"
+            />
+            <P style={[typography.font14, typography.fontLato, spacing.mt3]}>
+              No {type.toLowerCase()} tasks found.
+            </P>
+          </View>
         )}
       </ScrollView>
     </ContainerComponent>
