@@ -1,5 +1,5 @@
 import { Card } from "react-native-paper";
-import { TouchableOpacity , View} from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import Button from "../buttons/Button";
 import { H5, H6, Span } from "../text";
 import {
@@ -25,7 +25,7 @@ export default function ClickableCard1({
   positiveText,
   positiveAction,
   onPress,
-  onLongPressAction,
+  onLongPressAction = null,
   isViewButtonVisible = false,
   viewText,
   viewAction,
@@ -36,7 +36,8 @@ export default function ClickableCard1({
     <TouchableOpacity
       style={[spacing.mv1, { width: SCREEN_WIDTH - 16 }]}
       onPress={onPress}
-      onLongPress={() => onLongPressAction(index)}
+      //onLongPress={() => onLongPressAction(index)}
+      onLongPress={() => onLongPressAction?.(index)}
     >
       <Card
         style={{
@@ -52,7 +53,7 @@ export default function ClickableCard1({
               style={{
                 flexWrap: "wrap",
                 flexShrink: 1,
-                width: "80%", 
+                width: "80%",
               }}
             >
               {title}

@@ -1,6 +1,6 @@
 // import react native
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, TouchableOpacity, Alert } from "react-native";
+import { ScrollView, View, TouchableOpacity,  } from "react-native";
 import { Snackbar } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
@@ -95,21 +95,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
     return match;
   };
-
-  // Handle QR scan for Luminary
-  // const handleLuminaryQR = (val) => {
-  //   const luminarySerial = val.split(";")[0]?.toString() || "";
-
-  //   if (isSerialNumberInStock(luminarySerial)) {
-  //     setLuminarySerialNumber(luminarySerial);
-  //     setSimNumber(val.split(";")[1].toString());
-  //     setLuminaryValid(true);
-  //     setLuminaryError(false);
-  //   } else {
-  //     setLuminaryValid(false);
-  //     setLuminaryError(true);
-  //   }
-  // };
 
   const handleLuminaryQR = (val) => {
     const parts = val.split(";");
