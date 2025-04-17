@@ -157,9 +157,10 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
   // Handle manual input for serial numbers
   const handleManualInput = (value, type) => {
-    const serialNumber = value.trim(); // Clean up input
+    const serialNumber = value.trim();
 
-    if (isSerialNumberInStock(serialNumber)) {
+    if (isSerialNumberInStock(serialNumber, type)) {
+      // ✅ Pass the type
       if (type === "luminary") {
         setLuminarySerialNumber(serialNumber);
         setLuminaryValid(true);
@@ -190,6 +191,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
       }
     }
   };
+
 
   // Handle Take Photo button click
 
