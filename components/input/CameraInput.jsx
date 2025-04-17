@@ -57,42 +57,6 @@ export default function CameraInput({
     setIsCameraReady(true);
   };
 
-  // const handleCapture = async () => {
-  //   if (cameraRef.current && isCameraReady && location) {
-  //     try {
-  //       const photo = await cameraRef.current.takePictureAsync({
-  //         quality: 0.8,
-  //         skipProcessing: true,
-  //       });
-  //      // console.log(photo);
-  //        console.log("Original size:", photo.uri);
-
-  //       // Step 1: Compress photo (resize + compress to reduce size <1MB)
-  //       const compressedPhoto = await ImageManipulator.manipulateAsync(
-  //         photo.uri,
-  //         [{ resize: { width: 1080 } }], // resize if needed
-  //         {
-  //           compress: 0.7, // 0-1 range (0.7 usually gives <1MB)
-  //           format: ImageManipulator.SaveFormat.JPEG,
-  //         }
-  //       );
-
-  //       console.log("Compressed size:", compressedPhoto.uri);
-  //       const markedPhotoUri = await addWatermark(photo.uri);
-
-  //       const photoData = {
-  //         uri: markedPhotoUri,
-  //         lat: location.latitude,
-  //         long: location.longitude,
-  //         timestamp: new Date().toLocaleTimeString(),
-  //       };
-
-  //       setPhotos((prev) => [photoData, ...prev].slice(0, 5));
-  //     } catch (err) {
-  //       console.error("Error capturing or watermarking photo:", err);
-  //     }
-  //   }
-  // };
 
   const handleCapture = async () => {
     if (cameraRef.current && isCameraReady && location) {
@@ -230,7 +194,7 @@ export default function CameraInput({
             <View style={styles.innerShutter} />
           </TouchableOpacity>
 
-          {!isSurvey && photos.length >= 2 && (
+          {!isSurvey && photos.length >= 1 && (
             <TouchableOpacity
               onPress={handleSubmitConfirmation}
               style={styles.retakeButton}

@@ -69,7 +69,7 @@ export default function SurveyScreen({ route, message = "" }) {
     }
 
     // Only check for minimum photos when it's NOT a survey and file is not uploaded
-    if (!isSurvey && photos.length < 2 && !file) {
+    if (!isSurvey && photos.length < 1 && !file) {
       setSnackbarMessage(
         "Please click at least two pictures or upload a document."
       );
