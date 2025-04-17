@@ -155,7 +155,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   return (
     <ContainerComponent>
       <MyHeader
-        title={t("Total Installation")}
+        title={t("total_installation")}
         isBack={true}
         hasIcon={true}
         icon="ellipsis-vertical"

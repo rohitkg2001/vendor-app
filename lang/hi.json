@@ -62,6 +62,7 @@
     "installation": "स्थापना",
     "progress": "प्रगति",
     "approved_tasks": "स्वीकृत कार्य",
-    "rejected_tasks": "अस्वीकृत कार्य"
+    "rejected_tasks": "अस्वीकृत कार्य",
+    "total_installation": "कुल स्थापना कार्य"
   }
 }

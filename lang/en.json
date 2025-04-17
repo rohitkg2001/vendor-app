@@ -65,6 +65,7 @@
     "installation": "installation",
     "progress": "progress",
     "approved_tasks": "approved_tasks",
-    "rejected_tasks": "rejected_tasks"
+    "rejected_tasks": "rejected_tasks",
+    "total_installation":"total_installation"
   }
 }
