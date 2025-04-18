@@ -17,6 +17,7 @@ import Tabs from "../components/Tabs";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { download, getInstalledPoles } from "../redux/actions/taskActions";
+import { BASE_URL } from "../redux/constant";
 
 const StreetLightPendingTask = ({ navigation }) => {
   const { t } = useTranslation();
@@ -28,6 +29,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   const { setApprovedCount } = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     Array.isArray(pendingStreetLights) &&
       setStreetLightSites(pendingStreetLights);
@@ -36,6 +38,9 @@ const StreetLightPendingTask = ({ navigation }) => {
 
   const handleSurveyData = async (item, isSurvey) => {
     try {
+      // const response = await axios.post(`https://${BASE_URL}/api/pole-details`, {
+      //   pole_id: item.pole_id,
+      // });
       const response = await axios.post("https://slldm.com/api/pole-details", {
         pole_id: item.pole_id,
       });
@@ -61,6 +66,7 @@ const StreetLightPendingTask = ({ navigation }) => {
       console.error("Error fetching survey data:", error);
     }
   };
+
   const [activeTab, setActiveTab] = useState("All");
   const [filteredData, setFilteredData] = useState([]);
   const [tabCounts, setTabCounts] = useState({
@@ -155,7 +161,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   return (
     <ContainerComponent>
       <MyHeader
-        title={t("total_installation")}
+        title={t("Total Installation")}
         isBack={true}
         hasIcon={true}
         icon="ellipsis-vertical"

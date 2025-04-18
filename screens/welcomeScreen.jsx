@@ -242,10 +242,10 @@ export default function WelcomeScreen({ navigation }) {
                 {t("total_earning")}
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                {t("installed_earning")} : {totalEarning}
+                {t("Installed Earning")} : {totalEarning}
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                {t("rMS_earning")} : 0
+                {t("RMS Earning")} : 0
               </P>
             </TouchableOpacity>
 
@@ -304,7 +304,7 @@ export default function WelcomeScreen({ navigation }) {
               value: `${surveyedCount} / ${inApprovalCount}`,
             },
             {
-              label: t("in_approval"),
+              label: t("In Approval"),
               value: `${inApprovalCount}`,
             },
             {

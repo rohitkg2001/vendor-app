@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { ActivityIndicator, Snackbar } from "react-native-paper";
-import Marker from "react-native-image-marker";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -15,7 +14,6 @@ import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
 export default function StartInstallationScreen({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
-  const cameraRef = useRef(null);
   const [poleNumber, setPoleNumber] = useState("");
   const [locationRemarks, setLocationRemarks] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
@@ -25,6 +23,9 @@ export default function StartInstallationScreen({ navigation, route }) {
   const { isSurvey, itemId } = route.params;
   const [wardOptions, setWardOptions] = useState([]);
   const [poleOptions, setPoleOptions] = useState([]);
+  const [panchayat, setPanchayat] = useState("")
+  const [block, setBlock] = useState("")
+  const [district, setDistrict] = useState("")
 
   const [selectedWard, setSelectedWard] = useState("");
 
@@ -34,12 +35,28 @@ export default function StartInstallationScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const { pendingStreetLights } = useSelector((state) => state.tasks);
 
-  function formatString(input) {
-    return input
-      .split(" ") // Split by space
-      .map((word) => word.substring(0, 3).toUpperCase()) // Get first 3 characters & uppercas
-      .join("/"); // Join by '/'
-  }
+  // Format the first 3 letters of the first word of each component
+  const formatComponent = (str) => {
+    const firstWord = str.split(' ')[0] || '';
+    return firstWord.substring(0, 3).toUpperCase();
+  };
+
+  // Main formatting function
+  const formatPoleNumber = () => {
+    const baseParts = [district, block, panchayat].map(formatComponent);
+    const additionalParts = [selectedWard, poleNumber]
+      .filter(part => part) // Only include if exists
+      .map(formatComponent);
+
+    return [...baseParts, ...additionalParts].join('/');
+  };
+
+  // Update formatted pole number when dependencies change
+  useEffect(() => {
+    setFormattedPoleNumber(formatPoleNumber());
+  }, [district, block, panchayat, selectedWard, poleNumber]);
+
+
 
   useEffect(() => {
     if (Array.isArray(pendingStreetLights)) {
@@ -53,7 +70,6 @@ export default function StartInstallationScreen({ navigation, route }) {
             .split(",")
             .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
         );
-
         // Surveyed poles list
         const surveyedPoles = currentSite?.surveyedPoles || [];
 
@@ -68,10 +84,9 @@ export default function StartInstallationScreen({ navigation, route }) {
           }))
         );
         const { panchayat, block, district } = currentSite.site;
-        const formattedPole = formatString(
-          [ district, block, panchayat].join(" ")
-        );
-        setFormattedPoleNumber(formattedPole);
+        setDistrict(district)
+        setBlock(block)
+        setPanchayat(panchayat)
       }
     }
     setLoading(false); // set loading
@@ -85,13 +100,7 @@ export default function StartInstallationScreen({ navigation, route }) {
     setLoading(true);
     const data = {
       task_id: itemId,
-      complete_pole_number: [
-        formattedPole,
-        "war-",
-        selectedWard,
-        poleNumber,
-      ].join("/"),
-
+      complete_pole_number: formattedPole,
       ward_name: `Ward ${selectedWard}`,
       beneficiary: beneficiaryName,
       beneficiary_contact: contactNumber,
@@ -103,9 +112,8 @@ export default function StartInstallationScreen({ navigation, route }) {
       survey_image: images,
       isSurvey: true,
     };
-    console.log(data);
     const result = await dispatch(submitStreetlightTasks(data));
-    if (result == 200) {
+    if (result === 200) {
       setLoading(false);
       navigation.navigate("successScreen", {
         message: "Your task uploaded successfully",
@@ -239,6 +247,7 @@ export default function StartInstallationScreen({ navigation, route }) {
         setIsCameraOpen={setIsCameraVisible}
         handleImageCapture={(val) => console.log(val)}
         handleSubmission={handleSubmission}
+        complete_pole_number={formattedPole}
       />
 
       {/* Snackbar for validation error */}
