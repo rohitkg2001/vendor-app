@@ -1,3 +1,4 @@
+// import react native
 import { useEffect, useState } from "react";
 import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
 import { useTranslation } from "react-i18next";
