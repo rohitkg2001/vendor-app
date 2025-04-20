@@ -152,7 +152,7 @@ export default function CameraInput({
         // 3. Capture the composed view with overlay
         if (viewRef.current) {
           const resultUri = await captureRef(viewRef, {
-            quality: 1,
+            quality: 0.5,
           });
 
           let compressQuality = 0.8;
