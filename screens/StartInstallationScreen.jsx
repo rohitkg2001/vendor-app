@@ -44,9 +44,9 @@ export default function StartInstallationScreen({ navigation, route }) {
   // Main formatting function
   const formatPoleNumber = () => {
     const baseParts = [district, block, panchayat].map(formatComponent);
-    const additionalParts = [selectedWard, poleNumber]
-      .filter(part => part) // Only include if exists
-      .map(formatComponent);
+    const additionalParts = ["WARD".concat(selectedWard), poleNumber]
+      .filter(part => part); // Only include if exists
+    // .map(formatComponent);
 
     return [...baseParts, ...additionalParts].join('/');
   };

@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
-import * as Location from 'expo-location';
-import * as MediaLibrary from 'expo-media-library';
-import { captureRef } from 'react-native-view-shot';
-import moment from 'moment';
+import React, { useState, useRef, useEffect } from "react";
+import { View, TouchableOpacity, StyleSheet, Text, Image } from "react-native";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import * as Location from "expo-location";
+import * as MediaLibrary from "expo-media-library";
+import { captureRef } from "react-native-view-shot";
+import moment from "moment";
 
 export default function CameraInput(props) {
   const [permission, requestPermission] = useCameraPermissions();
@@ -18,7 +18,7 @@ export default function CameraInput(props) {
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === 'granted') {
+      if (status === "granted") {
         const location = await Location.getLastKnownPositionAsync({});
         setLocation(location);
       }
@@ -34,12 +34,12 @@ export default function CameraInput(props) {
         setCapturedPhoto(photo.uri);
 
         // 2. Wait a brief moment for state to update
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise((resolve) => setTimeout(resolve, 800));
 
         // 3. Capture the composed view with overlay
         if (viewRef.current) {
           const resultUri = await captureRef(viewRef, {
-            format: 'jpg',
+            format: "jpg",
             quality: 0.9,
           });
 
@@ -50,7 +50,7 @@ export default function CameraInput(props) {
           setCapturedPhoto(null);
         }
       } catch (error) {
-        console.error('Error capturing image:', error);
+        console.error("Error capturing image:", error);
       } finally {
         setSaving(false);
       }
@@ -58,7 +58,11 @@ export default function CameraInput(props) {
   };
 
   if (!permission) {
-    return <View><Text>Requesting permissions...</Text></View>;
+    return (
+      <View>
+        <Text>Requesting permissions...</Text>
+      </View>
+    );
   }
 
   if (!permission.granted) {
@@ -78,18 +82,26 @@ export default function CameraInput(props) {
       {capturedPhoto ? (
         <View ref={viewRef} collapsable={false} style={styles.previewContainer}>
           <View style={styles.topOverlay}>
-            <Image source={require('./assets/icon.png')} style={{ height: 60, width: 60, resizeMode: 'contain' }} />
+            <Image
+              source={require("./assets/icon.png")}
+              style={{ height: 60, width: 60, resizeMode: "contain" }}
+            />
           </View>
           <Image source={{ uri: capturedPhoto }} style={styles.capturedImage} />
           <View style={styles.overlay}>
             <Text style={styles.overlayText}>
-              {moment().format('DD MMM YYYY HH:mm:ss a')}
+              {moment().format("DD MMM YYYY HH:mm:ss a")}
             </Text>
             <Text style={styles.overlayText}>
-              {`${location?.coords.latitude?.toFixed(4) || 'N/A'}N`} {`${location?.coords.longitude?.toFixed(4) || 'N/A'}E`}
+              {`${location?.coords.latitude?.toFixed(4) || "N/A"}N`}{" "}
+              {`${location?.coords.longitude?.toFixed(4) || "N/A"}E`}
             </Text>
             <Text style={styles.overlayText}>
-              {`Alt: ${location?.coords.altitude ? location.coords.altitude.toFixed(0) + 'm' : 'N/A'}`}
+              {`Alt: ${
+                location?.coords.altitude
+                  ? location.coords.altitude.toFixed(0) + "m"
+                  : "N/A"
+              }`}
             </Text>
             <Text style={styles.overlayText}>
               {props.complete_pole_number || ""}
@@ -97,24 +109,27 @@ export default function CameraInput(props) {
           </View>
         </View>
       ) : (
-
-        <CameraView
-          ref={cameraRef}
-          style={styles.camera}
-          facing="back"
-        >
+        <CameraView ref={cameraRef} style={styles.camera} facing="back">
           <View style={styles.topOverlay}>
-            <Image source={require('./assets/icon.png')} style={{ height: 80, width: 80, resizeMode: 'contain' }} />
+            <Image
+              source={require("./assets/icon.png")}
+              style={{ height: 80, width: 80, resizeMode: "contain" }}
+            />
           </View>
           <View style={styles.overlay}>
             <Text style={styles.overlayText}>
-              {moment().format('DD MMM YYYY HH:mm:ss a')}
+              {moment().format("DD MMM YYYY HH:mm:ss a")}
             </Text>
             <Text style={styles.overlayText}>
-              {`${location?.coords.latitude?.toFixed(4) || 'N/A'}N`} {`${location?.coords.longitude?.toFixed(4) || 'N/A'}E`}
+              {`${location?.coords.latitude?.toFixed(4) || "N/A"}N`}{" "}
+              {`${location?.coords.longitude?.toFixed(4) || "N/A"}E`}
             </Text>
             <Text style={styles.overlayText}>
-              {`Alt: ${location?.coords.altitude ? location.coords.altitude.toFixed(0) + 'm' : 'N/A'}`}
+              {`Alt: ${
+                location?.coords.altitude
+                  ? location.coords.altitude.toFixed(0) + "m"
+                  : "N/A"
+              }`}
             </Text>
             <Text style={styles.overlayText}>
               {props.complete_pole_number || ""}
@@ -137,29 +152,29 @@ export default function CameraInput(props) {
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative',
+    position: "relative",
   },
   camera: {
     flex: 1,
   },
   previewContainer: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
   capturedImage: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   overlay: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 100,
     right: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
     padding: 10,
     borderRadius: 5,
   },
@@ -169,20 +184,20 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   captureButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 30,
-    alignSelf: 'center',
+    alignSelf: "center",
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(255,255,255,0.3)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   captureButtonInner: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
 });

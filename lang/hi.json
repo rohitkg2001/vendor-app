@@ -47,6 +47,22 @@
     "my_projects": "मेरी परियोजनाएं",
     "my_tasks": "मेरे कार्य",
     "reports": "रिपोर्ट",
-    "settings": "सेटिंग्स"
+    "settings": "सेटिंग्स",
+    "welcome": "स्वागत है",
+    "progress_overview": "प्रगति का अवलोकन",
+    "monitor_progress": "प्रगति पर नज़र रखें",
+    "start_light_installation": "लाइट इंस्टॉलेशन शुरू करें",
+    "completed": "पूरा हुआ",
+    "rejected": "अस्वीकृत",
+    "installed_earning": "स्थापित कमाई",
+    "rMS_earning": "RMS कमाई",
+    "pending": "अधूरा",
+    "in_approval": "मंज़ूरी की प्रक्रिया में",
+    "approved": "मंज़ूर किया गया",
+    "installation": "स्थापना",
+    "progress": "प्रगति",
+    "approved_tasks": "स्वीकृत कार्य",
+    "rejected_tasks": "अस्वीकृत कार्य",
+    "totalinstallation": "कुल स्थापना कार्य"
   }
 }
