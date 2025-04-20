@@ -23,9 +23,9 @@ export default function StartInstallationScreen({ navigation, route }) {
   const { isSurvey, itemId } = route.params;
   const [wardOptions, setWardOptions] = useState([]);
   const [poleOptions, setPoleOptions] = useState([]);
-  const [panchayat, setPanchayat] = useState("")
-  const [block, setBlock] = useState("")
-  const [district, setDistrict] = useState("")
+  const [panchayat, setPanchayat] = useState("");
+  const [block, setBlock] = useState("");
+  const [district, setDistrict] = useState("");
 
   const [selectedWard, setSelectedWard] = useState("");
 
@@ -37,26 +37,24 @@ export default function StartInstallationScreen({ navigation, route }) {
 
   // Format the first 3 letters of the first word of each component
   const formatComponent = (str) => {
-    const firstWord = str.split(' ')[0] || '';
+    const firstWord = str.split(" ")[0] || "";
     return firstWord.substring(0, 3).toUpperCase();
   };
 
   // Main formatting function
   const formatPoleNumber = () => {
     const baseParts = [district, block, panchayat].map(formatComponent);
-    const additionalParts = ["WARD".concat(selectedWard), poleNumber]
-      .filter(part => part); // Only include if exists
-    // .map(formatComponent);
+    const additionalParts = [selectedWard, poleNumber]
+      .filter((part) => part) // Only include if exists
+      .map(formatComponent);
 
-    return [...baseParts, ...additionalParts].join('/');
+    return [...baseParts, ...additionalParts].join("/");
   };
 
   // Update formatted pole number when dependencies change
   useEffect(() => {
     setFormattedPoleNumber(formatPoleNumber());
   }, [district, block, panchayat, selectedWard, poleNumber]);
-
-
 
   useEffect(() => {
     if (Array.isArray(pendingStreetLights)) {
@@ -84,9 +82,9 @@ export default function StartInstallationScreen({ navigation, route }) {
           }))
         );
         const { panchayat, block, district } = currentSite.site;
-        setDistrict(district)
-        setBlock(block)
-        setPanchayat(panchayat)
+        setDistrict(district);
+        setBlock(block);
+        setPanchayat(panchayat);
       }
     }
     setLoading(false); // set loading
@@ -130,13 +128,13 @@ export default function StartInstallationScreen({ navigation, route }) {
     setIsCameraVisible(true);
   };
 
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  //       <ActivityIndicator size="large" color="#0000ff" />
+  //     </View>
+  //   );
+  // }
 
   return (
     <ContainerComponent>
