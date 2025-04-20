@@ -44,10 +44,10 @@ export default function StartInstallationScreen({ navigation, route }) {
   // Main formatting function
   const formatPoleNumber = () => {
     const baseParts = [district, block, panchayat].map(formatComponent);
-    const additionalParts = [selectedWard, poleNumber]
+    const additionalParts = [`WARD${selectedWard}`, poleNumber]
       .filter((part) => part) // Only include if exists
-      .map(formatComponent);
-
+    // .map(formatComponent);
+    console.log(additionalParts, baseParts)
     return [...baseParts, ...additionalParts].join("/");
   };
 
