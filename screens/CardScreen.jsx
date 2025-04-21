@@ -1,5 +1,7 @@
 import { View, Image, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
+import Constants from "expo-constants";
+
 import ContainerComponent from "../components/ContainerComponent";
 import { spacing, typography, SCREEN_WIDTH } from "../styles";
 import { P } from "../components/text";
@@ -8,6 +10,8 @@ export default function ({ navigation }) {
   const handlePress = (nextScreen) => {
     navigation.navigate("loginScreen", { nextScreen });
   };
+  const appVersion =
+    Constants?.manifest?.version || Constants?.expoConfig?.version || "1.0.0";
 
   return (
     <ContainerComponent justifyContent="space-between" paddingVertical={20}>
@@ -38,7 +42,13 @@ export default function ({ navigation }) {
               ]}
             />
             <View style={[spacing.p3]}>
-              <P style={[typography.font16, typography.fontLato, typography.textCenter]}>
+              <P
+                style={[
+                  typography.font16,
+                  typography.fontLato,
+                  typography.textCenter,
+                ]}
+              >
                 Rooftop Installation
               </P>
             </View>
@@ -68,7 +78,13 @@ export default function ({ navigation }) {
               ]}
             />
             <View style={[spacing.p3]}>
-              <P style={[typography.font16, typography.fontLato, typography.textCenter]}>
+              <P
+                style={[
+                  typography.font16,
+                  typography.fontLato,
+                  typography.textCenter,
+                ]}
+              >
                 Streetlight Installation
               </P>
             </View>
@@ -76,8 +92,10 @@ export default function ({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <P style={[typography.font12, typography.fontLato, typography.textCenter]}>
-        Powered by Dashandots Technology
+      <P
+        style={[typography.font12, typography.fontLato, typography.textCenter]}
+      >
+        Powered by Dashandots Technology{"\n"}(Version {appVersion})
       </P>
     </ContainerComponent>
   );
