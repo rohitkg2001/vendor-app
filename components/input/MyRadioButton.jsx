@@ -1,3 +1,4 @@
+//
 import { View, TouchableOpacity } from "react-native"
 import { styles, layouts } from "../../styles"
 import { H5 } from "../text";
