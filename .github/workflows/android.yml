@@ -3,10 +3,10 @@ run-name: ${{ github.actor }} is building apk using Github Actions
 on:
   push:
     branches:
-      - rohit
+      - main
   pull_request:
     branches:
-      - rohit
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
