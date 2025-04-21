@@ -1,5 +1,5 @@
 name: "Build Android App"
-run-name: ${{ github.actor }} is building apk using Github Actions
+run-name: ${{ github.actor }} is learning build Android App using Github Actions
 on:
   push:
     branches:
@@ -14,17 +14,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Clean up before build
-        run: |
-          rm -rf ./node_modules
-          rm -rf ~/.gradle/caches
-          rm -rf ~/.gradle/wrapper
-
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           java-version: "20"
-          distribution: "temurin"
+          distribution: "adopt"
+          cache: "gradle"
 
       - name: Change wrapper permissions
         run: chmod +x ./android/gradlew
@@ -35,7 +30,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "18"
 
       - name: Run Yarn Install
         run: |
@@ -45,6 +40,7 @@ jobs:
         run: |
           cd ./android
           ./gradlew assembleRelease
+          ./gradlew bundleRelease
 
       - name: Upload APK to Artifacts
         uses: actions/upload-artifact@v4
