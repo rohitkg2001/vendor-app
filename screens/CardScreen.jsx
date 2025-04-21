@@ -4,9 +4,11 @@ import Constants from "expo-constants";
 
 import ContainerComponent from "../components/ContainerComponent";
 import { spacing, typography, SCREEN_WIDTH } from "../styles";
+
 import { P } from "../components/text";
 
 export default function ({ navigation }) {
+  //const version = Constants.manifest.version;
   const handlePress = (nextScreen) => {
     navigation.navigate("loginScreen", { nextScreen });
   };
