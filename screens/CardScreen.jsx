@@ -2,9 +2,11 @@ import { View, Image, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
 import ContainerComponent from "../components/ContainerComponent";
 import { spacing, typography, SCREEN_WIDTH } from "../styles";
+import { Constants } from 'expo-constants';
 import { P } from "../components/text";
 
 export default function ({ navigation }) {
+  const version = Constants.manifest.version;
   const handlePress = (nextScreen) => {
     navigation.navigate("loginScreen", { nextScreen });
   };
@@ -76,6 +78,9 @@ export default function ({ navigation }) {
         </TouchableOpacity>
       </View>
 
+      <P style={[typography.font10, typography.fontLato, typography.textCenter, { fontWeight: 'bold' }]}>
+        App Version: {version}
+      </P>
       <P style={[typography.font12, typography.fontLato, typography.textCenter]}>
         Powered by Dashandots Technology
       </P>
