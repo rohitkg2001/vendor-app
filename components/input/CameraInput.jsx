@@ -29,6 +29,7 @@ export default function CameraInput({
   complete_pole_number = "",
 }) {
   const [permission, requestPermission] = useCameraPermissions();
+  const [hasPermissionChecked, setHasPermissionChecked] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [location, setLocation] = useState(null);
   const [timestamp, setTimestamp] = useState("");
@@ -222,23 +223,43 @@ export default function CameraInput({
     ]);
   };
 
-  if (!permission) {
-    return (
-      <View>
-        <Text>Requesting permissions...</Text>
-      </View>
-    );
-  }
+  // ✅ Ask for camera permission on first load
+  useEffect(() => {
+    (async () => {
+      if (!permission?.granted) {
+        const { status } = await requestPermission();
+        if (status !== "granted") {
+          Alert.alert(
+            "Permission Required",
+            "Camera permission is needed to take photos.",
+            [{ text: "OK" }]
+          );
+        }
+      }
+      setHasPermissionChecked(true);
+    })();
+  }, []);
 
-  if (!permission.granted) {
-    return (
-      <View style={styles.container}>
-        <Text>We need camera permission</Text>
-        <TouchableOpacity onPress={requestPermission} style={styles.button}>
-          <Text>Grant Permission</Text>
-        </TouchableOpacity>
-      </View>
-    );
+  // if (!permission) {
+  //   return (
+  //     <View>
+  //       <Text>Requesting permissions...</Text>
+  //     </View>
+  //   );
+  // }
+
+  // if (!permission.granted) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text>We need camera permission</Text>
+  //       <TouchableOpacity onPress={requestPermission} style={styles.button}>
+  //         <Text>Grant Permission</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // }
+
+  if (!hasPermissionChecked) {
   }
 
   return (
