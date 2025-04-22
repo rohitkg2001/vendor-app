@@ -264,93 +264,87 @@ export const getStreetLightTasks = (my_id) => async (dispatch) => {
   dispatch({ type: TOTAL_PENDING_STREETLIGHT, payload: pendingSites.length });
 };
 
-export const submitStreetlightTasks =
-  (dataToUpdate, file) => async (dispatch) => {
-    try {
-      const formData = new FormData();
-      let imageIndex = 0;
-      // ✅ Validate required fields
-      if (!dataToUpdate?.task_id || !dataToUpdate?.complete_pole_number) {
-        console.error("Missing task_id or complete_pole_number");
-        return;
-      }
+export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
+  // Validate required fields
+  if (!dataToUpdate?.task_id || !dataToUpdate?.complete_pole_number) {
+    console.error("Missing task_id or complete_pole_number");
+    return false;
+  }
 
-      // ✅ Append required fields
-      formData.append("task_id", String(dataToUpdate.task_id));
-      formData.append(
-        "complete_pole_number",
-        String(dataToUpdate.complete_pole_number)
-      );
-      formData.append("lat", String(dataToUpdate.lat));
-      formData.append("lng", String(dataToUpdate.lng));
-      if (dataToUpdate.isSurvey) {
-        formData.append("beneficiary", String(dataToUpdate.beneficiary || ""));
-        formData.append(
-          "beneficiary_contact",
-          String(dataToUpdate.beneficiary_contact || "")
-        );
-        formData.append("ward_name", String(dataToUpdate.ward_name || ""));
-        formData.append("remarks", String(dataToUpdate.remarks || ""));
-        formData.append(
-          "isNetworkAvailable",
-          dataToUpdate.isNetworkAvailable ? true : false
-        );
-        formData.append(
-          "isSurveyDone",
-          dataToUpdate.isSurveyDone ? true : false
-        );
-        // ✅ Append multiple images
-        if (Array.isArray(dataToUpdate.survey_image)) {
-          dataToUpdate.survey_image.forEach((item) => {
-            if (item?.uri) {
-              formData.append(`survey_image[${imageIndex}]`, {
-                uri: item.uri,
-                name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
-                type: "image/jpeg",
-              });
-              imageIndex++;
-            }
-          });
-        }
-      } else {
-        formData.append("isInstallationDone", "true");
-        formData.append("luminary_qr", String(dataToUpdate.luminary_qr || ""));
-        formData.append("sim_number", String(dataToUpdate.sim_number || ""));
-        formData.append("panel_qr", String(dataToUpdate.panel_qr || ""));
-        formData.append("battery_qr", String(dataToUpdate.battery_qr || ""));
-        // ✅ Append multiple images
-        if (Array.isArray(dataToUpdate.submission_image)) {
-          dataToUpdate.submission_image.forEach((item) => {
-            if (item?.uri) {
-              formData.append(`submission_image[${imageIndex}]`, {
-                uri: item.uri,
-                name: `photo_${imageIndex}_survey_${dataToUpdate.lat}_${dataToUpdate.lng}.jpg`,
-                type: "image/jpeg",
-              });
-              imageIndex++;
-            }
-          });
-        }
-      }
+  const formData = new FormData();
+  const { isSurvey } = dataToUpdate;
 
-      // ✅ Debug: Print formData contents
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
-
-      // ✅ Send POST request (REMOVE "Content-Type" HEADER)
-      const response = await axios.post(
-        `${BASE_URL}/api/streetlight/tasks/update`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } } // Let axios set the correct Content-Type
-      );
-      const { data, status } = await response;
-      return status;
-    } catch (error) {
-      console.error("Error submitting data:", error.response?.data || error);
-      return false;
-    }
+  // Append common fields
+  const commonFields = {
+    task_id: dataToUpdate.task_id,
+    complete_pole_number: dataToUpdate.complete_pole_number,
+    lat: dataToUpdate.lat,
+    lng: dataToUpdate.lng
   };
+
+  Object.entries(commonFields).forEach(([key, value]) => {
+    formData.append(key, String(value));
+  });
+
+  // Append survey or installation specific fields
+  if (isSurvey) {
+    const surveyFields = {
+      beneficiary: dataToUpdate.beneficiary || "",
+      beneficiary_contact: dataToUpdate.beneficiary_contact || "",
+      ward_name: dataToUpdate.ward_name || "",
+      remarks: dataToUpdate.remarks || "",
+      isNetworkAvailable: !!dataToUpdate.isNetworkAvailable,
+      isSurveyDone: !!dataToUpdate.isSurveyDone
+    };
+
+    Object.entries(surveyFields).forEach(([key, value]) => {
+      formData.append(key, String(value));
+    });
+
+    appendImages(formData, dataToUpdate.survey_image, 'survey', dataToUpdate.lat, dataToUpdate.lng);
+  } else {
+    formData.append("isInstallationDone", "true");
+    const installationFields = {
+      luminary_qr: dataToUpdate.luminary_qr || "",
+      sim_number: dataToUpdate.sim_number || "",
+      panel_qr: dataToUpdate.panel_qr || "",
+      battery_qr: dataToUpdate.battery_qr || ""
+    };
+
+    Object.entries(installationFields).forEach(([key, value]) => {
+      formData.append(key, String(value));
+    });
+
+    appendImages(formData, dataToUpdate.submission_image, 'installation', dataToUpdate.lat, dataToUpdate.lng);
+  }
+
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/streetlight/tasks/update`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    );
+    return response.status;
+  } catch (error) {
+    console.error("Error submitting data:", error.response?.data || error);
+    return false;
+  }
+};
+
+// Helper function to append images
+const appendImages = (formData, images, type, lat, lng) => {
+  if (!Array.isArray(images)) return;
+
+  images.forEach((item, index) => {
+    if (item?.uri) {
+      formData.append(`${type}_image[${index}]`, {
+        uri: item.uri,
+        name: `photo_${index}_${type}_${lat}_${lng}.jpg`,
+        type: "image/jpeg"
+      });
+    }
+  });
+};
 
 export const getInstalledPoles = (vendor_id) => async (dispatch) => {
   try {

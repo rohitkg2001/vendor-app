@@ -43,16 +43,16 @@ export const getAllItems = (vendorId) => async (dispatch) => {
     dispatch({
       type: GET_TOTAL_RECEIVED_INVENTORY,
       payload: all_inventory?.total_received, // Pass only the `total_received` array
-    } );
-     dispatch({
-       type: GET_IN_STOCK,
-       payload: all_inventory?.in_stock,
-     });
+    });
+    dispatch({
+      type: GET_IN_STOCK,
+      payload: all_inventory?.in_stock,
+    });
 
-     dispatch({
-       type: GET_CONSUMED,
-       payload: all_inventory?.consumed,
-     });
+    dispatch({
+      type: GET_CONSUMED,
+      payload: all_inventory?.consumed,
+    });
   } catch (err) {
     alert(err.message);
   }

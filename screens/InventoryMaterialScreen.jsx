@@ -9,7 +9,7 @@ import ClickableCard1 from "../components/card/ClickableCard1";
 import { P } from "../components/text";
 import NoRecord from "./NoRecord";
 import Icon from "react-native-vector-icons/Ionicons";
-import { styles, spacing, typography,  } from "../styles";
+import { styles, spacing, typography, } from "../styles";
 
 export default function InventoryMaterialScreen({ route }) {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ export default function InventoryMaterialScreen({ route }) {
   const tabCounts = {
     "Total Received": totalReceived,
     "In Stock": inStock?.total_quantity || 0,
-    Consumed: consumed?.total_quantity || 0,
+    "Consumed": consumed?.total_quantity || 0,
   };
 
   const generateList = (tabName) => {
@@ -32,8 +32,8 @@ export default function InventoryMaterialScreen({ route }) {
       tabName === "Total Received"
         ? totalReceived
         : tabName === "In Stock"
-        ? inStock?.total_quantity || 0
-        : consumed?.total_quantity || 0;
+          ? inStock?.total_quantity || 0
+          : consumed?.total_quantity || 0;
 
     return Array.from({ length: count }, (_, i) => ({
       id: `${tabName}-${i + 1}`,

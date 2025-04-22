@@ -1,10 +1,4 @@
-import {
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  ActivityIndicator,
-} from "react-native";
+import { View, TouchableOpacity, ScrollView, Image, ActivityIndicator } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { Snackbar } from "react-native-paper";
 import Button from "../components/buttons/Button";
@@ -70,9 +64,7 @@ export default function SurveyScreen({ route, message = "" }) {
 
     // Only check for minimum photos when it's NOT a survey and file is not uploaded
     if (!isSurvey && photos.length < 1 && !file) {
-      setSnackbarMessage(
-        "Please click at least two pictures or upload a document."
-      );
+      setSnackbarMessage("Please click at least one picture or upload a document.");
       setSnackbarVisible(true);
       return;
     }

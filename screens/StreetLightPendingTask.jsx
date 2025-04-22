@@ -38,9 +38,6 @@ const StreetLightPendingTask = ({ navigation }) => {
 
   const handleSurveyData = async (item, isSurvey) => {
     try {
-      // const response = await axios.post(`https://${BASE_URL}/api/pole-details`, {
-      //   pole_id: item.pole_id,
-      // });
       const response = await axios.post("https://slldm.com/api/pole-details", {
         pole_id: item.pole_id,
       });
