@@ -17,7 +17,7 @@ import SurveyScreen from "../screens/SurveyScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import CardScreen from "../screens/CardScreen";
 import welcomeScreen from "../screens/welcomeScreen";
-// import SiteLocationScreen from "../screens/SiteLocationScreen";
+
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
 import ProfileChangeScreen from "../screens/ProfileChangeScreen";
@@ -46,7 +46,6 @@ export default function MyStackNavigator() {
       <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
-      {/* <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} /> */}
 
       <Stack.Screen name="reportScreen" component={ReportScreen} />
       <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />

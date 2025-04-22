@@ -13,44 +13,7 @@ export const alertMessage = ({
   ]);
 };
 
-export const earnings = [
-  {
-    id: 1,
-    projectName: "Solar Lighting Installation for Homes",
-    totalEarnings: 12034,
-    completionDate: "2023-10-10",
-  },
-  {
-    id: 2,
-    projectName: "Community Solar Street Lights Project",
-    totalEarnings: 8500.0,
-    completionDate: "2023-09-15",
-  },
-];
-
-export const Task = [
-  {
-    id: 1,
-    task_name: "Solar Lighting Installation for Homes",
-    activity: "Installation",
-    location: "Bihar, Bhagalpur",
-    start_date: "2024-10-12",
-    end_date: "2024-29-12",
-    priority: "High",
-  },
-  {
-    id: 2,
-    task_name: "Community Solar Street Lights Project",
-    activity: "RMS",
-    location: "Delhi, Gurugram",
-    start_date: "2024-11-12",
-    end_date: "2024-27-12",
-    priority: "Medium",
-  },
-];
-
 export const menuItems = [
-  //{ label: "my_projects", icon: "grid-outline", page: "projectsScreen", id: 0 },
   { label: "My Sites", icon: "home-outline", page: "siteScreen" },
   { label: "my_tasks", page: "taskScreen", icon: "grid-outline", id: 1 },
   {
@@ -70,17 +33,11 @@ export const menuItems = [
 ];
 
 export const internal = [
-  // {
-  //   label: "notification_title",
-  //   page: "notificationScreen",
-  //   icon: "notifications-outline",
-  // },
   {
     label: "privacy_policy_title",
     page: "privacyPolicy",
     icon: "shield-checkmark-outline",
   },
-  // { label: "Data Usage", page: "", icon: "folder-outline" },
 ];
 
 export const notifications = [
@@ -173,76 +130,3 @@ export const PageData = [
 ];
 
 // faker.js
-
-export { blocks, panchayats, wards };
-const blocks = {
-  Patna: [
-    { label: "Patna Sadar", value: "Patna Sadar" },
-    { label: "Danapur", value: "Danapur" },
-    { label: "Phulwari Sharif", value: "Phulwari Sharif" },
-    { label: "Paliganj", value: "Paliganj" },
-    { label: "Masaurhi", value: "Masaurhi" },
-  ],
-  district2: [
-    { label: "Gaya Sadar", value: "block1" },
-    { label: "Bodh Gaya", value: "block2" },
-    { label: "Belaganj", value: "block3" },
-    { label: "Khizersarai", value: "block4" },
-    { label: "Sherghati", value: "block5" },
-  ],
-};
-
-const panchayats = {
-  Patna: [
-    { label: "Fatehpur", value: "Fathehpur" },
-    { label: "Mahauli", value: "panchayat2" },
-    { label: "Marchi", value: "panchayat3" },
-    { label: "Punadih", value: "panchayat4" },
-  ],
-  district2: [
-    { label: "Gaya Sadar", value: "panchayat1" },
-    { label: "Bodh Gaya", value: "panchayat2" },
-    { label: "Sherghati", value: "panchayat3" },
-    { label: "Tekari", value: "panchayat4" },
-    { label: "Manpur", value: "panchayat5" },
-    { label: "Rafiganj", value: "panchayat6" },
-    { label: "Dumaria", value: "panchayat7" },
-    { label: "Belaganj", value: "panchayat8" },
-  ],
-};
-
-const wards = {
-  Patna: [
-    { label: "Ward 1", value: "Ward 1" },
-    { label: "Ward 2", value: "ward2" },
-    { label: "Ward 3", value: "ward3" },
-    { label: "Ward 4", value: "ward4" },
-    { label: "Ward 5", value: "ward5" },
-  ],
-  district2: [
-    { label: "Ward 1", value: "ward1" },
-    { label: "Ward 2", value: "ward2" },
-    { label: "Ward 3", value: "ward3" },
-    { label: "Ward 4", value: "ward4" },
-    { label: "Ward 5", value: "ward5" },
-  ],
-};
-
-const inventoryItems = [
-  {
-    item_code: "SL01",
-    item_name: "Panel(Module)"
-  },
-  {
-    item_code: "SL02",
-    item_name: "Luminary"
-  },
-  {
-    item_code: "SL03",
-    item_name: "Battery"
-  },
-  {
-    item_code: "SL04",
-    item_name: "Structure"
-  }
-]
