@@ -107,7 +107,10 @@ export default function CameraInput({
     let compressedPhoto = null;
     let compressedSizeMB = Infinity;
 
-    while (compressedSizeMB > MAX_COMPRESSED_SIZE_MB && compressQuality >= MIN_COMPRESSION_QUALITY) {
+    while (
+      compressedSizeMB > MAX_COMPRESSED_SIZE_MB &&
+      compressQuality >= MIN_COMPRESSION_QUALITY
+    ) {
       compressedPhoto = await ImageManipulator.manipulateAsync(
         uri,
         [{ resize: { width: 1080, height: 1920 } }],
@@ -177,15 +180,20 @@ export default function CameraInput({
     ]);
   }, [photos, handleSubmission, setIsCameraOpen]);
 
-  const renderPhotoItem = useCallback(({ item }) => (
-    <View style={styles.photoItem}>
-      <Image source={{ uri: item.uri }} style={styles.photo} />
-    </View>
-  ), []);
+  const renderPhotoItem = useCallback(
+    ({ item }) => (
+      <View style={styles.photoItem}>
+        <Image source={{ uri: item.uri }} style={styles.photo} />
+      </View>
+    ),
+    []
+  );
 
   const formatCoordinates = useCallback(() => {
     if (!location?.coords) return "N/A N N/A E";
-    return `${location.coords.latitude?.toFixed(4) || "N/A"}N ${location.coords.longitude?.toFixed(4) || "N/A"}E`;
+    return `${location.coords.latitude?.toFixed(4) || "N/A"}N ${
+      location.coords.longitude?.toFixed(4) || "N/A"
+    }E`;
   }, [location]);
 
   const formatAltitude = useCallback(() => {
@@ -193,21 +201,24 @@ export default function CameraInput({
     return `${location.coords.altitude.toFixed(0)}m`;
   }, [location]);
 
-  const renderOverlay = useCallback(() => (
-    <>
-      <Text style={styles.overlayText}>
-        {moment().format("DD MMM YYYY HH:mm:ss a")}
-      </Text>
-      <Text style={styles.overlayText}>{formatCoordinates()}</Text>
-      <Text style={styles.overlayText}>{`Alt: ${formatAltitude()}`}</Text>
-      <Text style={styles.overlayText}>{complete_pole_number || ""}</Text>
-      {!capturedPhoto && (
-        <Text style={{ fontSize: 10, color: "red" }}>
-          Powered By Dashandots Technology
+  const renderOverlay = useCallback(
+    () => (
+      <>
+        <Text style={styles.overlayText}>
+          {moment().format("DD MMM YYYY HH:mm:ss a")}
         </Text>
-      )}
-    </>
-  ), [formatCoordinates, formatAltitude, complete_pole_number, capturedPhoto]);
+        <Text style={styles.overlayText}>{formatCoordinates()}</Text>
+        <Text style={styles.overlayText}>{`Alt: ${formatAltitude()}`}</Text>
+        <Text style={styles.overlayText}>{complete_pole_number || ""}</Text>
+        {!capturedPhoto && (
+          <Text style={{ fontSize: 10, color: "red" }}>
+            Powered By Dashandots Technology
+          </Text>
+        )}
+      </>
+    ),
+    [formatCoordinates, formatAltitude, complete_pole_number, capturedPhoto]
+  );
 
   return (
     <Modal visible={isCameraOpen} animationType="slide">
@@ -228,14 +239,21 @@ export default function CameraInput({
           </View>
         )}
         {capturedPhoto ? (
-          <View ref={viewRef} collapsable={false} style={styles.previewContainer}>
+          <View
+            ref={viewRef}
+            collapsable={false}
+            style={styles.previewContainer}
+          >
             <View style={[styles.topOverlay, { top: 120, right: 120 }]}>
               <Image
                 source={require("../../assets/icon.png")}
                 style={{ height: 60, width: 60, resizeMode: "contain" }}
               />
             </View>
-            <Image source={{ uri: capturedPhoto }} style={styles.capturedImage} />
+            <Image
+              source={{ uri: capturedPhoto }}
+              style={styles.capturedImage}
+            />
             <View style={[styles.overlay, { bottom: 40 }]}>
               {renderOverlay()}
             </View>
@@ -265,11 +283,17 @@ export default function CameraInput({
         </TouchableOpacity>
         {!saving && (
           <View style={styles.controls}>
-            <TouchableOpacity onPress={handleRetake} style={styles.retakeButton}>
+            <TouchableOpacity
+              onPress={handleRetake}
+              style={styles.retakeButton}
+            >
               <Icon name="refresh" size={35} color="white" />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleCapture} style={styles.captureButton}>
+            <TouchableOpacity
+              onPress={handleCapture}
+              style={styles.captureButton}
+            >
               <View style={styles.captureButtonInner} />
             </TouchableOpacity>
 

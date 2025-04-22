@@ -21,7 +21,9 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const { complete_pole_number, pole } = data || {}; // Ensure data is present
 
   // Log the data to ensure it is passed correctly
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    console.log("Received data:", data); // Debugging step
+  }, [data]);
 
   if (!data) {
     console.error("No data received from previous screen!");
@@ -54,6 +56,8 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
   // Check if a serial number exists in the inventory
   const isSerialNumberInStock = (serialNumber, type) => {
+    console.log("Checking serial:", serialNumber, "for type:", type);
+
     if (!inventory || !inventory.in_stock) {
       console.warn("Inventory or in_stock data is not available yet.");
       return false;
@@ -72,11 +76,22 @@ const SubmitInstallationScreen = ({ navigation }) => {
     }
 
     const match = inventory.in_stock?.some((item) => {
-      return (
+      const matchFound =
         item.item?.toLowerCase() === expectedItem.toLowerCase() &&
-        item.serial_number?.includes(serialNumber)
-      );
+        item.serial_number?.includes(serialNumber);
+
+      if (matchFound) {
+        console.log(`Match found in item: ${item.item}`);
+      }
+
+      return matchFound;
     });
+
+    if (!match) {
+      console.warn(
+        ` No match for serial: ${serialNumber} in type: ${expectedItem}`
+      );
+    }
 
     return match;
   };
@@ -227,6 +242,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
         },
       ];
 
+      console.log("Gallery image selected:", imageObj);
       await handleSubmission(imageObj);
     }
   };
@@ -245,6 +261,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
       lng: image[0].long,
       isSurvey: false,
     };
+    console.log("Submitting data:", submissionData);
     const result = await dispatch(submitStreetlightTasks(submissionData));
     if (result == 200) {
       navigation.navigate("successScreen", {

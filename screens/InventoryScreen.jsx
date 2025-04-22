@@ -19,13 +19,8 @@ export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
 
-  const {
-    today_inventory,
-    all_inventory,
-    total_received_inventory,
-    in_stock,
-    consumed,
-  } = useSelector((state) => state.inventory);
+  const { today_inventory, total_received_inventory, in_stock, consumed } =
+    useSelector((state) => state.inventory);
 
   useEffect(() => {}, [today_inventory]);
 
@@ -96,7 +91,6 @@ export default function InventoryScreen({ navigation }) {
         menuItems={[
           {
             title: "Export to Excel",
-            //onPress: handleExport,
           },
         ]}
       />

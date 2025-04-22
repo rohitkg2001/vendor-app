@@ -114,9 +114,9 @@ export default function QRScanner({ title, onScan }) {
             style={{
               flex: 1,
               position: "absolute",
-              top: 110,
-              left: 20,
-              width: SCREEN_WIDTH * 0.9,
+              top: 130,
+              left: 40,
+              width: SCREEN_WIDTH * 0.8,
               height: SCREEN_HEIGHT * 0.4,
               justifyContent: "center",
               alignItems: "center",
