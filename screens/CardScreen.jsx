@@ -1,6 +1,6 @@
 import { View, Image, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
-import Constants from "expo-constants";
+//import Constants from "expo-constants";
 
 import ContainerComponent from "../components/ContainerComponent";
 import { spacing, typography, SCREEN_WIDTH } from "../styles";
@@ -12,8 +12,8 @@ export default function ({ navigation }) {
   const handlePress = (nextScreen) => {
     navigation.navigate("loginScreen", { nextScreen });
   };
-  const appVersion =
-    Constants?.manifest?.version || Constants?.expoConfig?.version || "1.0.0";
+  // const appVersion =
+  //   Constants?.manifest?.version || Constants?.expoConfig?.version || "1.0.0";
 
   return (
     <ContainerComponent justifyContent="space-between" paddingVertical={20}>
@@ -97,7 +97,7 @@ export default function ({ navigation }) {
       <P
         style={[typography.font12, typography.fontLato, typography.textCenter]}
       >
-        Powered by Dashandots Technology{"\n"}(Version {appVersion})
+        Powered by Dashandots Technology
       </P>
     </ContainerComponent>
   );

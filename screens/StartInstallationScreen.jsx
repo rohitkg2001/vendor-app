@@ -11,6 +11,8 @@ import CameraInput from "../components/input/CameraInput";
 import { Checkbox } from "react-native-paper";
 import MyPickerInput from "../components/input/MyPickerInput";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
+import * as DocumentPicker from "expo-document-picker";
+import * as Location from "expo-location";
 
 export default function StartInstallationScreen({ navigation, route }) {
   const [isCameraVisible, setIsCameraVisible] = useState(false);
@@ -34,6 +36,8 @@ export default function StartInstallationScreen({ navigation, route }) {
 
   const dispatch = useDispatch();
   const { pendingStreetLights } = useSelector((state) => state.tasks);
+  const { data } = route.params || {};
+  const { pole } = data || {};
 
   // Format the first 3 letters of the first word of each component
   const formatComponent = (str) => {
@@ -44,10 +48,11 @@ export default function StartInstallationScreen({ navigation, route }) {
   // Main formatting function
   const formatPoleNumber = () => {
     const baseParts = [district, block, panchayat].map(formatComponent);
-    const additionalParts = [`WARD${selectedWard}`, poleNumber]
-      .filter((part) => part) // Only include if exists
+    const additionalParts = [`WARD${selectedWard}`, poleNumber].filter(
+      (part) => part
+    ); // Only include if exists
     // .map(formatComponent);
-    console.log(additionalParts, baseParts)
+    console.log(additionalParts, baseParts);
     return [...baseParts, ...additionalParts].join("/");
   };
 
@@ -128,13 +133,74 @@ export default function StartInstallationScreen({ navigation, route }) {
     setIsCameraVisible(true);
   };
 
-  // if (loading) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-  //       <ActivityIndicator size="large" color="#0000ff" />
-  //     </View>
-  //   );
-  // }
+  // const handleUploadFromGallery = async () => {
+  //   try {
+  //     const result = await DocumentPicker.getDocumentAsync({
+  //       type: "image/*",
+  //       copyToCacheDirectory: true,
+  //       multiple: false,
+  //     });
+
+  //     if (!result.canceled && result.assets && result.assets.length > 0) {
+  //       const selectedImage = result.assets[0];
+
+  //       const imageObj = [
+  //         {
+  //           uri: selectedImage.uri,
+  //           lat: pole?.latitude || 0,
+  //           long: pole?.longitude || 0,
+  //           name: selectedImage.name || "uploaded_image.jpg",
+  //           type: selectedImage.mimeType || "image/jpeg",
+  //         },
+  //       ];
+
+  //       console.log("Gallery image selected:", imageObj);
+  //       await handleSubmission(imageObj);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error selecting image from gallery:", error);
+  //   }
+  // };
+
+  const handleUploadFromGallery = async () => {
+    try {
+      // Get permission and location
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      const lat = location.coords.latitude;
+      const long = location.coords.longitude;
+
+      const result = await DocumentPicker.getDocumentAsync({
+        type: "image/*",
+        copyToCacheDirectory: true,
+        multiple: false,
+      });
+
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        const selectedImage = result.assets[0];
+
+        const imageObj = [
+          {
+            uri: selectedImage.uri,
+            lat: lat,
+            long: long,
+            name: selectedImage.name || "uploaded_image.jpg",
+            type: selectedImage.mimeType || "image/jpeg",
+          },
+        ];
+
+        console.log("Gallery image selected with location:", imageObj);
+        await handleSubmission(imageObj);
+      }
+    } catch (error) {
+      console.error("Error selecting image from gallery:", error);
+    }
+  };
 
   return (
     <ContainerComponent>
@@ -238,6 +304,23 @@ export default function StartInstallationScreen({ navigation, route }) {
           style={[typography.font18, typography.textBold, typography.textLight]}
         >
           Take Photo
+        </P>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[
+          spacing.p4,
+          spacing.br1,
+          spacing.mb2,
+          styles.bgSecondary,
+          { width: SCREEN_WIDTH - 16, alignItems: "center" },
+        ]}
+        onPress={handleUploadFromGallery}
+      >
+        <P
+          style={[typography.font18, typography.textBold, typography.textLight]}
+        >
+          Upload From Gallery
         </P>
       </TouchableOpacity>
       <CameraInput
