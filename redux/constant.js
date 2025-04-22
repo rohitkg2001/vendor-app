@@ -43,8 +43,6 @@ export const UPDATE_PAYMENT = "UPDATE_PAYMENT";
 export const DELETE_PAYMENT = "DELETE_PAYMENT";
 export const COUNT_PAYMENTS = "COUNT_PAYMENTS";
 
-export const SET_SITE_INFO = "SET_SITE_INFO";
-
 // Set all constants here including assets, texts,etc
 export const GET_PENDING_STREETLIGHTS = "GET_PENDING_STREETLIGHTS";
 export const TOTAL_PENDING_STREETLIGHT = "SET_TOTAL_PENDING_STREETLIGHT";

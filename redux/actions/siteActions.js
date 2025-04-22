@@ -4,7 +4,6 @@ import {
   GET_ALL_SITES,
   BASE_URL,
   SET_SITES_COUNT,
-  SET_SITE_INFO,
   START_INSTALLATION,
 } from "../constant";
 import axios from "axios";
@@ -31,10 +30,6 @@ export const searchSite = (searchText) => ({
   type: SEARCH_SITE,
   payload: searchText,
 });
-
-export const setSiteInfo = (val) => async (dispatch) => {
-  dispatch({ type: SET_SITE_INFO, payload: val });
-};
 
 export const startInstallation = (val) => async (dispatch) => {
   dispatch({ type: START_INSTALLATION, payload: val });

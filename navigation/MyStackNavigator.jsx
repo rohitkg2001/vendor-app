@@ -4,7 +4,6 @@ import LoginScreen from "../screens/LoginScreen";
 import DashboardScreen from "../screens/DashboardScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
-import TotalEarningScreen from "../screens/TotalEarningScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import InternalSetting from "../screens/InternalSetting";
@@ -18,7 +17,7 @@ import SurveyScreen from "../screens/SurveyScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import CardScreen from "../screens/CardScreen";
 import welcomeScreen from "../screens/welcomeScreen";
-import SiteLocationScreen from "../screens/SiteLocationScreen";
+// import SiteLocationScreen from "../screens/SiteLocationScreen";
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
 import ProfileChangeScreen from "../screens/ProfileChangeScreen";
@@ -45,10 +44,9 @@ export default function MyStackNavigator() {
       <Stack.Screen name="settings" component={SettingsScreen} />
       <Stack.Screen name="internalSetting" component={InternalSetting} />
       <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
-      <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
-      <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
+      {/* <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} /> */}
 
       <Stack.Screen name="reportScreen" component={ReportScreen} />
       <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />
