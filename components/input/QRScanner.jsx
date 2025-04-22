@@ -25,6 +25,9 @@ export default function QRScanner({ title, onScan }) {
   const cameraRef = useRef(null);
   const [photos, setPhotos] = useState([]);
 
+  const CORNER_SIZE = 60;
+  const BORDER_WIDTH = 8;
+
   useEffect(() => {
     if (status === null) {
       requestPermission();
@@ -106,20 +109,97 @@ export default function QRScanner({ title, onScan }) {
             style={{ flex: 1 }}
             onBarcodeScanned={scanned ? () => {} : handleBarCodeScanned}
           />
+
           <View
-            style={[
-              spacing.br2,
-              spacing.bw2,
-              {
-                position: "absolute",
-                top: "180",
-                left: "55",
-                borderColor: "green",
-                width: SCREEN_WIDTH * 0.7,
-                height: SCREEN_HEIGHT * 0.3,
-              },
-            ]}
-          />
+            style={{
+              flex: 1,
+              position: "absolute",
+              top: 110,
+              left: 20,
+              width: SCREEN_WIDTH * 0.9,
+              height: SCREEN_HEIGHT * 0.4,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {/* Border Frame moved inside corners */}
+            <View
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              {/* Top Left Corner */}
+              <View
+                style={{
+                  width: CORNER_SIZE,
+                  height: CORNER_SIZE,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  borderWidth: BORDER_WIDTH,
+                  borderColor: "red",
+                  borderRightWidth: 0,
+                  borderBottomWidth: 0,
+                  borderTopLeftRadius: 12,
+                }}
+              />
+              {/* Top Right Corner */}
+              <View
+                style={{
+                  width: CORNER_SIZE,
+                  height: CORNER_SIZE,
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  borderWidth: BORDER_WIDTH,
+                  borderColor: "orange",
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 0,
+                  borderTopRightRadius: 12,
+                }}
+              />
+              {/* Bottom Left Corner */}
+              <View
+                style={{
+                  width: CORNER_SIZE,
+                  height: CORNER_SIZE,
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  borderWidth: BORDER_WIDTH,
+                  borderColor: "blue",
+                  borderRightWidth: 0,
+                  borderTopWidth: 0,
+                  borderBottomLeftRadius: 12,
+                }}
+              />
+              {/* Bottom Right Corner */}
+              <View
+                style={{
+                  width: CORNER_SIZE,
+                  height: CORNER_SIZE,
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  borderWidth: BORDER_WIDTH,
+                  borderColor: "green",
+                  borderLeftWidth: 0,
+                  borderTopWidth: 0,
+                  borderBottomRightRadius: 12,
+                }}
+              />
+
+              <View
+                style={{
+                  flex: 1,
+                  margin: BORDER_WIDTH + 1,
+                  borderColor: "rgba(255, 255, 255, 0.2)",
+                  borderWidth: 1,
+                }}
+              />
+            </View>
+          </View>
 
           <TouchableOpacity
             onPress={() => setIsCameraOpen(false)}

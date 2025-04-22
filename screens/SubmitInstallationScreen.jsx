@@ -72,22 +72,11 @@ const SubmitInstallationScreen = ({ navigation }) => {
     }
 
     const match = inventory.in_stock?.some((item) => {
-      const matchFound =
+      return (
         item.item?.toLowerCase() === expectedItem.toLowerCase() &&
-        item.serial_number?.includes(serialNumber);
-
-      if (matchFound) {
-        console.log(`Match found in item: ${item.item}`);
-      }
-
-      return matchFound;
-    });
-
-    if (!match) {
-      console.warn(
-        ` No match for serial: ${serialNumber} in type: ${expectedItem}`
+        item.serial_number?.includes(serialNumber)
       );
-    }
+    });
 
     return match;
   };

@@ -7,9 +7,6 @@ import { Card } from "react-native-paper";
 export default function InventoryCard({ item, onPress }) {
   const { t } = useTranslation();
 
-  // Calculate total value
-  const totalValue = item.rate * item.quantity;
-
   const formatDate = (dateString) => {
     if (!dateString) return ""; // Agar date na ho to empty string return kare
     const date = new Date(dateString);
