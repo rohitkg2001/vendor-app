@@ -19,9 +19,8 @@ export default function usePermissions() {
     setPermissionsLoading(true);
     try {
       const storedPermissions = await AsyncStorage.getItem("permissions");
-      console.log("Checking Permissions");
+
       if (storedPermissions) {
-        console.log("Loaded stored permissions");
         setPermissions(JSON.parse(storedPermissions));
       } else {
         let camera = await requestCameraPermission();
@@ -29,7 +28,6 @@ export default function usePermissions() {
         let push = await requestPushNotificationPermission();
 
         const newPermissions = { push, camera, location };
-        console.log(`New Permissions:`, newPermissions);
 
         await AsyncStorage.setItem(
           "permissions",
@@ -60,7 +58,6 @@ export default function usePermissions() {
   }
 
   async function requestCameraPermission() {
-    console.log("Requesting camera permission");
     try {
       const { status } = await Camera.requestCameraPermissionsAsync();
       return status === "granted";
@@ -71,7 +68,6 @@ export default function usePermissions() {
   }
 
   async function requestLocationPermission() {
-    console.log("Requesting location permission");
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       return status === "granted";

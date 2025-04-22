@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import { ActivityIndicator, Snackbar } from "react-native-paper";
+import { Snackbar } from "react-native-paper";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
@@ -52,7 +52,7 @@ export default function StartInstallationScreen({ navigation, route }) {
       (part) => part
     ); // Only include if exists
     // .map(formatComponent);
-    console.log(additionalParts, baseParts);
+
     return [...baseParts, ...additionalParts].join("/");
   };
 
@@ -133,41 +133,11 @@ export default function StartInstallationScreen({ navigation, route }) {
     setIsCameraVisible(true);
   };
 
-  // const handleUploadFromGallery = async () => {
-  //   try {
-  //     const result = await DocumentPicker.getDocumentAsync({
-  //       type: "image/*",
-  //       copyToCacheDirectory: true,
-  //       multiple: false,
-  //     });
-
-  //     if (!result.canceled && result.assets && result.assets.length > 0) {
-  //       const selectedImage = result.assets[0];
-
-  //       const imageObj = [
-  //         {
-  //           uri: selectedImage.uri,
-  //           lat: pole?.latitude || 0,
-  //           long: pole?.longitude || 0,
-  //           name: selectedImage.name || "uploaded_image.jpg",
-  //           type: selectedImage.mimeType || "image/jpeg",
-  //         },
-  //       ];
-
-  //       console.log("Gallery image selected:", imageObj);
-  //       await handleSubmission(imageObj);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error selecting image from gallery:", error);
-  //   }
-  // };
-
   const handleUploadFromGallery = async () => {
     try {
       // Get permission and location
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Permission to access location was denied");
         return;
       }
 
@@ -194,7 +164,6 @@ export default function StartInstallationScreen({ navigation, route }) {
           },
         ];
 
-        console.log("Gallery image selected with location:", imageObj);
         await handleSubmission(imageObj);
       }
     } catch (error) {

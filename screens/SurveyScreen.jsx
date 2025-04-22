@@ -1,4 +1,10 @@
-import { View, TouchableOpacity, ScrollView, Image, ActivityIndicator } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { Snackbar } from "react-native-paper";
 import Button from "../components/buttons/Button";
@@ -64,7 +70,9 @@ export default function SurveyScreen({ route, message = "" }) {
 
     // Only check for minimum photos when it's NOT a survey and file is not uploaded
     if (!isSurvey && photos.length < 1 && !file) {
-      setSnackbarMessage("Please click at least one picture or upload a document.");
+      setSnackbarMessage(
+        "Please click at least one picture or upload a document."
+      );
       setSnackbarVisible(true);
       return;
     }
@@ -80,8 +88,6 @@ export default function SurveyScreen({ route, message = "" }) {
         long: longitude,
       };
 
-      // Log Image URIs and File Name
-      console.log("Uploaded Images:", photos);
       if (file) {
         console.log("Uploaded File Name:", file.name || "Unknown file");
       }
@@ -120,9 +126,7 @@ export default function SurveyScreen({ route, message = "" }) {
         setLatitude(latitude);
         setLongitude(longitude);
       }
-    } catch (err) {
-      console.log(`No Location Permission Granted`);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {

@@ -27,9 +27,7 @@ export default function InventoryScreen({ navigation }) {
     consumed,
   } = useSelector((state) => state.inventory);
 
-  useEffect(() => {
-    console.log("Fetched Today Inventory Data:", { today_inventory });
-  }, [today_inventory]);
+  useEffect(() => {}, [today_inventory]);
 
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);

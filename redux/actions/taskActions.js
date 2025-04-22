@@ -48,7 +48,7 @@ export const getAllTasks = (my_id) => async (dispatch) => {
 
     const myTasks =
       Array.isArray(data) && data.filter((task) => task.vendor_id === my_id);
-    // console.log(myTasks);
+
     dispatch({ type: GET_ALL_TASKS, payload: myTasks });
   } catch (error) {
     console.error(`Error fetching tasks by vendor id: ${error.message}`);
@@ -160,15 +160,12 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
     return status;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log("Axios Error Detected");
       Alert.alert(
         "Material Already Used",
         "This material has already been used in installation."
       );
       if (error.code === "ECONNABORTED") {
-        console.log("Error: Request Timed Out");
       } else if (error.code === "ERR_NETWORK") {
-        console.log("Error: Network Issue (Check internet connection)");
       } else if (error.response) {
         console.log(
           `Server responded with status ${error.response.status}:`,
@@ -178,7 +175,6 @@ export const updateTask = (taskId, dataToUpdate) => async (dispatch) => {
         console.log("Unknown Axios Error:", error.message);
       }
     } else {
-      console.log("Non-Axios Error:", error);
     }
     if (error.response) {
       // Server responded with a status code out of the 2xx range
@@ -279,7 +275,7 @@ export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
     task_id: dataToUpdate.task_id,
     complete_pole_number: dataToUpdate.complete_pole_number,
     lat: dataToUpdate.lat,
-    lng: dataToUpdate.lng
+    lng: dataToUpdate.lng,
   };
 
   Object.entries(commonFields).forEach(([key, value]) => {
@@ -294,28 +290,40 @@ export const submitStreetlightTasks = (dataToUpdate) => async (dispatch) => {
       ward_name: dataToUpdate.ward_name || "",
       remarks: dataToUpdate.remarks || "",
       isNetworkAvailable: !!dataToUpdate.isNetworkAvailable,
-      isSurveyDone: !!dataToUpdate.isSurveyDone
+      isSurveyDone: !!dataToUpdate.isSurveyDone,
     };
 
     Object.entries(surveyFields).forEach(([key, value]) => {
       formData.append(key, String(value));
     });
 
-    appendImages(formData, dataToUpdate.survey_image, 'survey', dataToUpdate.lat, dataToUpdate.lng);
+    appendImages(
+      formData,
+      dataToUpdate.survey_image,
+      "survey",
+      dataToUpdate.lat,
+      dataToUpdate.lng
+    );
   } else {
     formData.append("isInstallationDone", "true");
     const installationFields = {
       luminary_qr: dataToUpdate.luminary_qr || "",
       sim_number: dataToUpdate.sim_number || "",
       panel_qr: dataToUpdate.panel_qr || "",
-      battery_qr: dataToUpdate.battery_qr || ""
+      battery_qr: dataToUpdate.battery_qr || "",
     };
 
     Object.entries(installationFields).forEach(([key, value]) => {
       formData.append(key, String(value));
     });
 
-    appendImages(formData, dataToUpdate.submission_image, 'installation', dataToUpdate.lat, dataToUpdate.lng);
+    appendImages(
+      formData,
+      dataToUpdate.submission_image,
+      "installation",
+      dataToUpdate.lat,
+      dataToUpdate.lng
+    );
   }
 
   try {
@@ -340,7 +348,7 @@ const appendImages = (formData, images, type, lat, lng) => {
       formData.append(`${type}_image[${index}]`, {
         uri: item.uri,
         name: `photo_${index}_${type}_${lat}_${lng}.jpg`,
-        type: "image/jpeg"
+        type: "image/jpeg",
       });
     }
   });
@@ -353,15 +361,27 @@ export const getInstalledPoles = (vendor_id) => async (dispatch) => {
     );
     const { data } = response;
     const { installed_poles, surveyed_poles } = data;
-    const pendingPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Pending")
-    const approvedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Approved")
-    const rejectedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Rejected")
-    dispatch({ type: TOTAL_SURVEYED_STREETLIGHTS, payload: pendingPoles.length + approvedPoles.length });
-    dispatch({ type: TOTAL_INSTALLED_STREETLIGHTS, payload: approvedPoles.length })
+    const pendingPoles =
+      Array.isArray(installed_poles) &&
+      installed_poles.filter((pole) => pole.status === "Pending");
+    const approvedPoles =
+      Array.isArray(installed_poles) &&
+      installed_poles.filter((pole) => pole.status === "Approved");
+    const rejectedPoles =
+      Array.isArray(installed_poles) &&
+      installed_poles.filter((pole) => pole.status === "Rejected");
+    dispatch({
+      type: TOTAL_SURVEYED_STREETLIGHTS,
+      payload: pendingPoles.length + approvedPoles.length,
+    });
+    dispatch({
+      type: TOTAL_INSTALLED_STREETLIGHTS,
+      payload: approvedPoles.length,
+    });
     dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyed_poles });
     dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
-    dispatch({ type: GET_APPROVED_STREETLIGHTS, payload: approvedPoles })
-    dispatch({ type: GET_REJECTED_STREETLIGHTS, payload: rejectedPoles })
+    dispatch({ type: GET_APPROVED_STREETLIGHTS, payload: approvedPoles });
+    dispatch({ type: GET_REJECTED_STREETLIGHTS, payload: rejectedPoles });
   } catch (error) {
     console.error(error);
   }

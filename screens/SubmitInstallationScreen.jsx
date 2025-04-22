@@ -1,6 +1,6 @@
 // import react native
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, TouchableOpacity, } from "react-native";
+import { ScrollView, View, TouchableOpacity } from "react-native";
 import { Snackbar } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
@@ -177,7 +177,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
     }
   };
 
-
   // Handle Take Photo button click
 
   const handleTakePhoto = () => {
@@ -243,7 +242,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
         },
       ];
 
-      console.log("Gallery image selected:", imageObj);
       await handleSubmission(imageObj);
     }
   };
@@ -262,7 +260,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
       lng: image[0].long,
       isSurvey: false,
     };
-    console.log("Submitting data:", submissionData);
     const result = await dispatch(submitStreetlightTasks(submissionData));
     if (result == 200) {
       navigation.navigate("successScreen", {

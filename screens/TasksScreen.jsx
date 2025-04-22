@@ -143,8 +143,6 @@ export default function TasksScreen({ navigation }) {
         menuItems={[
           {
             title: "Export to Excel",
-            onPress: () => console.log("Export to Excel"),
-            // onPress: () => handleExport(filteredTasks),
           },
         ]}
       />

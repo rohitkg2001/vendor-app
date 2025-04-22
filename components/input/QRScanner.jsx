@@ -49,7 +49,7 @@ export default function QRScanner({ title, onScan }) {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
         let loc = await Location.getCurrentPositionAsync({});
-        console.log(loc);
+
         setLocation(loc.coords);
       }
     })();

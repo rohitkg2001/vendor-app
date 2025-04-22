@@ -25,7 +25,6 @@ export default function SetSiteLocationScreen({ navigation }) {
   };
 
   const getSiteInfo = () => {
-    console.log(`${selectedPanchayat}, ${selectedWard}`);
     const siteInfo = "FAT/WAR";
     dispatch(setSiteInfo(siteInfo));
     navigation.navigate("startInstallation");
@@ -36,7 +35,6 @@ export default function SetSiteLocationScreen({ navigation }) {
       <MyHeader isBack title={"Set Site Location "} hasIcon />
       <H1>{"Bihar"}</H1>
       <View style={{ flex: 1, width: SCREEN_WIDTH - 16 }}>
-
         <MyPickerInput
           title="Panchayat"
           value={selectedPanchayat}
