@@ -21,9 +21,7 @@ const SubmitInstallationScreen = ({ navigation }) => {
   const { complete_pole_number, pole } = data || {}; // Ensure data is present
 
   // Log the data to ensure it is passed correctly
-  useEffect(() => {
-    console.log("Received data:", data); // Debugging step
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   if (!data) {
     console.error("No data received from previous screen!");
@@ -56,8 +54,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
 
   // Check if a serial number exists in the inventory
   const isSerialNumberInStock = (serialNumber, type) => {
-    console.log("Checking serial:", serialNumber, "for type:", type);
-
     if (!inventory || !inventory.in_stock) {
       console.warn("Inventory or in_stock data is not available yet.");
       return false;

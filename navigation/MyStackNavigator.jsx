@@ -11,7 +11,6 @@ import InternalSetting from "../screens/InternalSetting";
 import InventoryScreen from "../screens/InventoryScreen";
 import SiteScreen from "../screens/SiteScreen";
 import TasksScreen from "../screens/TasksScreen";
-import StockApprovalScreen from "../screens/StockApprovalScreen";
 import ReportScreen from "../screens/ReportScreen";
 import SiteDetailScreen from "../screens/SiteDetailScreen";
 import InventoryDetailsScreen from "../screens/InventoryDetailsScreen";
@@ -33,7 +32,10 @@ const Stack = createNativeStackNavigator();
 
 export default function MyStackNavigator() {
   return (
-    <Stack.Navigator initialRouteName="cardScreen" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      initialRouteName="cardScreen"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="dashboardScreen" component={DashboardScreen} />
       <Stack.Screen name="homeScreen" component={MyMaterialBottomNavigator} />
@@ -47,21 +49,39 @@ export default function MyStackNavigator() {
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
       <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
-      <Stack.Screen name="stockApprovalScreen" component={StockApprovalScreen} />
+
       <Stack.Screen name="reportScreen" component={ReportScreen} />
       <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />
-      <Stack.Screen name="inventoryDetailsScreen" component={InventoryDetailsScreen} />
+      <Stack.Screen
+        name="inventoryDetailsScreen"
+        component={InventoryDetailsScreen}
+      />
       <Stack.Screen name="surveyScreen" component={SurveyScreen} />
       <Stack.Screen name="successScreen" component={SuccessScreen} />
       <Stack.Screen name="cardScreen" component={CardScreen} />
-      <Stack.Screen name="startInstallation" component={StartInstallationScreen} />
+      <Stack.Screen
+        name="startInstallation"
+        component={StartInstallationScreen}
+      />
       <Stack.Screen name="welcomeScreen" component={welcomeScreen} />
-      <Stack.Screen name="streetLightPendingTask" component={StreetLightPendingTask} />
+      <Stack.Screen
+        name="streetLightPendingTask"
+        component={StreetLightPendingTask}
+      />
       <Stack.Screen name="taskDetail" component={TaskDetailScreen} />
       <Stack.Screen name="profileChange" component={ProfileChangeScreen} />
-      <Stack.Screen name="streetlightDetails" component={StreetLightDetailsScreen} />
-      <Stack.Screen name="submitInstallation" component={SubmitInstallationScreen} />
-      <Stack.Screen name="inventoryMaterialScreen" component={InventoryMaterialScreen} />
+      <Stack.Screen
+        name="streetlightDetails"
+        component={StreetLightDetailsScreen}
+      />
+      <Stack.Screen
+        name="submitInstallation"
+        component={SubmitInstallationScreen}
+      />
+      <Stack.Screen
+        name="inventoryMaterialScreen"
+        component={InventoryMaterialScreen}
+      />
       <Stack.Screen name="approvedTaskScreen" component={ApprovedTaskScreen} />
     </Stack.Navigator>
   );

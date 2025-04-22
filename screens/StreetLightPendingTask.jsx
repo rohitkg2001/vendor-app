@@ -146,9 +146,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   });
 
   const handleExport = async () => {
-   
-    const status = await download(id);
-    console.log(status);
+    await download(id);
   };
 
   const handleSearchChange = useCallback((text) => {
