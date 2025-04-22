@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { View, TextInput } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { SCREEN_WIDTH, ICON_SMALL, styles } from "../../styles";
+import { SCREEN_WIDTH, ICON_SMALL, styles, layouts, spacing } from "../../styles";
 import { useTranslation } from "react-i18next";
 
 export default function SearchBar({ value, onChangeText, style }) {
@@ -12,15 +12,14 @@ export default function SearchBar({ value, onChangeText, style }) {
       style={[
         styles.row,
         styles.border,
-        styles.round,
-        styles.ph5,
-        styles.mv2,
+        spacing.ph2,
+        spacing.m2,
         styles.bgPrimaryTransParent,
         {
           alignItems: "center",
           justifyContent: "flex-start",
           height: 48,
-          width: SCREEN_WIDTH - 8,
+          width: SCREEN_WIDTH - 20,
           borderRadius: 12,
         },
         style,

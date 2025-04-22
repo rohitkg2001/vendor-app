@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import {
   View,
@@ -21,6 +21,11 @@ import moment from "moment";
 import { ICON_LARGE } from "../../styles";
 import * as ImageManipulator from "expo-image-manipulator";
 
+const MAX_PHOTOS = 5;
+const MAX_COMPRESSED_SIZE_MB = 1;
+const COMPRESSION_STEP = 0.1;
+const MIN_COMPRESSION_QUALITY = 0.1;
+
 export default function CameraInput({
   isCameraOpen,
   setIsCameraOpen,
@@ -32,185 +37,134 @@ export default function CameraInput({
   const [hasPermissionChecked, setHasPermissionChecked] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [location, setLocation] = useState(null);
-  const [timestamp, setTimestamp] = useState("");
   const [isCameraReady, setIsCameraReady] = useState(false);
   const cameraRef = useRef(null);
   const viewRef = useRef(null);
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [progress] = useState(new Animated.Value(0));
 
-  // Add this effect to animate the progress bar
+  // Memoized location permission request
+  const requestLocationPermission = useCallback(async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status === "granted") {
+      const location = await Location.getLastKnownPositionAsync({});
+      setLocation(location);
+    }
+  }, []);
+
+  useEffect(() => {
+    requestLocationPermission();
+  }, [requestLocationPermission]);
+
+  // Memoized camera permission request
+  const requestCameraPermission = useCallback(async () => {
+    if (!permission?.granted) {
+      const { status } = await requestPermission();
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission Required",
+          "Camera permission is needed to take photos.",
+          [{ text: "OK" }]
+        );
+      }
+    }
+    setHasPermissionChecked(true);
+  }, [permission]);
+
+  useEffect(() => {
+    requestCameraPermission();
+  }, [requestCameraPermission]);
+
+  // Progress animation effect
   useEffect(() => {
     if (saving) {
       Animated.timing(progress, {
         toValue: 1,
-        duration: 1000, // Duration of save operation
+        duration: 1000,
         easing: Easing.linear,
         useNativeDriver: false,
       }).start();
     } else {
-      progress.setValue(0); // Reset when done
+      progress.setValue(0);
     }
-  }, [saving]);
+  }, [saving, progress]);
 
+  // Submission effect when photos reach limit
   useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === "granted") {
-        const location = await Location.getLastKnownPositionAsync({});
-        setLocation(location);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (photos.length === 5) {
+    if (photos.length === MAX_PHOTOS) {
       handleSubmission(photos);
     }
-  }, [photos]);
+  }, [photos, handleSubmission]);
 
-  const handleCameraReady = () => {
+  const handleCameraReady = useCallback(() => {
     setIsCameraReady(true);
-  };
+  }, []);
 
-  // const handleCapture = async () => {
-  //   if (cameraRef.current && !saving) {
-  //     try {
-  //       setSaving(true);
-  //       // 1. First capture the camera image
-  //       const photo = await cameraRef.current.takePictureAsync();
-  //       setCapturedPhoto(photo.uri);
+  // Optimized image compression function
+  const compressImage = useCallback(async (uri) => {
+    let compressQuality = 0.8;
+    let compressedPhoto = null;
+    let compressedSizeMB = Infinity;
 
-  //       // 2. Wait a brief moment for state to update
-  //       await new Promise((resolve) => setTimeout(resolve, 800));
-
-  //       // 3. Capture the composed view with overlay
-  //       if (viewRef.current) {
-  //         const resultUri = await captureRef(viewRef, {
-  //           quality: 1,
-  //         });
-
-  //         // 4. Save to gallery
-  //         await MediaLibrary.saveToLibraryAsync(resultUri);
-  //         const compressedPhoto = await ImageManipulator.manipulateAsync(
-  //           resultUri,
-  //           [{ resize: { width: 1080, height: 1920 } }],
-  //           {
-  //             compress: 0.5,
-  //             format: ImageManipulator.SaveFormat.PNG,
-  //           }
-  //         );
-  //         const compressedInfo = await FileSystem.getInfoAsync(
-  //           compressedPhoto.uri
-  //         );
-  //         const compressedSizeMB = (
-  //           compressedInfo.size /
-  //           (1024 * 1024)
-  //         ).toFixed(2);
-  //         console.log("Compressed image:");
-  //         console.log("   URI:", compressedPhoto.uri);
-  //         console.log("   Size:", compressedSizeMB, "MB");
-  //         const photoData = {
-  //           uri: compressedPhoto.uri,
-  //           lat: location.coords?.latitude,
-  //           long: location.coords?.longitude,
-  //           timestamp: new Date().toLocaleTimeString(),
-  //         };
-
-  //         setPhotos((prev) => [photoData, ...prev].slice(0, 5));
-
-  //         // 5. Reset for next capture
-  //         setCapturedPhoto(null);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error capturing image:", error);
-  //     } finally {
-  //       setSaving(false);
-  //     }
-  //   }
-  // };
-
-  const handleCapture = async () => {
-    if (cameraRef.current && !saving) {
-      try {
-        setSaving(true);
-        // 1. First capture the camera image
-        const photo = await cameraRef.current.takePictureAsync();
-        setCapturedPhoto(photo.uri);
-
-        // ✅ Get original image size
-        const originalInfo = await FileSystem.getInfoAsync(photo.uri);
-        const originalSizeMB = (originalInfo.size / (1024 * 1024)).toFixed(2);
-        console.log("Original image:");
-        console.log("   URI:", photo.uri);
-        console.log("   Size:", originalSizeMB, "MB");
-
-        // 2. Wait a brief moment for state to update
-        await new Promise((resolve) => setTimeout(resolve, 800));
-
-        // 3. Capture the composed view with overlay
-        if (viewRef.current) {
-          const resultUri = await captureRef(viewRef, {
-            quality: 0.5,
-          });
-
-          let compressQuality = 0.8;
-          let compressedPhoto = null;
-          let compressedSizeMB = Infinity;
-
-          // ✅ Keep compressing until size is < 1MB
-          while (compressedSizeMB > 1 && compressQuality >= 0.1) {
-            compressedPhoto = await ImageManipulator.manipulateAsync(
-              resultUri,
-              [{ resize: { width: 1080, height: 1920 } }],
-              {
-                compress: compressQuality,
-                format: ImageManipulator.SaveFormat.JPEG, // Use JPEG for better compression
-              }
-            );
-
-            const compressedInfo = await FileSystem.getInfoAsync(
-              compressedPhoto.uri
-            );
-            compressedSizeMB = compressedInfo.size / (1024 * 1024);
-            compressQuality -= 0.1;
-          }
-
-          compressedSizeMB = compressedSizeMB.toFixed(2);
-          console.log("Compressed image:");
-          console.log("   URI:", compressedPhoto.uri);
-          console.log("   Size:", compressedSizeMB, "MB");
-
-          // 4. Save to gallery
-          await MediaLibrary.saveToLibraryAsync(compressedPhoto.uri);
-
-          const photoData = {
-            uri: compressedPhoto.uri,
-            lat: location.coords?.latitude,
-            long: location.coords?.longitude,
-            timestamp: new Date().toLocaleTimeString(),
-          };
-
-          setPhotos((prev) => [photoData, ...prev].slice(0, 5));
-
-          // 5. Reset for next capture
-          setCapturedPhoto(null);
+    while (compressedSizeMB > MAX_COMPRESSED_SIZE_MB && compressQuality >= MIN_COMPRESSION_QUALITY) {
+      compressedPhoto = await ImageManipulator.manipulateAsync(
+        uri,
+        [{ resize: { width: 1080, height: 1920 } }],
+        {
+          compress: compressQuality,
+          format: ImageManipulator.SaveFormat.JPEG,
         }
-      } catch (error) {
-        console.error("Error capturing image:", error);
-      } finally {
-        setSaving(false);
-      }
+      );
+
+      const compressedInfo = await FileSystem.getInfoAsync(compressedPhoto.uri);
+      compressedSizeMB = compressedInfo.size / (1024 * 1024);
+      compressQuality -= COMPRESSION_STEP;
     }
-  };
 
-  const handleRetake = () => {
+    return compressedPhoto;
+  }, []);
+
+  const handleCapture = useCallback(async () => {
+    if (!cameraRef.current || saving) return;
+
+    try {
+      setSaving(true);
+      const photo = await cameraRef.current.takePictureAsync();
+      setCapturedPhoto(photo.uri);
+
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
+      if (!viewRef.current) return;
+
+      const resultUri = await captureRef(viewRef, { quality: 0.5 });
+      const compressedPhoto = await compressImage(resultUri);
+
+      if (!compressedPhoto) return;
+
+      await MediaLibrary.saveToLibraryAsync(compressedPhoto.uri);
+
+      const photoData = {
+        uri: compressedPhoto.uri,
+        lat: location?.coords?.latitude,
+        long: location?.coords?.longitude,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+
+      setPhotos((prev) => [photoData, ...prev].slice(0, MAX_PHOTOS));
+      setCapturedPhoto(null);
+    } catch (error) {
+      console.error("Error capturing image:", error);
+    } finally {
+      setSaving(false);
+    }
+  }, [saving, location, compressImage]);
+
+  const handleRetake = useCallback(() => {
     setPhotos([]);
-  };
+  }, []);
 
-  const handleSubmitConfirmation = () => {
+  const handleSubmitConfirmation = useCallback(() => {
     Alert.alert("Confirm Submission", "Are you sure you want to submit?", [
       { text: "Cancel", style: "cancel" },
       {
@@ -221,46 +175,39 @@ export default function CameraInput({
         },
       },
     ]);
-  };
+  }, [photos, handleSubmission, setIsCameraOpen]);
 
-  // ✅ Ask for camera permission on first load
-  useEffect(() => {
-    (async () => {
-      if (!permission?.granted) {
-        const { status } = await requestPermission();
-        if (status !== "granted") {
-          Alert.alert(
-            "Permission Required",
-            "Camera permission is needed to take photos.",
-            [{ text: "OK" }]
-          );
-        }
-      }
-      setHasPermissionChecked(true);
-    })();
-  }, []);
+  const renderPhotoItem = useCallback(({ item }) => (
+    <View style={styles.photoItem}>
+      <Image source={{ uri: item.uri }} style={styles.photo} />
+    </View>
+  ), []);
 
-  // if (!permission) {
-  //   return (
-  //     <View>
-  //       <Text>Requesting permissions...</Text>
-  //     </View>
-  //   );
-  // }
+  const formatCoordinates = useCallback(() => {
+    if (!location?.coords) return "N/A N N/A E";
+    return `${location.coords.latitude?.toFixed(4) || "N/A"}N ${location.coords.longitude?.toFixed(4) || "N/A"}E`;
+  }, [location]);
 
-  // if (!permission.granted) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text>We need camera permission</Text>
-  //       <TouchableOpacity onPress={requestPermission} style={styles.button}>
-  //         <Text>Grant Permission</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
+  const formatAltitude = useCallback(() => {
+    if (!location?.coords?.altitude) return "N/A";
+    return `${location.coords.altitude.toFixed(0)}m`;
+  }, [location]);
 
-  if (!hasPermissionChecked) {
-  }
+  const renderOverlay = useCallback(() => (
+    <>
+      <Text style={styles.overlayText}>
+        {moment().format("DD MMM YYYY HH:mm:ss a")}
+      </Text>
+      <Text style={styles.overlayText}>{formatCoordinates()}</Text>
+      <Text style={styles.overlayText}>{`Alt: ${formatAltitude()}`}</Text>
+      <Text style={styles.overlayText}>{complete_pole_number || ""}</Text>
+      {!capturedPhoto && (
+        <Text style={{ fontSize: 10, color: "red" }}>
+          Powered By Dashandots Technology
+        </Text>
+      )}
+    </>
+  ), [formatCoordinates, formatAltitude, complete_pole_number, capturedPhoto]);
 
   return (
     <Modal visible={isCameraOpen} animationType="slide">
@@ -281,71 +228,32 @@ export default function CameraInput({
           </View>
         )}
         {capturedPhoto ? (
-          <View
-            ref={viewRef}
-            collapsable={false}
-            style={styles.previewContainer}
-          >
+          <View ref={viewRef} collapsable={false} style={styles.previewContainer}>
             <View style={[styles.topOverlay, { top: 120, right: 120 }]}>
               <Image
                 source={require("../../assets/icon.png")}
                 style={{ height: 60, width: 60, resizeMode: "contain" }}
               />
             </View>
-            <Image
-              source={{ uri: capturedPhoto }}
-              style={styles.capturedImage}
-            />
+            <Image source={{ uri: capturedPhoto }} style={styles.capturedImage} />
             <View style={[styles.overlay, { bottom: 40 }]}>
-              <Text style={styles.overlayText}>
-                {moment().format("DD MMM YYYY HH:mm:ss a")}
-              </Text>
-              <Text style={styles.overlayText}>
-                {`${location?.coords.latitude?.toFixed(4) || "N/A"}N`}{" "}
-                {`${location?.coords.longitude?.toFixed(4) || "N/A"}E`}
-              </Text>
-              <Text style={styles.overlayText}>
-                {`Alt: ${
-                  location?.coords.altitude
-                    ? location.coords.altitude.toFixed(0) + "m"
-                    : "N/A"
-                }`}
-              </Text>
-              <Text style={styles.overlayText}>
-                {complete_pole_number || ""}
-              </Text>
+              {renderOverlay()}
             </View>
           </View>
         ) : (
-          <CameraView ref={cameraRef} style={styles.camera} facing="back">
+          <CameraView
+            ref={cameraRef}
+            style={styles.camera}
+            facing="back"
+            onCameraReady={handleCameraReady}
+          >
             <View style={styles.topOverlay}>
               <Image
                 source={require("../../assets/icon.png")}
                 style={{ height: 80, width: 80, resizeMode: "contain" }}
               />
             </View>
-            <View style={styles.overlay}>
-              <Text style={styles.overlayText}>
-                {moment().format("DD MMM YYYY HH:mm:ss a")}
-              </Text>
-              <Text style={styles.overlayText}>
-                {`${location?.coords.latitude?.toFixed(4) || "N/A"}N`}{" "}
-                {`${location?.coords.longitude?.toFixed(4) || "N/A"}E`}
-              </Text>
-              <Text style={styles.overlayText}>
-                {`Alt: ${
-                  location?.coords.altitude
-                    ? location.coords.altitude.toFixed(0) + "m"
-                    : "N/A"
-                }`}
-              </Text>
-              <Text style={styles.overlayText}>
-                {complete_pole_number || ""}
-              </Text>
-              <Text style={{ fontSize: 10, color: "red" }}>
-                Powered By Dashandots Technology
-              </Text>
-            </View>
+            <View style={styles.overlay}>{renderOverlay()}</View>
           </CameraView>
         )}
 
@@ -357,21 +265,15 @@ export default function CameraInput({
         </TouchableOpacity>
         {!saving && (
           <View style={styles.controls}>
-            <TouchableOpacity
-              onPress={handleRetake}
-              style={styles.retakeButton}
-            >
+            <TouchableOpacity onPress={handleRetake} style={styles.retakeButton}>
               <Icon name="refresh" size={35} color="white" />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={handleCapture}
-              style={styles.captureButton}
-            >
+            <TouchableOpacity onPress={handleCapture} style={styles.captureButton}>
               <View style={styles.captureButtonInner} />
             </TouchableOpacity>
 
-            {!isSurvey && photos.length >= 2 && (
+            {!isSurvey && photos.length >= 1 && (
               <TouchableOpacity
                 onPress={handleSubmitConfirmation}
                 style={styles.retakeButton}
@@ -382,17 +284,12 @@ export default function CameraInput({
           </View>
         )}
 
-        {/* Captured Photo Preview */}
         <FlatList
           data={photos}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(_, index) => index.toString()}
           horizontal
           style={styles.photoList}
-          renderItem={({ item }) => (
-            <View style={styles.photoItem}>
-              <Image source={{ uri: item.uri }} style={styles.photo} />
-            </View>
-          )}
+          renderItem={renderPhotoItem}
         />
       </View>
     </Modal>

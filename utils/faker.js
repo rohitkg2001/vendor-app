@@ -227,3 +227,22 @@ const wards = {
     { label: "Ward 5", value: "ward5" },
   ],
 };
+
+const inventoryItems = [
+  {
+    item_code: "SL01",
+    item_name: "Panel(Module)"
+  },
+  {
+    item_code: "SL02",
+    item_name: "Luminary"
+  },
+  {
+    item_code: "SL03",
+    item_name: "Battery"
+  },
+  {
+    item_code: "SL04",
+    item_name: "Structure"
+  }
+]

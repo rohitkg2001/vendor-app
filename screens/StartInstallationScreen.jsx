@@ -1,140 +1,130 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import { ActivityIndicator, Snackbar } from "react-native-paper";
+import { ActivityIndicator, Snackbar, Checkbox } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
 import MyHeader from "../components/header/MyHeader";
 import ContainerComponent from "../components/ContainerComponent";
 import { SCREEN_WIDTH, spacing, styles, typography } from "../styles";
-import MyTextInput from "../components/input/MyTextInput";
 import { P } from "../components/text";
-import { useDispatch, useSelector } from "react-redux";
-import CameraInput from "../components/input/CameraInput";
-import { Checkbox } from "react-native-paper";
+import MyTextInput from "../components/input/MyTextInput";
 import MyPickerInput from "../components/input/MyPickerInput";
+import CameraInput from "../components/input/CameraInput";
 import { submitStreetlightTasks } from "../redux/actions/taskActions";
 
+const formatComponent = (str) => (str?.split(" ")[0] || "").substring(0, 3).toUpperCase();
+
 export default function StartInstallationScreen({ navigation, route }) {
-  const [isCameraVisible, setIsCameraVisible] = useState(false);
-  const [poleNumber, setPoleNumber] = useState("");
-  const [locationRemarks, setLocationRemarks] = useState("");
-  const [beneficiaryName, setBeneficiaryName] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [networkAvailable, setNetworkAvailable] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { isSurvey, itemId } = route.params;
-  const [wardOptions, setWardOptions] = useState([]);
-  const [poleOptions, setPoleOptions] = useState([]);
-  const [panchayat, setPanchayat] = useState("");
-  const [block, setBlock] = useState("");
-  const [district, setDistrict] = useState("");
-
-  const [selectedWard, setSelectedWard] = useState("");
-
-  const [snackbarVisible, setSnackbarVisible] = useState(false);
-  const [formattedPole, setFormattedPoleNumber] = useState("");
-
   const dispatch = useDispatch();
   const { pendingStreetLights } = useSelector((state) => state.tasks);
 
-  // Format the first 3 letters of the first word of each component
-  const formatComponent = (str) => {
-    const firstWord = str.split(" ")[0] || "";
-    return firstWord.substring(0, 3).toUpperCase();
-  };
+  // Form state
+  const [formData, setFormData] = useState({
+    isCameraVisible: false,
+    poleNumber: "",
+    locationRemarks: "",
+    beneficiaryName: "",
+    contactNumber: "",
+    networkAvailable: false,
+    selectedWard: "",
+    panchayat: "",
+    block: "",
+    district: "",
+    loading: false,
+    snackbarVisible: false
+  });
 
-  // Main formatting function
-  const formatPoleNumber = () => {
-    const baseParts = [district, block, panchayat].map(formatComponent);
-    const additionalParts = [`WARD${selectedWard}`, poleNumber]
-      .filter((part) => part) // Only include if exists
-    // .map(formatComponent);
-    console.log(additionalParts, baseParts)
+  // Options state
+  const [options, setOptions] = useState({
+    wardOptions: [],
+    poleOptions: Array.from({ length: 20 }, (_, i) => ({
+      label: `${i + 1}`,
+      value: `${i + 1}`,
+      color: "black"
+    }))
+  });
+
+  // Derived state
+  const formattedPole = useMemo(() => {
+    const baseParts = [formData.district, formData.block, formData.panchayat].map(formatComponent);
+    const additionalParts = [`WARD${formData.selectedWard}`, formData.poleNumber].filter(Boolean);
     return [...baseParts, ...additionalParts].join("/");
-  };
+  }, [formData.district, formData.block, formData.panchayat, formData.selectedWard, formData.poleNumber]);
 
-  // Update formatted pole number when dependencies change
+  // Initialize form data from pendingStreetLights
   useEffect(() => {
-    setFormattedPoleNumber(formatPoleNumber());
-  }, [district, block, panchayat, selectedWard, poleNumber]);
+    if (!Array.isArray(pendingStreetLights)) return;
 
-  useEffect(() => {
-    if (Array.isArray(pendingStreetLights)) {
-      const currentSite = pendingStreetLights.find(
-        (task) => task.id === itemId
-      );
-      if (currentSite) {
-        const wards = currentSite.site?.ward;
-        setWardOptions(
-          wards
-            .split(",")
-            .map((num) => ({ label: `Ward ${num}`, value: `${num}` }))
-        );
-        // Surveyed poles list
-        const surveyedPoles = currentSite?.surveyedPoles || [];
+    const currentSite = pendingStreetLights.find(task => task.id === itemId);
+    if (!currentSite) return;
 
-        setPoleOptions(
-          [
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-            20,
-          ].map((num) => ({
-            label: `${num}`,
-            value: `${num}`,
-            color: surveyedPoles.includes(num) ? "red" : "black",
-          }))
-        );
-        const { panchayat, block, district } = currentSite.site;
-        setDistrict(district);
-        setBlock(block);
-        setPanchayat(panchayat);
-      }
-    }
-    setLoading(false); // set loading
-  }, [pendingStreetLights, poleNumber]);
+    const { panchayat, block, district, ward } = currentSite.site;
+    const surveyedPoles = currentSite?.surveyedPoles || [];
 
-  const handleSubmission = async (images) => {
-    if (!selectedWard || !poleNumber) {
-      setSnackbarVisible(true); // Show Snackbar if validation fails
+    setFormData(prev => ({
+      ...prev,
+      panchayat,
+      block,
+      district,
+      loading: false
+    }));
+
+    setOptions(prev => ({
+      ...prev,
+      wardOptions: ward.split(",").map(num => ({ label: `Ward ${num}`, value: num })),
+      poleOptions: prev.poleOptions.map(opt => ({
+        ...opt,
+        color: surveyedPoles.includes(Number(opt.value)) ? "red" : "black"
+      }))
+    }));
+  }, [pendingStreetLights, itemId]);
+
+  const handleInputChange = useCallback((field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  }, []);
+
+  const handleSubmission = useCallback(async (images) => {
+    if (!formData.selectedWard || !formData.poleNumber) {
+      handleInputChange('snackbarVisible', true);
       return;
     }
-    setLoading(true);
+
+    handleInputChange('loading', true);
+
     const data = {
       task_id: itemId,
       complete_pole_number: formattedPole,
-      ward_name: `Ward ${selectedWard}`,
-      beneficiary: beneficiaryName,
-      beneficiary_contact: contactNumber,
-      remarks: locationRemarks,
-      isNetworkAvailable: networkAvailable,
+      ward_name: `Ward ${formData.selectedWard}`,
+      beneficiary: formData.beneficiaryName,
+      beneficiary_contact: formData.contactNumber,
+      remarks: formData.locationRemarks,
+      isNetworkAvailable: formData.networkAvailable,
       lat: images[0].lat,
       lng: images[0].long,
       isSurveyDone: true,
       survey_image: images,
       isSurvey: true,
     };
+
     const result = await dispatch(submitStreetlightTasks(data));
     if (result === 200) {
-      setLoading(false);
+      handleInputChange('loading', false);
       navigation.navigate("successScreen", {
         message: "Your task uploaded successfully",
         nextScreen: "streetLightPendingTask",
       });
     }
-  };
+  }, [formData, formattedPole, dispatch, itemId, navigation]);
 
-  const handleTakePhoto = () => {
-    if (isSurvey && (!selectedWard || !poleNumber)) {
-      setSnackbarVisible(true);
+  const handleTakePhoto = useCallback(() => {
+    if (isSurvey && (!formData.selectedWard || !formData.poleNumber)) {
+      handleInputChange('snackbarVisible', true);
       return;
     }
-    setIsCameraVisible(true);
-  };
+    handleInputChange('isCameraVisible', true);
+  }, [isSurvey, formData.selectedWard, formData.poleNumber]);
 
-  // if (loading) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-  //       <ActivityIndicator size="large" color="#0000ff" />
-  //     </View>
-  //   );
-  // }
+  if (formData.loading) return <ActivityIndicator size="large" />;
 
   return (
     <ContainerComponent>
@@ -143,77 +133,64 @@ export default function StartInstallationScreen({ navigation, route }) {
         title={isSurvey ? "Start Survey" : "Start Installation"}
         hasIcon
       />
+
       <ScrollView
         contentContainerStyle={[spacing.mh2, { width: SCREEN_WIDTH - 16 }]}
         showsVerticalScrollIndicator={false}
       >
         <MyPickerInput
           title="Ward"
-          value={selectedWard}
-          onChange={(value) => setSelectedWard(value)}
-          options={wardOptions}
+          value={formData.selectedWard}
+          onChange={(value) => handleInputChange('selectedWard', value)}
+          options={options.wardOptions}
           style={spacing.mv2}
-          placeholder="Select Ward" // Placeholder added
+          placeholder="Select Ward"
         />
+
         <MyPickerInput
           title="Pole Number"
-          value={poleNumber}
-          onChange={(value) => setPoleNumber(value)}
-          // options={poleOptions}
+          value={formData.poleNumber}
+          onChange={(value) => handleInputChange('poleNumber', value)}
           style={spacing.mv2}
-          options={poleOptions.map((option) => ({
-            label: option.label,
-            value: option.value,
-            style: { color: option.color }, // Apply color dynamically
+          options={options.poleOptions.map(opt => ({
+            label: opt.label,
+            value: opt.value,
+            style: { color: opt.color }
           }))}
         />
+
         <MyTextInput
           title="Beneficiary Name"
-          multiline={false}
-          numberOfLines={1}
-          value={beneficiaryName}
-          onChangeText={setBeneficiaryName}
+          value={formData.beneficiaryName}
+          onChangeText={(text) => handleInputChange('beneficiaryName', text)}
           placeholder="Beneficiary Name"
         />
+
         <MyTextInput
           title="Contact Number"
-          multiline={false}
-          numberOfLines={1}
-          value={contactNumber}
-          onChangeText={(text) => {
-            const filteredText = text.replace(/[^0-9]/g, "");
-            if (filteredText.length <= 10) {
-              setContactNumber(filteredText);
-            }
-          }}
+          value={formData.contactNumber}
+          onChangeText={(text) => handleInputChange('contactNumber', text.replace(/[^0-9]/g, "").slice(0, 10))}
           placeholder="Contact Number"
           keyboardType="numeric"
         />
 
         <MyTextInput
           title="Location"
-          multiline={true}
+          multiline
           numberOfLines={4}
-          value={locationRemarks}
-          onChangeText={setLocationRemarks}
+          value={formData.locationRemarks}
+          onChangeText={(text) => handleInputChange('locationRemarks', text)}
           placeholder="Enter Location Remarks"
         />
 
         {isSurvey && (
-          <View
-            style={[
-              spacing.mv3,
-              { flexDirection: "row", alignItems: "center" },
-            ]}
-          >
+          <View style={[spacing.mv3, { flexDirection: "row", alignItems: "center" }]}>
             <Checkbox
-              status={networkAvailable ? "checked" : "unchecked"}
-              onPress={() => setNetworkAvailable((prev) => !prev)}
+              status={formData.networkAvailable ? "checked" : "unchecked"}
+              onPress={() => handleInputChange('networkAvailable', !formData.networkAvailable)}
               color="#76885B"
             />
-            <TouchableOpacity
-              onPress={() => setNetworkAvailable((prev) => !prev)}
-            >
+            <TouchableOpacity onPress={() => handleInputChange('networkAvailable', !formData.networkAvailable)}>
               <P style={[typography.font18, typography.textBold]}>
                 Network Availability (Airtel)
               </P>
@@ -221,37 +198,32 @@ export default function StartInstallationScreen({ navigation, route }) {
           </View>
         )}
       </ScrollView>
+
       <TouchableOpacity
         style={[
           spacing.p4,
           spacing.br1,
           spacing.mb1,
           styles.bgPrimary,
-          {
-            width: SCREEN_WIDTH - 16,
-            alignItems: "center",
-          },
+          { width: SCREEN_WIDTH - 16, alignItems: "center" }
         ]}
         onPress={handleTakePhoto}
       >
-        <P
-          style={[typography.font18, typography.textBold, typography.textLight]}
-        >
+        <P style={[typography.font18, typography.textBold, typography.textLight]}>
           Take Photo
         </P>
       </TouchableOpacity>
+
       <CameraInput
-        isCameraOpen={isCameraVisible}
-        setIsCameraOpen={setIsCameraVisible}
-        handleImageCapture={(val) => console.log(val)}
+        isCameraOpen={formData.isCameraVisible}
+        setIsCameraOpen={(val) => handleInputChange('isCameraVisible', val)}
         handleSubmission={handleSubmission}
         complete_pole_number={formattedPole}
       />
 
-      {/* Snackbar for validation error */}
       <Snackbar
-        visible={snackbarVisible}
-        onDismiss={() => setSnackbarVisible(false)}
+        visible={formData.snackbarVisible}
+        onDismiss={() => handleInputChange('snackbarVisible', false)}
         duration={3000}
       >
         Please select both Ward and Pole Number before taking a photo.

@@ -2,11 +2,12 @@ import { View, Image, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
 import ContainerComponent from "../components/ContainerComponent";
 import { spacing, typography, SCREEN_WIDTH } from "../styles";
-import { Constants } from 'expo-constants';
+import * as Application from "expo-application"
 import { P } from "../components/text";
 
+
 export default function ({ navigation }) {
-  const version = Constants.manifest.version;
+  const { applicationName, nativeApplicationVersion } = Application
   const handlePress = (nextScreen) => {
     navigation.navigate("loginScreen", { nextScreen });
   };
@@ -47,17 +48,15 @@ export default function ({ navigation }) {
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("welcomeScreen")}>
-          <Card
-            style={[
-              spacing.mt5,
-              {
-                width: SCREEN_WIDTH * 0.9,
-                backgroundColor: "#e0f7fa",
-                alignSelf: "center",
-              },
-            ]}
-          >
+        <TouchableOpacity onPress={() => handlePress("welcomeScreen")} >
+          <Card style={[
+            spacing.mt5,
+            {
+              width: SCREEN_WIDTH * 0.9,
+              backgroundColor: "#e0f7fa",
+              alignSelf: "center",
+            },
+          ]}>
             <Image
               source={require("../assets/solar.png")}
               style={[
@@ -69,21 +68,23 @@ export default function ({ navigation }) {
                 },
               ]}
             />
-            <View style={[spacing.p3]}>
-              <P style={[typography.font16, typography.fontLato, typography.textCenter]}>
-                Streetlight Installation
-              </P>
-            </View>
+            {/* <View style={[spacing.p3]}> */}
+            <P style={[typography.font16, typography.fontLato, typography.textCenter, spacing.p3]}>
+              Streetlight Installation
+            </P>
+            {/* </View> */}
           </Card>
         </TouchableOpacity>
       </View>
 
-      <P style={[typography.font10, typography.fontLato, typography.textCenter, { fontWeight: 'bold' }]}>
-        App Version: {version}
-      </P>
-      <P style={[typography.font12, typography.fontLato, typography.textCenter]}>
-        Powered by Dashandots Technology
-      </P>
+      <View>
+        <P style={[typography.font10, typography.fontLato, typography.textCenter, { fontWeight: 'bold' }]}>
+          {applicationName}: {nativeApplicationVersion}
+        </P>
+        <P style={[typography.font12, typography.fontLato, typography.textCenter]}>
+          Powered by Dashandots Technology
+        </P>
+      </View>
     </ContainerComponent>
   );
 }

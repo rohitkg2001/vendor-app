@@ -219,7 +219,7 @@ export default function InventoryScreen({ navigation }) {
         showSearchBar={false}
         renderItem={({ item }) => (
           <InventoryCard
-            key={item.id} 
+            key={item.id}
             item={item}
             model={item.model}
             manufacturer={item.manufacturer}
