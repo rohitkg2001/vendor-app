@@ -298,81 +298,65 @@ export default function SurveyScreen({ route, message = "" }) {
           }}
         />
 
-        <View
+        {/* Connection Type */}
+        <H4
           style={[
-            styles.row,
-            { justifyContent: "space-between", alignItems: "flex-start" },
+            typography.font14,
+            typography.textBold,
+            // spacing.mt1,
+            typography.fontLato,
           ]}
         >
-          {/* Connection Type */}
-          <View style={{ flex: 1, marginRight: 8 }}>
-            <H4
-              style={[
-                typography.font14,
-                typography.textBold,
-                typography.fontLato,
-                { marginLeft: 44 },
-              ]}
-            >
-              Connection Type
-            </H4>
-            <RadioButton.Group
-              onValueChange={setConnectionType}
-              value={connectionType}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <RadioButton.Item
-                  label="1 Phase"
-                  value="1 Phase"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ marginRight: -12, paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-                <RadioButton.Item
-                  label="3 Phase"
-                  value="3 Phase"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-              </View>
-            </RadioButton.Group>
-          </View>
+          Connection Type
+        </H4>
+        <View>
+          <RadioButton.Group
+            onValueChange={setConnectionType}
+            value={connectionType}
+          >
+            <View style={[styles.row]}>
+              <RadioButton.Item
+                label="1 Phase"
+                value="1 Phase"
+                labelStyle={[typography.font14, typography.fontLato]}
+                color="#007AFF"
+              />
+              <RadioButton.Item
+                label="3 Phase"
+                value="3 Phase"
+                labelStyle={[typography.font14, typography.fontLato]}
+                color="#007AFF"
+              />
+            </View>
+          </RadioButton.Group>
+        </View>
 
-          {/* Meter Connection Type */}
-          <View style={{ flex: 1, marginLeft: 68 }}>
-            <H4
-              style={[
-                typography.font14,
-                typography.textBold,
-                typography.fontLato,
-                { marginLeft: 18 },
-              ]}
-            >
-              Meter Conn. Type
-            </H4>
-            <RadioButton.Group
-              onValueChange={setMeterConnectionType}
-              value={meterConnectionType}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <RadioButton.Item
-                  label="HT"
-                  value="HT"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ marginRight: -12, paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-                <RadioButton.Item
-                  label="LT"
-                  value="LT"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-              </View>
-            </RadioButton.Group>
-          </View>
+        {/* Meter Connection Type (HT/LT) */}
+        <H4
+          style={[typography.font14, typography.textBold, typography.fontLato]}
+        >
+          Meter Connection Type
+        </H4>
+        <View>
+          <RadioButton.Group
+            onValueChange={(value) => setMeterConnectionType(value)}
+            value={meterConnectionType}
+          >
+            <View style={styles.row}>
+              <RadioButton.Item
+                label="HT"
+                value="HT"
+                labelStyle={{ fontSize: 15, color: "#333" }}
+                color="#007AFF"
+              />
+              <RadioButton.Item
+                label="LT"
+                value="LT"
+                labelStyle={{ fontSize: 15, color: "#333" }}
+                color="#007AFF"
+              />
+            </View>
+          </RadioButton.Group>
         </View>
 
         {/* CA No. with Electricity Bill Upload */}
@@ -383,92 +367,66 @@ export default function SurveyScreen({ route, message = "" }) {
           title="CA No."
         />
 
-        <View
-          style={[
-            styles.row,
-            { justifyContent: "space-between", alignItems: "flex-start" },
-          ]}
+        {/* Meter No. and Meter Type (Smart/Normal) */}
+        <MyTextInput
+          value={meterNo}
+          onChangeText={setMeterNo}
+          placeholder="Enter Meter No."
+          title="Meter No."
+        />
+        <H4
+          style={[typography.font14, typography.textBold, typography.fontLato]}
         >
-          {/* Meter Type */}
-          <View style={{ flex: 1, marginRight: 4 }}>
-            <H4
-              style={[
-                typography.font14,
-                typography.textBold,
-                typography.fontLato,
-                { marginLeft: 54 },
-              ]}
-            >
-              Meter Type
-            </H4>
-            <RadioButton.Group
-              onValueChange={(value) => setMeterType(value)}
-              value={meterType}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <RadioButton.Item
-                  label="Smart"
-                  value="Smart"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ marginRight: -12, paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-                <RadioButton.Item
-                  label="Normal"
-                  value="Normal"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-              </View>
-            </RadioButton.Group>
-          </View>
+          Meter Type
+        </H4>
+        <View>
+          <RadioButton.Group
+            onValueChange={(value) => setMeterType(value)}
+            value={meterType}
+          >
+            <View style={styles.row}>
+              <RadioButton.Item
+                label="Smart"
+                value="Smart"
+                labelStyle={{ fontSize: 15, color: "#333" }}
+                color="#007AFF"
+              />
+              <RadioButton.Item
+                label="Normal"
+                value="Normal"
+                labelStyle={{ fontSize: 15, color: "#333" }}
+                color="#007AFF"
+              />
+            </View>
+          </RadioButton.Group>
+        </View>
 
-          {/* Vertical Divider */}
-          <View
-            style={{
-              width: 1,
-              backgroundColor: "#ccc",
-              opacity: 0.5,
-              marginHorizontal: 4,
-              marginTop: 8,
-            }}
-          />
-
-          {/* Section Load */}
-          <View style={{ flex: 1, marginLeft: 4 }}>
-            <H4
-              style={[
-                typography.font14,
-                typography.textBold,
-                typography.fontLato,
-                { marginLeft: 44 },
-              ]}
-            >
-              Section Load
-            </H4>
-            <RadioButton.Group
-              onValueChange={(value) => setSectionLoad(value)}
-              value={sectionLoad}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <RadioButton.Item
-                  label="KW"
-                  value="KW"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ marginRight: -12, paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-                <RadioButton.Item
-                  label="KVA"
-                  value="KVA"
-                  labelStyle={{ fontSize: 14, color: "#333" }}
-                  style={{ paddingVertical: 0 }}
-                  color="#007AFF"
-                />
-              </View>
-            </RadioButton.Group>
-          </View>
+        {/* Section Load (KW/KVA) */}
+        <H4
+          style={[typography.font14, typography.textBold, typography.fontLato]}
+        >
+          Section Load
+        </H4>
+        <View>
+          <RadioButton.Group
+            onValueChange={(value) => setSectionLoad(value)}
+            value={sectionLoad}
+          >
+            <View style={styles.row}>
+              <RadioButton.Item
+                label="KW"
+                value="KW"
+                labelStyle={{ fontSize: 15, color: "#333" }}
+                color="#007AFF"
+              />
+              <RadioButton.Item
+                label="KVA"
+                value="KVA"
+                labelStyle={{ fontSize: 15, color: "#333" }}
+                color="#007AFF"
+              />
+            </View>
+          </RadioButton.Group>
         </View>
 
         {/* Instantaneous / Connected Load (KW) */}
@@ -658,27 +616,23 @@ export default function SurveyScreen({ route, message = "" }) {
           onChangeText={setRoofAccess}
         />
 
-        <View style={[styles.row, { justifyContent: "space-between" }]}>
-          <View style={{ flex: 2, marginRight: 5 }}>
-            <MyTextInput
-              title="Rooftop Height (m)"
-              placeholder="Height"
-              value={rooftopHeight}
-              onChangeText={setRooftopHeight}
-              keyboardType="numeric"
-              containerStyle={{ height: 60 }}
-            />
-          </View>
-          <View style={{ flex: 2, marginLeft: -5 }}>
-            <MyTextInput
-              title="Parapet Height (m)"
-              placeholder="Height"
-              value={parapetHeight}
-              onChangeText={setParapetHeight}
-              keyboardType="numeric"
-            />
-          </View>
-        </View>
+        {/* Rooftop Height */}
+        <MyTextInput
+          title="Rooftop Height (meters)"
+          placeholder="Enter Rooftop Height"
+          value={rooftopHeight}
+          onChangeText={setRooftopHeight}
+          keyboardType="numeric"
+        />
+
+        {/* Parapet Height */}
+        <MyTextInput
+          title="Parapet Height (meters)"
+          placeholder="Enter Parapet Height"
+          value={parapetHeight}
+          onChangeText={setParapetHeight}
+          keyboardType="numeric"
+        />
 
         {/* No. of Floors */}
         <MyTextInput
@@ -734,6 +688,56 @@ export default function SurveyScreen({ route, message = "" }) {
           setDescription={setDescription}
         />
 
+        {/* <View style={[styles.row, { justifyContent: "space-between" }]}>
+          <Button
+            onPress={handleCancel}
+            style={[
+              styles.btn,
+              styles.bgLight,
+              spacing.bw05,
+              layouts.center,
+              { width: SCREEN_WIDTH / 2 - 20 },
+            ]}
+          >
+            <H2
+              style={[styles.btnText, typography.font20, typography.textDark]}
+            >
+              Cancel
+            </H2>
+          </Button>
+          <Button
+            onPress={handleUpload}
+            style={[
+              styles.btn,
+              styles.bgPrimary,
+              layouts.center,
+              { width: SCREEN_WIDTH / 2 - 20 },
+            ]}
+          >
+            {loading ? (
+              <ActivityIndicator
+                size="small"
+                style={[
+                  styles.btnText,
+                  typography.font20,
+                  typography.textLight,
+                ]}
+                animating
+                color="#fff"
+              />
+            ) : (
+              <H2
+                style={[
+                  styles.btnText,
+                  typography.font20,
+                  typography.textLight,
+                ]}
+              >
+                Submit
+              </H2>
+            )}
+          </Button>
+        </View> */}
         <TouchableOpacity
           style={[
             spacing.p4,
