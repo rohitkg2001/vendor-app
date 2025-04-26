@@ -172,7 +172,7 @@ export default function CameraInput({
             📍 {location?.latitude?.toFixed(4)},{" "}
             {location?.longitude?.toFixed(4)}
           </Text>
-          <Text style={styles.watermarkText}>⏰ {timestamp}</Text>
+          <Text style={styles.watermarkText}> {timestamp}</Text>
         </View>
 
         <TouchableOpacity
