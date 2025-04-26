@@ -4,23 +4,20 @@ import LoginScreen from "../screens/LoginScreen";
 import DashboardScreen from "../screens/DashboardScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
-import TotalEarningScreen from "../screens/TotalEarningScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingScreen";
 import InternalSetting from "../screens/InternalSetting";
 import InventoryScreen from "../screens/InventoryScreen";
 import SiteScreen from "../screens/SiteScreen";
 import TasksScreen from "../screens/TasksScreen";
-import StockApprovalScreen from "../screens/StockApprovalScreen";
 import ReportScreen from "../screens/ReportScreen";
 import SiteDetailScreen from "../screens/SiteDetailScreen";
 import InventoryDetailsScreen from "../screens/InventoryDetailsScreen";
-
 import SurveyScreen from "../screens/SurveyScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import CardScreen from "../screens/CardScreen";
 import welcomeScreen from "../screens/welcomeScreen";
-import SiteLocationScreen from "../screens/SiteLocationScreen";
+
 import StreetLightPendingTask from "../screens/StreetLightPendingTask";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
 import ProfileChangeScreen from "../screens/ProfileChangeScreen";
@@ -29,11 +26,13 @@ import StreetLightDetailsScreen from "../screens/StreetLightDetailsScreen";
 import SubmitInstallationScreen from "../screens/SubmitInstallationScreen";
 import InventoryMaterialScreen from "../screens/InventoryMaterialScreen";
 import ApprovedTaskScreen from "../screens/ApprovedTaskScreen";
+
 const Stack = createNativeStackNavigator();
+
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="cardScreen"
+      initialRouteName="surveyScreen"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
@@ -45,34 +44,22 @@ export default function MyStackNavigator() {
       <Stack.Screen name="settings" component={SettingsScreen} />
       <Stack.Screen name="internalSetting" component={InternalSetting} />
       <Stack.Screen name="inventoryScreen" component={InventoryScreen} />
-      <Stack.Screen name="totalEarningScreen" component={TotalEarningScreen} />
       <Stack.Screen name="siteScreen" component={SiteScreen} />
       <Stack.Screen name="taskScreen" component={TasksScreen} />
-      <Stack.Screen name="sitelocationscreen" component={SiteLocationScreen} />
-      <Stack.Screen
-        name="stockApprovalScreen"
-        component={StockApprovalScreen}
-      />
+
       <Stack.Screen name="reportScreen" component={ReportScreen} />
       <Stack.Screen name="siteDetailsScreen" component={SiteDetailScreen} />
       <Stack.Screen
         name="inventoryDetailsScreen"
         component={InventoryDetailsScreen}
       />
-
       <Stack.Screen name="surveyScreen" component={SurveyScreen} />
       <Stack.Screen name="successScreen" component={SuccessScreen} />
       <Stack.Screen name="cardScreen" component={CardScreen} />
-      {/* <Stack.Screen
-        name="startInstallation"
-        component={StartInstallationScreen}
-      /> */}
-
       <Stack.Screen
         name="startInstallation"
         component={StartInstallationScreen}
       />
-
       <Stack.Screen name="welcomeScreen" component={welcomeScreen} />
       <Stack.Screen
         name="streetLightPendingTask"
@@ -84,9 +71,15 @@ export default function MyStackNavigator() {
         name="streetlightDetails"
         component={StreetLightDetailsScreen}
       />
-      <Stack.Screen name="submitInstallation" component={ SubmitInstallationScreen } />
-      <Stack.Screen name="inventoryMaterialScreen" component={ InventoryMaterialScreen } />
-      <Stack.Screen name="approvedTaskScreen" component={ApprovedTaskScreen}/>
+      <Stack.Screen
+        name="submitInstallation"
+        component={SubmitInstallationScreen}
+      />
+      <Stack.Screen
+        name="inventoryMaterialScreen"
+        component={InventoryMaterialScreen}
+      />
+      <Stack.Screen name="approvedTaskScreen" component={ApprovedTaskScreen} />
     </Stack.Navigator>
   );
 }

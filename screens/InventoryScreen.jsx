@@ -19,17 +19,10 @@ export default function InventoryScreen({ navigation }) {
   const { t } = useTranslation();
   const [searchText, setSearchText] = useState("");
 
-  const {
-    today_inventory,
-    all_inventory,
-    total_received_inventory,
-    in_stock,
-    consumed,
-  } = useSelector((state) => state.inventory);
+  const { today_inventory, total_received_inventory, in_stock, consumed } =
+    useSelector((state) => state.inventory);
 
-  useEffect(() => {
-    console.log("Fetched Today Inventory Data:", { today_inventory });
-  }, [today_inventory]);
+  useEffect(() => {}, [today_inventory]);
 
   const handleSearchChange = useCallback((text) => {
     setSearchText(text);
@@ -98,7 +91,6 @@ export default function InventoryScreen({ navigation }) {
         menuItems={[
           {
             title: "Export to Excel",
-            //onPress: handleExport,
           },
         ]}
       />
@@ -219,7 +211,7 @@ export default function InventoryScreen({ navigation }) {
         showSearchBar={false}
         renderItem={({ item }) => (
           <InventoryCard
-            key={item.id} 
+            key={item.id}
             item={item}
             model={item.model}
             manufacturer={item.manufacturer}

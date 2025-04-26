@@ -43,8 +43,6 @@ const StreetLightDetailsScreen = ({ route }) => {
   const { item } = route.params;
   const isInstalled = item.isInstalled;
 
-  console.log("StreetLightDetails item:", item);
-
   return (
     <ContainerComponent>
       <MyHeader

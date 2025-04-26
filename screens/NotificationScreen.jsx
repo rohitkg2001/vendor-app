@@ -13,10 +13,7 @@ export default function NotificationScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={spacing.bbw05}
-      onPress={() => navigation.navigate("stockApprovalScreen", { item })}
-    >
+    <TouchableOpacity style={spacing.bbw05}>
       <List.Item
         title={<H5 style={styles.titleText}>{item.title}</H5>}
         description={<P style={styles.description}>{item.description}</P>}

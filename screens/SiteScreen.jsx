@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import NoRecord from "./NoRecord";
@@ -14,9 +14,6 @@ export default function SiteScreen({ navigation }) {
   const { t } = useTranslation();
   const { sites } = useSelector((state) => state.site);
   const [searchText, setSearchText] = useState(""); // State for search input
-  useEffect(() => {
-    console.log(sites);
-  }, []);
 
   // Filter sites based on search query
   const filteredSites = sites.filter((site) =>

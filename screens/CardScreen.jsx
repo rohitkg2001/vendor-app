@@ -1,13 +1,20 @@
 import { View, Image, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
+//import Constants from "expo-constants";
+
 import ContainerComponent from "../components/ContainerComponent";
 import { spacing, typography, SCREEN_WIDTH } from "../styles";
+import * as Application from "expo-application"
 import { P } from "../components/text";
 
+
 export default function ({ navigation }) {
+  const { applicationName, nativeApplicationVersion } = Application
   const handlePress = (nextScreen) => {
     navigation.navigate("loginScreen", { nextScreen });
   };
+  // const appVersion =
+  //   Constants?.manifest?.version || Constants?.expoConfig?.version || "1.0.0";
 
   return (
     <ContainerComponent justifyContent="space-between" paddingVertical={20}>
@@ -38,24 +45,28 @@ export default function ({ navigation }) {
               ]}
             />
             <View style={[spacing.p3]}>
-              <P style={[typography.font16, typography.fontLato, typography.textCenter]}>
+              <P
+                style={[
+                  typography.font16,
+                  typography.fontLato,
+                  typography.textCenter,
+                ]}
+              >
                 Rooftop Installation
               </P>
             </View>
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("welcomeScreen")}>
-          <Card
-            style={[
-              spacing.mt5,
-              {
-                width: SCREEN_WIDTH * 0.9,
-                backgroundColor: "#e0f7fa",
-                alignSelf: "center",
-              },
-            ]}
-          >
+        <TouchableOpacity onPress={() => handlePress("welcomeScreen")} >
+          <Card style={[
+            spacing.mt5,
+            {
+              width: SCREEN_WIDTH * 0.9,
+              backgroundColor: "#e0f7fa",
+              alignSelf: "center",
+            },
+          ]}>
             <Image
               source={require("../assets/solar.png")}
               style={[
@@ -67,18 +78,23 @@ export default function ({ navigation }) {
                 },
               ]}
             />
-            <View style={[spacing.p3]}>
-              <P style={[typography.font16, typography.fontLato, typography.textCenter]}>
-                Streetlight Installation
-              </P>
-            </View>
+            {/* <View style={[spacing.p3]}> */}
+            <P style={[typography.font16, typography.fontLato, typography.textCenter, spacing.p3]}>
+              Streetlight Installation
+            </P>
+            {/* </View> */}
           </Card>
         </TouchableOpacity>
       </View>
 
-      <P style={[typography.font12, typography.fontLato, typography.textCenter]}>
-        Powered by Dashandots Technology
-      </P>
+      <View>
+        <P style={[typography.font10, typography.fontLato, typography.textCenter, { fontWeight: 'bold' }]}>
+          {applicationName}: {nativeApplicationVersion}
+        </P>
+        <P style={[typography.font12, typography.fontLato, typography.textCenter]}>
+          Powered by Dashandots Technology
+        </P>
+      </View>
     </ContainerComponent>
   );
 }

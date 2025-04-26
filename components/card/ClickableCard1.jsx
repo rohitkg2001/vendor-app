@@ -1,7 +1,7 @@
 import { Card } from "react-native-paper";
 import { TouchableOpacity, View } from "react-native";
 import Button from "../buttons/Button";
-import { H5, H6, Span } from "../text";
+import { H5, Span } from "../text";
 import {
   spacing,
   typography,
@@ -15,8 +15,6 @@ export default function ClickableCard1({
   index,
   title,
   subtitle,
-  leftContent,
-  rightContent,
   children,
   isNegativeButtonVisible = false,
   negativeText,

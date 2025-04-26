@@ -45,24 +45,6 @@ const ProfileScreen = ({ navigation }) => {
 
       <CardFullWidth backgroundColor={PRIMARY_COLOR}>
         <View style={[styles.row, { alignItems: "center", marginTop: -10 }]}>
-          {/* <View>
-            <Avatar
-              avatar={vendor.image}
-              name={`${vendor.firstName} ${vendor.lastName}`}
-              online={false}
-            />
-          </View> */}
-          {/* <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("profileChange")}
-            >
-              <Avatar
-                avatar={vendor.image}
-                name={`${vendor.firstName} ${vendor.lastName}`}
-                online={false}
-              />
-            </TouchableOpacity>
-          </View> */}
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("profileChange", {

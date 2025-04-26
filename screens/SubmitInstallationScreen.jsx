@@ -1,6 +1,6 @@
 // import react native
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, TouchableOpacity,  } from "react-native";
+import { ScrollView, View, TouchableOpacity } from "react-native";
 import { Snackbar } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
@@ -176,7 +176,6 @@ const SubmitInstallationScreen = ({ navigation }) => {
       }
     }
   };
-
 
   // Handle Take Photo button click
 

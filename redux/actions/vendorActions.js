@@ -1,6 +1,5 @@
 import { BASE_URL, LOGIN_VENDOR } from "../constant";
 import moment from "moment";
-import { vendor } from "../../utils/faker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Platform } from "react-native";
@@ -24,10 +23,10 @@ export const login = (user, pass) => async (dispatch) => {
   try {
     const response = await axios.post(`${BASE_URL}/api/login`, {
       email: user,
-      password: pass
+      password: pass,
     });
 
-    const { data, status } = response
+    const { data, status } = response;
     if (status === 200) {
       if (data.user.role !== 3) {
         alert("You are not authorised to use this app");
@@ -37,7 +36,6 @@ export const login = (user, pass) => async (dispatch) => {
       return true;
     }
   } catch (err) {
-    console.log(err);
     return false;
   }
 };
@@ -73,69 +71,6 @@ export const logOut = async () => {
   await AsyncStorage.setItem("sessionId", null);
 };
 
-// export const updatePicture = async (id, file) => {
-//   try {
-//     const formData = new FormData();
-//     if (file) {
-//       // const { uri, name, mimeType } = file;
-//       formData.append("image", {
-//         uri: file.uri,
-//         type: "image",
-//         name: "image.jpg",
-//       });
-//     }
-//     console.log(id, file, "this line is working");
-//     const response = await axios.post(
-//       `${BASE_URL}/api/vendor/upload-avatar/${id}`,
-//       formData
-//       // {
-//       //   headers: {
-//       //     "Content-Type": "multipart/form-data", // Ensure proper headers
-//       //   },
-//       // }
-//     );
-//     const { data, status } = response;
-//     // const data = await response.json();
-//     // const { data, status } = response;
-//     console.log(data);
-//   } catch (err) {
-//     console.log(err);
-//     //return handleAxiosError(err);
-//   }
-// };
-
-// export const updatePicture = async (id, file) => {
-//   try {
-//     if (!file || !file.uri) {
-//       throw new Error("Invalid file selected");
-//     }
-
-//     const formData = new FormData();
-//     formData.append("image", {
-//       uri: file.uri,
-//       type: "image/jpeg",
-//       name: `avatar_${id}.jpg`, // Ensure name is included
-//     });
-
-//     const response = await axios.post(
-//       `${BASE_URL}/api/vendor/upload-avatar/${id}`,
-//       formData,
-//       {
-//         headers: {
-//           Accept: "application/json", // Optional
-//         },
-//       }
-//     );
-
-//     const { data } = response;
-//     console.log(data);
-//     return data;
-//   } catch (err) {
-//     console.error("Upload Error:", err);
-//     return handleAxiosError(err);
-//   }
-// };
-
 export const updatePicture = async (id, file) => {
   try {
     if (!file || !file.uri) {
@@ -165,7 +100,7 @@ export const updatePicture = async (id, file) => {
     );
 
     const { data } = response;
-    console.log("Upload Successful:", data);
+
     return data;
   } catch (err) {
     if (err.response) {

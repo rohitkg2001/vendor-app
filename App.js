@@ -8,7 +8,6 @@ import i18n from "./i18n";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LanguageSelector from './components/LanguageSelector'
 import useFonts from "./hooks/useFonts";
-import * as Fonts from 'expo-font'
 import { ActivityIndicator } from "react-native";
 
 export default function App() {
@@ -43,22 +42,6 @@ export default function App() {
     fetchLanguage();
     loadFonts()
   }, []);
-
-  // if (!language) {
-  //   // Show a loading indicator while language is being fetched
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-  //       <ActivityIndicator size="large" color="#6200ee" />
-  //     </View>
-  //   );
-  // }
-
-  // 1.App loads
-  // 2. Check for appLanguage key in localstorage
-  // 3.If !isLanguageSelected->LanguageSelector
-  // 4.Otherwise return to main flow
-  // 5. Check is user is already loggedin userId, sessionId ->Dashboard
-  // 6.return LoginPage
 
 
   if (!isLanguageSelected) {

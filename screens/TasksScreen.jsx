@@ -13,7 +13,6 @@ import DashboardFilter from "../components/filters/DashboardFilter";
 import ClickableCard1 from "../components/card/ClickableCard1";
 import Tabs from "../components/Tabs";
 import SearchBar from "../components/input/SearchBar";
-//import useExcelExport from "../hooks/useExcelExport";
 
 // import Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -131,8 +130,6 @@ export default function TasksScreen({ navigation }) {
     navigation.navigate("taskDetail");
   };
 
-  // const { handleExport } = useExcelExport();
-
   return (
     <ContainerComponent>
       <MyHeader
@@ -143,8 +140,6 @@ export default function TasksScreen({ navigation }) {
         menuItems={[
           {
             title: "Export to Excel",
-            onPress: () => console.log("Export to Excel"),
-            // onPress: () => handleExport(filteredTasks),
           },
         ]}
       />

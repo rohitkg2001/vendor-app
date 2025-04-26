@@ -359,15 +359,27 @@ export const getInstalledPoles = (vendor_id) => async (dispatch) => {
     );
     const { data } = response;
     const { installed_poles, surveyed_poles } = data;
-    const pendingPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Pending")
-    const approvedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Approved")
-    const rejectedPoles = Array.isArray(installed_poles) && installed_poles.filter(pole => pole.status === "Rejected")
-    dispatch({ type: TOTAL_SURVEYED_STREETLIGHTS, payload: pendingPoles.length + approvedPoles.length });
-    dispatch({ type: TOTAL_INSTALLED_STREETLIGHTS, payload: approvedPoles.length })
+    const pendingPoles =
+      Array.isArray(installed_poles) &&
+      installed_poles.filter((pole) => pole.status === "Pending");
+    const approvedPoles =
+      Array.isArray(installed_poles) &&
+      installed_poles.filter((pole) => pole.status === "Approved");
+    const rejectedPoles =
+      Array.isArray(installed_poles) &&
+      installed_poles.filter((pole) => pole.status === "Rejected");
+    dispatch({
+      type: TOTAL_SURVEYED_STREETLIGHTS,
+      payload: pendingPoles.length + approvedPoles.length,
+    });
+    dispatch({
+      type: TOTAL_INSTALLED_STREETLIGHTS,
+      payload: approvedPoles.length,
+    });
     dispatch({ type: GET_SURVEYED_STREETLIGHTS, payload: surveyed_poles });
     dispatch({ type: GET_INSTALLED_STREETLIGHTS, payload: installed_poles });
-    dispatch({ type: GET_APPROVED_STREETLIGHTS, payload: approvedPoles })
-    dispatch({ type: GET_REJECTED_STREETLIGHTS, payload: rejectedPoles })
+    dispatch({ type: GET_APPROVED_STREETLIGHTS, payload: approvedPoles });
+    dispatch({ type: GET_REJECTED_STREETLIGHTS, payload: rejectedPoles });
   } catch (error) {
     console.error(error);
   }

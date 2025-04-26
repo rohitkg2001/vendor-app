@@ -142,26 +142,7 @@ export default function StreetLightMedia({
         imageIndex={selectedImageIndex}
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
-        // FooterComponent={() => (
-        //   <View
-        //     style={{
-        //       position: "absolute",
-        //       bottom: 20,
-        //       left: 10,
-        //       right: 10,
-        //       backgroundColor: "rgba(0, 0, 0, 0.5)",
-        //       padding: 6,
-        //       borderRadius: 6,
-        //     }}
-        //   >
-        //     <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-        //       Powered by Dashandots Technology
-        //     </Text>
-        //     <Text style={{ color: "white", fontSize: 12, textAlign: "center" }}>
-        //       📍 {latitude}, {longitude}
-        //     </Text>
-        //   </View>
-        // )}
+       
       />
     </View>
   );

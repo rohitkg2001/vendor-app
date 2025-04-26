@@ -1,3 +1,4 @@
+// import react native
 import { ScrollView, TouchableOpacity, View, Image } from "react-native";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -23,7 +24,7 @@ export default function ApprovedTaskScreen() {
     installedStreetLights?.filter((task) => task.status === type) || [];
 
   const headerTitle =
-    type === "Approved" ? t("approved_tasks") : t("rejected_tasks");
+    type === "Approved" ? t("Approved Tasks") : t("Rejected Tasks");
 
   return (
     <ContainerComponent>

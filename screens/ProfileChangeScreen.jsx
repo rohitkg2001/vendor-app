@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Image, TouchableOpacity, ImageBackground } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { P, H6, H4 } from "../components/text";
+import { P, H6 } from "../components/text";
 import { spacing, typography, LIGHT } from "../styles";
 
 const ProfileChangeScreen = ({ route, navigation }) => {
