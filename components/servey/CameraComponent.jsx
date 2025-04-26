@@ -59,7 +59,7 @@ export default function CameraComponent({
   isCameraOpen,
   setIsCameraOpen,
   isSurvey,
-  handleSubmission,
+  handleUpload,
   complete_pole_number = "",
 }) {
   const [permission, requestPermission] = useCameraPermissions();
@@ -122,9 +122,9 @@ export default function CameraComponent({
   // Submission effect when photos reach limit
   useEffect(() => {
     if (photos.length === MAX_PHOTOS) {
-      handleSubmission(photos);
+      handleUpload(photos);
     }
-  }, [photos, handleSubmission]);
+  }, [photos, handleUpload]);
 
   const handleCameraReady = useCallback(() => {
     setIsCameraReady(true);
@@ -202,12 +202,12 @@ export default function CameraComponent({
       {
         text: "Submit",
         onPress: () => {
-          handleSubmission(photos);
+          handleUpload(photos);
           setIsCameraOpen(false);
         },
       },
     ]);
-  }, [photos, handleSubmission, setIsCameraOpen]);
+  }, [photos, handleUpload, setIsCameraOpen]);
 
   const renderPhotoItem = useCallback(
     ({ item }) => (

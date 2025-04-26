@@ -32,7 +32,7 @@ const Stack = createNativeStackNavigator();
 export default function MyStackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="surveyScreen"
+      initialRouteName="cardScreen"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
