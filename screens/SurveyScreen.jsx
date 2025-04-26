@@ -688,56 +688,6 @@ export default function SurveyScreen({ route, message = "" }) {
           setDescription={setDescription}
         />
 
-        {/* <View style={[styles.row, { justifyContent: "space-between" }]}>
-          <Button
-            onPress={handleCancel}
-            style={[
-              styles.btn,
-              styles.bgLight,
-              spacing.bw05,
-              layouts.center,
-              { width: SCREEN_WIDTH / 2 - 20 },
-            ]}
-          >
-            <H2
-              style={[styles.btnText, typography.font20, typography.textDark]}
-            >
-              Cancel
-            </H2>
-          </Button>
-          <Button
-            onPress={handleUpload}
-            style={[
-              styles.btn,
-              styles.bgPrimary,
-              layouts.center,
-              { width: SCREEN_WIDTH / 2 - 20 },
-            ]}
-          >
-            {loading ? (
-              <ActivityIndicator
-                size="small"
-                style={[
-                  styles.btnText,
-                  typography.font20,
-                  typography.textLight,
-                ]}
-                animating
-                color="#fff"
-              />
-            ) : (
-              <H2
-                style={[
-                  styles.btnText,
-                  typography.font20,
-                  typography.textLight,
-                ]}
-              >
-                Submit
-              </H2>
-            )}
-          </Button>
-        </View> */}
         <TouchableOpacity
           style={[
             spacing.p4,
