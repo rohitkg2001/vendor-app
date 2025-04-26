@@ -212,7 +212,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 <View
                   style={{
                     flexDirection: "row",
-                    justifyContent: "space-between", 
+                    justifyContent: "space-between",
                     marginBottom: 15,
                   }}
                 >
@@ -460,7 +460,7 @@ export default function SurveyScreen({ route, message = "" }) {
           </ProgressStep>
 
           {/* Step 4: DG Set & Roof Details */}
-          <ProgressStep label="Submit">
+          <ProgressStep label="Submit" removeBtnRow={true}>
             <ScrollView style={{ padding: 10 }}>
               <MyTextInput
                 title="Free Space for Solar Installation (Sq. m)"
