@@ -80,8 +80,11 @@ export default function MyStackNavigator() {
         name="inventoryMaterialScreen"
         component={InventoryMaterialScreen}
       />
-      <Stack.Screen name="approvedTaskScreen" component={ ApprovedTaskScreen } />
-      <Stack.Screen name="rooftopInventory" component={RooftopInventoryScreen}/>
+      <Stack.Screen name="approvedTaskScreen" component={ApprovedTaskScreen} />
+      <Stack.Screen
+        name="rooftopInventory"
+        component={RooftopInventoryScreen}
+      />
     </Stack.Navigator>
   );
 }
