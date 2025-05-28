@@ -23,7 +23,7 @@ import CameraComponent from "../components/servey/CameraComponent";
 import UploadDocument from "../components/servey/UploadDocument";
 import Description from "../components/servey/Description";
 import MyTextInput from "../components/input/MyTextInput";
-import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
+//import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 
 export default function SurveyScreen({ route, message = "" }) {
   const { itemId } = route.params || 0;
@@ -185,7 +185,7 @@ export default function SurveyScreen({ route, message = "" }) {
     <ContainerComponent>
       <MyHeader title={t("submit_task")} isBack={true} hasIcon={true} />
 
-      <View style={[{ flex: 1, width: SCREEN_WIDTH - -40 }]}>
+      {/* <View style={[{ flex: 1, width: SCREEN_WIDTH - -40 }]}>
         <ProgressSteps
           completedStepIconColor="#4BB543"
           activeStepIconBorderColor="#4BB543"
@@ -197,7 +197,7 @@ export default function SurveyScreen({ route, message = "" }) {
           disabledStepIconSize={20}
           marginBottom={20}
         >
-          {/* Step 1: Basic Info */}
+         
           <ProgressStep label="Basic Info">
             <ScrollView style={{ padding: 10 }}>
               <MyTextInput
@@ -281,7 +281,7 @@ export default function SurveyScreen({ route, message = "" }) {
             </ScrollView>
           </ProgressStep>
 
-          {/* Step 2: Meter Details */}
+         
           <ProgressStep label="Meter Details">
             <ScrollView style={{ padding: 10 }}>
               <MyTextInput
@@ -389,7 +389,7 @@ export default function SurveyScreen({ route, message = "" }) {
             </ScrollView>
           </ProgressStep>
 
-          {/* Step 3: Grid and Phase Info */}
+         
           <ProgressStep label="Grid Info">
             <ScrollView style={{ padding: 10 }}>
               <H4
@@ -459,7 +459,7 @@ export default function SurveyScreen({ route, message = "" }) {
             </ScrollView>
           </ProgressStep>
 
-          {/* Step 4: DG Set & Roof Details */}
+         
           <ProgressStep label="Submit" removeBtnRow={true}>
             <ScrollView style={{ padding: 10 }}>
               <MyTextInput
@@ -522,7 +522,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 style={{ marginBottom: 15 }}
               />
 
-              {/* Roof Access (Staircase Availability) */}
+            
               <MyTextInput
                 title="Access to Roof (Staircase Available)"
                 placeholder="Yes/No"
@@ -530,7 +530,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 onChangeText={setRoofAccess}
               />
 
-              {/* Rooftop Height */}
+             
               <MyTextInput
                 title="Rooftop Height (meters)"
                 placeholder="Enter Rooftop Height"
@@ -539,7 +539,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 keyboardType="numeric"
               />
 
-              {/* Parapet Height */}
+             
               <MyTextInput
                 title="Parapet Height (meters)"
                 placeholder="Enter Parapet Height"
@@ -548,7 +548,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 keyboardType="numeric"
               />
 
-              {/* No. of Floors */}
+            
               <MyTextInput
                 title="Number of Floors (e.g., G+2)"
                 placeholder="Enter Floors"
@@ -556,7 +556,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 onChangeText={setNoOfFloors}
               />
 
-              {/* Water Source for Cleaning */}
+            
               <MyTextInput
                 title="Water Source for Cleaning"
                 placeholder="Specify Water Source"
@@ -564,7 +564,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 onChangeText={setWaterSource}
               />
 
-              {/* Access to Site */}
+             
 
               <MyTextInput
                 title=" Access to Site (Road Type)"
@@ -574,7 +574,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 keyboardType="numeric"
               />
 
-              {/* Distance from Main Road */}
+            
               <MyTextInput
                 title="Distance from Main Road (Km)"
                 placeholder="Enter Distance"
@@ -583,7 +583,7 @@ export default function SurveyScreen({ route, message = "" }) {
                 keyboardType="numeric"
               />
 
-              {/* Site Feasibility */}
+             
               <H4
                 style={[
                   typography.font14,
@@ -635,7 +635,7 @@ export default function SurveyScreen({ route, message = "" }) {
             </ScrollView>
           </ProgressStep>
         </ProgressSteps>
-      </View>
+      </View> */}
 
       <CameraComponent
         isCameraOpen={isCameraVisible}
