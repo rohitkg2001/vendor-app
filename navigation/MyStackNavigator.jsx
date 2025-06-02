@@ -27,6 +27,7 @@ import SubmitInstallationScreen from "../screens/SubmitInstallationScreen";
 import InventoryMaterialScreen from "../screens/InventoryMaterialScreen";
 import ApprovedTaskScreen from "../screens/ApprovedTaskScreen";
 import RooftopInventoryScreen from "../screens/RooftopInventoryScreen";
+import AttendancePunchScreen from "../screens/AttendancePunchScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,7 @@ export default function MyStackNavigator() {
         name="rooftopInventory"
         component={RooftopInventoryScreen}
       />
+      <Stack.Screen name="attendancePunch" component={AttendancePunchScreen}/>
     </Stack.Navigator>
   );
 }
