@@ -74,6 +74,8 @@
     "total_project_sites" : "Total Project Sites",
     "progress_report": "Progress Report",
     "rms": "RMS",
-    "custom": "Custom"
+    "custom": "Custom",
+    "total_installation": "Total Installation",
+    "surveyed_poles": "Surveyed Poles"
   }
 }

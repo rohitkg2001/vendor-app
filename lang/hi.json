@@ -72,6 +72,8 @@
     "progress_report": "प्रगति रिपोर्ट",
     "rms": "आरएमएस",
     "this_month": "इस महीने",
-    "custom": "स्वयं चुनें"
+    "custom": "स्वयं चुनें",
+    "total_installation": "कुल स्थापना",
+    "surveyed_poles": "सर्वे किए गए खंभे"
   }
 }

@@ -156,7 +156,7 @@ const StreetLightPendingTask = ({ navigation }) => {
   return (
     <ContainerComponent>
       <MyHeader
-        title={t("Total Installation")}
+        title={t("total_installation")}
         isBack={true}
         hasIcon={true}
         icon="ellipsis-vertical"
@@ -285,11 +285,11 @@ const StreetLightPendingTask = ({ navigation }) => {
 
             <Tabs
               tabs={[
-                `All ${tabCounts.All}`,
-                `Surveyed poles ${tabCounts.Survey}`,
-                `InApproval ${tabCounts.InApproval}`,
-                `Approved ${tabCounts.Approved}`,
-                `Rejected ${tabCounts.Rejected}`,
+                `${t("all")} (${tabCounts.All})`,
+                `${t("surveyed_poles")} ${tabCounts.Survey}`,
+                `${t("in_approval")} ${tabCounts.InApproval}`,
+                `${t("approved")} ${tabCounts.Approved}`,
+                `${t("rejected")} (${tabCounts.Rejected})`,
               ]}
               onTabPress={(tabLabel) => {
                 let normalizedTab = tabLabel.startsWith("Surveyed")
