@@ -66,6 +66,14 @@
     "progress": "progress",
     "approved_tasks": "approved_tasks",
     "rejected_tasks": "rejected_tasks",
-    "totalinstallation":"totalinstallation"
+    "totalinstallation": "totalinstallation",
+    "select_preferred_language": "Select Preferred Language",
+    "all": "All",
+    "in_progress": "In Progress",
+    "overview": "Overview",
+    "total_project_sites" : "Total Project Sites",
+    "progress_report": "Progress Report",
+    "rms": "RMS",
+    "custom": "Custom"
   }
 }

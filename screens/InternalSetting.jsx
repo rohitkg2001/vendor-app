@@ -81,7 +81,7 @@ export default function SettingsScreen({ navigation }) {
               typography.fontLato,
             ]}
           >
-            Select Preferred Language
+            {t("select_preferred_language")}
           </Span>
 
           {/* English Button */}
