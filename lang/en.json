@@ -76,6 +76,10 @@
     "rms": "RMS",
     "custom": "Custom",
     "total_installation": "Total Installation",
-    "surveyed_poles": "Surveyed Poles"
+    "surveyed_poles": "Surveyed Poles",
+      "total_received": "Total Received",
+      "in_stock": "In Stock",
+      "consumed": "Consumed"
+    
   }
 }
