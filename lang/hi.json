@@ -63,6 +63,21 @@
     "progress": "प्रगति",
     "approved_tasks": "स्वीकृत कार्य",
     "rejected_tasks": "अस्वीकृत कार्य",
-    "totalinstallation": "कुल स्थापना कार्य"
+    "totalinstallation": "कुल स्थापना कार्य",
+    "select_preferred_language": "पसंदीदा भाषा चुनें",
+    "all": "सभी",
+    "in_progress": "प्रगति पर",
+    "overview": "सामान्य जानकारी",
+    "total_project_sites": "कुल प्रोजेक्ट साइट्स",
+    "progress_report": "प्रगति रिपोर्ट",
+    "rms": "आरएमएस",
+    "this_month": "इस महीने",
+    "custom": "स्वयं चुनें",
+    "total_installation": "कुल स्थापना",
+    "surveyed_poles": "सर्वे किए गए खंभे",
+      "total_received": "कुल प्राप्त",
+      "in_stock": "भंडार में",
+      "consumed": "खपत"
+    
   }
 }

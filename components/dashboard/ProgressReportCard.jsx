@@ -71,7 +71,7 @@ export default function ProgressReportCard() {
             { marginRight: 170 },
           ]}
         >
-          {t("Progress Report")}
+          {t("progress_report")}
         </H6>
       </View>
       <View style={[spacing.bbw05, spacing.mv1]} />
@@ -83,7 +83,7 @@ export default function ProgressReportCard() {
           { borderBottomWidth: 1, backgroundColor: PRIMARY_COLOR_TRANSPARENT },
         ]}
       >
-        {["Progress", "Installation", "RMS"].map((header) => (
+        {["progress", "installation", "rms"].map((header) => (
           <View style={{ alignItems: "center" }} key={header}>
             <H6 style={[typography.font14, typography.fontLato]}>
               {t(header)}

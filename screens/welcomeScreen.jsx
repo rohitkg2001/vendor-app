@@ -300,18 +300,18 @@ export default function WelcomeScreen({ navigation }) {
           </View>
 
           {[
-            {
-              label: t("pending"),
-              value: `${surveyedCount} / ${inApprovalCount}`,
-            },
+            // {
+            //   label: t("pending"),
+            //   value: `${surveyedCount} / ${inApprovalCount}`,
+            // },
             {
               label: t("In Approval"),
               value: `${inApprovalCount}`,
             },
-            {/* {
-              label: t("approved"),
-              value: ` ${approvedCount}`,
-            }, */}
+            // {
+            //   label: t("approved"),
+            //   value: ` ${approvedCount}`,
+            // },
           ].map((row, index) => (
             <View
               key={index}

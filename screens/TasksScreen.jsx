@@ -271,11 +271,11 @@ export default function TasksScreen({ navigation }) {
           <View>
             <Tabs
               tabs={[
-                `All (${tabCounts.All})`,
-                `Pending (${tabCounts.Pending})`,
-                `In Progress (${tabCounts["In Progress"]})`,
-                `Completed (${tabCounts.Completed})`,
-                `Rejected (${tabCounts.Rejected})`,
+                `${t("all")} (${tabCounts.All})`,
+                `${t("pending")} (${tabCounts.Pending})`,
+                `${t("in_progress")} (${tabCounts["In Progress"]})`,
+                `${t("completed")} (${tabCounts.Completed})`,
+                `${t("rejected")} (${tabCounts.Rejected})`,
               ]}
               onTabPress={handleTabChange}
               activeTab={`${activeTab} (${tabCounts[activeTab]})`}

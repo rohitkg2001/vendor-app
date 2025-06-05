@@ -1,5 +1,6 @@
 // import React native
 import { View, TouchableOpacity } from "react-native";
+import { useTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 // import components
@@ -15,7 +16,9 @@ import {
 } from "../../styles";
 import { H5, H6 } from "../../components/text";
 
-export default function OverViewCard({ totalSites }) {
+export default function OverViewCard ( { totalSites } )
+{
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   return (
@@ -29,7 +32,7 @@ export default function OverViewCard({ totalSites }) {
             { marginRight: 220 },
           ]}
         >
-          Overview
+          {t("overview")}
         </H6>
       </View>
       <View style={[spacing.bbw05, spacing.mv2]} />
@@ -41,7 +44,7 @@ export default function OverViewCard({ totalSites }) {
           style={{ alignItems: "center", textAlign: "center" }}
         >
           <H6 style={[typography.font14, typography.fontLato]}>
-            Total Project Sites
+            {t("total_project_sites")}
           </H6>
           <H6 style={[typography.font14, spacing.m2, typography.fontLato]}>
             {totalSites}
@@ -52,14 +55,16 @@ export default function OverViewCard({ totalSites }) {
           onPress={() => navigation.navigate("inventoryScreen")}
           style={{ alignItems: "center" }}
         >
-          <H6 style={[typography.font14, typography.fontLato]}>Inventory</H6>
+          <H6 style={[typography.font14, typography.fontLato]}>
+            {t("inventory_title")}
+          </H6>
           <H6 style={[typography.font14, spacing.m2, typography.fontLato]}>
             0
           </H6>
         </TouchableOpacity>
         <View style={{ alignItems: "center" }}>
           <H6 style={[typography.font14, typography.fontLato]}>
-            Total Earning
+            {t("total_earning")}
           </H6>
           <H6 style={[typography.font14, spacing.m2, typography.fontLato]}>
             ₹
