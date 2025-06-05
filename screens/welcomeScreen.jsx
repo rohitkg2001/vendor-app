@@ -216,7 +216,7 @@ export default function WelcomeScreen({ navigation }) {
               ]}
             >
               <Icon name="close-circle-sharp" size={40} />
-              <P style={[typography.font16, spacing.mt3]}>{t("rejected")}</P>
+              <P style={[typography.font16, spacing.mt3]}>{t("Rejected")}</P>
             </TouchableOpacity>
           </View>
 
@@ -265,7 +265,7 @@ export default function WelcomeScreen({ navigation }) {
             >
               <Icon name="reader-sharp" size={40} />
               <P style={[typography.font16, typography.fontLato, spacing.mt3]}>
-                {t("inventory_title")}
+                {t("Inventory")}
               </P>
             </TouchableOpacity>
           </View>
@@ -308,10 +308,10 @@ export default function WelcomeScreen({ navigation }) {
               label: t("In Approval"),
               value: `${inApprovalCount}`,
             },
-            {
+            {/* {
               label: t("approved"),
               value: ` ${approvedCount}`,
-            },
+            }, */}
           ].map((row, index) => (
             <View
               key={index}
