@@ -243,10 +243,10 @@ export default function WelcomeScreen({ navigation }) {
                 {t("total_earning")}
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                {t("Installed Earning")} : {totalEarning}
+                {t("installed_earning")} : {totalEarning}
               </P>
               <P style={[typography.font10, typography.fontLato]}>
-                {t("RMS Earning")} : 0
+                {t("rms_earning")} : 0
               </P>
             </TouchableOpacity>
 
