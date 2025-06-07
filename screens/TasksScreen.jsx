@@ -1,10 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { View } from "react-native";
-
 import { useTranslation } from "react-i18next";
-import moment from "moment"; // Import moment.js for date comparison
+import moment from "moment";
 
-// import components
 import ContainerComponent from "../components/ContainerComponent";
 import MyHeader from "../components/header/MyHeader";
 import MyFlatList from "../components/utility/MyFlatList";
@@ -14,11 +12,9 @@ import ClickableCard1 from "../components/card/ClickableCard1";
 import Tabs from "../components/Tabs";
 import SearchBar from "../components/input/SearchBar";
 
-// import Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks, getTaskById } from "../redux/actions/taskActions";
 
-// import styles
 import { H5, H6, P, Span } from "../components/text";
 import { spacing, styles, typography } from "../styles";
 
@@ -28,6 +24,7 @@ export default function TasksScreen({ navigation }) {
     vendor: state.vendor,
     tasks: state.tasks.tasks,
   }));
+
   const dispatch = useDispatch();
 
   const [tabCounts, setTabCounts] = useState({
@@ -38,10 +35,9 @@ export default function TasksScreen({ navigation }) {
     Rejected: 0,
   });
 
-  const [filteredTasks, setFilteredTasks] = useState([]); // State to store filtered tasks
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [activeTab, setActiveTab] = useState("All");
-  const [searchText, setSearchText] = useState(""); // State for search input
-
+  const [searchText, setSearchText] = useState("");
   const [dateFilter, setDateFilter] = useState({
     type: "All",
     startDate: null,
@@ -52,7 +48,13 @@ export default function TasksScreen({ navigation }) {
     if (vendor?.id) {
       dispatch(getAllTasks(vendor.id));
     }
-  }, [vendor?.id, dispatch]);
+  }, [vendor?.id]);
+
+  // useEffect(() => {
+  //   if (tasks?.length) {
+  //     console.log("All Tasks:", tasks); // Logs your task data here
+  //   }
+  // }, [tasks]);
 
   useEffect(() => {
     const counts = {
@@ -60,17 +62,30 @@ export default function TasksScreen({ navigation }) {
       Pending: tasks.filter((task) => task.status === "Pending").length,
       "In Progress": tasks.filter((task) => task.status === "In Progress")
         .length,
+
       Completed: tasks.filter((task) => task.status === "Completed").length,
       Rejected: tasks.filter((task) => task.status === "Rejected").length,
     };
     setTabCounts(counts);
-    filterTasks(activeTab, searchText, dateFilter); // Re-filter tasks when tasks or search text or date filter changes
-  }, [tasks, activeTab, searchText, dateFilter]); // Added dateFilter as a dependency
+  }, [tasks]);
+
+  useEffect(() => {
+    filterTasks(activeTab, searchText, dateFilter);
+  }, [tasks, activeTab, searchText, dateFilter]);
+
+  const handleSearchChange = useCallback((text) => {
+    setSearchText(text);
+  }, []);
+
+  const handleTabChange = (selectedTab) => {
+    const tabName = selectedTab.replace(/\s\(\d+\)$/, "");
+    setActiveTab(tabName);
+  };
 
   const filterTasks = (tab, query = "", dateFilter) => {
-    let filtered = tasks.filter((task) => task.status === tab || tab === "All");
+    let filtered =
+      tab === "All" ? tasks : tasks.filter((task) => task.status === tab);
 
-    // Apply date filter
     if (dateFilter.type !== "All") {
       const startDate = dateFilter.startDate
         ? moment(dateFilter.startDate)
@@ -79,7 +94,6 @@ export default function TasksScreen({ navigation }) {
 
       filtered = filtered.filter((task) => {
         const taskStartDate = moment(task.start_date);
-        const taskEndDate = moment(task.end_date);
 
         if (dateFilter.type === "Today") {
           return taskStartDate.isSame(moment(), "day");
@@ -95,34 +109,15 @@ export default function TasksScreen({ navigation }) {
       });
     }
 
-    // Apply search filter based on the query
     if (query) {
       filtered = filtered.filter(
         (task) =>
-          task.site?.site_name.toLowerCase().includes(query.toLowerCase()) ||
-          task.site?.breda_sl_no.includes(query) // Search by name or code
+          task.site?.site_name?.toLowerCase().includes(query.toLowerCase()) ||
+          task.site?.breda_sl_no?.includes(query)
       );
     }
-    filtered.sort((a, b) => {
-      const priority = {
-        Pending: 1,
-        "In Progress": 2,
-        Completed: 3,
-        Rejected: 4,
-      };
-      return priority[a.status] - priority[b.status];
-    });
 
     setFilteredTasks(filtered);
-  };
-  const handleSearchChange = useCallback((text) => {
-    setSearchText(text);
-  }, []);
-
-  const handleTabChange = (selectedTab) => {
-    const tabName = selectedTab.split(" (")[0];
-    setActiveTab(tabName);
-    filterTasks(tabName, searchText, dateFilter); // Re-filter when the tab changes
   };
 
   const setIDAndDispatch = async (id) => {
@@ -137,12 +132,9 @@ export default function TasksScreen({ navigation }) {
         isBack={true}
         hasIcon={true}
         icon="ellipsis-vertical"
-        menuItems={[
-          {
-            title: "Export to Excel",
-          },
-        ]}
+        menuItems={[{ title: "Export to Excel" }]}
       />
+
       <DashboardFilter updateDateFilter={setDateFilter} />
 
       <SearchBar
@@ -153,16 +145,16 @@ export default function TasksScreen({ navigation }) {
 
       <MyFlatList
         data={filteredTasks}
-        keyboardShouldPersistTaps="always" // Ensures taps don't close search
+        keyboardShouldPersistTaps="always"
         keyboardDismissMode="none"
         renderItem={({ item, index }) => {
-          const isCompleted = item.status === "Completed"; // Assuming "status" is the field that indicates completion
-          const endDate = moment(item.end_date).startOf("day"); // Ignore time part
+          const isCompleted = item.status === "Completed";
+          const endDate = moment(item.end_date).startOf("day");
           const isPastDue =
             !isCompleted && endDate.isBefore(moment().startOf("day"), "day");
-          let borderColor = "transparent"; // Default to transparent if completed
+          let borderColor = "transparent";
           if (!isCompleted) {
-            borderColor = isPastDue ? "red" : "green"; // Red if past due, green if ongoing
+            borderColor = isPastDue ? "red" : "green";
           }
 
           return (
@@ -215,7 +207,6 @@ export default function TasksScreen({ navigation }) {
                   >
                     breda sl no
                   </Span>
-
                   <H5
                     style={[
                       typography.font16,
@@ -266,16 +257,16 @@ export default function TasksScreen({ navigation }) {
           );
         }}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={[{ flexGrow: 1 }]}
+        contentContainerStyle={{ flexGrow: 1 }}
         ListHeaderComponent={() => (
           <View>
             <Tabs
               tabs={[
-                `${t("all")} (${tabCounts.All})`,
-                `${t("pending")} (${tabCounts.Pending})`,
-                `${t("in_progress")} (${tabCounts["In Progress"]})`,
-                `${t("completed")} (${tabCounts.Completed})`,
-                `${t("rejected")} (${tabCounts.Rejected})`,
+                `All (${tabCounts.All})`,
+                `Pending (${tabCounts.Pending})`,
+                `In Progress (${tabCounts["In Progress"]})`,
+                `Completed (${tabCounts.Completed})`,
+                `Rejected (${tabCounts.Rejected})`,
               ]}
               onTabPress={handleTabChange}
               activeTab={`${activeTab} (${tabCounts[activeTab]})`}

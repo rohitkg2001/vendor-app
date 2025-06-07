@@ -1,4 +1,5 @@
 // import react native
+import { useEffect, useState, useCallback } from "react";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
@@ -23,6 +24,12 @@ import { H5, H6, P, Span } from "../components/text";
 
 export default function TaskDetailScreen() {
   const { task } = useSelector((state) => state.tasks?.currentTask);
+
+  useEffect(() => {
+    if (task) {
+      console.log("Full Task Details:", task);
+    }
+  }, [task]);
 
   return (
     <ContainerComponent>
