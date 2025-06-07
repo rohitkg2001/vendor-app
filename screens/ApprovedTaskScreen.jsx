@@ -24,7 +24,7 @@ export default function ApprovedTaskScreen() {
     installedStreetLights?.filter((task) => task.status === type) || [];
 
   const headerTitle =
-    type === "Approved" ? t("Approved Tasks") : t("Rejected Tasks");
+    type === "Approved" ? t("Approved Tasks") : t("rejected_tasks");
 
   return (
     <ContainerComponent>
